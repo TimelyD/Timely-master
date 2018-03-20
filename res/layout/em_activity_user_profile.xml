@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_t"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/profile_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:layout_marginTop="@dimen/common.90dp"
+            android:id="@+id/iv_head"
+            android:layout_width="@dimen/common.75dp"
+            android:layout_height="@dimen/common.75dp"
+            android:src="@drawable/default_avatar"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/tx_2"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/common.10dp"
+            android:singleLine="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="自己"/>
+
+        <TextView
+            android:id="@+id/mood"
+            android:singleLine="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/tx_4"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/common.10dp"
+            android:layout_marginBottom="@dimen/common.14dp"
+            android:text="如果你不会说话那么"/>
+
+        <ImageView
+            android:id="@+id/iv_sex"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/woman"/>
+    </LinearLayout>
+
+    <View
+        style="@style/LineHorizontalStyle"/>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/set_beizhu_tv"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="@dimen/common.10dp"
+        android:orientation="vertical"
+        style="@style/InfoLayoutStyle">
+        <View
+            style="@style/LineHorizontalStyle"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:padding="@dimen/common.10dp"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:text="@string/set_beizhu"
+            android:textSize="@dimen/tx_3"
+            android:textColor="@color/tx_black_1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tv_note"
+            android:maxLines="1"
+            android:background="@color/white"
+            android:ellipsize="start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text=""
+            android:paddingRight="@dimen/common.10dp"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+        <View
+            style="@style/LineHorizontalStyle"/>
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/common.10dp"
+        style="@style/LineHorizontalStyle"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/common.10dp">
+
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            style="@style/InfoLayoutStyle"
+            >
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/user_name"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="Her-mest@qeveworld.com"
+                android:textColor="@color/tx_black_2"
+                android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+        <View
+            android:visibility="gone"
+            style="@style/LineHorizontalStyle"/>
+       <LinearLayout
+           android:visibility="gone"
+            android:gravity="center_vertical"
+            style="@style/InfoLayoutStyle"
+            >
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="ID"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/tx_black_2"
+                android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+        <View
+            style="@style/LineHorizontalStyle"/>
+       <LinearLayout
+            android:gravity="center_vertical"
+            style="@style/InfoLayoutStyle"
+            >
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/edit_sex"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/tx_black_2"
+                android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        style="@style/LineHorizontalStyle"/>
+
+
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/common.10dp"
+        android:visibility="gone"
+        android:id="@+id/layout_code"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            style="@style/LineHorizontalStyle"/>
+        <LinearLayout
+            android:paddingLeft="@dimen/common.10dp"
+            style="@style/InfoLayoutStyle">
+            <TextView
+                android:text="@string/msg_lock"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"
+                android:layout_height="wrap_content"/>
+
+            <!--<CheckBox
+                android:id="@+id/checkbox"
+                android:button="@drawable/check_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>-->
+            <com.hyphenate.easeui.widget.EaseSwitchButton
+                android:id="@+id/switch_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:switchStatus="close"/>
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="@dimen/common.10dp"
+            style="@style/LineHorizontalStyle"/>
+        <LinearLayout
+            android:id="@+id/layout_clear"
+            android:paddingLeft="@dimen/common.10dp"
+            style="@style/InfoLayoutStyle">
+            <TextView
+                android:text="@string/clear_records"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <View
+            style="@style/LineHorizontalStyle"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_relation"
+        android:layout_marginBottom="@dimen/common.20dp"
+        android:layout_marginTop="@dimen/common.20dp"
+        android:layout_marginLeft="@dimen/common.20dp"
+        android:layout_marginRight="@dimen/common.20dp"
+        android:text="删除好友"
+        style="@style/DeleteBtnPrimaryStyle"/>
+</LinearLayout>
+</ScrollView>
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_marginTop="@dimen/status_bar_height"
+        app:titleBarLeftImage="@drawable/back_white"
+        app:titleBarTran="true"
+        app:titleBarTitle="@string/title_user_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

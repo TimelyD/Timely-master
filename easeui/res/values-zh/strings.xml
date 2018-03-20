@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_for_more">其他功能正在火速赶来的路上，敬请期待</string>
+    <string name="num_of_contact">%1$d位联系人</string>
+    <string name="publish_select_photo_max">您最多只能选%1$d张图片</string>
+    <string name="photo_no_select">您还没选择照片</string>
+    <string name="album">相册</string>
+    <string name="photo_or_video">图片或视频</string>
+    <string name="all_video">所有视频</string>
+    <string name="all_photo">所有图片</string>
+    <string name="send_with_num">发送(%d)</string>
+    <string name="compress_progress">压缩视频中: %1$s</string>
+    <string name="not_allow_video">暂不支持大于200M的视频</string>
+    <string name="cannot_select_photo_and_video">不能同时选择图片和视频</string>
+    <string name="only_can_select_one_movie">您最多只能选一个视频</string>
+    <string name="compress_failed">压缩失败!</string>
+    <string name="cancel_compress">取消压缩</string>
+    <string name="digest_location">[位置]</string>
+    <string name="confirm">确认</string>
+</resources>

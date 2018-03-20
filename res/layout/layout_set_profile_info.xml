@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarLeftImage="@drawable/back"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height">
+        <Button
+            android:layout_centerVertical="true"
+            android:text="@string/confirm"
+            android:background="@null"
+            android:onClick="confirm"
+            android:minWidth="@dimen/common.50dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <View style="@style/LineHorizontalStyle"
+          android:layout_marginTop="@dimen/common.10dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/layout_padding"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_hint"
+            android:textColor="@color/tx_black_3"
+            android:textSize="@dimen/tx_4"
+            android:text="nixianzzai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_info"
+            android:background="@null"
+            android:hint="@string/please_input"
+            android:paddingTop="@dimen/common.10dp"
+            android:paddingBottom="@dimen/common.10dp"
+            android:textColorHint="@color/tx_black_1"
+            android:minLines="2"
+            android:maxLines="5"
+            android:gravity="top"
+            android:textSize="@dimen/tx_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <View style="@style/LineHorizontalStyle"/>
+</LinearLayout>

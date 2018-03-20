@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:paddingTop="10dp"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:background="@color/white"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/all_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView
+            android:id="@+id/type_all_iv"
+            android:layout_width="@dimen/media_type_width"
+            android:layout_height="@dimen/media_type_width"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/type_all_iv"
+            android:layout_centerVertical="true"
+            android:text="@string/photo_or_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/all_select_tv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/photo_select_oval_selector"
+            android:enabled="false"
+            android:layout_width="@dimen/photo_select_oval_size"
+            android:layout_height="@dimen/photo_select_oval_size"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/divider_list"
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"/>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/photo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/type_photo_iv"
+            android:layout_width="@dimen/media_type_width"
+            android:layout_height="@dimen/media_type_width"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/type_photo_iv"
+            android:layout_centerVertical="true"
+            android:text="@string/all_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/photo_select_tv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/photo_select_oval_selector"
+            android:enabled="true"
+            android:layout_width="@dimen/photo_select_oval_size"
+            android:layout_height="@dimen/photo_select_oval_size"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/divider_list"
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"/>
+
+    <RelativeLayout
+        android:id="@+id/video_layout"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/type_video_iv"
+            android:layout_width="@dimen/media_type_width"
+            android:layout_height="@dimen/media_type_width"/>
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/type_video_iv"
+            android:layout_centerVertical="true"
+            android:text="@string/all_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/video_select_tv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/photo_select_oval_selector"
+            android:enabled="false"
+            android:layout_width="@dimen/photo_select_oval_size"
+            android:layout_height="@dimen/photo_select_oval_size"/>
+
+    </RelativeLayout>
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/divider_list"
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"/>
+
+</LinearLayout>

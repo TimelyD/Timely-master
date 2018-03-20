@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common.60dp"
+    android:background="@drawable/layout_ripple"
+    android:gravity="center_vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.60dp"
+        android:background="@drawable/layout_ripple"
+        android:gravity="center_vertical">
+
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/avatar_width"
+            android:layout_height="@dimen/avatar_width"
+            android:layout_marginLeft="@dimen/common.12dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/em_roominfo_add_btn" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:text="@string/newchat"
+            android:layout_toRightOf="@id/avatar"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_2"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

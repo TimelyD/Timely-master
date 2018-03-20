@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_t"
+              android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/edit_title"></com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <View
+        style="@style/LineHorizontalStyle"
+        android:layout_marginTop="@dimen/common.10dp"/>
+
+    <LinearLayout
+        style="@style/InfoLayoutStyle"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginRight="0dp"
+        android:padding="@dimen/layout_padding">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/edit_head"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_3"/>
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/head"
+            android:layout_width="@dimen/common.45dp"
+            android:layout_height="@dimen/common.45dp"
+            android:layout_gravity="center"
+            android:src="@drawable/default_avatar"/>
+    </LinearLayout>
+
+    <View
+        style="@style/LineHorizontalStyle"/>
+
+    <View
+        style="@style/LineHorizontalStyle"
+        android:layout_marginTop="@dimen/common.10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/common.10dp">
+
+        <LinearLayout
+            android:id="@+id/linear_name"
+            style="@style/InfoLayoutStyle"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/edit_name"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <TextView
+                android:id="@+id/edit_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="李染墨"
+                android:textColor="@color/tx_black_3"
+                android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+
+        <View
+            style="@style/LineHorizontalStyle"/>
+
+        <LinearLayout
+            android:id="@+id/linear_sex"
+            style="@style/InfoLayoutStyle">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/edit_sex"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <TextView
+                android:id="@+id/edit_profile_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="女"
+                android:textColor="@color/tx_black_3"
+                android:textSize="@dimen/tx_4"/>
+
+            <ImageView
+                android:id="@+id/image_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/woman"/>
+        </LinearLayout>
+
+        <View
+            style="@style/LineHorizontalStyle"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            style="@style/InfoLayoutStyle">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="ID"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <TextView
+                android:id="@+id/t_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="sockdood"
+                android:textColor="@color/tx_black_3"
+                android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+        <View
+            android:visibility="gone"
+            style="@style/LineHorizontalStyle"/>
+
+        <LinearLayout
+            style="@style/InfoLayoutStyle">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/user_name"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/tx_black_3"
+                android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        style="@style/LineHorizontalStyle"/>
+    <View
+        android:layout_marginTop="@dimen/common.10dp"
+        style="@style/LineHorizontalStyle"/>
+    <LinearLayout
+        android:id="@+id/linear_mood"
+        android:padding="@dimen/common.10dp"
+        android:layout_marginRight="@dimen/common.0dp"
+        android:background="@color/white"
+        style="@style/InfoLayoutStyle">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/edit_mood"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_3"/>
+
+        <TextView
+            android:id="@+id/edit_profile_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:text="今天天气不错，本姑娘的心情也很好哦今天天气不错，本姑娘的心情也很好哦"
+            android:textColor="@color/tx_black_3"
+            android:textSize="@dimen/tx_4"/>
+    </LinearLayout>
+    <View
+        style="@style/LineHorizontalStyle"/>
+
+</LinearLayout>

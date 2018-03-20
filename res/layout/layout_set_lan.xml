@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@color/bg_t"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarTitle="@string/language"
+        app:titleBarLeftImage="@drawable/back"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height">
+        <Button
+            android:layout_centerVertical="true"
+            android:text="@string/save"
+            android:background="@null"
+            android:onClick="save"
+            android:minWidth="@dimen/common.50dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <View style="@style/LineHorizontalStyle"
+          android:layout_marginTop="@dimen/common.10dp"/>
+    <RadioGroup
+        android:background="@color/white"
+        android:id="@+id/rg_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/common.5dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_system"
+            style="@style/LanRadioBtnStyle"
+            android:checked="true"
+            android:text="@string/setlang_system"/>
+
+        <View
+            android:layout_marginLeft="@dimen/common.10dp"
+            style="@style/LineHorizontalStyle"/>
+
+        <RadioButton
+            android:id="@+id/rb_chinese"
+            style="@style/LanRadioBtnStyle"
+            android:text="@string/setlang_chinese"/>
+
+        <View
+            android:layout_marginLeft="@dimen/common.10dp"
+            style="@style/LineHorizontalStyle"/>
+
+        <RadioButton
+            android:id="@+id/rb_english"
+            style="@style/LanRadioBtnStyle"
+            android:text="@string/setlang_english"/>
+    </RadioGroup>
+
+    <View style="@style/LineHorizontalStyle"
+          />
+</LinearLayout>

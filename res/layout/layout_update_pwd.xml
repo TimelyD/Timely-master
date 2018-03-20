@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_t"
+              android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/setpsw_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common.10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="@string/setpsw_oldpasw"
+            android:paddingLeft="@dimen/common.10dp"
+            android:paddingTop="@dimen/common.5dp"
+            android:paddingBottom="@dimen/common.5dp"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_old_pwd"
+            android:maxLength="24"
+            android:hint="@string/setpsw_oldpaswEdit"
+            android:inputType="textPassword"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_3"
+            android:background="@drawable/et_bg_center_lines"
+            android:paddingLeft="@dimen/common.10dp"
+            android:paddingRight="@dimen/common.10dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.45dp"/>
+        <TextView
+            android:text="@string/setpsw_newpsw"
+            android:paddingLeft="@dimen/common.10dp"
+            android:paddingTop="@dimen/common.5dp"
+            android:paddingBottom="@dimen/common.5dp"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:maxLength="24"
+            android:id="@+id/et_new_pwd"
+            android:inputType="textPassword"
+            android:hint="@string/setpsw_newpswEdit"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_3"
+            android:background="@drawable/et_bg_center_lines"
+            android:paddingLeft="@dimen/common.10dp"
+            android:paddingRight="@dimen/common.10dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.45dp"
+            />
+        <TextView
+            android:text="@string/setpsw_aginnewpsw"
+            android:paddingLeft="@dimen/common.10dp"
+            android:paddingTop="@dimen/common.5dp"
+            android:paddingBottom="@dimen/common.5dp"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:maxLength="24"
+            android:id="@+id/et_re_pwd"
+            android:hint="@string/setpsw_aginnewpswEdit"
+            android:inputType="textPassword"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_3"
+            android:background="@drawable/et_bg_center_lines"
+            android:paddingLeft="@dimen/common.10dp"
+            android:paddingRight="@dimen/common.10dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.45dp"
+            />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:padding="@dimen/common.10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/warm"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="@string/setpsw_text"
+            android:textColor="@color/tx_black_3"
+            android:textSize="@dimen/tx_4"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_marginLeft="@dimen/common.10dp"
+        android:layout_marginRight="@dimen/common.10dp"
+        android:id="@+id/confirm"
+        style="@style/BtnPrimaryStyle"
+        android:text="@string/setpsw_confirm"
+        />
+</LinearLayout>

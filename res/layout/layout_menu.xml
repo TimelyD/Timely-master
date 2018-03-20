@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+
+              android:layout_marginRight="@dimen/common.100dp"
+              android:orientation="vertical"
+              app:layout_role="primaryMenu"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/user_bg"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/head_card"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardElevation="5dp"
+            app:cardCornerRadius="@dimen/common.37dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/menu_head"
+            android:layout_width="@dimen/common.75dp"
+            android:layout_height="@dimen/common.75dp"
+
+            android:src="@drawable/default_avatar"/>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_marginTop="@dimen/common.7dp"
+            android:layout_below="@id/head_card"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/menu_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李染墨"
+            android:textSize="@dimen/tx_2"
+            android:textColor="@color/white"/>
+
+        <ImageView
+            android:layout_marginTop="@dimen/common.10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/head_card"
+            android:layout_toRightOf="@id/menu_nickName"
+            android:id="@+id/menu_sexImage"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/woman"/>
+
+        <TextView
+            android:layout_below="@id/menu_nickName"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/menu_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXXXX@1231323.com"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tx_4"/>
+
+        <!-- <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/yellow_code"
+            android:layout_gravity="center"/> -->
+    </RelativeLayout>
+
+    <LinearLayout
+        android:alpha=".6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:background="@color/white"
+        android:padding="@dimen/common.30dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:onClick="goScan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.35dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_scan_black"/>
+
+
+                <TextView
+                    android:text="@string/menu_scan"
+                    android:layout_marginLeft="@dimen/common.20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/tx_black_1"
+                    android:textSize="@dimen/tx_3"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="goMoment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.35dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_moment"/>
+
+
+                <TextView
+                    android:text="@string/moment"
+                    android:layout_marginLeft="@dimen/common.20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/tx_black_1"
+                    android:textSize="@dimen/tx_3"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="goEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.35dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_edit"/>
+
+
+                <TextView
+                    android:text="@string/menu_edit_pro"
+                    android:layout_marginLeft="@dimen/common.20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/tx_black_1"
+                    android:textSize="@dimen/tx_3"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="goSet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.35dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_setting"/>
+
+            <TextView
+                android:text="@string/setting1"
+                android:layout_marginLeft="@dimen/common.20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:onClick="logout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.35dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_exit"/>
+
+            <TextView
+                android:text="@string/menu_logout"
+                android:layout_marginLeft="@dimen/common.20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

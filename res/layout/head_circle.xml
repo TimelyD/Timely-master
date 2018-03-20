@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/head_moment_layout_height">
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/common.60dp"
+            android:layout_height="@dimen/common.60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/common.20dp"
+            android:layout_marginLeft="@dimen/common.20dp"
+            android:src="@drawable/default_avatar"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common.30dp"
+            android:layout_alignTop="@id/iv_avatar"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:gravity="bottom"
+            android:text="自己"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tx_2"/>
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:layout_alignBottom="@id/iv_avatar"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:layout_marginRight="@dimen/common.10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common.30dp"
+            android:layout_marginTop="10dp"
+            android:text="如果你不会说话那么如果你不会说话那么如果你不会说话那么"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tx_3"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#fff"
+              style="@style/StatusBar"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/head_iv"
+            android:layout_width="@dimen/common.80dp"
+            android:layout_height="@dimen/common.80dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/youhead"
+            />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:text="@string/login"
+            android:id="@+id/nickname_tv"
+            android:textSize="@dimen/tx_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/common.10dp">
+
+        <LinearLayout
+            style="@style/InputWrapperStyle">
+
+            <ImageView
+                android:id="@+id/iv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dip"
+                android:src="@drawable/usename"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/login_editusername"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="@dimen/tx_3"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/divider_t"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common.5dp"
+                android:text="\@qeveworld.com"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <Spinner
+                android:id="@+id/email_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/down_arrow"
+                android:overlapAnchor="false"
+                android:paddingRight="5dp"
+                android:spinnerMode="dropdown"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/InputWrapperStyle">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="10dip"
+                android:src="@drawable/identifyingcode"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/code_et"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/register_editcode"
+                android:singleLine="true"
+                android:textSize="@dimen/tx_3"/>
+
+            <!--<View-->
+            <!--android:layout_width="0.5dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:background="@color/colorPrimary"/>-->
+
+            <Button
+                android:id="@+id/get_code_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:minWidth="@dimen/common.50dp"
+                android:paddingLeft="@dimen/common.5dp"
+                android:text="@string/get_code"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/tx_3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/InputWrapperStyle">
+
+            <ImageView
+                android:id="@+id/iv_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="10dip"
+                android:src="@drawable/password"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/login_editpassword"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textSize="@dimen/tx_3"/>
+
+            <ImageView
+                android:id="@+id/password_type_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="7dp"
+                android:paddingLeft="7dp"
+                android:paddingTop="7dp"
+                android:src="@drawable/eye_close"/>
+        </LinearLayout>
+
+        <Button
+            style="@style/BtnPrimaryStyle"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:onClick="login"
+            android:text="@string/login"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_acouunt"
+                android:textSize="@dimen/tx_4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:onClick="register"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
+                android:text="@string/register"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/tx_4"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@null"
+                android:onClick="forgetPwd"
+                android:text="@string/forget_pwd"
+                android:textSize="@dimen/tx_4"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

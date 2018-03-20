@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_my_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:layout_marginTop="@dimen/status_bar_height"
+        android:id="@+id/title_bar"
+        app:titleBarTitle="@string/menu_scan"
+        app:titleBarLeftImage="@drawable/back_white"
+        app:titleBarTran="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyphenate.easeui.widget.EaseTitleBar>
+</FrameLayout>

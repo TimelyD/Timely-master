@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:orientation="vertical"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ver_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        >
+
+        <TextView
+            android:layout_marginTop="225dp"
+            android:text="更新内容"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <TextView
+                android:id="@+id/version_content_tv"
+                android:text="1dddhhh12ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss31231hhhhhh123ds1231sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssshhhhhhhkkkkkkkkkkkkkkkkhhhhhhhhhhddddd311dddhhh12ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss31231hhhhhh123ds1231sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssshhhhhhhkkkkkkkkkkkkkkkkhhhhhhhhhhddddd311dddhhh12ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss31231hhhhhh123ds1231sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssshhhhhhhkkkkkkkkkkkkkkkkhhhhhhhhhhddddd31"
+                android:maxWidth="250dp"
+                android:maxLines="5"
+                android:ellipsize="end"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+            <Button
+                android:id="@+id/version_confirm_btn"
+                android:textColor="@color/white"
+                android:text="@string/confirm"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_selector"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/version_close_iv"
+        android:layout_alignRight="@id/content_layout"
+        android:layout_marginRight="-10dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/ver_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

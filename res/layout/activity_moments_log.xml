@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/bg_t"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarTitle="@string/foot"
+        app:titleBarLeftImage="@drawable/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyphenate.easeui.widget.EaseTitleBar>
+
+<com.classic.common.MultipleStatusView
+    android:id="@+id/status_layout"
+    app:emptyView="@layout/empty_moment_log"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:id="@+id/line"
+        android:layout_marginTop="@dimen/common.10dp"
+        style="@style/LineHorizontalStyle"/>
+<android.support.v4.widget.SwipeRefreshLayout
+    android:layout_below="@id/line"
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.tg.tgt.ui.MomentsLogAct">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+</com.classic.common.MultipleStatusView>
+</LinearLayout>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EditTextStyle">
+        <!--<item name="android:layout_marginLeft">10dp</item>-->
+        <!--<item name="android:layout_marginRight">10dp</item>-->
+        <item name="android:layout_marginTop">@dimen/common.10dp</item>
+        <item name="android:paddingLeft">@dimen/common.5dp</item>
+        <item name="android:paddingRight">@dimen/common.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common.45dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/et_bg_selector</item>
+        <item name="android:textSize">@dimen/common.12sp</item>
+    </style>
+
+    <style name="DialogTranslucentStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="BtnPrimaryStyle"  parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/tx_3</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common.40dp</item>
+        <item name="android:layout_marginTop">@dimen/common.10dp</item>
+        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="TitleBtnStyle"  parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/common.26dp</item>
+        <item name="android:minWidth">@dimen/common.57dp</item>
+        <item name="android:paddingLeft">@dimen/common.10dp</item>
+        <item name="android:paddingRight">@dimen/common.10dp</item>
+        <item name="android:layout_marginRight">@dimen/common.10dp</item>
+        <item name="android:background">@drawable/btn_normal_selector</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">@dimen/tx_3</item>
+        <item name="android:textColor">@drawable/btn_tx_selector</item>
+    </style>
+
+    <style name="DeleteBtnPrimaryStyle"  parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common.40dp</item>
+        <item name="android:layout_marginTop">@dimen/common.10dp</item>
+        <item name="android:background">@drawable/big_delete_btn_selector</item>
+        <item name="android:textSize">@dimen/tx_3</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="LanRadioBtnStyle">
+        <item name="android:layout_marginLeft">@dimen/common.10dp</item>
+        <item name="android:paddingRight">@dimen/common.10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common.45dp</item>
+        <item name="android:textSize">@dimen/tx_3</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableRight">@drawable/round_selector</item>
+        <item name="android:textColor">@color/tx_black_1</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="LineHorizontalStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/divider_t</item>
+    </style>
+
+    <!--头像切换popwin-->
+    <style name="TransparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/photo_choose_bg</item>
+    </style>
+    <style name="main_menu_animstyle">
+        <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
+    </style>
+
+    <style name="CornerEditTextStyle">
+        <item name="android:textSize">@dimen/common.14sp</item>
+        <item name="android:padding">@dimen/common.5dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:background">@drawable/corner_layout_primary_selector</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common.40dp</item>
+    </style>
+
+    <style name="TvAboveEtStyle">
+        <item name="android:textSize">@dimen/common.14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="InputWrapperStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common.40dp</item>
+        <item name="android:layout_marginLeft">@dimen/common.28dp</item>
+        <item name="android:layout_marginRight">@dimen/common.28dp</item>
+        <item name="android:layout_marginTop">@dimen/common.10dp</item>
+        <item name="android:background">@drawable/et_bg_selector</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="social_pop_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
+    </style>
+
+    <style name="comment_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!-- 显示对话框时当前的屏幕是否变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="CallCtrlTvStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/common.10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="InfoLayoutStyle">
+        <item name="android:layout_marginRight">@dimen/common.10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common.45dp</item>
+    </style>
+
+</resources>

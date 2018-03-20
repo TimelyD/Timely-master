@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@color/common_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/add_friend_by_qr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:src="@drawable/default_avatar"
+            android:layout_marginTop="@dimen/common.20dp"
+            android:layout_width="@dimen/common.75dp"
+            android:layout_height="@dimen/common.75dp"/>
+
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_marginTop="@dimen/common.20dp"
+            android:textSize="@dimen/common.25sp"
+            android:textColor="@color/tx_black_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_id"
+            android:layout_marginTop="@dimen/common.5dp"
+            android:textSize="@dimen/tx_3"
+            android:textColor="@color/tx_black_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_marginTop="@dimen/common.5dp"
+            android:textSize="@dimen/tx_3"
+            android:textColor="@color/tx_black_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+        <View
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:background="@color/divider_list"
+            android:layout_width="20dp"
+            android:layout_height="0.5dp"/>
+       <TextView
+           android:visibility="gone"
+            android:id="@+id/tv_state"
+            android:layout_marginTop="@dimen/common.5dp"
+            android:text="nick"
+            android:textSize="@dimen/tx_3"
+            android:textColor="@color/tx_black_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:onClick="addContact"
+            android:text="@string/add_friend"
+            android:layout_marginTop="@dimen/common.20dp"
+            android:layout_marginLeft="@dimen/common.30dp"
+            android:layout_marginRight="@dimen/common.30dp"
+            style="@style/BtnPrimaryStyle"/>
+    </LinearLayout>
+</LinearLayout>

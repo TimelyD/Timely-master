@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/chat_menu_height"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/photo_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider_list"/>
+
+    <RelativeLayout
+        android:id="@+id/ctrl_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ctrl_bar_height"
+        >
+
+        <TextView
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:id="@+id/type_tv"
+            android:text="@string/photo_or_video"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/sanjiaodown"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/album_tv"
+            android:layout_toRightOf="@id/type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/album"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/send_btn"
+            android:text="@string/button_send"
+            android:enabled="false"
+            style="@style/ChatSendBtnStyle"/>
+    </RelativeLayout>
+</LinearLayout>

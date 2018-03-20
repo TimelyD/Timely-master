@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+
+
+    android:orientation="vertical" >
+
+        <!--android:divider="@drawable/mm_title_functionframe_line"-->
+        <!--android:listSelector="@drawable/title_list_selector"-->
+    <com.tg.tgt.helper.ListViewAdaptWidth
+        android:id="@+id/title_list"
+        android:background="@drawable/menu_bg"
+        android:layout_marginRight="@dimen/common.10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/common.120dp"
+        android:cacheColorHint="#D3D3D3"
+        android:divider="#55D3D3D3"
+        android:dividerHeight="0.5dp"
+        android:scrollingCache="false" />
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/iv_image_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         />
+
+    <com.hyphenate.easeui.widget.CircleProgressView
+        android:id="@+id/circle_progress_view"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:progress="0"
+        app:cpv_innerPadding="2dp"
+        app:cpv_outerColor="#E5ffffff"
+        app:cpv_outerSize="1dp"
+        app:cpv_progressNormalColor="@android:color/transparent"
+        app:cpv_progressReachColor="#E5ffffff"
+        app:cpv_progressStyle="FillInnerArc"/>
+</RelativeLayout>

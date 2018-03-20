@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@color/bg_t"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_news"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/new_title"
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:paddingTop="@dimen/common.10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    <!--<com.tg.tgt.widget.LoadMoreListView
+        android:divider="@null"
+        android:background="@color/gray_bg"
+        android:id="@+id/lv_news"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.tg.tgt.widget.LoadMoreListView>-->
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

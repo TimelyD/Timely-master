@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_t"
+    tools:context="com.tg.tgt.ui.VerifySafeCodeAct">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/email_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/common.10dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/next"
+            android:textSize="@dimen/tx_3"
+            android:textColor="@color/tx_black_1"/>
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <TextView
+        android:layout_marginTop="@dimen/common.40dp"
+        android:layout_gravity="center"
+        android:text="@string/input_code"
+        android:textSize="@dimen/tx_3"
+        android:textColor="@color/tx_black_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/common.20dp"
+        android:layout_marginRight="@dimen/common.20dp"
+        android:layout_marginTop="@dimen/common.10dp"
+        android:layout_marginBottom="@dimen/common.10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/corner_layout_white_unfocus"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <EditText
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textSize="@dimen/tx_3"
+            android:layout_weight="1"
+            android:id="@+id/code_et"
+            android:background="@null"
+            android:singleLine="true"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"/>
+
+        <Button
+            android:paddingRight="10dp"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/tx_3"
+            android:text="@string/get_code"
+            android:background="@null"
+            android:id="@+id/get_code_btn"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/safe_pwd_hint"
+        android:textSize="@dimen/tx_4"
+        android:textColor="@color/tx_black_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

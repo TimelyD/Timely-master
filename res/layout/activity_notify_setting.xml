@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_t"
+    android:orientation="vertical"
+    tools:context="com.tg.tgt.ui.NotifySettingAct">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/notify_set"></com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <View style="@style/LineHorizontalStyle"
+          android:layout_marginTop="@dimen/common.10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/common.10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_switch_notification"
+            style="@style/InfoLayoutStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/newnotify"
+               android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <com.hyphenate.easeui.widget.EaseSwitchButton
+                android:id="@+id/switch_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/textview1"
+            style="@style/LineHorizontalStyle"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_switch_sound"
+            style="@style/InfoLayoutStyle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/voice"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <com.hyphenate.easeui.widget.EaseSwitchButton
+                android:id="@+id/switch_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/textview2"
+            style="@style/LineHorizontalStyle"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_switch_vibrate"
+            style="@style/InfoLayoutStyle"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/shake"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+
+            <com.hyphenate.easeui.widget.EaseSwitchButton
+                android:id="@+id/switch_vibrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <View style="@style/LineHorizontalStyle"/>
+</LinearLayout>

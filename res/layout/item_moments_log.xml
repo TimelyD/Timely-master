@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/common.65dp">
+
+    <com.hyphenate.easeui.widget.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/layout_padding"
+        android:layout_marginRight="@dimen/common.7dp"
+        android:src="@drawable/default_avatar"
+        android:layout_width="@dimen/avatar_width"
+        android:layout_height="@dimen/avatar_width"/>
+
+    <View
+        android:id="@+id/base_line"
+        android:layout_centerVertical="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+    <TextView
+        android:layout_toRightOf="@id/iv_avatar"
+        android:layout_toLeftOf="@id/add_btn"
+        android:layout_above="@id/base_line"
+        android:textColor="@color/tx_black_1"
+        android:textSize="@dimen/tx_3"
+        android:text="name"
+        android:id="@+id/tv_name"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_toRightOf="@id/iv_avatar"
+        android:layout_below="@id/base_line"
+        android:textColor="@color/tx_black_3"
+        android:textSize="@dimen/tx_4"
+        android:text="time"
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/add_btn"
+        android:layout_marginRight="@dimen/layout_padding"
+        android:layout_width="wrap_content"
+        android:minWidth="@dimen/common.57dp"
+        android:paddingLeft="@dimen/common.10dp"
+        android:paddingRight="@dimen/common.10dp"
+        android:layout_height="@dimen/common.26dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_agree_selector"
+        android:text="@string/button_add"
+        android:textColor="@color/tx_black_1"
+        android:textSize="@dimen/tx_3" />
+
+    <View
+        android:id="@+id/divider_long"
+        android:layout_alignParentBottom="true"
+        style="@style/LineHorizontalStyle"/>
+
+    <View
+        android:id="@+id/divider_short"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/layout_padding"
+        android:layout_alignParentBottom="true"
+        style="@style/LineHorizontalStyle"/>
+</RelativeLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_t"
+              android:orientation="vertical">
+
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/add_friend">
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="@dimen/common.45dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ease_common_tab_bg"
+            android:onClick="searchContact"
+            android:text="@string/button_search"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_3"
+            android:visibility="gone"/>
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edit_note"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.45dp"
+            android:background="@drawable/et_bg_center_lines"
+            android:hint="@string/user_name"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/common.40dp"
+            android:singleLine="true"
+            android:textSize="@dimen/tx_3"/>
+
+        <ImageView
+            android:onClick="searchContact"
+            android:layout_centerVertical="true"
+            android:src="@drawable/search"
+            android:padding="@dimen/common.5dp"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:layout_width="@dimen/common.25dp"
+            android:layout_height="@dimen/common.25dp"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/LineHorizontalStyle"/>
+
+    <ListView
+        android:id="@+id/friends_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/divider_t"
+        android:dividerHeight="@dimen/divider_height"></ListView>
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/ll_user"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:background="@drawable/ease_mm_listitem"-->
+    <!--android:duplicateParentState="true"-->
+    <!--android:visibility="gone">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/avatar"-->
+    <!--android:layout_width="45dp"-->
+    <!--android:layout_height="45dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="11dp"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/em_default_avatar" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/name"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginLeft="18dp"-->
+    <!--android:layout_toRightOf="@id/avatar"-->
+    <!--android:textColor="#0F0F0F"-->
+    <!--android:textSize="16sp" />-->
+
+
+    <!--<Button-->
+    <!--android:id="@+id/indicator"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_marginRight="11dp"-->
+    <!--android:background="@drawable/em_button_bg"-->
+    <!--android:onClick="addContact"-->
+    <!--android:paddingLeft="12dp"-->
+    <!--android:paddingRight="12dp"-->
+    <!--android:text="@string/button_add"-->
+    <!--android:textSize="14sp" />-->
+    <!--</RelativeLayout>-->
+
+
+</LinearLayout>

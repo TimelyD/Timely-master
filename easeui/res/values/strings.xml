@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_for_more">其他功能正在火速赶来的路上，敬请期待</string>
+    <string name="num_of_contact">%1$d contacts</string>
+    <string name="publish_select_photo_max">You can  select  only %1$d picture</string>
+    <string name="photo_no_select">您还没选择照片</string>
+    <string name="album">Photos</string>
+    <string name="all_video">All videos</string>
+    <string name="all_photo">All pictures</string>
+    <string name="send_with_num">send(%d)</string>
+    <string name="photo_or_video">Picture or video</string>
+    <string name="compress_progress">Video compressing: %1$s</string>
+    <string name="not_allow_video">it\'s  not supported videos which larger than 200M</string>
+    <string name="cannot_select_photo_and_video">You can\'t select both images and video same time</string>
+    <string name="only_can_select_one_movie">You can only select one video at a time</string>
+    <string name="compress_failed">Compression failed</string>
+    <string name="cancel_compress">cancel compress</string>
+    <string name="digest_location">[Location]</string>
+    <string name="confirm">Confirm</string>
+</resources>

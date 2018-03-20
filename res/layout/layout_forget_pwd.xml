@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@color/common_bg"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/verify_account"
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="@string/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/corner_layout_primary_selector"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.40dp">
+
+            <EditText
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:id="@+id/email_et"
+                android:background="@null"
+                android:textSize="@dimen/tx_3"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common.5dp"
+                android:text="\@qeveworld.com"
+                android:layout_marginRight="@dimen/common.5dp"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"/>
+            <View
+                android:visibility="gone"
+                android:background="#CFCFCF"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"/>
+            <Spinner
+                android:visibility="gone"
+                android:overlapAnchor="false"
+                android:background="@drawable/down_arrow"
+                android:paddingRight="5dp"
+                android:layout_marginRight="5dp"
+                android:spinnerMode="dropdown"
+                android:id="@+id/email_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="@string/input_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/corner_layout_primary_selector"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.40dp">
+
+            <EditText
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textSize="@dimen/tx_3"
+                android:layout_weight="1"
+                android:id="@+id/code_et"
+                android:background="@null"
+                android:singleLine="true"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"/>
+
+            <Button
+                android:paddingRight="10dp"
+                android:gravity="right|center_vertical"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/tx_3"
+                android:text="@string/get_code"
+                android:background="@null"
+                android:id="@+id/get_code_btn"
+                android:textAllCaps="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:text="@string/next"
+            android:id="@+id/next_btn"
+            style="@style/BtnPrimaryStyle"/>
+
+    </LinearLayout>
+
+</LinearLayout>

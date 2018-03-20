@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+              android:paddingTop="@dimen/common.10dp"
+              android:paddingBottom="@dimen/common.10dp"
+              android:paddingLeft="@dimen/common.15dp"
+              android:paddingRight="@dimen/common.15dp"
+
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common.10dp"
+        android:layout_marginBottom="@dimen/common.10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/headIv"
+            android:layout_width="@dimen/common.45dp"
+            android:layout_height="@dimen/common.45dp"
+            android:layout_marginRight="10dip"
+            android:src="@drawable/default_avatar" />
+
+
+        <TextView
+            android:layout_toRightOf="@id/headIv"
+            android:gravity="bottom"
+            android:text="name"
+            android:id="@+id/nameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common.20dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/tx_3" />
+
+        <TextView
+            android:layout_toRightOf="@id/headIv"
+            android:layout_alignBottom="@id/headIv"
+            android:text="time"
+            android:id="@+id/timeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common.20dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@color/im_font_color_text_hint"
+            android:textSize="@dimen/tx_4" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/urlTipTv"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="分享了一个连接"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="@dimen/tx_3" />
+
+        <com.tg.tgt.moment.widgets.ExpandTextView
+            android:id="@+id/contentTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <!-- 不同的地方 -->
+        <ViewStub
+            android:id="@+id/viewStub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common.5dp"
+            />
+        <!-- 地址、时间 、删除 、点赞、 评论 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common.15dp"
+            android:layout_marginBottom="@dimen/common.15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+
+
+            <TextView
+                android:id="@+id/deleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="删除"
+                android:textSize="12sp"
+                android:textColor="#8290AF"
+                android:visibility="gone"/>
+
+            <View
+                android:layout_width="0dip"
+                android:layout_height="1dip"
+                android:layout_weight="1" />
+
+            <!-- <ImageView
+                 android:id="@+id/snsBtn"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/ic_launcher"/>-->
+            <ImageView
+                android:id="@+id/btn_add_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_like_selector"/>
+            <ImageView
+                android:layout_marginLeft="@dimen/common.10dp"
+                android:layout_marginRight="@dimen/common.10dp"
+                android:id="@+id/btn_add_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_comment_selector"/>
+        </LinearLayout>
+        <View
+            android:id="@+id/divider"
+            style="@style/LineHorizontalStyle"/>
+
+        <!--点赞，以及评论的背景框-->
+        <LinearLayout
+            android:id="@+id/digCommentBody"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/common.10dp"
+            android:orientation="vertical" >
+
+            <com.tg.tgt.moment.widgets.PraiseListView
+                android:layout_marginTop="@dimen/common.10dp"
+                android:id="@+id/praiseListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tx_4"
+                android:textColor="@color/tx_black_2"
+                />
+
+            <!--<View
+                android:id="@+id/lin_dig"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="@color/im_line_color"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="5dip"
+                />-->
+            <com.tg.tgt.moment.widgets.CommentListView
+                android:layout_marginTop="@dimen/common.10dp"
+                android:id="@+id/commentList"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.tg.tgt.widget.ContactItemView
+        android:id="@+id/application_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contactItemImage="@drawable/newfriend"
+        app:contactItemName="@string/Application_and_notify" />
+    <View
+        android:layout_marginLeft="@dimen/layout_padding"
+        style="@style/LineHorizontalStyle"/>
+
+    <com.tg.tgt.widget.ContactItemView
+        android:id="@+id/group_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contactItemImage="@drawable/ease_group_icon"
+        app:contactItemName="@string/group_chat" />
+
+    <!--<ContactItemView-->
+        <!--android:id="@+id/chat_room_item"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:contactItemImage="@drawable/em_groups_icon"-->
+        <!--app:contactItemName="@string/chat_room" />-->
+
+    <!--<ContactItemView-->
+        <!--android:id="@+id/robot_item"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:contactItemImage="@drawable/em_groups_icon"-->
+        <!--app:contactItemName="@string/robot_chat" />-->
+
+</LinearLayout>

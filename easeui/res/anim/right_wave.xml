@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item
+        android:drawable="@drawable/right_wave_1"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_2"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_3"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_4"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_5"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_6"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_7"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_8"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_9"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_10"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_11"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_12"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_13"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_14"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_15"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_16"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_17"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_18"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_19"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_20"
+        android:duration="200" />
+    <item
+        android:drawable="@drawable/right_wave_21"
+        android:duration="200" />
+</animation-list>

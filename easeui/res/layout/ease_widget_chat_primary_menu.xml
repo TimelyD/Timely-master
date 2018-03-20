@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="2dip"
+              android:background="@color/bg_t"
+    android:paddingTop="2dip" >
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.5dp"-->
+        <!--android:background="@color/gray_normal" />-->
+
+    <LinearLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="4dp" >
+
+        <Button
+            android:id="@+id/btn_set_mode_keyboard"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/ease_chatting_setmode_keyboard_btn"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/btn_press_to_speak"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/ease_chat_press_speak_btn"
+            android:gravity="center"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/button_pushtotalk"
+                android:textColor="#666666"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/edittext_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common.15dp"
+            android:layout_marginRight="@dimen/common.10dp"
+            android:layout_weight="1"
+            android:gravity="bottom" >
+
+            <com.hyphenate.easeui.widget.MsgEditText
+                android:id="@+id/et_sendmessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/primary_edit_bg_unfocus"
+                android:maxLines="3"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:minHeight="@dimen/common.38dp"
+                android:paddingLeft="@dimen/common.42dp"
+                android:paddingRight="@dimen/common.10dp"
+                android:textSize="15sp"
+                android:imeOptions="actionSend"/>
+
+            <!--<RelativeLayout-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/rl_face"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--&gt;-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_face_normal"-->
+                <!--android:layout_width="24dip"-->
+                <!--android:layout_height="24dip"-->
+                <!--android:layout_margin="1dip"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@drawable/ease_chatting_biaoqing_btn_normal"-->
+                <!--android:visibility="visible" />-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_face_checked"-->
+                <!--android:layout_width="24dip"-->
+                <!--android:layout_height="24dip"-->
+                <!--android:layout_margin="1dip"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@drawable/ease_chatting_biaoqing_btn_enable"-->
+                <!--android:visibility="invisible" />-->
+            <!---->
+            <!--</RelativeLayout>-->
+
+
+            <Button
+                android:id="@+id/btn_set_fire"
+                android:layout_width="@dimen/common.22dp"
+                android:layout_height="@dimen/common.22dp"
+                android:layout_marginLeft="@dimen/common.10dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/fire"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+        <!--<Button-->
+            <!--android:visibility="gone"-->
+            <!--android:id="@+id/btn_more"-->
+            <!--android:layout_width="32dip"-->
+            <!--android:layout_height="32dip"-->
+            <!--android:layout_marginLeft="4dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:background="@drawable/ease_type_select_btn" />-->
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_height="@dimen/common.35dp"
+            style="@style/ChatSendBtnStyle"
+            android:layout_marginRight="@dimen/common.15dp"
+            android:text="@string/button_send"
+            android:enabled="false"
+             />
+    </LinearLayout>
+    <LinearLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical"
+        android:id="@+id/linearUnder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_voice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/send_voice_selector"/>
+
+        <ImageView
+            android:id="@+id/iv_face"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/send_emj_selector"
+            />
+
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/send_image_selector"/>
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/rl_face"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_face_normal"-->
+                <!--android:layout_width="24dip"-->
+                <!--android:layout_height="24dip"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:src="@drawable/send_emj"-->
+                <!--android:visibility="visible" />-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_face_checked"-->
+                <!--android:layout_width="24dip"-->
+                <!--android:layout_height="24dip"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:src="@drawable/send_emj"-->
+                <!--android:visibility="invisible" />-->
+
+        <!--</RelativeLayout>-->
+
+        <ImageView
+            android:id="@+id/iv_camera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/send_capture_selector"/>
+
+        <ImageView
+            android:id="@+id/iv_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/send_video_selector"/>
+
+        <ImageView
+            android:id="@+id/btn_more"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/send_add_more_selector" />
+
+        <!--<ImageView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/addmore"/>-->
+
+    </LinearLayout>
+
+</LinearLayout>

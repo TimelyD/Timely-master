@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="gray_bg">#F5F5F5</color>
+    <color name="header_color">#E0E0E0</color>
+    <color name="ccc">#ccc</color>
+    <color name="im_font_color_text_hint">#abb1b6</color>
+
+    <color name="praise_item_default">#333333</color>
+    <color name="praise_item_selector_default">#cccccc</color>
+    <color name="praise_item">@color/tx_black_1</color>
+
+    <color name="im_social_dig_name_bg">#DDDDDD</color>
+    <color name="im_line_color">#dadada</color>
+
+    <color name="normal_moment_tv">#232323</color>
+    <color name="tintGray">#999</color>
+
+    <color name="press">#ccc</color>
+    <!--重要文字，标题颜色-->
+    <color name="tx_black_1">#000</color>
+    <!--主要文字-->
+    <color name="tx_black_2">#666</color>
+    <!--次要文字-->
+    <color name="tx_black_3">#999</color>
+    <!--底色-->
+    <color name="bg_t">#f5f5f5</color>
+    <!--分割线-->
+    <color name="divider_t">#cecece</color>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:id="@+id/photo_layout"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/photo_iv"
+        android:minWidth="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/select_tv"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+    <TextView
+        android:id="@+id/select_tv"
+        android:layout_width="@dimen/photo_select_oval_size"
+        android:layout_height="@dimen/photo_select_oval_size"
+        android:layout_alignRight="@+id/photo_iv"
+        android:layout_alignTop="@+id/photo_iv"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/photo_select_oval_selector"
+        android:enabled="true"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:text="12"
+        android:textColor="@android:color/white"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:clickable="false"
+        android:id="@+id/is_video_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ease_video_play_btn_small_nor" />
+
+    <TextView
+        android:id="@+id/video_duration_tv"
+        android:textColor="@color/white"
+        android:layout_alignRight="@+id/photo_iv"
+        android:layout_alignBottom="@+id/photo_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <!--用来增加点击面积-->
+    <TextView
+        android:id="@+id/select_tv_v"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="visible"
+        android:layout_alignTop="@+id/select_tv"
+        android:layout_alignRight="@+id/select_tv"
+        android:layout_alignEnd="@+id/select_tv"/>
+
+    <!--<CheckBox-->
+        <!--android:id="@+id/photo_checkbox"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"/>-->
+</RelativeLayout>

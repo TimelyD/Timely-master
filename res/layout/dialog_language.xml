@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              >
+
+    <RadioGroup
+        android:id="@+id/rg_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_system"
+            style="@style/LanRadioBtnStyle"
+            android:checked="true"
+            android:text="@string/setlang_system"/>
+
+        <View
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            style="@style/LineHorizontalStyle"/>
+
+        <RadioButton
+            android:id="@+id/rb_chinese"
+            style="@style/LanRadioBtnStyle"
+            android:text="中文"/>
+
+        <View
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            style="@style/LineHorizontalStyle"/>
+
+        <RadioButton
+            android:id="@+id/rb_english"
+            style="@style/LanRadioBtnStyle"
+            android:text="English"/>
+    </RadioGroup>
+
+</FrameLayout>

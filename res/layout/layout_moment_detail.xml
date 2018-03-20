@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="#fff"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="动态详情"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/bodyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!--<include layout="@layout/adapter_circle_item"/>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <!--<include layout="@layout/layout_edit"/>-->
+    <com.tg.tgt.moment.widgets.CommentInputMenu
+        android:layout_alignParentBottom="true"
+        android:id="@+id/conmment_input_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.tg.tgt.moment.widgets.CommentInputMenu>
+
+    </RelativeLayout>
+</LinearLayout>

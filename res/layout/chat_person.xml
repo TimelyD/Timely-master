@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:padding="10dp" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/report_background"
+            android:text="举报"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:textColor="#808080" />
+
+        <ImageView
+            android:id="@+id/chatPerson_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/cancel" />
+
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/planet_bg">
+        
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/chatPerson_head"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:src="@drawable/photo1"/>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+        
+        <TextView
+            android:id="@+id/chatPerson_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amanda"
+            android:textSize="15sp"
+            android:textColor="#dbad71"/>
+        
+        <ImageView
+            android:id="@+id/chatPerson_sexImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/woman"/>
+        </LinearLayout>
+        
+        <TextView
+            android:id="@+id/person_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Her-mest@qeveworld.com"
+            android:textSize="15sp"
+            android:textColor="#808080"/>
+        
+        <View 
+            android:layout_width="100dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="#D3D3D3"
+            android:layout_marginTop="10dp"/>
+        
+        <TextView
+            android:id="@+id/chatPerson_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Let life be beautiful like flowers"
+            android:textSize="15sp"
+            android:textColor="#808080"/>
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="消息加密"
+                android:textSize="16sp"
+                android:textColor="#000"/>
+            
+            <ImageView 
+                android:id="@+id/chatPerson_encryption"
+                android:layout_width="wrap_content"
+                android:layout_height="23dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/on"/>
+        </RelativeLayout>
+        
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="#D3D3D3"
+            android:layout_marginTop="10dp"/>
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            
+            <Button 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/delete_background"
+                android:text="Delete"
+                android:textSize="16sp"
+                android:textColor="#000"/>
+            
+            <Button 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/visit_background"
+                android:text="Visit"
+                android:textSize="16sp"
+                android:textColor="#fff"/>
+        </RelativeLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>

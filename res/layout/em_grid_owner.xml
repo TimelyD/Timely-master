@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/button_avatar"
+                android:paddingLeft="@dimen/common.12dp"
+                android:paddingRight="@dimen/common.12dp"
+                android:paddingTop="@dimen/common.5dp"
+                android:paddingBottom="@dimen/common.5dp"
+                android:gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+        <com.tg.tgt.widget.SquareFrameLayout
+            android:id="@+id/sfl"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/iv_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/add_contract"
+            />
+        </com.tg.tgt.widget.SquareFrameLayout>
+        <TextView
+            android:layout_below="@id/sfl"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/tx_4"
+            android:textColor="@color/tx_black_1"
+            android:layout_margin="@dimen/common.3dp"
+            />
+        <ImageView
+            android:id="@+id/owner_star"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/owner_star"
+            android:layout_width="@dimen/common.15dp"
+            android:layout_height="@dimen/common.15dp"/>
+
+</RelativeLayout>

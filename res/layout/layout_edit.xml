@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tg.tgt.moment.widgets.CommentInputMenu
+    android:id="@+id/conmment_input_menu"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    android:layout_alignParentBottom="true"
+    xmlns:tools="http://schemas.android.com/tools"/>
+<!--
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editTextBodyLl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#f6f6f6"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:visibility="gone"
+    tools:showIn="@layout/layout_moment">
+
+    <EditText
+        android:id="@+id/circleEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@null"
+        android:hint="说点什么..."
+        />
+
+    <ImageView
+        android:id="@+id/sendIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher"/>
+</LinearLayout>-->

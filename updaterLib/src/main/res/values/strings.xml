@@ -1,0 +1,4 @@
+<resources>
+    <string name="system_download_component_disable">can\'t download, please use</string>
+    <string name="system_download_description">version updating</string>
+</resources>

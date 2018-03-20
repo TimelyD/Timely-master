@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/modift_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="@string/you_email_want_change"
+            style="@style/TvAboveEtStyle"/>
+
+        <TextView
+            android:id="@+id/email_tv"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorPrimary"
+            style="@style/TvAboveEtStyle"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="@string/setpsw_newpsw"
+            style="@style/TvAboveEtStyle"/>
+
+        <EditText
+            android:inputType="textPassword"
+            android:maxLength="24"
+            android:id="@+id/new_pwd_et"
+            android:layout_marginTop="10dp"
+            style="@style/CornerEditTextStyle"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="@string/setpsw_aginnewpsw"
+            style="@style/TvAboveEtStyle"/>
+
+        <EditText
+            android:maxLength="24"
+            android:inputType="textPassword"
+            android:id="@+id/re_pwd_et"
+            android:layout_marginTop="10dp"
+            style="@style/CornerEditTextStyle"/>
+
+        <Button
+            android:id="@+id/confirm_btn"
+            android:layout_marginTop="20dp"
+            android:text="@string/setpsw_confirm"
+            android:layout_height="40dp"
+            style="@style/BtnPrimaryStyle"/>
+    </LinearLayout>
+
+</LinearLayout>

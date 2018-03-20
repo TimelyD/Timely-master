@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Timely</string>
+
+    <string name="main_title">Chats</string>
+    <string name="main_message">Chats</string>
+    <string name="main_maillist">Mail</string>
+    <string name="main_my">Me</string>
+    <string name="main_addFriend">Add friends</string>
+    <string name="main_scan">Scanning</string>
+    <string name="main_set">Set up</string>
+    <string name="main_help">Help</string>
+
+    <string name="menu_edit_pro">Edit data</string>
+    <string name="menu_scan">Scanning</string>
+    <string name="menu_about">About us</string>
+    <string name="menu_help">Help problem</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_logout">Exit login</string>
+    <string name="menu_set">Set up</string>
+    <string name="menu_type">At night</string>
+
+    <string name="page3_edit_pro">Edit data</string>
+    <string name="page3_set">Set up</string>
+    <string name="page3_dynamic">new dynamic：</string>
+    <string name="page3_friendcircle">Circle of friends</string>
+
+    <string name="edit_title">Edit data</string>
+    <string name="edit_head">Head portrait</string>
+    <string name="edit_name">Nickname</string>
+    <string name="edit_sex">Gender</string>
+    <string name="edit_T">Number</string>
+    <string name="edit_mood">mood</string>
+
+    <string name="popName_title">Nickname</string>
+    <string name="popName_text">A good nickname can make a friend feel better about you！</string>
+    <string name="popName_confirm">Confirm</string>
+
+    <string name="popSex_title">Gender</string>
+    <string name="popSex_woman">Female 1</string>
+    <string name="popSex_man">Male 1</string>
+    <string name="popSex_secret">Secrecy</string>
+    <string name="popSex_confirm">Confirm</string>
+
+    <string name="men">Male</string>
+    <string name="women">Female</string>
+
+    <string name="popMood_title">Mood</string>
+    <string name="popMood_text">What are you feeling now?</string>
+    <string name="popMood_confirm">Confirm</string>
+
+    <string name="set_title">Set Up</string>
+    <string name="set_message">Message reminfer</string>
+    <string name="set_type">Don`t disturb mode</string>
+    <string name="set_passwset">Password setting</string>
+    <string name="set_safepasswset">Security password setting</string>
+    <string name="set_langset">Language setting</string>
+    <string name="set_version">Version update</string>
+    <string name="set_drop_out">Exit login</string>
+
+    <string name="setpsw_title">Modify password</string>
+    <string name="setpsw_text">You are modifying your account password,
+                               the password for the account login key identifier 
+                               for the safety of your account,please be sure to remember</string>
+    <string name="setpsw_oldpasw">Old password</string>
+    <string name="setpsw_newpsw">New password</string>
+    <string name="setpsw_aginnewpsw">Confirm new password</string>
+    <string name="setpsw_oldpaswEdit">Please enter the old password</string>
+    <string name="setpsw_newpswEdit">Please enter the new password</string>
+    <string name="setpsw_aginnewpswEdit">Please Confirm new password</string>
+    <string name="setpsw_confirm">Ensure</string>
+
+    <string name="confirmsetpsw_text">Congratulations，change password successfully!</string>
+    <string name="confirmsetpsw_timetext">after,return personal Center for you</string>
+    <string name="confirmsetpsw_back">Immediate return</string>
+
+    <string name="setlang_title">Language settings</string>
+    <string name="setlang_system">Following system</string>
+    <string name="setlang_chinese">Chinese</string>
+    <string name="setlang_english">English</string>
+    <string name="setlang_confirm">Ensure</string>
+
+    <string name="login_editusername">Please enter username/mailbox</string>
+    <string name="login_editcode">Please enter the verification code</string>
+    <string name="login_getcode">Get verification code</string>
+    <string name="login_editpassword">Please input a password</string>
+    <string name="login_loginbutton">Login</string>
+    <string name="login_registertext">Register</string>
+    <string name="login_forgetpassword">Forgot password?</string>
+
+    <string name="register_editusername">Please enter secure mailbox</string>
+    <string name="register_editcode">Please enter the verification code</string>
+    <string name="register_editpassword">Please enter 6——24 bit password</string>
+    <string name="register_editpswagin">Please enter the password again</string>
+    <string name="register_remailbox">Registered secure mailbox</string>
+    <string name="register_registerbutton">Register now</string>
+    <string name="register_loginbutton">Login</string>
+
+    <string name="publish_complete">Complete</string>
+    <string name="publish_cancel">Cancel</string>
+    <string name="publish_edit">What do you want to say...</string>
+    <string name="publish_textFriend">Address book friend</string>
+
+    <string name="dialog_albums">Albums</string>
+    <string name="dialog_photograph">Photograph</string>
+    <string name="dialog_cancel">Cancel</string>
+
+    <string name="loading">loading...</string>
+    <string name="set_info_code">Please set up the chat password first</string>
+    <string name="encoded">encrypted</string>
+    <string name="right_pwd">Please enter the correct password</string>
+    <string name="re_pwd_wrong">confirm password is different from the first enter</string>
+    <string name="modify_pic">Edit Photo</string>
+    <string name="ensure">Ensure</string>
+    <string name="new_title">New</string>
+    <string name="language">Language setting</string>
+    <string name="input_six_num">Please enter correct password(6 characters)</string>
+    <string name="dialog_security_title">Security password</string>
+    <string name="confirm">Confirm</string>
+    <string name="retry_pwd">Incorrect password，please try again</string>
+    <string name="verify_account">Verify account</string>
+    <string name="input_email">Please enter the bound E-mail</string>
+    <string name="next">Next</string>
+    <string name="input_code">Please enter correct verify code</string>
+    <string name="get_code">Get code</string>
+    <string name="modift_pwd">Change password</string>
+    <string name="you_email_want_change">The account of the password you want to change</string>
+    <string name="modify_success">Change successfully</string>
+    <string name="no_acouunt">I have no Timely account yet!</string>
+    <string name="hava_acouunt">I have Timely account already!</string>
+    <string name="forget_pwd">Forget password？</string>
+    <string name="register_email">Register E-mail</string>
+    <string name="code_cannot_empty">Verify code can\'t be empty</string>
+    <string name="input_nick">Please enter the nickname</string>
+    <string name="register_nickname"><![CDATA[nickname        ]]></string>
+    <string name="register_account"><![CDATA[account         ]]></string>
+    <string name="register_code"><![CDATA[verify code     ]]></string>
+    <string name="register_pwd"><![CDATA[password                ]]></string>
+    <string name="register_re_pwd"><![CDATA[confirm password]]></string>
+    <string name="nickname_cannot_be_empty">Nickname can\'t be empty</string>
+    <string name="say_something">Say something!</string>
+    <string name="no_more">No data</string>
+    <string name="click_retry">Load failed, please try again</string>
+
+    <string name="default_net_failed">Error, please try again</string>
+    <string name="http_net_failed">HTTP Exception,please try later</string>
+    <string name="socket_timeout_net_failed">The server is no response</string>
+    <string name="connect_net_failed">Net error,please try again later</string>
+    <string name="unknownhost__net_failed">Please check whether your network isconnect</string>
+    <string name="unknownservice_net_failed">Server error</string>
+    <string name="io_net_failed">Incorrect network,please try again later</string>
+    <string name="runtime_net_failed">Error, please try again</string>
+    <string name="parse_net_failed">Incorrect analysis</string>
+
+    <string name="msg_lock">Message encryption</string>
+    <string name="set_beizhu">Set notes</string>
+    <string name="video_chat">Video</string>
+    <string name="voice_chat">Voice</string>
+    <string name="close_camera">Video off</string>
+    <string name="open_camera">Video on</string>
+    <string name="invite_member">invite</string>
+    <string name="reply_msg">reply</string>
+    <string name="opposite_open_camera">your friend  has turned on the camera</string>
+    <string name="opposite_close_camera">your friend  has turned off the camera</string>
+    <string name="waiting_to_listen">waiting......</string>
+    <string name="the_type_chatting_from_who">the %1$s chatting from %2$s</string>
+    <string name="number_of_group_member">Members of the group(%d)</string>
+    <string name="add_group_chat">Group chat</string>
+
+    <string name="give_up">Give up</string>
+    <string name="retry">Retry</string>
+    <string name="delete_friend">Delete</string>
+    <string name="comment_cannot_empty">Comment content cannot be empty!</string>
+    <string name="comment_checking">Comments have been submitted for approve</string>
+    <string name="comment_added">Comment successful</string>
+    <string name="not_update">Don\'t need to update</string>
+    <string name="need_to_update">need to update</string>
+    <string name="search_nobody">No data</string>
+    <string name="invite">Invite</string>
+    <string name="input_right_six_pwd">Please enter your password(6 characters)</string>
+    <string name="setup_success">Set successfully</string>
+    <string name="share_success">Shared successfully!</string>
+    <string name="not_support_require_update">This version does not support this type of information, please upgrade to the latest version</string>
+    <string name="moment">Friends</string>
+    <string name="foot">Invited record</string>
+    <string name="user_not_exist">No data</string>
+    <string name="refuse_be_you_friend">Reject your application</string>
+    <string name="group_i_create">My group</string>
+    <string name="group_i_join">Groups</string>
+    <string name="create_group">Add group</string>
+    <string name="publish_success">Release successful</string>
+    <string name="group_mems">members of the group</string>
+    <string name="sure_delete">Cancel?</string>
+    <string name="sure_to_empty_record">Clear chat logs?</string>
+    <string name="add_friend_by_qr">QR code for add friends</string>
+    <string name="delete_success">deleted successful</string>
+    <string name="select_at_least_one">Please select one contact at least</string>
+    <string name="email">Email</string>
+    <string name="notify_set">Remind setting</string>
+    <string name="set_safe_pwd">set security password</string>
+    <string name="input_safe_pwd">Please enter security password</string>
+    <string name="safe_pwd_hint">Security passwords can be used for chat encryption and account security\n( protect your privacy in time)</string>
+    <string name="invite_to_voice">Invite you start a voice chat</string>
+    <string name="invite_to_video">Invite you start a video chat</string>
+    <string name="has_added">added</string>
+    <string name="home_page">Home</string>
+    <string name="publish">Release</string>
+    <string name="photo_and_video">photo</string>
+    <string name="dynamic_cannot_empty">News can\'t be empty</string>
+    <string name="old_cannot_be_empty">Original password can\'t be empty</string>
+    <string name="new_pwd_cannot_be_empty">New password can\'t be empty</string>
+    <string name="please_input">Please enter</string>
+    <string name="modify_nickname">Edit nickname</string>
+    <string name="more_like"><![CDATA[ %s like]]></string>
+    <string name="one_like"><![CDATA[ like]]></string>
+    <string name="scan_right">Please scan the correct qr code</string>
+    <string name="scan_hint">Put the QR code into the frame to scan automatically</string>
+    <string name="share_news">Share</string>
+    <string name="scan_the_qr_code_to_add_me">Scan the QR Code to add me</string>
+    <string name="no_log_yet">You have no visitors still~</string>
+    <string name="no_new_friends_yet">You have no new friends still</string>
+    <string name="no_moment_yet">Your FRIENDS still empty~</string>
+    <string name="reply_to">&#160;answer&#160;</string>
+    <string name="reply_to_one">answer %s:</string>
+    <string name="code_sended">The verification code has been sent to the mailbox</string>
+    <string name="to_look_email">View</string>
+    <string name="modify_safe_pwd">Modify the security password</string>
+    <string name="reset_safe_pwd">Reset the security password</string>
+    <string name="developing_toast">developing</string>
+    <string name="email_verify">Mailbox verification</string>
+    <string name="remove_member">Remove member</string>
+</resources>

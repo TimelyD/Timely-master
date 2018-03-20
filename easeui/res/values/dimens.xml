@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="media_type_width">100dp</dimen>
+    <dimen name="status_bar_height">0dp</dimen>
+    <!--标题-->
+    <dimen name="tx_1">@dimen/common.18sp</dimen>
+    <!--二级标题-->
+    <dimen name="tx_2">@dimen/common.16sp</dimen>
+    <!--标准-->
+    <dimen name="tx_3">@dimen/common.14sp</dimen>
+    <!--提示等-->
+    <dimen name="tx_4">@dimen/common.12sp</dimen>
+
+
+    <dimen name="layout_padding">@dimen/common.10dp</dimen>
+    <dimen name="avatar_width">@dimen/common.42dp</dimen>
+    <dimen name="contact_avatar_width">@dimen/common.35dp</dimen>
+    <dimen name="contact_row_height">@dimen/common.50dp</dimen>
+    <dimen name="title_bar_height">@dimen/common.40dp</dimen>
+    <dimen name="divider_height">.5dp</dimen>
+    <dimen name="ctrl_bar_height">40dp</dimen>
+</resources>

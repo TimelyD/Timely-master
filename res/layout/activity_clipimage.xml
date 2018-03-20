@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#fff"
+              android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/modify_pic"></com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <com.tg.tgt.widget.clip.ClipImageLayout
+        android:layout_marginTop="50dp"
+        android:id="@+id/id_clipImageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginBottom="20dp"
+        />
+
+    <Button
+        style="@style/BtnPrimaryStyle"
+        android:id="@+id/id_action_clip"
+        android:background="@drawable/btn_selector"
+        android:text="@string/ensure"
+        android:textColor="#FFF"
+        android:layout_margin="30dp"
+        android:textSize="15sp"/>
+
+</LinearLayout>
