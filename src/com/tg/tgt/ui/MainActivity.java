@@ -517,6 +517,7 @@ public class MainActivity extends BaseActivity {
 		}else {
 			menuuserName.setText(userName+last);
 		}
+		menuuserName.setText(App.xin);
 		/*if (sex.equals("女")) {
 			menusexImage.setImageDrawable(getResources().getDrawable(R.drawable.woman));
 		}else if(sex.equals("男")){

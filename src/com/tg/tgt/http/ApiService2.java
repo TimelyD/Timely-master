@@ -44,8 +44,8 @@ public interface ApiService2 {
      */
     int DEFAULT_TIMEOUT = 15000;
 
-    String BASE_URL = "http://timly2.live2017.biz/timely/";
-//    String BASE_URL = "http://timly.live2017.biz/timly/";
+   // String BASE_URL = "http://timly2.live2017.biz/timely/";
+    String BASE_URL = "http://timly.live2017.biz/timly/";
 
     @FormUrlEncoded
     @POST("api/user/regist")

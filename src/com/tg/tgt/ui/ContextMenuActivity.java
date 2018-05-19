@@ -14,6 +14,7 @@
 package com.tg.tgt.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -26,6 +27,7 @@ public class ContextMenuActivity extends BaseActivity {
     public static final int RESULT_CODE_COPY = 1;
     public static final int RESULT_CODE_DELETE = 2;
     public static final int RESULT_CODE_FORWARD = 3;
+	public static final int RESULT_CODE_DUOFORWARD = 4;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class ContextMenuActivity extends BaseActivity {
 		boolean isChatroom = getIntent().getBooleanExtra("ischatroom", false); 
 		
 		int type = message.getType().ordinal();
+		Log.i("dcz_type",type+"");
 		if (type == EMMessage.Type.TXT.ordinal()) {
 		    if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)
 					|| message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)
@@ -84,6 +87,10 @@ public class ContextMenuActivity extends BaseActivity {
 	}
 	public void forward(View view){
 		setResult(RESULT_CODE_FORWARD);
+		finish();
+	}
+	public void duo_forward(View view){
+		setResult(RESULT_CODE_DUOFORWARD);
 		finish();
 	}
 	

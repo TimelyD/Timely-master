@@ -104,7 +104,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         if (DemoHelper.getInstance().isLoggedIn()) {
             autoLogin = true;
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
             return;
         }
         setContentView(R.layout.em_activity_login);
@@ -249,8 +248,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mProgressDialog.setCancelable(false);
 
         progressShow = true;
-        ApiManger2.getApiService()
-                .login(currentUsername, currentPassword, code, mEmailLast)
+        ApiManger2.getApiService().login(currentUsername, currentPassword, code, mEmailLast)
                 .compose(this.<HttpResult<LoginModel>>bindToLifeCyclerAndApplySchedulers(null,false))
                 .subscribe(new BaseObserver2<LoginModel>() {
                     @Override
@@ -489,7 +487,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.password_type_iv:
                 changePwdType();
                 break;
-
         }
     }
 

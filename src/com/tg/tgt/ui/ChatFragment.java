@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -299,12 +300,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     break;
 
                 case ContextMenuActivity.RESULT_CODE_FORWARD: // forward
+                    Log.i("dcz","RESULT_CODE_FORWARD");
                     Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);
                     intent.putExtra("forward_msg_id", contextMenuMessage.getMsgId());
                     startActivity(intent);
+                    break;
+                case ContextMenuActivity.RESULT_CODE_DUOFORWARD:
 
                     break;
-
                 default:
                     break;
             }
@@ -463,16 +466,22 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         intent.putExtra("username", username);
         startActivityForResult(intent, UserProfileActivity.REQUEST_CODE_ISCODE);
     }
-
+    /**
+     *  长按头像走这个方法
+     * */
     @Override
     public void onAvatarLongClick(String username) {
-        inputAtUsername(username, GroupManger.getGroupUsers(toChatUsername).get(username).getNickname());
+        Map<String, GroupUserModel> bean = GroupManger.getGroupUsers(toChatUsername);
+        if(bean!=null){
+            inputAtUsername(username,bean.get(username).getNickname());
+        }
     }
 
     @Override
     public boolean onMessageBubbleClick(EMMessage message) {
         //消息框点击事件，demo这里不做覆盖，如需覆盖，return true
         //red packet code : 拆红包页面
+        Log.i("dcz","onMessageBubbleClick");
         if (message.getBooleanAttribute(RPConstant.MESSAGE_ATTR_IS_RED_PACKET_MESSAGE, false)) {
             RedPacketUtil.openRedPacket(getActivity(), chatType, message, toChatUsername, messageList);
             return true;
@@ -499,6 +508,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onMessageBubbleLongClick(EMMessage message) {
         // no message forward when in chat room
+        Log.i("dcz","onMessageBubbleLongClick");
         startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message", message)
                         .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
                 REQUEST_CODE_CONTEXT_MENU);

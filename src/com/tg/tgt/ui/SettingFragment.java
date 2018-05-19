@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,11 +148,23 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         tvname.setText(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
         String last = SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.EMAIL_LAST);
         if (TextUtils.isEmpty(last)) {
-            tvemail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, "") + "@qeveworld.com");
+            /*tvemail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, "") + "@qeveworld.com");
+            int size = tvemail.getText().length();
+            String xin="";
+            for(int i=0;i<size;i++){
+                xin=xin+"*";
+            }
+            tvemail.setText(xin);*/
         } else {
-            tvemail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, "") + last);
+            /*tvemail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, "") + last);
+            int size = tvemail.getText().length();
+            String xin="";
+            for(int i=0;i<size;i++){
+                xin=xin+"*";
+            }
+            tvemail.setText(xin);*/
         }
-
+        tvemail.setText(App.xin);
 //        String sex = SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.SEX);
         int genderDrawableRes = UserHelper.getGenderDrawableRes(mContext);
         if(genderDrawableRes > 0){

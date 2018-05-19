@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.hyphenate.easeui.utils.L;
@@ -201,6 +202,10 @@ public class GroupManger {
     }
 
     public static Map<String, GroupUserModel> getGroupUsers(String groupId) {
+        Log.i("dcz",groupId);
+        if(getGroupMap().get(groupId)==null){
+            return null;
+        }
         List<GroupUserModel> list = getGroupMap().get(groupId).getGroupUserModels();
         Map<String, GroupUserModel> map = new Hashtable<>();
         for (GroupUserModel model : list) {

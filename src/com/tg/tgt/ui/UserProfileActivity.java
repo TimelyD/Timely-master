@@ -267,11 +267,13 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         }else {
             checkbox.closeSwitch();
         }
-        mood.setText(easeUser.getChatidstate());
+        //mood.setText(easeUser.getChatidstate());
+        mood.setText(App.xin);
         ImageUtils.show(mActivity, easeUser.getAvatar(), R.drawable.default_avatar, ivhead);
         tvname.setText(easeUser.safeGetRemark());
         tvnote.setText(easeUser.safeGetRemark());
-        tvemail.setText(easeUser.getEmail());
+        //tvemail.setText(easeUser.getEmail());
+        tvemail.setText(App.xin);
 
     }
 

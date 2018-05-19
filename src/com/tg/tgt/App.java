@@ -35,7 +35,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 public class App extends EaseApp {
 
-
+	public static String xin="******";
 	private static App instance;
 
 	/**
