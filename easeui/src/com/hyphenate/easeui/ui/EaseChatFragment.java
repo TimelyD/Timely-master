@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hyphenate.EMMessageListener;
@@ -94,6 +95,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected Bundle fragmentArgs;
     protected int chatType;
     protected String toChatUsername;
+    protected RelativeLayout zhuan;
     protected EaseChatMessageList messageList;
     protected EaseChatInputMenu inputMenu;
 
@@ -164,6 +166,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
         extendMenuItemClickListener = new MyItemClickListener();
         inputMenu = (EaseChatInputMenu) getView().findViewById(com.hyphenate.easeui.R.id.input_menu);
+        zhuan=(RelativeLayout)getView().findViewById(R.id.zhuan);
+        EaseConstant.MESSAGE_ATTR_SELECT=false;
+        inputMenu.setVisibility(View.VISIBLE);
+        zhuan.setVisibility(View.GONE);
+        titleBar.setRightLayoutVisibility(View.VISIBLE);
+
         registerExtendMenuItem();
         // init input menu
         inputMenu.init(null);

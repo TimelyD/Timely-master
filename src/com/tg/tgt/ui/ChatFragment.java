@@ -39,6 +39,7 @@ import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.SpUtils;
@@ -306,7 +307,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     startActivity(intent);
                     break;
                 case ContextMenuActivity.RESULT_CODE_DUOFORWARD:
-
+                    EaseConstant.MESSAGE_ATTR_SELECT=true;
+                    inputMenu.setVisibility(View.GONE);zhuan.setVisibility(View.VISIBLE);
+                    titleBar.setRightLayoutVisibility(View.INVISIBLE);
+                    Log.i("dcz","点击了多条转发按钮");
+                    ((BaseAdapter) messageList.getListView().getAdapter()).notifyDataSetChanged();
+                    /*conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername, EaseCommonUtils
+                            .getConversationType(chatType), true);*/
                     break;
                 default:
                     break;
@@ -471,9 +478,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
      * */
     @Override
     public void onAvatarLongClick(String username) {
-        Map<String, GroupUserModel> bean = GroupManger.getGroupUsers(toChatUsername);
-        if(bean!=null){
-            inputAtUsername(username,bean.get(username).getNickname());
+        if(EaseConstant.MESSAGE_ATTR_SELECT==false){
+            Map<String, GroupUserModel> bean = GroupManger.getGroupUsers(toChatUsername);
+            if(bean!=null){
+                inputAtUsername(username,bean.get(username).getNickname());
+            }
         }
     }
 
@@ -509,9 +518,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     public void onMessageBubbleLongClick(EMMessage message) {
         // no message forward when in chat room
         Log.i("dcz","onMessageBubbleLongClick");
-        startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message", message)
-                        .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
-                REQUEST_CODE_CONTEXT_MENU);
+        if(EaseConstant.MESSAGE_ATTR_SELECT==false){
+            startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message", message)
+                            .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
+                    REQUEST_CODE_CONTEXT_MENU);
+        }
     }
 
 

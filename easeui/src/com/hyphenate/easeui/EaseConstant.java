@@ -19,6 +19,7 @@ public class EaseConstant {
     public static final String MESSAGE_ATTR_IS_INVITE_INTO_GROUP = "is_invite_into_group";
     public static final String MESSAGE_ATTR_IS_FIRE = "isFire";
     public static final String MESSAGE_ATTR_NICKNAME = "nickname";
+    public static Boolean MESSAGE_ATTR_SELECT = false;
 
     public static final String MESSAGE_ATTR_IS_BIG_EXPRESSION = "em_is_big_expression";
     public static final String MESSAGE_ATTR_EXPRESSION_ID = "em_expression_id";
