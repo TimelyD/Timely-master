@@ -13,12 +13,17 @@
  */
 package com.hyphenate.easeui;
 
+import com.hyphenate.chat.EMMessage;
+
+import java.util.ArrayList;
+
 public class EaseConstant {
     public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";
     public static final String MESSAGE_ATTR_IS_VIDEO_CALL = "is_video_call";
     public static final String MESSAGE_ATTR_IS_INVITE_INTO_GROUP = "is_invite_into_group";
     public static final String MESSAGE_ATTR_IS_FIRE = "isFire";
     public static final String MESSAGE_ATTR_NICKNAME = "nickname";
+    public static ArrayList<String>list_ms=new ArrayList<>();
     public static Boolean MESSAGE_ATTR_SELECT = false;
 
     public static final String MESSAGE_ATTR_IS_BIG_EXPRESSION = "em_is_big_expression";

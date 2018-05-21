@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
@@ -55,6 +56,23 @@ public class EaseChatRowText extends EaseChatRow{
         handleTextMessage();
         Log.i("dcz_MESAGE",EaseConstant.MESSAGE_ATTR_SELECT+"");
         select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        if(select.getVisibility()==VISIBLE){
+            EaseConstant.list_ms.clear();
+        }
+        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("dcz_id",message.getMsgId()+"qqq");
+                if(isChecked==true){
+                    EaseConstant.list_ms.add(message.getMsgId());
+                }else {
+                    if(EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.remove(message.getMsgId());
+                    }
+                }
+                Log.i("dcz_check",EaseConstant.list_ms+"");
+            }
+        });
     }
 
     protected void handleTextMessage() {

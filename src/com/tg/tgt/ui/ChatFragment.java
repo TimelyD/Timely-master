@@ -243,6 +243,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 }
             });
         }
+        iv_zhuan.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);
+                intent.putExtra("forward_msg_id","duo");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

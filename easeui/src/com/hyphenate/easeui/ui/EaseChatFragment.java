@@ -26,6 +26,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -96,6 +97,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected int chatType;
     protected String toChatUsername;
     protected RelativeLayout zhuan;
+    protected ImageView iv_zhuan;
     protected EaseChatMessageList messageList;
     protected EaseChatInputMenu inputMenu;
 
@@ -167,10 +169,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         extendMenuItemClickListener = new MyItemClickListener();
         inputMenu = (EaseChatInputMenu) getView().findViewById(com.hyphenate.easeui.R.id.input_menu);
         zhuan=(RelativeLayout)getView().findViewById(R.id.zhuan);
-        EaseConstant.MESSAGE_ATTR_SELECT=false;
-        inputMenu.setVisibility(View.VISIBLE);
-        zhuan.setVisibility(View.GONE);
-        titleBar.setRightLayoutVisibility(View.VISIBLE);
+        iv_zhuan=(ImageView)getView().findViewById(R.id.iv_zhuan);
+        EaseConstant.MESSAGE_ATTR_SELECT=false;//EaseConstant.list_ms.clear();
+        inputMenu.setVisibility(View.VISIBLE);zhuan.setVisibility(View.GONE);titleBar.setRightLayoutVisibility(View.VISIBLE);
 
         registerExtendMenuItem();
         // init input menu
@@ -500,8 +501,17 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
         // show forward message if the message is not null
         String forward_msg_id = getArguments().getString("forward_msg_id");
+        Log.i("dcz_msg_id ",forward_msg_id+"qqq");
         if (forward_msg_id != null) {
-            forwardMessage(forward_msg_id);
+            if(forward_msg_id.equals("duo")){
+                for(String mes:EaseConstant.list_ms){
+                    Log.i("dcz_duo",mes+"qqq");
+                    forwardMessage(mes);
+                }
+            }else {
+                Log.i("dcz_dan",forward_msg_id+"qqq");
+                forwardMessage(forward_msg_id);
+            }
         }
 
         SelectObserable.getInstance().addObserver(inputMenu.photoSelectMenu);
