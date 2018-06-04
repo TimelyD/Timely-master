@@ -16,6 +16,7 @@ package com.tg.tgt.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -58,7 +59,7 @@ public class GroupPickContactsActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.em_activity_group_pick_contacts);
 		setTitleBarLeftBack();
-
+		Log.i("dcz","aaaa");
 		String groupId = getIntent().getStringExtra("groupId");
 		if (groupId == null) {// create new group
 			isCreatingNewGroup = true;
@@ -87,7 +88,7 @@ public class GroupPickContactsActivity extends BaseActivity {
 					& !user.getUsername().equals(Constant.CHAT_ROOM)
 					& !user.getUsername().equals(Constant.CHAT_ROBOT)
 					//添加判断，如果这个用户已存在则不显示
-					& !existMembers.contains(user.getUsername()))
+					/*& !existMembers.contains(user.getUsername())*/)
 				alluserList.add(user);
 		}
 
