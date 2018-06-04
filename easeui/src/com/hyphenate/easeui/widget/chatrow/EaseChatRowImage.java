@@ -7,6 +7,7 @@ import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
@@ -18,7 +19,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +30,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
 
     protected ImageView imageView;
     private EMImageMessageBody imgBody;
+    private CheckBox select;
 
     public EaseChatRowImage(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -40,6 +45,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
     protected void onFindViewById() {
         percentageView = (TextView) findViewById(R.id.percentage);
         imageView = (ImageView) findViewById(R.id.image);
+        select= (CheckBox) findViewById(R.id.select);
     }
 
     
@@ -70,6 +76,25 @@ public class EaseChatRowImage extends EaseChatRowFile{
         String thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
         showImageView(thumbPath, imageView, filePath, message);
         handleSendMessage();
+        Log.i("dcz_MESAGE", EaseConstant.MESSAGE_ATTR_SELECT+"");
+        select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        if(select.getVisibility()==VISIBLE){
+            EaseConstant.list_ms.clear();
+        }
+        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("dcz_id",message.getMsgId()+"qqq");
+                if(isChecked==true){
+                    EaseConstant.list_ms.add(message.getMsgId());
+                }else {
+                    if(EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.remove(message.getMsgId());
+                    }
+                }
+                Log.i("dcz_check",EaseConstant.list_ms+"");
+            }
+        });
     }
     
     @Override

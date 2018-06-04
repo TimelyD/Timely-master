@@ -17,13 +17,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
-
+        <CheckBox
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:focusable="false"
+            android:button="@drawable/round_selector"
+            android:layout_centerVertical="true"/>
         <com.hyphenate.easeui.widget.CircleImageView
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/select"
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:src="@drawable/default_avatar"
              />

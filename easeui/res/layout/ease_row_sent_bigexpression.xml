@@ -16,6 +16,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp">
+            <CheckBox
+                android:id="@+id/select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:focusable="false"
+                android:layout_centerVertical="true"
+                android:button="@drawable/round_selector"
+                android:layout_gravity="center_vertical"/>
+        </RelativeLayout>
 
         <com.hyphenate.easeui.widget.CircleImageView
             android:id="@+id/iv_userhead"

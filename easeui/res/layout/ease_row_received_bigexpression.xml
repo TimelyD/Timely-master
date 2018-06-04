@@ -16,23 +16,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
+        <LinearLayout
+            android:id="@+id/iv_userhead2"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_avatar">
+            <CheckBox
+                android:id="@+id/select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:focusable="false"
+                android:button="@drawable/round_selector"
+                android:layout_gravity="center_vertical"/>
+            <com.hyphenate.easeui.widget.CircleImageView
+                android:id="@+id/iv_userhead"
+                android:layout_width="@dimen/size_avatar"
+                android:layout_height="@dimen/size_avatar"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/margin_chat_activity"
+                android:src="@drawable/default_avatar"
+                />
+        </LinearLayout>
 
-        <com.hyphenate.easeui.widget.CircleImageView
-            android:id="@+id/iv_userhead"
-            android:layout_width="@dimen/size_avatar"
-            android:layout_height="@dimen/size_avatar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:src="@drawable/default_avatar"
-             />
 
         <RelativeLayout
             android:id="@+id/bubble"
             android:layout_width="wrap_content" 
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_toRightOf="@id/iv_userhead2"
             android:layout_below="@+id/tv_userid"
              >
 
@@ -54,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/chat_nick_margin_left"
             android:textSize="@dimen/chat_nick_text_size"
-            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_toRightOf="@id/iv_userhead2"
             android:visibility="gone" />
     </RelativeLayout>
 
