@@ -20,10 +20,14 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.SpUtils;
+import com.hyphenate.easeui.utils.photo.MediaBean;
+import com.hyphenate.easeui.utils.photo.PhotoBean;
 import com.hyphenate.easeui.widget.CircleImageView;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseSwitchButton;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.hyphenate.easeui.widget.photoselect.PreviewImageActivity;
+import com.hyphenate.easeui.widget.photoselect.SelectObserable;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
@@ -40,6 +44,8 @@ import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.ToastUtils;
 import com.tg.tgt.widget.dialog.CommonDialog;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.annotations.NonNull;
@@ -98,6 +104,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         btnRelation.setOnClickListener(this);
         layoutclear.setOnClickListener(this);
         checkbox.setOnClickListener(this);
+        ivhead.setOnClickListener(this);
         /*checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
@@ -345,7 +352,13 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                     }
                 }, true).show();
                 break;
-
+            case R.id.iv_head:
+                List<MediaBean> beans = new ArrayList<MediaBean>();
+                PhotoBean e = new PhotoBean(mEaseUser.getAvatar());
+                beans.add(e);
+                SelectObserable.getInstance().setFolderAllImages(beans);
+                PreviewImageActivity.startPreviewPhotoActivity(mActivity,0,v,false);
+                break;
             default:
                 break;
         }
