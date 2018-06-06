@@ -54,17 +54,17 @@ public class EaseChatRowText extends EaseChatRow{
         mFireView.setVisibility(message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_FIRE, "").equals("1") ? VISIBLE : GONE);
 
         handleTextMessage();
-        Log.i("dcz_MESAGE",EaseConstant.MESSAGE_ATTR_SELECT+"");
+        Log.i("dcz_MESAGE1",EaseConstant.MESSAGE_ATTR_SELECT+"");
+
         select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
-        if(select.getVisibility()==VISIBLE){
-            EaseConstant.list_ms.clear();
-        }
         select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.i("dcz_id",message.getMsgId()+"qqq");
                 if(isChecked==true){
-                    EaseConstant.list_ms.add(message.getMsgId());
+                    if(!EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.add(message.getMsgId());
+                    }
                 }else {
                     if(EaseConstant.list_ms.contains(message.getMsgId())){
                         EaseConstant.list_ms.remove(message.getMsgId());
@@ -73,6 +73,9 @@ public class EaseChatRowText extends EaseChatRow{
                 Log.i("dcz_check",EaseConstant.list_ms+"");
             }
         });
+        if(select.getVisibility()==VISIBLE){
+            select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
+        }
     }
 
     protected void handleTextMessage() {

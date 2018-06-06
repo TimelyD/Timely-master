@@ -310,6 +310,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
                 case ContextMenuActivity.RESULT_CODE_FORWARD: // forward
                     Log.i("dcz","RESULT_CODE_FORWARD");
+                    EaseConstant.list_ms.clear();
                     Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);
                     intent.putExtra("forward_msg_id", contextMenuMessage.getMsgId());
                     startActivity(intent);
@@ -319,6 +320,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     inputMenu.setVisibility(View.GONE);zhuan.setVisibility(View.VISIBLE);
                     titleBar.setRightLayoutVisibility(View.INVISIBLE);
                     Log.i("dcz","点击了多条转发按钮");
+                    EaseConstant.list_ms.clear();
+                    EaseConstant.list_ms.add(contextMenuMessage.getMsgId());
                     ((BaseAdapter) messageList.getListView().getAdapter()).notifyDataSetChanged();
                     /*conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername, EaseCommonUtils
                             .getConversationType(chatType), true);*/

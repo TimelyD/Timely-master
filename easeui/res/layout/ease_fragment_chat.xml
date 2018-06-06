@@ -42,7 +42,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/input_menu"
+        android:layout_above="@+id/input_me"
         android:layout_below="@id/read_and_fire_view">
 
         <com.hyphenate.easeui.widget.EaseChatMessageList
@@ -57,23 +57,26 @@
             android:layout_centerInParent="true"
             android:visibility="invisible"/>
     </RelativeLayout>
-
-    <com.hyphenate.easeui.widget.EaseChatInputMenu
-        android:id="@+id/input_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
     <RelativeLayout
-        android:id="@+id/zhuan"
+        android:id="@+id/input_me"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true">
-        <ImageView
-            android:id="@+id/iv_zhuan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/share"/>
+        android:layout_height="wrap_content">
+        <com.hyphenate.easeui.widget.EaseChatInputMenu
+            android:id="@+id/input_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:id="@+id/zhuan"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@color/white">
+            <ImageView
+                android:id="@+id/iv_zhuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/share"/>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
