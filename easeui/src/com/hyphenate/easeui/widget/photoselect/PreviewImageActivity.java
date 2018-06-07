@@ -250,9 +250,12 @@ ActivityCompat.postponeEnterTransition(this);
 
         mCurrentPosition = getIntent().getIntExtra("position", 0);
         startPosition = mCurrentPosition;
-        String text = (mCurrentPosition + 1) + "/" + mAllImage.size();
-        mTitle.setText(text);
-
+        if(mAllImage.size()==1){
+            mTitle.setText("");
+        }else {
+            String text = (mCurrentPosition + 1) + "/" + mAllImage.size();
+            mTitle.setText(text);
+        }
         mBtnConfirm.setOnClickListener(this);
         mCtrlCheck.setOnClickListener(this);
         mPhotoPager = (ViewPager) findViewById(R.id.vp_preview);
@@ -303,8 +306,12 @@ ActivityCompat.postponeEnterTransition(this);
             public void onPageSelected(int arg0) {
                 mCurrentPosition = arg0;
                 mCurIv = mPhotoPager.findViewWithTag(arg0).findViewById(R.id.iv_image_item);
-                String text = (arg0 + 1) + "/" + mAllImage.size();
-                mTitle.setText(text);
+                if(mAllImage.size()==1){
+                    mTitle.setText("");
+                }else {
+                    String text = (arg0 + 1) + "/" + mAllImage.size();
+                    mTitle.setText(text);
+                }
                 SelectObserable.getInstance().setChange(arg0);
 
                 if (!canCheck)
@@ -475,8 +482,12 @@ ActivityCompat.postponeEnterTransition(this);
                     return;
                 }
                 if(currentItem <= mAllImage.size()-1){
-                    String text = (currentItem + 1) + "/" + mAllImage.size();
-                    mTitle.setText(text);
+                    if(mAllImage.size()==1){
+                        mTitle.setText("");
+                    }else {
+                        String text = (currentItem + 1) + "/" + mAllImage.size();
+                        mTitle.setText(text);
+                    }
                 }
                 mAdapter.notifyDataSetChanged();
             }else {

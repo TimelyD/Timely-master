@@ -17,6 +17,7 @@ import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.Direct;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.adapter.EaseMessageAdapter;
 import com.hyphenate.easeui.utils.EaseUserUtils;
@@ -259,7 +260,9 @@ public abstract class EaseChatRow extends LinearLayout {
                     if (itemClickListener != null) {
                         if (!itemClickListener.onBubbleClick(message)) {
                             // if listener return false, we call default handling
-                            onBubbleClick();
+                            if(EaseConstant.MESSAGE_ATTR_SELECT==false){
+                                onBubbleClick();
+                            }
                         }
                     }
                 }
@@ -296,10 +299,14 @@ public abstract class EaseChatRow extends LinearLayout {
                 public void onClick(View v) {
                     if (itemClickListener != null) {
                         if (message.direct() == Direct.SEND) {
-                            itemClickListener.onUserAvatarClick(EMClient.getInstance().getCurrentUser());
+                            if(EaseConstant.MESSAGE_ATTR_SELECT==false){
+                                itemClickListener.onUserAvatarClick(EMClient.getInstance().getCurrentUser());
+                            }
                             Log.i("dcz","发送方"+EMClient.getInstance().getCurrentUser());
                         } else {
-                            itemClickListener.onUserAvatarClick(message.getFrom());
+                            if(EaseConstant.MESSAGE_ATTR_SELECT==false){
+                                itemClickListener.onUserAvatarClick(message.getFrom());
+                            }
                             Log.i("dcz","接收方"+message.getFrom());
                         }
                     }

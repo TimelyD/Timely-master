@@ -26,6 +26,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -749,6 +750,15 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
     public void onBackPressed() {
         if (inputMenu.onBackPressed()) {
+            if(EaseConstant.MESSAGE_ATTR_SELECT==true){
+                Log.i("dcz","取消选中");
+                EaseConstant.MESSAGE_ATTR_SELECT=false;
+                inputMenu.setVisibility(View.VISIBLE);zhuan.setVisibility(View.GONE);
+                titleBar.setRightLayoutVisibility(View.VISIBLE);
+                EaseConstant.list_ms.clear();
+                ((BaseAdapter) messageList.getListView().getAdapter()).notifyDataSetChanged();
+                return;
+            }
             getActivity().finish();
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
                 EaseAtMessageHelper.get().removeAtMeGroup(toChatUsername);
