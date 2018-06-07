@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +17,7 @@ import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMVideoMessageBody;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.ui.EaseShowVideoActivity;
@@ -29,6 +34,8 @@ public class EaseChatRowVideo extends EaseChatRowFile{
 	private ImageView imageView;
     private TextView sizeView;
     private TextView timeLengthView;
+    private CheckBox select;
+    private View bt;
 
     public EaseChatRowVideo(Context context, EMMessage message, int position, BaseAdapter adapter) {
 		super(context, message, position, adapter);
@@ -47,6 +54,8 @@ public class EaseChatRowVideo extends EaseChatRowFile{
         timeLengthView = (TextView) findViewById(R.id.chatting_length_iv);
         ImageView playView = (ImageView) findViewById(R.id.chatting_status_btn);
         percentageView = (TextView) findViewById(R.id.percentage);
+        select= (CheckBox) findViewById(R.id.select);
+        bt= findViewById(R.id.bt);
 	}
 
 	@Override
@@ -62,6 +71,37 @@ public class EaseChatRowVideo extends EaseChatRowFile{
             String time = DateUtils.toTime(videoBody.getDuration());
             timeLengthView.setText(time);
         }
+
+        select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("dcz_id",message.getMsgId()+"qqq");
+                if(isChecked==true){
+                    if(!EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.add(message.getMsgId());
+                    }
+                }else {
+                    if(EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.remove(message.getMsgId());
+                    }
+                }
+                Log.i("dcz_check",EaseConstant.list_ms+"");
+            }
+        });
+        if(select.getVisibility()==VISIBLE){
+            select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
+        }
+        bt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dcz","点击了");
+                if(select.getVisibility()==VISIBLE){
+                    select.setChecked(select.isChecked()?false:true);
+                }
+            }
+        });
 
         if (message.direct() == EMMessage.Direct.RECEIVE) {
             if (videoBody.getVideoFileLength() > 0) {

@@ -99,10 +99,12 @@ public class PhotoSelectMenu extends LinearLayout implements Observer {
             @Override
             public void onClick(View v) {
                 if (mOnPhotoMenuListener != null) {
+                    Log.i("dcz","选择图片");
                     if (mAdapter.getSelectlist().size() == 0) {
                         ToastUtils.showToast(mContext.getApplicationContext(), R.string.photo_no_select);
                         return;
                     }
+                    Log.i("dcz","选择图片2");
                     mOnPhotoMenuListener.onPhotoSend(mAdapter.getSelectlist().toArray(new MediaBean[mAdapter
                             .getSelectlist().size()]));
                 }

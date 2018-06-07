@@ -43,6 +43,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMMucSharedFile;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.chat.EMVideoMessageBody;
 import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
@@ -1280,6 +1281,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected void forwardMessage(String forward_msg_id) {
         final EMMessage forward_msg = EMClient.getInstance().chatManager().getMessage(forward_msg_id);
         EMMessage.Type type = forward_msg.getType();
+        Log.i("dcz_type",type+"");
         switch (type) {
             case TXT:
                 if (forward_msg.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)) {
@@ -1301,6 +1303,24 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                         filePath = ((EMImageMessageBody) forward_msg.getBody()).thumbnailLocalPath();
                     }
                     sendImageMessage(filePath);
+                }
+                break;
+            case VIDEO:
+                String path = (( EMVideoMessageBody) forward_msg.getBody()).getLocalUrl();
+                long len = ((EMVideoMessageBody) forward_msg.getBody()).getVideoFileLength();
+                if (path != null) {
+                    File file = new File(path);
+                    if (!file.exists()) {
+                        // send thumb nail if original image does not exist
+                        path = ((EMVideoMessageBody) forward_msg.getBody()).getThumbnailUrl();
+                        Log.i("dczw",((EMVideoMessageBody) forward_msg.getBody()).getThumbnailUrl());
+                    }
+                    int dur = ((EMVideoMessageBody) forward_msg.getBody()).getDuration();
+                    Log.i("dczq",((EMVideoMessageBody) forward_msg.getBody()).getLocalThumb());
+                    Log.i("dcze",((EMVideoMessageBody) forward_msg.getBody()).getLocalUrl());
+                    VideoBean videoBean = new VideoBean(path, null,dur);
+                    videoBean.setSize(len);
+                    sendVideo(videoBean);
                 }
                 break;
             default:

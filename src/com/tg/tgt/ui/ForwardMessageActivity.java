@@ -16,6 +16,7 @@ package com.tg.tgt.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.hyphenate.easeui.utils.photo.MediaBean;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 import com.hyphenate.easeui.domain.EaseUser;
@@ -75,6 +76,8 @@ public class ForwardMessageActivity extends PickContactNoCheckboxActivity {
         intent.putExtra(Constant.ISCODE, isCodeResult);
         startActivity(intent);
         finish();
+        /*mOnPhotoMenuListener.onPhotoSend(mAdapter.getSelectlist().toArray(new MediaBean[mAdapter
+                .getSelectlist().size()]));*/
     }
 
 }
