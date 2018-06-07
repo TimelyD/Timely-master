@@ -129,6 +129,10 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/bubble"
             android:visibility="visible" />
+        <RelativeLayout
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_avatar"/>
     </RelativeLayout>
 
 </LinearLayout>

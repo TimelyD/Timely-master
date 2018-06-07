@@ -38,7 +38,6 @@
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:src="@drawable/default_avatar"
             android:layout_toRightOf="@id/select" />
-
         <RelativeLayout
             android:clipChildren="false"
             android:clipToPadding="false"
@@ -84,7 +83,10 @@
             android:textSize="@dimen/chat_nick_text_size"
             android:layout_toRightOf="@id/iv_userhead"
             android:visibility="gone" />
-
+        <RelativeLayout
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_avatar"/>
     </RelativeLayout>
 
 </LinearLayout>

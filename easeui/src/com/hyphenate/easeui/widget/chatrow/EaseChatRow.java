@@ -2,6 +2,7 @@ package com.hyphenate.easeui.widget.chatrow;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -296,8 +297,10 @@ public abstract class EaseChatRow extends LinearLayout {
                     if (itemClickListener != null) {
                         if (message.direct() == Direct.SEND) {
                             itemClickListener.onUserAvatarClick(EMClient.getInstance().getCurrentUser());
+                            Log.i("dcz","发送方"+EMClient.getInstance().getCurrentUser());
                         } else {
                             itemClickListener.onUserAvatarClick(message.getFrom());
+                            Log.i("dcz","接收方"+message.getFrom());
                         }
                     }
                 }

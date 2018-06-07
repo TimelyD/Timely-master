@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -31,6 +32,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
     protected ImageView imageView;
     private EMImageMessageBody imgBody;
     private CheckBox select;
+    private View bt;
 
     public EaseChatRowImage(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -46,6 +48,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
         percentageView = (TextView) findViewById(R.id.percentage);
         imageView = (ImageView) findViewById(R.id.image);
         select= (CheckBox) findViewById(R.id.select);
+        bt= findViewById(R.id.bt);
     }
 
     
@@ -56,6 +59,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
         Log.i("dcz_MESAGE2", EaseConstant.MESSAGE_ATTR_SELECT+"q");
 
         select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
         select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -75,6 +79,15 @@ public class EaseChatRowImage extends EaseChatRowFile{
         if(select.getVisibility()==VISIBLE){
             select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
         }
+        bt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dcz","点击了");
+                if(select.getVisibility()==VISIBLE){
+                    select.setChecked(select.isChecked()?false:true);
+                }
+            }
+        });
 
         if (message.direct() == EMMessage.Direct.RECEIVE) {
             if (imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||

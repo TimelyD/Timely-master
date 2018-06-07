@@ -454,7 +454,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onAvatarClick(final String username) {
         //handling when user click avatar
-        if(TextUtils.isEmpty(username) || username.equals(EMClient.getInstance().getCurrentUser())){
+        if(TextUtils.isEmpty(username)/* || username.equals(EMClient.getInstance().getCurrentUser())*/){
             return;
         }
 

@@ -25,6 +25,7 @@ public class EaseChatRowText extends EaseChatRow{
 	private TextView contentView;
     private View mFireView;
     private CheckBox select;
+    private View bt;
 
     public EaseChatRowText(Context context, EMMessage message, int position, BaseAdapter adapter) {
 		super(context, message, position, adapter);
@@ -41,6 +42,7 @@ public class EaseChatRowText extends EaseChatRow{
 		contentView = (TextView) findViewById(com.hyphenate.easeui.R.id.tv_chatcontent);
         mFireView = findViewById(com.hyphenate.easeui.R.id.iv_fire);
         select= (CheckBox) findViewById(R.id.select);
+        bt= findViewById(R.id.bt);
     }
 
     @Override
@@ -57,6 +59,7 @@ public class EaseChatRowText extends EaseChatRow{
         Log.i("dcz_MESAGE1",EaseConstant.MESSAGE_ATTR_SELECT+"");
 
         select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
         select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -76,6 +79,15 @@ public class EaseChatRowText extends EaseChatRow{
         if(select.getVisibility()==VISIBLE){
             select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
         }
+        bt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dcz","点击了");
+                if(select.getVisibility()==VISIBLE){
+                    select.setChecked(select.isChecked()?false:true);
+                }
+            }
+        });
     }
 
     protected void handleTextMessage() {
