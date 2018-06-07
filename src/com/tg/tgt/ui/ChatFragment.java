@@ -35,6 +35,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.chat.EMVideoMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
@@ -63,6 +64,7 @@ import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
 import com.tg.tgt.widget.ChatRowVoiceCall;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -247,11 +249,51 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         iv_zhuan.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                yan();
+            }
+        });
+    }
+    protected void yan() {
+        for(int i=0;i<EaseConstant.list_ms.size();i++){
+            final EMMessage forward_msg = EMClient.getInstance().chatManager().getMessage(EaseConstant.list_ms.get(i));
+            EMMessage.Type type = forward_msg.getType();
+            /*String ty = type + "";
+            Log.i("dcz_type",type+"");*/
+            if(type== EMMessage.Type.VIDEO){
+                String path = ((EMVideoMessageBody) forward_msg.getBody()).getLocalUrl();
+                if (path != null) {
+                    File file = new File(path);
+                    if (!file.exists()) {
+                        Toast.makeText(getActivity(),getActivity().getString(R.string.con),Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                }
+            }
+            if(i==EaseConstant.list_ms.size()-1){
                 Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);
                 intent.putExtra("forward_msg_id","duo");
                 startActivity(intent);
             }
-        });
+        }
+    }
+
+    protected void zheng(String forward_msg_id) {
+        final EMMessage forward_msg = EMClient.getInstance().chatManager().getMessage(forward_msg_id);
+        EMMessage.Type type = forward_msg.getType();
+        if(type== EMMessage.Type.VIDEO){
+            String path = ((EMVideoMessageBody) forward_msg.getBody()).getLocalUrl();
+            if (path != null) {
+                File file = new File(path);
+                if (!file.exists()) {
+                    Toast.makeText(getActivity(),getActivity().getString(R.string.noxz), Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
+        EaseConstant.list_ms.clear();
+        Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);
+        intent.putExtra("forward_msg_id",forward_msg_id);
+        startActivity(intent);
     }
 
     @Override
@@ -310,10 +352,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
                 case ContextMenuActivity.RESULT_CODE_FORWARD: // forward
                     Log.i("dcz","RESULT_CODE_FORWARD");
-                    EaseConstant.list_ms.clear();
-                    Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);
-                    intent.putExtra("forward_msg_id", contextMenuMessage.getMsgId());
-                    startActivity(intent);
+                    zheng( contextMenuMessage.getMsgId());
                     break;
                 case ContextMenuActivity.RESULT_CODE_DUOFORWARD:
                     EaseConstant.MESSAGE_ATTR_SELECT=true;

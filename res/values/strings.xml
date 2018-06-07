@@ -230,4 +230,6 @@
     <string name="developing_toast">developing</string>
     <string name="email_verify">Mailbox verification</string>
     <string name="remove_member">Remove member</string>
+    <string name="con">Contains video not downloaded</string>
+    <string name="noxz">The video was not downloaded</string>
 </resources>

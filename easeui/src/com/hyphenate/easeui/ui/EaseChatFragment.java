@@ -1312,8 +1312,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     File file = new File(path);
                     if (!file.exists()) {
                         // send thumb nail if original image does not exist
-                        path = ((EMVideoMessageBody) forward_msg.getBody()).getThumbnailUrl();
-                        Log.i("dczw",((EMVideoMessageBody) forward_msg.getBody()).getThumbnailUrl());
+                        Toast.makeText(getActivity(),"请先下载该视频", Toast.LENGTH_LONG).show();
+                        break;
                     }
                     int dur = ((EMVideoMessageBody) forward_msg.getBody()).getDuration();
                     Log.i("dczq",((EMVideoMessageBody) forward_msg.getBody()).getLocalThumb());
