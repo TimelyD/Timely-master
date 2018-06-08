@@ -81,7 +81,7 @@
     <string name="setlang_english">English</string>
     <string name="setlang_confirm">Ensure</string>
 
-    <string name="login_editusername">Please enter username/mailbox</string>
+    <string name="login_editusername">Please enter your cell phone number</string>
     <string name="login_editcode">Please enter the verification code</string>
     <string name="login_getcode">Get verification code</string>
     <string name="login_editpassword">Please input a password</string>
@@ -89,7 +89,7 @@
     <string name="login_registertext">Register</string>
     <string name="login_forgetpassword">Forgot password?</string>
 
-    <string name="register_editusername">Please enter secure mailbox</string>
+    <string name="register_editusername">Please enter your cell phone number</string>
     <string name="register_editcode">Please enter the verification code</string>
     <string name="register_editpassword">Please enter 6——24 bit password</string>
     <string name="register_editpswagin">Please enter the password again</string>

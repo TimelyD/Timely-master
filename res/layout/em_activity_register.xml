@@ -110,6 +110,7 @@
             <TextView
                 android:layout_marginLeft="@dimen/common.5dp"
                 android:text="\@qeveworld.com"
+                android:visibility="gone"
                 android:textSize="@dimen/tx_3"
                 android:textColor="@color/tx_black_1"
                 android:layout_width="wrap_content"

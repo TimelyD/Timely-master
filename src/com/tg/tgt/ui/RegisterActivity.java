@@ -45,6 +45,7 @@ import com.bumptech.glide.Glide;
 import com.hyphenate.easeui.utils.PhotoUtils;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tg.tgt.App;
+import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
@@ -307,13 +308,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 					}
 				});*/
 		ApiManger2.getApiService()
-				.getCode(username, mEmailLast, "1")
+				.sendRegistSms(username,"8613164748588", Constant.MYUID)
 				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
 				.subscribe(new BaseObserver2<EmptyData>() {
 					@Override
 					protected void onSuccess(EmptyData emptyData) {
 						count();
-						CodeUtils.showToEmailDialog(mActivity);
+						//CodeUtils.showToEmailDialog(mActivity);
 					}
 				});
 	}

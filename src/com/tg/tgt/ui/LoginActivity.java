@@ -59,8 +59,10 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.RxUtils;
 import com.tg.tgt.http.interceptor.AddTokenInterceptor;
 import com.tg.tgt.http.model2.LoginModel;
+import com.tg.tgt.http.model2.NonceBean;
 import com.tg.tgt.parse.ParseManager;
 import com.tg.tgt.utils.CodeUtils;
+import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
 
@@ -482,7 +484,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.get_code_btn:
-                getcode();
+                getNonce();
+               /* try {
+                    RSAHandlePwdUtil.ma();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
                 break;
             case R.id.password_type_iv:
                 changePwdType();
@@ -490,13 +497,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    public void getcode() {
+    public void getNonce() {
+        ApiManger2.getApiService()
+                .servernonce(Constant.MYUID)
+                .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<NonceBean>() {
+                    @Override
+                    protected void onSuccess(NonceBean emptyData) {
+                        Log.i("dcz",emptyData.getValue());
+                        getcode(emptyData.getValue());
+                    }
+                });
+    }
+
+    public void getcode(String nonce) {
         String email = usernameEditText.getText().toString();
+        String mima = passwordEditText.getText().toString();
         if(TextUtils.isEmpty(email)){
             ToastUtils.showToast(App.applicationContext, R.string.input_email);
             usernameEditText.requestFocus();
             return;
         }
+        if(TextUtils.isEmpty(mima)){
+            ToastUtils.showToast(App.applicationContext, R.string.login_editpassword);
+            usernameEditText.requestFocus();
+            return;
+        }
+
 //        String code = codeet.getText().toString();
 //        if (TextUtils.isEmpty(code)) {
 //            ToastUtils.showToast(App.applicationContext, R.string.input_code);
@@ -514,13 +541,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                 });*/
         ApiManger2.getApiService()
-                .getCode(email, mEmailLast, ApiService2.CODE_LOGIN)
+                .sendLoginSms(usernameEditText.getText().toString(),passwordEditText.getText().toString(),nonce,Constant.MYUID)
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override
                     protected void onSuccess(EmptyData emptyData) {
                         count();
-                        CodeUtils.showToEmailDialog(mActivity);
+                        //CodeUtils.showToEmailDialog(mActivity);
                     }
                 });
     }

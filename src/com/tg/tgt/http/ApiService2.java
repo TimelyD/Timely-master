@@ -6,6 +6,7 @@ import com.tg.tgt.http.model2.GroupUserModel;
 import com.tg.tgt.http.model2.LoginModel;
 import com.tg.tgt.http.model2.MomentsLogModel;
 import com.tg.tgt.http.model2.NewsModel;
+import com.tg.tgt.http.model2.NonceBean;
 import com.tg.tgt.http.model2.TokenModel;
 import com.tg.tgt.http.model2.UserFriendModel;
 import com.tg.tgt.http.model2.UserRelationInfoModel;
@@ -23,6 +24,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -45,8 +47,8 @@ public interface ApiService2 {
     int DEFAULT_TIMEOUT = 15000;
 
     //String BASE_URL = "http://timly2.live2017.biz/timely/";
-    String BASE_URL = "http://timly.live2017.biz/timly/";
-
+    //String BASE_URL = "http://timly.live2017.biz/timly/";
+    String BASE_URL = "http://192.168.2.47:8050/timely/";
     @FormUrlEncoded
     @POST("api/user/regist")
     Observable<HttpResult<EmptyData>> regist(@Field("nickname") String nickname, @Field("username") String username,
@@ -104,6 +106,48 @@ public interface ApiService2 {
     @FormUrlEncoded
     @POST("api/code")
     Observable<HttpResult<EmptyData>> getCode(@Field("username") String username, @Field("emailSuffix") String emailSuffix, @Field("type") String type);
+
+    /**
+     *  发送登录短信验证码
+     * */
+    @FormUrlEncoded
+    @POST("api/sendLoginSMS")
+    Observable<HttpResult<EmptyData>>sendLoginSms(@Field("userName") String username, @Field("password") String password,@Field("nonce") String nonce, @Field("uuid") String uuid);
+
+    /**
+     *  发送注册短信验证码
+     * */
+    @FormUrlEncoded
+    @POST("api/sendRegistSMS")
+    Observable<HttpResult<EmptyData>>sendRegistSms(@Field("userName") String username, @Field("mobile") String mobile, @Field("uuid") String uuid);
+
+    /**
+     *  发送找回用户密码短信验证码
+     * */
+    @FormUrlEncoded
+    @POST("api/sendRestPwdSMSCode")
+    Observable<HttpResult<EmptyData>>sendRestPwdSms(@Field("uuid") String uuid, @Field("username") String username);
+
+    /**
+     *  重置用户安全密码短信验证码
+     * */
+    @FormUrlEncoded
+    @POST("api/sendRestSafePwdCode")
+    Observable<HttpResult<EmptyData>>sendRestSafePwdSms(@Field("uuid") String uuid);
+
+    /**
+     *  检查重置用户密码短信验证码
+     * */
+    @FormUrlEncoded
+    @POST("api/verifyRestPwdSmsCode")
+    Observable<HttpResult<EmptyData>>verifyRestPwd(@Field("uuid") String uuid,@Field("code") String code,@Field("username") String username);
+
+    /**
+     *  检查重置安全密码短信验证码
+     * */
+    @FormUrlEncoded
+    @POST("api/verifyRestSafePwdSmsCode")
+    Observable<HttpResult<EmptyData>>verifyRestSafePwd(@Field("uuid") String uuid,@Field("code") String code);
 
     /**
      * 查找好友
@@ -337,6 +381,12 @@ public interface ApiService2 {
     @FormUrlEncoded
     @POST("api/version")
     Observable<HttpResult<VerModel>> ver(@Field("platform") String platform);
+
+    /**
+     *  获取服务器随机数
+     * */
+    @GET("api/servernonce")
+    Observable<HttpResult<NonceBean>>servernonce(@Query("uuid") String uuid);
 
 
 
