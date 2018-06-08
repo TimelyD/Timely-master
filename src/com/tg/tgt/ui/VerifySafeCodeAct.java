@@ -55,7 +55,7 @@ public class VerifySafeCodeAct extends BaseActivity implements View.OnClickListe
                     ToastUtils.showToast(getApplicationContext(), R.string.code_cannot_empty);
                     return;
                 }
-                ApiManger2.getApiService().checkCode(username, code, emailSuffix, ApiService2.CODE_RESET_SAFE)
+                ApiManger2.getApiService().verifyRestSafePwd(code)
                         .compose(this.<HttpResult<String>>bindToLifeCyclerAndApplySchedulers())
                         .subscribe(new BaseObserver2<String>() {
                             @Override
@@ -67,7 +67,7 @@ public class VerifySafeCodeAct extends BaseActivity implements View.OnClickListe
                         });
                 break;
             case R.id.get_code_btn:
-                ApiManger2.getApiService().getCode(username, emailSuffix, ApiService2.CODE_RESET_SAFE)
+                ApiManger2.getApiService().sendRestSafePwdSms(Constant.MYUID)
                         .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                         .subscribe(new BaseObserver2<EmptyData>() {
                             @Override

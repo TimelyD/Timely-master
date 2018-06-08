@@ -374,13 +374,13 @@ public class CodeUtils {
     }
 
     public static void showToEmailDialog(final Activity mActivity){
-        new EaseAlertDialog(mActivity, mActivity.getString(R.string.code_sended), mActivity.getString(R.string.cancel), mActivity.getString(R.string.to_look_email), new EaseAlertDialog.AlertDialogUser() {
+        new EaseAlertDialog(mActivity, mActivity.getString(R.string.code_sended), mActivity.getString(R.string.cancel),"", new EaseAlertDialog.AlertDialogUser() {
             @Override
             public void onResult(boolean confirmed, Bundle bundle) {
                 if(confirmed){
-                    Uri uri = Uri.parse("http://www.qeveworld.com");
+                   /* Uri uri = Uri.parse("http://www.qeveworld.com");
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    mActivity.startActivity(intent);
+                    mActivity.startActivity(intent);*/
                 }
             }
         }).show();

@@ -3,6 +3,7 @@ package com.tg.tgt.ui;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,15 @@ import com.hyphenate.easeui.utils.PhoneUtil;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tg.tgt.App;
+import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.http.model2.NonceBean;
 import com.tg.tgt.logger.Logger;
+import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.ToastUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -71,7 +75,7 @@ public class UpdatePwdAct extends BaseActivity{
                         confirm();
                     }
                 });
-                
+
 
     }
 
@@ -79,7 +83,7 @@ public class UpdatePwdAct extends BaseActivity{
 //        rePwdSuccess();
 //        if(true)
 //            return;
-        String oldPwd = etoldpwd.getText().toString();
+        final String oldPwd = etoldpwd.getText().toString();
 //        String stringValue = SharedPreStorageMgr.getIntance().getStringValue(this, Constant.PWD);
 //        Logger.d(oldPwd+":"+stringValue);
         String newPwd = etnewpwd.getText().toString();
@@ -100,6 +104,16 @@ public class UpdatePwdAct extends BaseActivity{
             ToastUtils.showToast(App.applicationContext, R.string.re_pwd_wrong);
             return;
         }
+        ApiManger2.getApiService()
+                .servernonce(Constant.MYUID)
+                .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<NonceBean>() {
+                    @Override
+                    protected void onSuccess(NonceBean emptyData) {
+                        Log.i("dcz",emptyData.getValue());
+                        setdata(RSAHandlePwdUtil.jia(oldPwd+"#"+emptyData.getValue()),RSAHandlePwdUtil.jia(rePwd+"#"+emptyData.getValue()),emptyData.getKey());
+                    }
+                });
 
         /*ApiManger.getApiService()
                 .rePwd(App.getMyUid(), rePwd)
@@ -111,8 +125,11 @@ public class UpdatePwdAct extends BaseActivity{
                         rePwdSuccess();
                     }
                 });*/
+    }
+
+    private void setdata(String oldPwd,String rePwd,String nonce){
         ApiManger2.getApiService()
-                .modifyPassword(oldPwd, rePwd)
+                .modifyPassword(oldPwd,rePwd,nonce)
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override

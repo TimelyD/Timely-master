@@ -3,6 +3,7 @@ package com.tg.tgt.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.ResponseCode;
+import com.tg.tgt.http.model2.NonceBean;
+import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.ToastUtils;
 
 /**
@@ -52,7 +55,7 @@ public class ModifyPwdAct extends BaseActivity implements View.OnClickListener {
 
         mEmail = getIntent().getStringExtra(Constant.EMAIL);
         mEmailLast = getIntent().getStringExtra(Constant.EMAIL_LAST);
-        emailtv.setText(mEmail+mEmailLast);
+        emailtv.setText(mEmail);
 
         mCode = getIntent().getStringExtra(Constant.CODE);
 
@@ -62,7 +65,7 @@ public class ModifyPwdAct extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         String newPwd = newpwdet.getText().toString();
-        String rePwd = repwdet.getText().toString();
+        final String rePwd = repwdet.getText().toString();
         if(TextUtils.isEmpty(newPwd)){
             ToastUtils.showToast(getApplicationContext(), R.string.Password_cannot_be_empty);
             return;
@@ -76,9 +79,32 @@ public class ModifyPwdAct extends BaseActivity implements View.OnClickListener {
             ToastUtils.showToast(App.applicationContext, R.string.re_pwd_wrong);
             return;
         }
-
         ApiManger2.getApiService()
-                .resetPassword(mEmail, mCode, mEmailLast, rePwd)
+                .servernonce(Constant.MYUID)
+                .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<NonceBean>() {
+                    @Override
+                    protected void onSuccess(NonceBean emptyData) {
+                        Log.i("dcz",emptyData.getValue());
+                        getdata(emptyData,rePwd);
+                    }
+                });
+
+        /*ApiManger.getApiService()
+                .rePwdWithChatId(mEmail, rePwd)
+                .compose(RxUtils.<BaseHttpResult>applySchedulers())
+                .subscribe(new BaseObserver<BaseHttpResult>(this) {
+                    @Override
+                    protected void onSuccess(BaseHttpResult result) {
+                        ToastUtils.showToast(App.applicationContext, R.string.modify_success);
+                        finish();
+                    }
+                });*/
+
+    }
+    private void getdata(NonceBean emptyData,String rePwd){
+        ApiManger2.getApiService()
+                .resetPassword(mEmail, mCode,emptyData.getKey(),RSAHandlePwdUtil.jia(rePwd+"#"+emptyData.getValue()))
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override
@@ -96,17 +122,5 @@ public class ModifyPwdAct extends BaseActivity implements View.OnClickListener {
                         }
                     }
                 });
-
-        /*ApiManger.getApiService()
-                .rePwdWithChatId(mEmail, rePwd)
-                .compose(RxUtils.<BaseHttpResult>applySchedulers())
-                .subscribe(new BaseObserver<BaseHttpResult>(this) {
-                    @Override
-                    protected void onSuccess(BaseHttpResult result) {
-                        ToastUtils.showToast(App.applicationContext, R.string.modify_success);
-                        finish();
-                    }
-                });*/
-
     }
 }

@@ -52,20 +52,21 @@ public interface ApiService2 {
     @FormUrlEncoded
     @POST("api/user/regist")
     Observable<HttpResult<EmptyData>> regist(@Field("nickname") String nickname, @Field("username") String username,
-                                             @Field("password") String password, @Field("code") String code, @Field
-                                                     ("emailSuffix") String emailSuffix);
+                                             @Field("password") String password, @Field("code") String code,
+                                             @Field("mobilePrefix") String mobilePrefix, @Field("nonce") String nonce);
 
     @Multipart
     @POST("api/user/regist")
     Observable<HttpResult<EmptyData>> regist(@Part MultipartBody.Part avatar, @Part("nickname") RequestBody nickname,
                                              @Part("username") RequestBody username, @Part("password") RequestBody password,
-                                             @Part("code") RequestBody code, @Part("emailSuffix") RequestBody emailSuffix);
+                                             @Part("code") RequestBody code, @Part("mobilePrefix") RequestBody mobilePrefix,
+                                             @Part("nonce") RequestBody nonce);
 
 
     @FormUrlEncoded
     @POST("api/login")
     Observable<HttpResult<LoginModel>> login(@Field("username") String username, @Field("password") String password, @Field("code") String code, @Field
-                                                     ("emailSuffix") String emailSuffix);
+                                                     ("nonce") String nonce);
 
     /**
      * 查看登陆用户信息
@@ -103,30 +104,30 @@ public interface ApiService2 {
     /**
      * @param type  验证码类型 1:注册, 2:登陆, 3:找回密码, 4:重置安全密码
      */
-    @FormUrlEncoded
+ /*   @FormUrlEncoded
     @POST("api/code")
-    Observable<HttpResult<EmptyData>> getCode(@Field("username") String username, @Field("emailSuffix") String emailSuffix, @Field("type") String type);
+    Observable<HttpResult<EmptyData>> getCode(@Field("username") String username, @Field("emailSuffix") String emailSuffix, @Field("type") String type);*/
 
     /**
      *  发送登录短信验证码
      * */
     @FormUrlEncoded
     @POST("api/sendLoginSMS")
-    Observable<HttpResult<EmptyData>>sendLoginSms(@Field("userName") String username, @Field("password") String password,@Field("nonce") String nonce, @Field("uuid") String uuid);
+    Observable<HttpResult<EmptyData>>sendLoginSms(@Field("username") String username, @Field("password") String password,@Field("nonce") String nonce);
 
     /**
      *  发送注册短信验证码
      * */
     @FormUrlEncoded
     @POST("api/sendRegistSMS")
-    Observable<HttpResult<EmptyData>>sendRegistSms(@Field("userName") String username, @Field("mobile") String mobile, @Field("uuid") String uuid);
+    Observable<HttpResult<EmptyData>>sendRegistSms(@Field("username") String username, @Field("mobile") String mobile);
 
     /**
      *  发送找回用户密码短信验证码
      * */
     @FormUrlEncoded
     @POST("api/sendRestPwdSMSCode")
-    Observable<HttpResult<EmptyData>>sendRestPwdSms(@Field("uuid") String uuid, @Field("username") String username);
+    Observable<HttpResult<EmptyData>>sendRestPwdSms(@Field("username") String username);
 
     /**
      *  重置用户安全密码短信验证码
@@ -140,14 +141,14 @@ public interface ApiService2 {
      * */
     @FormUrlEncoded
     @POST("api/verifyRestPwdSmsCode")
-    Observable<HttpResult<EmptyData>>verifyRestPwd(@Field("uuid") String uuid,@Field("code") String code,@Field("username") String username);
+    Observable<HttpResult<String>>verifyRestPwd(@Field("code") String code,@Field("username") String username);
 
     /**
      *  检查重置安全密码短信验证码
      * */
     @FormUrlEncoded
     @POST("api/verifyRestSafePwdSmsCode")
-    Observable<HttpResult<EmptyData>>verifyRestSafePwd(@Field("uuid") String uuid,@Field("code") String code);
+    Observable<HttpResult<String>>verifyRestSafePwd(@Field("code") String code);
 
     /**
      * 查找好友
@@ -165,32 +166,32 @@ public interface ApiService2 {
 
     @FormUrlEncoded
     @POST("api/user/safe/modifyPassword")
-    Observable<HttpResult<EmptyData>> modifyPassword(@Field("oldPassword") String oldPassword, @Field("password") String password);
+    Observable<HttpResult<EmptyData>> modifyPassword(@Field("oldPassword") String oldPassword,@Field("password") String password,@Field("nonce") String nonce);
 
     @FormUrlEncoded
     @POST("api/user/safe/resetPassword")
     Observable<HttpResult<EmptyData>> resetPassword(@Field("username") String username, @Field("code") String code, @Field
-            ("emailSuffix") String emailSuffix, @Field("password") String password);
+            ("nonce") String nonce, @Field("password") String password);
    @FormUrlEncoded
     @POST("api/user/safe/resetSafePassword")
     Observable<HttpResult<EmptyData>> resetSafePassword(@Field("username") String username, @Field("code") String code, @Field
-            ("emailSuffix") String emailSuffix, @Field("password") String password);
+            ("nonce") String nonce, @Field("password") String password);
 
     /**
      * @param type 验证码类型 1:注册, 2:登陆, 3:找回密码
      */
-    @FormUrlEncoded
+/*    @FormUrlEncoded
     @POST("api/checkCode")
     Observable<HttpResult<String>> checkCode(@Field("username") String username, @Field("code") String code, @Field
             ("emailSuffix") String emailSuffix, @Field("type") String type);
 
     @FormUrlEncoded
     @POST("api/user/safe/modifySafePassword")
-    Observable<HttpResult<EmptyData>> modifySafePassword(@Field("oldPassword") String oldPassword,@Field("password") String password);
+    Observable<HttpResult<EmptyData>> modifySafePassword(@Field("oldPassword") String oldPassword,@Field("password") String password);*/
 
     @FormUrlEncoded
     @POST("api/user/safe/safePassword")
-    Observable<HttpResult<EmptyData>> safePassword(@Field("password") String password);
+    Observable<HttpResult<EmptyData>> safePassword(@Field("password") String password,@Field("nonce") String nonce);
 
     @FormUrlEncoded
     @POST("api/user/modifySafe")

@@ -18,6 +18,8 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.ResponseCode;
+import com.tg.tgt.http.model2.NonceBean;
+import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
 import com.tg.tgt.widget.lock.KurtEditText;
@@ -67,7 +69,16 @@ public class SecurityPasswordAct extends BaseActivity implements View.OnClickLis
                     Toast.makeText(SecurityPasswordAct.this, R.string.input_right_six_pwd, Toast.LENGTH_SHORT).show();
                 } else {
                     if(!TextUtils.isEmpty(mCode)){
-                        resetPwd();
+                        ApiManger2.getApiService()
+                                .servernonce(Constant.MYUID)
+                                .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+                                .subscribe(new BaseObserver2<NonceBean>() {
+                                    @Override
+                                    protected void onSuccess(NonceBean emptyData) {
+                                        Log.i("dcz",emptyData.getValue());
+                                        resetPwd(RSAHandlePwdUtil.jia(passwold+"#"+emptyData.getValue()),emptyData.getKey());
+                                    }
+                                });
                         return;
                     }
                     //保存聊天密码,要在成功之后,进入该界面需要判断
@@ -78,10 +89,10 @@ public class SecurityPasswordAct extends BaseActivity implements View.OnClickLis
 
     }
 
-    private void resetPwd() {
+    private void resetPwd(String passwold,String nonce) {
         String username = SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, "");
-        String emailSuffix = SpUtils.get(mContext, Constant.EMAIL_LAST, "");
-        ApiManger2.getApiService().resetSafePassword(username, mCode, emailSuffix, passwold)
+        //String emailSuffix = SpUtils.get(mContext, Constant.EMAIL_LAST, "");
+        ApiManger2.getApiService().resetSafePassword(username, mCode,nonce, passwold)
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override
@@ -117,39 +128,26 @@ public class SecurityPasswordAct extends BaseActivity implements View.OnClickLis
             showProgress(R.string.loading);
             mProgressDialog.setCancelable(false);
             ApiManger2.getApiService()
-                    .safePassword(passwold)
-                    .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(null))
-                    .subscribe(new BaseObserver2<EmptyData>() {
+                    .servernonce(Constant.MYUID)
+                    .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+                    .subscribe(new BaseObserver2<NonceBean>() {
                         @Override
-                        protected void onSuccess(EmptyData emptyData) {
-                            ApiManger2.getApiService()
-                                    .modifySafe(true, EaseUserUtils.getUserInfo(toChatUsername).getChatid())
-                                    .retry(3)
-                                    .compose(mActivity.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(null))
-                                    .subscribe(new BaseObserver2<EmptyData>() {
-                                        @Override
-                                        protected void onSuccess(EmptyData emptyData) {
-                                            Intent intent = new Intent();
-                                            setResult(RESULT_OK, intent);
-                                            exitThis();
-                                        }
-
-                                        @Override
-                                        public void onFaild(int code, String message) {
-                                            super.onFaild(code, message);
-                                            exitThis();
-                                        }
-                                    });
-
-                        }
-
-                        @Override
-                        public void onFaild(int code, String message) {
-                            super.onFaild(code, message);
-                            dismissProgress();
+                        protected void onSuccess(NonceBean emptyData) {
+                            Log.i("dcz",emptyData.getValue());
+                            setdata(RSAHandlePwdUtil.jia(passwold+"#"+emptyData.getValue()),emptyData.getKey());
                         }
                     });
         } else {
+            ApiManger2.getApiService()
+                    .servernonce(Constant.MYUID)
+                    .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+                    .subscribe(new BaseObserver2<NonceBean>() {
+                        @Override
+                        protected void onSuccess(NonceBean emptyData) {
+                            Log.i("dcz",emptyData.getValue());
+                            setData(RSAHandlePwdUtil.jia(passwold+"#"+emptyData.getValue()),emptyData.getKey());
+                        }
+                    });
             //直接更新
             /*ApiManger.getApiService()
                     .updatecode(passwold, App.getMyUid())
@@ -160,17 +158,56 @@ public class SecurityPasswordAct extends BaseActivity implements View.OnClickLis
                             exitThis();
                         }
                     });*/
-            ApiManger2.getApiService()
-                    .safePassword(passwold)
-                    .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
-                    .subscribe(new BaseObserver2<EmptyData>() {
-                        @Override
-                        protected void onSuccess(EmptyData emptyData) {
-                            ToastUtils.showToast(getApplicationContext(), R.string.setup_success);
-                            exitThis();
-                        }
-                    });
         }
+    }
+
+    private void setData(String passwold,String nonce){
+        ApiManger2.getApiService()
+                .safePassword(passwold,nonce)
+                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+                .subscribe(new BaseObserver2<EmptyData>() {
+                    @Override
+                    protected void onSuccess(EmptyData emptyData) {
+                        ToastUtils.showToast(getApplicationContext(), R.string.setup_success);
+                        exitThis();
+                    }
+                });
+    }
+
+    private void setdata(String passwold,String nonce){
+        ApiManger2.getApiService()
+                .safePassword(passwold,nonce)
+                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<EmptyData>() {
+                    @Override
+                    protected void onSuccess(EmptyData emptyData) {
+                        ApiManger2.getApiService()
+                                .modifySafe(true, EaseUserUtils.getUserInfo(toChatUsername).getChatid())
+                                .retry(3)
+                                .compose(mActivity.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(null))
+                                .subscribe(new BaseObserver2<EmptyData>() {
+                                    @Override
+                                    protected void onSuccess(EmptyData emptyData) {
+                                        Intent intent = new Intent();
+                                        setResult(RESULT_OK, intent);
+                                        exitThis();
+                                    }
+
+                                    @Override
+                                    public void onFaild(int code, String message) {
+                                        super.onFaild(code, message);
+                                        exitThis();
+                                    }
+                                });
+
+                    }
+
+                    @Override
+                    public void onFaild(int code, String message) {
+                        super.onFaild(code, message);
+                        dismissProgress();
+                    }
+                });
     }
 
     private void exitThis() {

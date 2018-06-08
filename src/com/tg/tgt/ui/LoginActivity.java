@@ -250,7 +250,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mProgressDialog.setCancelable(false);
 
         progressShow = true;
-        ApiManger2.getApiService().login(currentUsername, currentPassword, code, mEmailLast)
+
+        ApiManger2.getApiService()
+                .servernonce(Constant.MYUID)
+                .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<NonceBean>() {
+                    @Override
+                    protected void onSuccess(NonceBean emptyData) {
+                        Log.i("dcz",emptyData.getValue());
+                        Login(currentUsername,RSAHandlePwdUtil.jia(currentPassword+"#"+emptyData.getValue()),code,emptyData.getKey());
+                    }
+                });
+
+    }
+
+    private void Login(final String currentUsername, String currentPassword, String code,String nonce){
+        ApiManger2.getApiService().login(currentUsername, currentPassword, code,nonce)
                 .compose(this.<HttpResult<LoginModel>>bindToLifeCyclerAndApplySchedulers(null,false))
                 .subscribe(new BaseObserver2<LoginModel>() {
                     @Override
@@ -306,70 +321,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         dismissProgress();
                     }
                 });
-        /*ApiManger.getApiService()
-                .login(currentUsername, code, currentPassword)
-                .compose(RxUtils.<LoginResult>applySchedulers())
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        dismissProgress();
-                    }
-                })
-                .subscribe(new BaseObserver<LoginResult>(this,false) {
-
-                    @Override
-                    protected void onSuccess(LoginResult loginResult) {
-                        String chatid = loginResult.getChatid();
-                        String password = loginResult.getPassword();
-
-                        Map<String, String> map = new HashMap<String, String>(8);
-                        map.put(Constant.MYUID, loginResult.getUid());
-                        map.put(Constant.SEX, loginResult.getSex());
-                        map.put(Constant.NICKNAME, loginResult.getNickname());
-                        map.put(Constant.STATE, loginResult.getState());
-                        map.put(Constant.HEADIMAGE, loginResult.getCover());
-                        map.put(Constant.USERNAME, loginResult.getChatid());
-                        map.put(Constant.INFOCODE, loginResult.getInfocode());
-                        map.put(Constant.PWD, currentPassword);
-
-                        SharedPreStorageMgr.getIntance()
-                                .saveStringValueMap(LoginActivity.this, map);
-
-                        //保存登录时要显示的图片
-                        SharedPreStorageMgr.getIntance().saveStringValue(LoginActivity.this, currentUsername, loginResult.getCover()+"-"+loginResult.getNickname());
-
-                        loginHX(chatid, password);
-                    }
-
-                    @Override
-                    public void onFaild(int code, String message) {
-                        super.onFaild(code, message);
-                        dismissProgress();
-                        showTips(message);
-                    }
-
-                    @Override
-                    public void onFaild(int code, @StringRes int message) {
-                        super.onFaild(code, message);
-                        dismissProgress();
-                        showTips(message);
-                    }
-                });*/
-
-
-//		final ProgressDialog pd = new ProgressDialog(LoginActivity.this);
-//		pd.setCanceledOnTouchOutside(false);
-//		pd.setOnCancelListener(new OnCancelListener() {
-//
-//			@Override
-//			public void onCancel(DialogInterface dialog) {
-//				Log.d(TAG, "EMClient.getInstance().onCancel");
-//				progressShow = false;
-//			}
-//		});
-//		pd.setMessage(getString(R.string.Is_landing));
-//		pd.show();
-
     }
 
     private void loginHX(String currentUsername, String currentPassword) {
@@ -505,12 +456,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     protected void onSuccess(NonceBean emptyData) {
                         Log.i("dcz",emptyData.getValue());
-                        getcode(emptyData.getValue());
+                        getcode(emptyData);
                     }
                 });
     }
 
-    public void getcode(String nonce) {
+    public void getcode(NonceBean emptyData) {
         String email = usernameEditText.getText().toString();
         String mima = passwordEditText.getText().toString();
         if(TextUtils.isEmpty(email)){
@@ -523,7 +474,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             usernameEditText.requestFocus();
             return;
         }
-
+        mima=RSAHandlePwdUtil.jia(mima+"#"+emptyData.getValue());
 //        String code = codeet.getText().toString();
 //        if (TextUtils.isEmpty(code)) {
 //            ToastUtils.showToast(App.applicationContext, R.string.input_code);
@@ -541,13 +492,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                 });*/
         ApiManger2.getApiService()
-                .sendLoginSms(usernameEditText.getText().toString(),passwordEditText.getText().toString(),nonce,Constant.MYUID)
+                .sendLoginSms(usernameEditText.getText().toString(),mima,emptyData.getKey())
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override
                     protected void onSuccess(EmptyData emptyData) {
                         count();
-                        //CodeUtils.showToEmailDialog(mActivity);
+                        CodeUtils.showToEmailDialog(mActivity);
                     }
                 });
     }

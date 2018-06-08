@@ -223,12 +223,12 @@
     <string name="no_moment_yet">Your FRIENDS still empty~</string>
     <string name="reply_to">&#160;answer&#160;</string>
     <string name="reply_to_one">answer %s:</string>
-    <string name="code_sended">The verification code has been sent to the mailbox</string>
+    <string name="code_sended">The verification code has been sent</string>
     <string name="to_look_email">View</string>
     <string name="modify_safe_pwd">Modify the security password</string>
     <string name="reset_safe_pwd">Reset the security password</string>
     <string name="developing_toast">developing</string>
-    <string name="email_verify">Mailbox verification</string>
+    <string name="email_verify">Phone verification</string>
     <string name="remove_member">Remove member</string>
     <string name="con">Contains video not downloaded</string>
     <string name="noxz">The video was not downloaded</string>

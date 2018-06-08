@@ -1,5 +1,7 @@
 package com.tg.tgt.utils;
 
+import android.util.Log;
+
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -121,15 +123,15 @@ public class RSAHandlePwdUtil {
     }
     
     //公钥
-    private static String ppk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCQNVqLqr9rwM+flL+U3GWfkirttHWstY7iB2HStfLirVOG/Yg09ABMFtcvWK8+3yx2Z7UZFu16Z56YK+nI3aEzv0rni/3CIJ/ljO9o+j8KAc4Y+9Ql1WQAmDxGzE7GY60rALvzJgT6cdQFwwwI9AdiGdAyswD1R5y7Cu1M+aWUSwIDAQAB";
+    public static String ppk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCQNVqLqr9rwM+flL+U3GWfkirttHWstY7iB2HStfLirVOG/Yg09ABMFtcvWK8+3yx2Z7UZFu16Z56YK+nI3aEzv0rni/3CIJ/ljO9o+j8KAc4Y+9Ql1WQAmDxGzE7GY60rALvzJgT6cdQFwwwI9AdiGdAyswD1R5y7Cu1M+aWUSwIDAQAB";
     //私钥
-    private static String pvk = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJA1Wouqv2vAz5+Uv5TcZZ+SKu20day1juIHYdK18uKtU4b9iDT0AEwW1y9Yrz7fLHZntRkW7Xpnnpgr6cjdoTO/SueL/cIgn+WM72j6PwoBzhj71CXVZACYPEbMTsZjrSsAu/MmBPpx1AXDDAj0B2IZ0DKzAPVHnLsK7Uz5pZRLAgMBAAECgYEAiYD2N1q2b25ICufwzWZh2Aetuz5pPidYeJmFYz9uu0l97adt6uAGMIdO46xyXUa7xKMagTPleOO4y2yD3K3HeHfpVEs2r17x6rz5rfeBW4L7zT8nqc40dLXoSGAZ8IiQuVRbi/f0ts93Ru78Gx15nzXhULm4Za0rPWHGtejZDyECQQDdzLGvex0uV6ZUsiOHcTlXdTmU7H5LjsqeEUz31nKKfX03ugqz6yM86taf9vSYYDJ0XchmRH1QQ63p+snj0zCpAkEApnHUV6TCRZQNgdipaQHtt640fmhkWpKg1Thc1AKJs3FVEEcIm0LnAsaQ1T/0Z+QPQpnF/rs1lfVaUmjymRdR0wJAR8SyQgveN16ZLZKuuGbEnS4LQcr8WsqLeXYzp4Y2beWJHP0P9YPCVTXP2Nb58kw+RzUJYT4MJmqf3bQOm698cQJALZxNywKcNgLfPLDJo7vij44OVoF21pcNucArN/HGGEU7QS2l/x3zPgB52eYfrISDZgXLiwV0JrbIXILjz+3i/wJALTv2V2QvjC9moUMi1Ibww1scw7E7sf673nsTXgoxgcrTOu/cwNnNGcLa+blwqB2XUGtoUF4XJmyKEkAa+q9SWA==";
+    public static String pvk = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJA1Wouqv2vAz5+Uv5TcZZ+SKu20day1juIHYdK18uKtU4b9iDT0AEwW1y9Yrz7fLHZntRkW7Xpnnpgr6cjdoTO/SueL/cIgn+WM72j6PwoBzhj71CXVZACYPEbMTsZjrSsAu/MmBPpx1AXDDAj0B2IZ0DKzAPVHnLsK7Uz5pZRLAgMBAAECgYEAiYD2N1q2b25ICufwzWZh2Aetuz5pPidYeJmFYz9uu0l97adt6uAGMIdO46xyXUa7xKMagTPleOO4y2yD3K3HeHfpVEs2r17x6rz5rfeBW4L7zT8nqc40dLXoSGAZ8IiQuVRbi/f0ts93Ru78Gx15nzXhULm4Za0rPWHGtejZDyECQQDdzLGvex0uV6ZUsiOHcTlXdTmU7H5LjsqeEUz31nKKfX03ugqz6yM86taf9vSYYDJ0XchmRH1QQ63p+snj0zCpAkEApnHUV6TCRZQNgdipaQHtt640fmhkWpKg1Thc1AKJs3FVEEcIm0LnAsaQ1T/0Z+QPQpnF/rs1lfVaUmjymRdR0wJAR8SyQgveN16ZLZKuuGbEnS4LQcr8WsqLeXYzp4Y2beWJHP0P9YPCVTXP2Nb58kw+RzUJYT4MJmqf3bQOm698cQJALZxNywKcNgLfPLDJo7vij44OVoF21pcNucArN/HGGEU7QS2l/x3zPgB52eYfrISDZgXLiwV0JrbIXILjz+3i/wJALTv2V2QvjC9moUMi1Ibww1scw7E7sf673nsTXgoxgcrTOu/cwNnNGcLa+blwqB2XUGtoUF4XJmyKEkAa+q9SWA==";
      
     public static void ma() throws Exception {
 //    	KeyPair keyPair = initKey();
 //    	System.out.println("公钥："+getPublicKey(keyPair));
 //    	System.out.println("私钥："+getPrivateKey(keyPair));
-    	String str = "哈哈哈哈";
+    	String str = "123456#a30f97ad560e485d95232e8dc2d36777";
         String jmh = null;
         try {
             jmh = encryptByPublicKey(str,ppk);
@@ -138,5 +140,15 @@ public class RSAHandlePwdUtil {
         }
         System.out.println("加密后："+jmh);
         System.out.println("解密后："+decryptBase64ByPrivateKey(jmh,pvk));
+    }
+    public static String jia(String str){
+        String jmh = null;
+        try {
+            jmh = encryptByPublicKey(str,ppk);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.i("dcz_加密后",jmh);
+        return jmh;
     }
 }

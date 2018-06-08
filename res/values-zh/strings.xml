@@ -221,12 +221,12 @@
     <string name="no_moment_yet">朋友圈还没有内容哦~</string>
     <string name="reply_to">&#160;回复&#160;</string>
     <string name="reply_to_one">回复%s:</string>
-    <string name="code_sended">验证码已发送, 是否前往邮箱查看</string>
+    <string name="code_sended">验证码已发送</string>
     <string name="to_look_email">去查看</string>
     <string name="modify_safe_pwd">修改安全密码</string>
     <string name="reset_safe_pwd">重置安全密码</string>
     <string name="developing_toast">该功能正在开发中</string>
-    <string name="email_verify">邮箱验证</string>
+    <string name="email_verify">手机验证</string>
     <string name="remove_member">删除成员</string>
     <string name="con">包含未下载视频</string>
     <string name="noxz">未下载该视频</string>

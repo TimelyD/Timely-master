@@ -139,7 +139,7 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
         }
 
         ApiManger2.getApiService()
-                .checkCode(email, code, mEmailLast, ApiService2.CODE_RESET)
+                .verifyRestPwd(code,email)
                 .compose(this.<HttpResult<String>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<String>() {
                     @Override
@@ -186,7 +186,7 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
 //            return;
         String email = emailet.getText().toString();
         if(TextUtils.isEmpty(email)){
-            ToastUtils.showToast(App.applicationContext, R.string.input_email);
+            ToastUtils.showToast(App.applicationContext, R.string.login_editusername);
             return;
         }
 //        String code = codeet.getText().toString();
@@ -207,7 +207,7 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
                 });*/
 
         ApiManger2.getApiService()
-                .getCode(email, mEmailLast, ApiService2.CODE_RESET)
+                .sendRestPwdSms(email)
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override

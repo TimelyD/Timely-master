@@ -26,6 +26,7 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,9 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.http.model2.NonceBean;
 import com.tg.tgt.utils.CodeUtils;
+import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.ToastUtils;
 
 import java.io.File;
@@ -140,6 +143,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 	}
 
 	private String mEmailLast = "@qeveworld.com";
+	private String qu="+86";
 	private android.widget.Spinner emailspinner;
 	private void initSpinner() {
 		this.emailspinner = (Spinner) findViewById(R.id.email_spinner);
@@ -196,33 +200,20 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 			Toast.makeText(this, getResources().getString(com.tg.tgt.R.string.Two_input_password), Toast.LENGTH_SHORT).show();
 			return;
 		}
-
-		Observable.just(imgPath)
-				.flatMap(new Function<String, ObservableSource<HttpResult<EmptyData>>>() {
+		ApiManger2.getApiService()
+				.servernonce(Constant.MYUID)
+				.compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
+				.subscribe(new BaseObserver2<NonceBean>() {
 					@Override
-					public ObservableSource<HttpResult<EmptyData>> apply(@NonNull String s) throws Exception {
-						Observable<HttpResult<EmptyData>> register;
-						if(TextUtils.isEmpty(imgPath)) {
-							register = ApiManger2.getApiService().regist(nickname, username, pwd, code, mEmailLast);
-						}else {
-							File file = Luban.with(mActivity).load(imgPath).setTargetDir(PhotoUtils.getTempDirPath
-									(mContext)).get(imgPath);
-							register = ApiManger2.getApiService().regist(HttpHelper.getPicPart("picture", file.getPath()),
-									HttpHelper.toTextPlain(nickname),
-									HttpHelper.toTextPlain(username),
-									HttpHelper.toTextPlain(pwd),
-									HttpHelper.toTextPlain(code),
-									HttpHelper.toTextPlain(mEmailLast));
+					protected void onSuccess(NonceBean emptyData) {
+						String ps = pwd + "#" + emptyData.getValue();
+						Log.i("dcz",ps);
+						try {
+							String mi = RSAHandlePwdUtil.jia(ps);
+							regis(nickname,username,mi,code,emptyData.getKey());
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
-						return register;
-					}
-				})
-				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
-				.subscribe(new BaseObserver2<EmptyData>() {
-					@Override
-					protected void onSuccess(EmptyData emptyData) {
-						ToastUtils.showToast(App.applicationContext, R.string.Registered_successfully);
-						finish();
 					}
 				});
 
@@ -272,6 +263,36 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 //		}
 	}
 
+	private void regis(final String nickname, final String username, final String pwd, final String code, final String nonce){
+		Observable.just(imgPath).flatMap(new Function<String, ObservableSource<HttpResult<EmptyData>>>() {
+			@Override
+			public ObservableSource<HttpResult<EmptyData>> apply(@NonNull String s) throws Exception {
+				Observable<HttpResult<EmptyData>> register;
+				if(TextUtils.isEmpty(imgPath)) {
+					register = ApiManger2.getApiService().regist(nickname, username, pwd, code,qu,nonce);
+				}else {
+					File file = Luban.with(mActivity).load(imgPath).setTargetDir(PhotoUtils.getTempDirPath
+							(mContext)).get(imgPath);
+					register = ApiManger2.getApiService().regist(HttpHelper.getPicPart("picture", file.getPath()),
+							HttpHelper.toTextPlain(nickname),
+							HttpHelper.toTextPlain(username),
+							HttpHelper.toTextPlain(pwd),
+							HttpHelper.toTextPlain(code),
+							HttpHelper.toTextPlain(qu),HttpHelper.toTextPlain(nonce));
+				}
+				return register;
+			}
+		})
+				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+				.subscribe(new BaseObserver2<EmptyData>() {
+					@Override
+					protected void onSuccess(EmptyData emptyData) {
+						ToastUtils.showToast(App.applicationContext, R.string.Registered_successfully);
+						finish();
+					}
+				});
+	}
+
 	@Override
 	public void onBackPressed() {
 		finish();
@@ -291,7 +312,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
 
 	public void getCode(View view) {
+		final String nickname = nickNameEditText.getText().toString().trim();
 		final String username = userNameEditText.getText().toString().trim();
+		if (TextUtils.isEmpty(nickname)) {
+			Toast.makeText(this, getResources().getString(com.tg.tgt.R.string.input_nick), Toast.LENGTH_SHORT).show();
+			nickNameEditText.requestFocus();
+			return;
+		}
 		if (TextUtils.isEmpty(username)) {
 			Toast.makeText(this, getResources().getString(com.tg.tgt.R.string.User_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
 			userNameEditText.requestFocus();
@@ -308,13 +335,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 					}
 				});*/
 		ApiManger2.getApiService()
-				.sendRegistSms(username,"8613164748588", Constant.MYUID)
+				.sendRegistSms(nickname,"86"+username)
 				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
 				.subscribe(new BaseObserver2<EmptyData>() {
 					@Override
 					protected void onSuccess(EmptyData emptyData) {
 						count();
-						//CodeUtils.showToEmailDialog(mActivity);
+						CodeUtils.showToEmailDialog(mActivity);
 					}
 				});
 	}
