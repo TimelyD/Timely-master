@@ -142,8 +142,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 		photoSaveName = System.currentTimeMillis() + ".png";
 	}
 
-	private String mEmailLast = "@qeveworld.com";
-	private String qu="+86";
+	private String mEmailLast = "+86";
 	private android.widget.Spinner emailspinner;
 	private void initSpinner() {
 		this.emailspinner = (Spinner) findViewById(R.id.email_spinner);
@@ -269,7 +268,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 			public ObservableSource<HttpResult<EmptyData>> apply(@NonNull String s) throws Exception {
 				Observable<HttpResult<EmptyData>> register;
 				if(TextUtils.isEmpty(imgPath)) {
-					register = ApiManger2.getApiService().regist(nickname, username, pwd, code,qu,nonce);
+					register = ApiManger2.getApiService().regist(nickname, username, pwd, code,mEmailLast,nonce);
 				}else {
 					File file = Luban.with(mActivity).load(imgPath).setTargetDir(PhotoUtils.getTempDirPath
 							(mContext)).get(imgPath);
@@ -278,7 +277,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 							HttpHelper.toTextPlain(username),
 							HttpHelper.toTextPlain(pwd),
 							HttpHelper.toTextPlain(code),
-							HttpHelper.toTextPlain(qu),HttpHelper.toTextPlain(nonce));
+							HttpHelper.toTextPlain(mEmailLast),HttpHelper.toTextPlain(nonce));
 				}
 				return register;
 			}
@@ -335,7 +334,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 					}
 				});*/
 		ApiManger2.getApiService()
-				.sendRegistSms(nickname,"86"+username)
+				.sendRegistSms(nickname,mEmailLast+username)
 				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
 				.subscribe(new BaseObserver2<EmptyData>() {
 					@Override

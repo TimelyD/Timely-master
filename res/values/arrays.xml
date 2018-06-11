@@ -2,7 +2,7 @@
 <resources   xmlns:tools="http://schemas.android.com/tools"
              tools:ignore="MissingTranslation">
     <string-array name="emails">
-        <item>"@qeveworld.com"</item>
-        <item>"@qeveworld.biz"</item>
+        <item>"   +86   "</item>
+        <!--<item>"@qeveworld.biz"</item>-->
     </string-array>
 </resources>

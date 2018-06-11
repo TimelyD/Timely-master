@@ -192,7 +192,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 });
     }
 
-    private String mEmailLast = "@qeveworld.com";
+    private String mEmailLast = "+86";
     private android.widget.Spinner emailspinner;
     private void initSpinner() {
         this.emailspinner = (Spinner) findViewById(R.id.email_spinner);
