@@ -268,7 +268,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 			public ObservableSource<HttpResult<EmptyData>> apply(@NonNull String s) throws Exception {
 				Observable<HttpResult<EmptyData>> register;
 				if(TextUtils.isEmpty(imgPath)) {
-					register = ApiManger2.getApiService().regist(nickname, username, pwd, code,mEmailLast,nonce);
+					register = ApiManger2.getApiService().regist(nickname, username, pwd, code,mEmailLast.trim(),nonce);
 				}else {
 					File file = Luban.with(mActivity).load(imgPath).setTargetDir(PhotoUtils.getTempDirPath
 							(mContext)).get(imgPath);
@@ -277,7 +277,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 							HttpHelper.toTextPlain(username),
 							HttpHelper.toTextPlain(pwd),
 							HttpHelper.toTextPlain(code),
-							HttpHelper.toTextPlain(mEmailLast),HttpHelper.toTextPlain(nonce));
+							HttpHelper.toTextPlain(mEmailLast.trim()),HttpHelper.toTextPlain(nonce));
 				}
 				return register;
 			}
@@ -334,7 +334,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 					}
 				});*/
 		ApiManger2.getApiService()
-				.sendRegistSms(nickname,mEmailLast+username)
+				.sendRegistSms(username,mEmailLast.trim())
 				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
 				.subscribe(new BaseObserver2<EmptyData>() {
 					@Override

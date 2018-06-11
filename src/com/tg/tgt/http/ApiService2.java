@@ -47,8 +47,8 @@ public interface ApiService2 {
     int DEFAULT_TIMEOUT = 15000;
 
     //String BASE_URL = "http://timly2.live2017.biz/timely/";
-    //String BASE_URL = "http://timly.live2017.biz/timly/";
-    String BASE_URL = "http://192.168.2.47:8050/timely/";
+    String BASE_URL = "http://timly.live2017.biz/timly/";
+    //String BASE_URL = "http://192.168.2.47:8050/timely/";
     @FormUrlEncoded
     @POST("api/user/regist")
     Observable<HttpResult<EmptyData>> regist(@Field("nickname") String nickname, @Field("username") String username,
@@ -120,7 +120,7 @@ public interface ApiService2 {
      * */
     @FormUrlEncoded
     @POST("api/sendRegistSMS")
-    Observable<HttpResult<EmptyData>>sendRegistSms(@Field("username") String username, @Field("mobile") String mobile);
+    Observable<HttpResult<EmptyData>>sendRegistSms(@Field("username") String username, @Field("mobilePrefix") String mobilePrefix);
 
     /**
      *  发送找回用户密码短信验证码

@@ -82,6 +82,7 @@
     <string name="setlang_confirm">Ensure</string>
 
     <string name="login_editusername">Please enter your cell phone number</string>
+    <string name="login_edit">Please enter the account number</string>
     <string name="login_editcode">Please enter the verification code</string>
     <string name="login_getcode">Get verification code</string>
     <string name="login_editpassword">Please input a password</string>

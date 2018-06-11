@@ -80,6 +80,7 @@
     <string name="setlang_confirm">确认</string>
     
     <string name="login_editusername">请输入手机号</string>
+    <string name="login_edit">请输入账号</string>
     <string name="login_editcode">请输入验证码</string>
     <string name="login_getcode">获取验证码</string>
     <string name="login_editpassword">请输入密码</string>

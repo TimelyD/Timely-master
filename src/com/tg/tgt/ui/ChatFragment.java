@@ -246,7 +246,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 }
             });
         }
-        iv_zhuan.setOnClickListener(new OnClickListener() {
+        zhuan.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 yan();

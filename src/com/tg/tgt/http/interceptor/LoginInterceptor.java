@@ -3,10 +3,12 @@ package com.tg.tgt.http.interceptor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hyphenate.easeui.utils.DeviceUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.tg.tgt.ActMgrs;
@@ -17,8 +19,11 @@ import com.tg.tgt.http.ApiService2;
 import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.ResponseCode;
+import com.tg.tgt.http.model2.Nonce2Bean;
+import com.tg.tgt.http.model2.NonceBean;
 import com.tg.tgt.http.model2.TokenModel;
 import com.tg.tgt.ui.LoginActivity;
+import com.tg.tgt.utils.RSAHandlePwdUtil;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +67,14 @@ public class LoginInterceptor implements Interceptor {
                     }
                 });
     }
-
+    private Request getNonce() {
+        String uuid = DeviceUtils.getUniqueId(mContext);
+        return  new Request.Builder()
+                .url(ApiService2.BASE_URL+"api/servernonce")
+                .header("uuid", uuid)
+                .get()
+                .build();
+    }
     @Override
     public Response intercept(Chain chain) throws IOException {
         if (chain == null)
@@ -82,37 +94,48 @@ public class LoginInterceptor implements Interceptor {
         synchronized (LoginInterceptor.class) {
             if (ResponseCode.TOKEN_IS_EXPIRED_OR_INVALID.getCode() == result.getCode()) {
                 //如果是token过期则刷新
-                SpUtils.put(mContext, AddTokenInterceptor.TOKEN, "");
-                String refresh_token = SpUtils.get(mContext, AddTokenInterceptor.REFRESH_TOKEN, "");
-                Request refresh_request = new Request.Builder()
-                        .url(ApiService2.BASE_URL+REFRESH_TOKEN_URL)
-                        .header("token", refresh_token)
-                        .post(new FormBody.Builder().add("type","1").build())
-                        .build();
-                if(BuildConfig.IS_DEBUG){
-                    toast("开始刷新token");
+                Request loginRequest = getNonce();
+                Response loginResponse = chain.proceed(loginRequest);
+                String loginString = loginResponse.body().string();
+                Nonce2Bean resultLogin = mGson.fromJson(loginString,Nonce2Bean.class);
+                if(resultLogin.getCode().equals("0")){
+                    SpUtils.put(mContext, AddTokenInterceptor.TOKEN, "");
+                    String refresh_token = SpUtils.get(mContext, AddTokenInterceptor.REFRESH_TOKEN, "");
+                    String mi = RSAHandlePwdUtil.jia(refresh_token + "#" + resultLogin.getData().getValue()).replace("\n","").trim();
+                    Log.i("刷新token:",refresh_token+"哈哈哈"+mi);
+                    Log.i("刷新nonce:",resultLogin.getData().getKey());
+                    Request refresh_request = new Request.Builder()
+                            .url(ApiService2.BASE_URL+REFRESH_TOKEN_URL)
+                            .header("token",mi)
+                            .post(new FormBody.Builder()
+                                    .add("type","1")
+                                    .add("nonce",resultLogin.getData().getKey())
+                                    .build())
+                            .build();
+                    if(BuildConfig.IS_DEBUG){
+                        toast("开始刷新token");
+                    }
+                    L.i(TAG, "开始刷新--------->"+refresh_request.toString());
+                    Response refresh_response = chain.proceed(refresh_request);
+                    HttpResult<TokenModel> tokenModelHttpResult = mGson.fromJson(refresh_response.body().string(), new TypeToken<HttpResult<TokenModel>>(){}.getType());
+                    L.i(TAG, "刷新------------>"+tokenModelHttpResult.toString());
+                    if (HttpHelper.isHttpSuccess(tokenModelHttpResult)) {
+                        L.i(TAG, "刷新token成功");
+                        //刷新token成功
+                        TokenModel tokenModel = tokenModelHttpResult.getData();
+                        //重新赋值
+                        SpUtils.put(mContext, AddTokenInterceptor.TOKEN, tokenModel.getToken());
+                        SpUtils.put(mContext, AddTokenInterceptor.REFRESH_TOKEN, tokenModel.getRefreshToken());
+                        L.i(TAG, "处理之前请求------>"+chain.request().toString());
+                        //继续之前的请求，将token替换成新得到的
+                        response = chain.proceed(chain.request());
+                        return response;
+                    }else {
+                        L.i(TAG, "刷新失败------>"+result.getMsg());
+                        toast(result.getMsg());
+                        toLogin();
+                    }
                 }
-                L.i(TAG, "开始刷新--------->"+refresh_request.toString());
-                Response refresh_response = chain.proceed(refresh_request);
-                HttpResult<TokenModel> tokenModelHttpResult = mGson.fromJson(refresh_response.body().string(), new TypeToken<HttpResult<TokenModel>>(){}.getType());
-                L.i(TAG, "刷新------------>"+tokenModelHttpResult.toString());
-                if (HttpHelper.isHttpSuccess(tokenModelHttpResult)) {
-                    L.i(TAG, "刷新token成功");
-                    //刷新token成功
-                    TokenModel tokenModel = tokenModelHttpResult.getData();
-                    //重新赋值
-                    SpUtils.put(mContext, AddTokenInterceptor.TOKEN, tokenModel.getToken());
-                    SpUtils.put(mContext, AddTokenInterceptor.REFRESH_TOKEN, tokenModel.getRefreshToken());
-                    L.i(TAG, "处理之前请求------>"+chain.request().toString());
-                    //继续之前的请求，将token替换成新得到的
-                    response = chain.proceed(chain.request());
-                    return response;
-                }else {
-                    L.i(TAG, "刷新失败------>"+result.getMsg());
-                    toast(result.getMsg());
-                    toLogin();
-                }
-
             }else if (ResponseCode.THE_SAME_ACCOUNT_WAS_LOGGEDIN_IN_OTHER_DEVICE.getCode() == result.getCode()
                     || ResponseCode.USER_NOT_LOGIN.getCode() == result.getCode()
                     || ResponseCode.TOKEN_IS_EMPTY.getCode() == result.getCode()) {

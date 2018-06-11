@@ -358,10 +358,13 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.iv_head:
                 List<MediaBean> beans = new ArrayList<MediaBean>();
-                PhotoBean e = new PhotoBean(mEaseUser.getAvatar());
-                beans.add(e);
-                SelectObserable.getInstance().setFolderAllImages(beans);
-                PreviewImageActivity.startPreviewPhotoActivity(mActivity,0,v,false);
+                if(mEaseUser.getAvatar()!=null){
+                    PhotoBean e = new PhotoBean(mEaseUser.getAvatar());
+                    beans.add(e);
+                    SelectObserable.getInstance().setFolderAllImages(beans);
+                    PreviewImageActivity.startPreviewPhotoActivity(mActivity,0,v,false);
+                }
+
                 break;
             default:
                 break;
