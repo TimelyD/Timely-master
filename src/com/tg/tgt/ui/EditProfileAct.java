@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.DynamicDrawableSpan;
@@ -46,6 +47,7 @@ import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
 
@@ -154,7 +156,7 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
             image_sex.setVisibility(View.VISIBLE);
             image_sex.setImageResource(genderDrawableRes);
         }
-        mood.setText(state);
+        mood.setText(state.equals("")?this.getString(R.string.nox):state);
 //        Glide.with(this).load(headImage).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)).into(head);
         ImageUtils.show(mActivity, headImage, R.drawable.default_avatar, head);
     }

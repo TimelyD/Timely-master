@@ -88,7 +88,40 @@
                 android:paddingRight="5dp"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
+        <LinearLayout
+            style="@style/InputWrapperStyle">
 
+            <ImageView
+                android:id="@+id/iv_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="10dip"
+                android:src="@drawable/password"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/login_editpassword"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textSize="@dimen/tx_3"/>
+
+            <ImageView
+                android:id="@+id/password_type_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="7dp"
+                android:paddingLeft="7dp"
+                android:paddingTop="7dp"
+                android:src="@drawable/eye_close"/>
+        </LinearLayout>
         <LinearLayout
             style="@style/InputWrapperStyle">
 
@@ -130,41 +163,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/tx_3"/>
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/InputWrapperStyle">
-
-            <ImageView
-                android:id="@+id/iv_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="10dip"
-                android:src="@drawable/password"
-                android:visibility="gone"/>
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="@string/login_editpassword"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:textSize="@dimen/tx_3"/>
-
-            <ImageView
-                android:id="@+id/password_type_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="7dp"
-                android:paddingLeft="7dp"
-                android:paddingTop="7dp"
-                android:src="@drawable/eye_close"/>
         </LinearLayout>
 
         <Button

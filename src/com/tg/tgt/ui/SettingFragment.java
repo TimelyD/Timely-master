@@ -272,7 +272,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         TextView tvEmail = (TextView) inflate.findViewById(R.id.tv_email);
         tvName.setText(nickName);
         ImageUtils.show(mContext, headImage, R.drawable.default_avatar, ivAvatar);
-        tvEmail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME,"")+SpUtils.get(mContext, Constant.EMAIL_LAST, ""));
+        tvEmail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME,"")/*+SpUtils.get(mContext, Constant.EMAIL_LAST, "")*/);
 //ivQr.setOnClickListener(new View.OnClickListener() {
 //    @Override
 //    public void onClick(View v) {

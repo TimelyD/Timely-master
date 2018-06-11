@@ -17,6 +17,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,6 +41,7 @@ import com.hyphenate.easeui.widget.chatrow.EaseChatRowText;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVideo;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoice;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.hyphenate.easeui.widget.chatrow.timeUtil;
 import com.hyphenate.util.DateUtils;
 
 import java.util.Date;
@@ -294,8 +296,9 @@ public class EaseMessageAdapter extends BaseAdapter {
             //下面这一大坨都是时间戳的显示
             TextView timestamp = (TextView) inflate.findViewById(R.id.timestamp);
             if (timestamp != null) {
+                Log.i("时间",new Date(message.getMsgTime())+"");
                 if (position == 0) {
-                    timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
+                    timestamp.setText(timeUtil.getTimestampString(new Date(message.getMsgTime())));
                     timestamp.setVisibility(View.VISIBLE);
                 } else {
                     // show time stamp if interval with last message is > 30 seconds
@@ -303,7 +306,7 @@ public class EaseMessageAdapter extends BaseAdapter {
                     if (prevMessage != null && DateUtils.isCloseEnough(message.getMsgTime(), prevMessage.getMsgTime())) {
                         timestamp.setVisibility(View.GONE);
                     } else {
-                        timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
+                        timestamp.setText(timeUtil.getTimestampString(new Date(message.getMsgTime())));
                         timestamp.setVisibility(View.VISIBLE);
                     }
                 }

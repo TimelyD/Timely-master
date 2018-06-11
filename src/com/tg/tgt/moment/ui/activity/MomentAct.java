@@ -114,7 +114,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         mIsHomePage = getIntent().getBooleanExtra(Constant.IS_MINE_HOME_PAGE, false);
         if(TextUtils.isEmpty(userId) || App.getMyUid().equals(userId)){
             mUserInfo = EaseUserUtils.getUserInfo(SpUtils.get(mContext, Constant.USERNAME, ""));
-            mUserInfo.setChatidstate(SpUtils.get(mContext, Constant.STATE,""));
+            mUserInfo.setChatidstate(SpUtils.get(mContext, Constant.STATE,"").equals("")?this.getString(R.string.nox):SpUtils.get(mContext, Constant.STATE,""));
         }else {
             mUserInfo = EaseUserUtils.getUserInfo(getIntent().getStringExtra(Constant.USERNAME));
         }

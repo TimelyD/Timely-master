@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -112,6 +113,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 		headIv = (ImageView) findViewById(R.id.head_iv);
 		passwordEditText = (EditText) findViewById(com.tg.tgt.R.id.password);
 		confirmPwdEditText = (EditText) findViewById(com.tg.tgt.R.id.confirm_password);
+
+		userNameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+		nickNameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+		codeEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+		passwordEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+		confirmPwdEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+
 
 		setFocus(userNameEditText);
 		setFocus(nickNameEditText);

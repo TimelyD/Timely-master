@@ -1,6 +1,7 @@
 package com.tg.tgt;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.tg.tgt.db.UserDao;
 import com.tg.tgt.domain.RobotUser;
@@ -26,6 +27,7 @@ public class DemoModel {
     public boolean saveContactList(List<EaseUser> contactList) {
         UserDao dao = new UserDao(context);
         dao.saveContactList(contactList);
+        Log.i("dcz数据条数",getContactList().size()+"");
         return true;
     }
 
@@ -37,6 +39,7 @@ public class DemoModel {
     public void saveContact(EaseUser user){
         UserDao dao = new UserDao(context);
         dao.saveContact(user);
+        Log.i("dcz数据条数2",getContactList().size()+"");
     }
     
     /**

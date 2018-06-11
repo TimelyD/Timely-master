@@ -73,7 +73,7 @@ public class VerifySafeCodeAct extends BaseActivity implements View.OnClickListe
                             @Override
                             protected void onSuccess(EmptyData emptyData) {
                                 count();
-                                CodeUtils.showToEmailDialog(mActivity);
+                                CodeUtils.showToEmailDialog2(mActivity);
                             }
                         });
                 break;

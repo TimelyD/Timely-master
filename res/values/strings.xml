@@ -59,7 +59,7 @@
     <string name="set_version">Version update</string>
     <string name="set_drop_out">Exit login</string>
 
-    <string name="setpsw_title">Modify password</string>
+    <string name="setpsw_title">Change login password</string>
     <string name="setpsw_text">You are modifying your account password,
                                the password for the account login key identifier 
                                for the safety of your account,please be sure to remember</string>
@@ -117,7 +117,7 @@
     <string name="new_title">New</string>
     <string name="language">Language setting</string>
     <string name="input_six_num">Please enter correct password(6 characters)</string>
-    <string name="dialog_security_title">Security password</string>
+    <string name="dialog_security_title">Enter the old security password</string>
     <string name="confirm">Confirm</string>
     <string name="retry_pwd">Incorrect password，please try again</string>
     <string name="verify_account">Verify account</string>
@@ -200,7 +200,7 @@
     <string name="email">Email</string>
     <string name="notify_set">Remind setting</string>
     <string name="set_safe_pwd">set security password</string>
-    <string name="input_safe_pwd">Please enter security password</string>
+    <string name="input_safe_pwd">New security password</string>
     <string name="safe_pwd_hint">Security passwords can be used for chat encryption and account security\n( protect your privacy in time)</string>
     <string name="invite_to_voice">Invite you start a voice chat</string>
     <string name="invite_to_video">Invite you start a video chat</string>
@@ -224,7 +224,7 @@
     <string name="no_moment_yet">Your FRIENDS still empty~</string>
     <string name="reply_to">&#160;answer&#160;</string>
     <string name="reply_to_one">answer %s:</string>
-    <string name="code_sended">The verification code has been sent</string>
+    <string name="code_sended">We have sent you a verification code to your Timely registered cell phone. Please check it.</string>
     <string name="to_look_email">View</string>
     <string name="modify_safe_pwd">Modify the security password</string>
     <string name="reset_safe_pwd">Reset the security password</string>
@@ -233,4 +233,8 @@
     <string name="remove_member">Remove member</string>
     <string name="con">Contains video not downloaded</string>
     <string name="noxz">The video was not downloaded</string>
+    <string name="nox">Did not add</string>
+    <string name="ti">Old and new passwords do not agree</string>
+    <string name="ti2">It has sent you the verification code on </string>
+    <string name="ti3">registered mobile phone. Please check it.</string>
 </resources>

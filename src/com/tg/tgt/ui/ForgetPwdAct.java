@@ -3,6 +3,7 @@ package com.tg.tgt.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -60,6 +61,9 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
         this.emailet = (EditText) findViewById(R.id.email_et);
         this.titlebar = (EaseTitleBar) findViewById(R.id.title_bar);
         this.nextbtn = (Button) findViewById(R.id.next_btn);
+
+        codeet.setFilters(new InputFilter[]{CodeUtils.filter});
+        emailet.setFilters(new InputFilter[]{CodeUtils.filter});
 
         initSpinner();
 

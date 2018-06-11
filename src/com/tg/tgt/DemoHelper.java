@@ -1422,6 +1422,7 @@ public class DemoHelper {
     public void saveContact(EaseUser user) {
         contactList.put(user.getUsername().toLowerCase(), user);
         demoModel.saveContact(user);
+        Log.i("dcz数据条数3",getContactList().size()+"");
     }
 
     /**
@@ -1438,7 +1439,7 @@ public class DemoHelper {
         if (contactList == null) {
             return new Hashtable<String, EaseUser>();
         }
-
+        //Log.i("dcz数据条数4",getContactList().size()+"");
         return contactList;
     }
 

@@ -7,6 +7,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
 import com.hyphenate.easeui.EaseApp;
+import com.hyphenate.easeui.widget.chatrow.timeUtil;
 import com.hyphenate.util.DateUtils;
 import com.hyphenate.util.TimeInfo;
 
@@ -100,7 +101,7 @@ public class TimeUtils {
         SimpleDateFormat df = (SimpleDateFormat) DateFormat.getDateInstance();
         df.applyPattern("yyyy-MM-dd hh:mm:ss");
         Date var0 = df.parse(createTime);
-        return DateUtils.getTimestampString(var0);
+        return timeUtil.getTimestampString(var0);
     }
 
     private static boolean isSameDay(long var0) {

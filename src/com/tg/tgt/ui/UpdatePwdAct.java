@@ -2,6 +2,7 @@ package com.tg.tgt.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -25,6 +26,7 @@ import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.NonceBean;
 import com.tg.tgt.logger.Logger;
+import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.ToastUtils;
 
@@ -55,6 +57,12 @@ public class UpdatePwdAct extends BaseActivity{
         this.etrepwd = (EditText) findViewById(R.id.et_re_pwd);
         this.etnewpwd = (EditText) findViewById(R.id.et_new_pwd);
         this.etoldpwd = (EditText) findViewById(R.id.et_old_pwd);
+
+        etrepwd.setFilters(new InputFilter[]{CodeUtils.filter});
+        etnewpwd.setFilters(new InputFilter[]{CodeUtils.filter});
+        etoldpwd.setFilters(new InputFilter[]{CodeUtils.filter});
+
+
 
         EaseTitleBar titleb = (EaseTitleBar) findViewById(R.id.title_bar);
         titleb.setLeftLayoutClickListener(new View.OnClickListener() {
@@ -102,6 +110,10 @@ public class UpdatePwdAct extends BaseActivity{
             return;
         }else if(!rePwd.equals(newPwd)){
             ToastUtils.showToast(App.applicationContext, R.string.re_pwd_wrong);
+            return;
+        }
+        if(oldPwd.equals(newPwd)){
+            ToastUtils.showToast(getApplicationContext(), R.string.ti);
             return;
         }
         ApiManger2.getApiService()

@@ -27,6 +27,7 @@ import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.GroupHelper;
 import com.hyphenate.easeui.widget.EaseConversationList.EaseConversationListHelper;
+import com.hyphenate.easeui.widget.chatrow.timeUtil;
 import com.hyphenate.util.DateUtils;
 
 import java.util.ArrayList;
@@ -185,7 +186,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             if(content != null){
                 holder.message.setText(content);
             }
-            holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
+            //holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
+            holder.time.setText(timeUtil.getTimestampString(new Date(lastMessage.getMsgTime())));
             if (lastMessage.direct() == EMMessage.Direct.SEND && lastMessage.status() == EMMessage.Status.FAIL) {
                 holder.msgState.setVisibility(View.VISIBLE);
             } else {

@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +22,7 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
+import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
@@ -184,6 +188,14 @@ public class CodeUtils {
                 });*/
     }
 
+    public static InputFilter filter=new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if(source.equals(" ")||source.toString().contentEquals("\n"))return "";
+            else return null;
+        }
+    };
+
     /**
      * 设置用户头像、名字、是否加锁
      * @param react
@@ -207,7 +219,7 @@ public class CodeUtils {
                         @Override
                         protected void onSuccess(UserFriendModel model) {
                             EaseUser user = wrapUser(model);
-                            DemoHelper.getInstance().saveContact(user);
+                            //DemoHelper.getInstance().saveContact(user);
                             try {
                                 consumer.accept(user);
                             } catch (Exception e) {
@@ -375,6 +387,27 @@ public class CodeUtils {
 
     public static void showToEmailDialog(final Activity mActivity){
         new EaseAlertDialog(mActivity, mActivity.getString(R.string.code_sended), mActivity.getString(R.string.cancel),"", new EaseAlertDialog.AlertDialogUser() {
+            @Override
+            public void onResult(boolean confirmed, Bundle bundle) {
+                if(confirmed){
+                   /* Uri uri = Uri.parse("http://www.qeveworld.com");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    mActivity.startActivity(intent);*/
+                }
+            }
+        }).show();
+    }
+    public static void showToEmailDialog2(final Activity mActivity){
+        String txt=null;
+        String phone = SpUtils.get(mActivity, Constant.NOT_CLEAR_SP, Constant.USERNAME, "");
+        Log.i("dcz",phone+"");
+        if(phone.length()==11){
+            String phoneNumber =phone.substring(0, 3) + "****" + phone.substring(7,phone.length());
+            txt= mActivity.getString(R.string.ti2)+phoneNumber+ mActivity.getString(R.string.ti3);
+        }else {
+            txt= mActivity.getString(R.string.code_sended);
+        }
+        new EaseAlertDialog(mActivity,txt, mActivity.getString(R.string.cancel),"", new EaseAlertDialog.AlertDialogUser() {
             @Override
             public void onResult(boolean confirmed, Bundle bundle) {
                 if(confirmed){

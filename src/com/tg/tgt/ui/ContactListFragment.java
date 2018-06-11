@@ -15,6 +15,7 @@ package com.tg.tgt.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.EMValueCallBack;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
 import com.hyphenate.easeui.widget.EaseContactList;
@@ -43,11 +45,13 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.IView;
+import com.tg.tgt.parse.ParseManager;
 import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.ToastUtils;
 import com.tg.tgt.widget.ContactItemView;
 
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.annotations.NonNull;
@@ -84,11 +88,23 @@ public class ContactListFragment extends EaseContactListFragment {
         contentContainer.addView(loadingView);
 
         registerForContextMenu(listView);
+        ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
+            @Override
+            public void onSuccess(List<EaseUser> easeUsers) {
+                DemoHelper.getInstance().updateContactList(easeUsers);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                ToastUtils.showToast(getActivity(), s);
+            }
+        });
     }
     
     @Override
     public void refresh() {
         Map<String, EaseUser> m = DemoHelper.getInstance().getContactList();
+        Log.i("dcz",m.size()+"");
         if (m instanceof Hashtable<?, ?>) {
             //noinspection unchecked
             m = (Map<String, EaseUser>) ((Hashtable<String, EaseUser>)m).clone();

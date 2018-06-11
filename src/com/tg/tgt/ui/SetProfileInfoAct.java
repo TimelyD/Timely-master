@@ -17,6 +17,7 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.ToastUtils;
 
 /**
@@ -36,6 +37,7 @@ public class SetProfileInfoAct extends BaseActivity {
         mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
         mTvHint = (TextView) findViewById(R.id.tv_hint);
         mEtInfo = (EditText) findViewById(R.id.et_info);
+        mEtInfo.setFilters(new InputFilter[]{CodeUtils.filter});
     }
 
     enum InfoType {

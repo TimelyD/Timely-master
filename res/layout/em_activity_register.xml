@@ -81,7 +81,23 @@
 
         <LinearLayout
             style="@style/InputWrapperStyle">
-
+            <TextView
+                android:layout_marginLeft="@dimen/common.5dp"
+                android:text="\@qeveworld.com"
+                android:visibility="gone"
+                android:textSize="@dimen/tx_3"
+                android:textColor="@color/tx_black_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Spinner
+                android:id="@+id/email_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/down_arrow"
+                android:overlapAnchor="false"
+                android:paddingRight="5dp"
+                android:spinnerMode="dropdown"/>
             <TextView
                 android:visibility="gone"
                 android:text="@string/register_account"
@@ -107,23 +123,6 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/divider_t"/>
-            <TextView
-                android:layout_marginLeft="@dimen/common.5dp"
-                android:text="\@qeveworld.com"
-                android:visibility="gone"
-                android:textSize="@dimen/tx_3"
-                android:textColor="@color/tx_black_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Spinner
-                android:id="@+id/email_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/down_arrow"
-                android:overlapAnchor="false"
-                android:paddingRight="5dp"
-                android:spinnerMode="dropdown"/>
         </LinearLayout>
 
 

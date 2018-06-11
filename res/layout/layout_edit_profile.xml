@@ -193,7 +193,7 @@
             android:singleLine="true"
             android:ellipsize="end"
             android:layout_marginLeft="@dimen/common.10dp"
-            android:text="今天天气不错，本姑娘的心情也很好哦今天天气不错，本姑娘的心情也很好哦"
+            android:text="未添加"
             android:textColor="@color/tx_black_3"
             android:textSize="@dimen/tx_4"/>
     </LinearLayout>

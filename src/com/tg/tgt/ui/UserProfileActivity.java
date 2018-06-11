@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.domain.EaseUser;
@@ -31,6 +32,7 @@ import com.hyphenate.easeui.widget.photoselect.PreviewImageActivity;
 import com.hyphenate.easeui.widget.photoselect.SelectObserable;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
+import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
 import com.tg.tgt.helper.SecurityDialog;
 import com.tg.tgt.helper.UserHelper;
@@ -41,6 +43,7 @@ import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.UserFriendModel;
+import com.tg.tgt.parse.ParseManager;
 import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.ToastUtils;
 import com.tg.tgt.widget.dialog.CommonDialog;
@@ -206,7 +209,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void accept(@NonNull EaseUser easeUser) throws Exception {
                         if(isFriend)
-                        CodeUtils.updateContact(easeUser);
+                        //CodeUtils.updateContact(easeUser);
                         mEaseUser = easeUser;
 
                         refreshUi(easeUser);
@@ -426,9 +429,24 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                                 mEaseUser.setRemark(con);
                                 tvname.setText(mEaseUser.safeGetRemark());
                                 tvnote.setText(mEaseUser.safeGetRemark());
-                                CodeUtils.updateContact(mEaseUser);
+                                updata();
                             }
                         });
+            }
+        });
+    }
+
+    private void updata(){
+        ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
+            @Override
+            public void onSuccess(List<EaseUser> easeUsers) {
+                DemoHelper.getInstance().updateContactList(easeUsers);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                dismissProgress();
+                ToastUtils.showToast(getApplicationContext(), s);
             }
         });
     }
