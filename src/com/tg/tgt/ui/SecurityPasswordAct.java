@@ -68,6 +68,12 @@ public class SecurityPasswordAct extends BaseActivity implements View.OnClickLis
                 if (TextUtils.isEmpty(passwold) || passwold.length()<6) {
                     Toast.makeText(SecurityPasswordAct.this, R.string.input_right_six_pwd, Toast.LENGTH_SHORT).show();
                 } else {
+                    String pwd = SharedPreStorageMgr.getIntance().getStringValue(this, Constant.INFOCODE);
+                    Log.i("dczz",pwd+"qq"+passwold);
+                    if(pwd.equals(passwold)){
+                        Toast.makeText(SecurityPasswordAct.this, R.string.ti, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if(!TextUtils.isEmpty(mCode)){
                         ApiManger2.getApiService()
                                 .servernonce(Constant.MYUID)
