@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/common.45dp"
             android:background="@drawable/et_bg_center_lines"
-            android:hint="@string/user_name"
+            android:hint="@string/ti5"
             android:imeOptions="actionSearch"
             android:paddingLeft="@dimen/common.40dp"
             android:singleLine="true"

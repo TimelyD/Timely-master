@@ -13,6 +13,7 @@
  */
 package com.tg.tgt.ui;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -26,11 +27,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +55,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.L;
+import com.hyphenate.easeui.utils.NotificationsUtils;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.util.EMLog;
 import com.tg.tgt.App;
@@ -208,6 +212,7 @@ public class MainActivity extends BaseActivity {
 	 * init views
 	 */
 	private void initView() {
+		//SharedPreStorageMgr.getIntance().getStringValue(this, Constant.MYUID);
 		unreadLabel = (TextView) findViewById(R.id.unread_msg_number);
 		unreadAddressLable = (TextView) findViewById(R.id.unread_address_number);
 
@@ -225,6 +230,12 @@ public class MainActivity extends BaseActivity {
 		mTabs[2] = findViewById(R.id.btn_container_setting);
 		// select first tab
 		mTabs[0].setSelected(true);
+		mMenuHead.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(mContext, EditProfileAct.class));
+			}
+		});
 	}
 
 	/**
@@ -518,6 +529,7 @@ public class MainActivity extends BaseActivity {
 			menuuserName.setText(userName+last);
 		}
 		menuuserName.setText(App.xin);
+		menuuserName.setText(SharedPreStorageMgr.getIntance().getStringValue(this, Constant.SN));
 		/*if (sex.equals("女")) {
 			menusexImage.setImageDrawable(getResources().getDrawable(R.drawable.woman));
 		}else if(sex.equals("男")){
@@ -726,12 +738,22 @@ public class MainActivity extends BaseActivity {
 
 
 	public void goScan(View view) {
-		startActivityForResult(new Intent(mActivity, ScanAct.class), REQUEST_SCAN);
+		quan();
 	}
 
 	public void goMoment(View view) {
 		DBManager.getInstance().saveUnreadMotionActionCount(0);
 		startActivity(new Intent(mActivity, MomentAct.class));
+	}
+
+	private void quan(){
+		if(NotificationsUtils.cameraIsCanUse()==true){
+			Log.i("dcz2","有权限");
+			startActivityForResult(new Intent(mActivity, ScanAct.class), REQUEST_SCAN);
+		}else {
+			Log.i("dcz2","没有权限");
+			ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.CAMERA}, 1);
+		}
 	}
 
 
@@ -769,7 +791,7 @@ public class MainActivity extends BaseActivity {
 //							VerUtil.checkVersion(MainActivity.this);
 							break;
 						case 2:
-							startActivityForResult(new Intent(mActivity, ScanAct.class), REQUEST_SCAN);
+							quan();
 							break;
 						case 3:
 							goSet(null);

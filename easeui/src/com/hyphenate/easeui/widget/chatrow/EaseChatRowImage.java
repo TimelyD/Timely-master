@@ -2,6 +2,8 @@ package com.hyphenate.easeui.widget.chatrow;
 
 import java.io.File;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
@@ -13,6 +15,7 @@ import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseImageUtils;
+import com.hyphenate.easeui.utils.GlideCircleTransform;
 
 import android.content.Context;
 import android.content.Intent;
@@ -159,6 +162,8 @@ public class EaseChatRowImage extends EaseChatRowFile{
         if (bitmap != null) {
             // thumbnail image is already loaded, reuse the drawable
             iv.setImageBitmap(bitmap);
+           // RequestManager glideRequest = Glide.with(this);
+           // glideRequest.load("https://www.baidu.com/img/bdlogo.png").transform(new GlideCircleTransform(context)).into(imageView);
             return true;
         } else {
             new AsyncTask<Object, Void, Bitmap>() {

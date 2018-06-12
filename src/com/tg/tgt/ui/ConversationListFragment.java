@@ -254,7 +254,7 @@ public class ConversationListFragment extends EaseConversationListFragment {
 
     private void showSecurity(final EMConversation conversation, final String username, final EaseUser result) {
 
-        SecurityDialog.show(getActivity(), new SecurityDialog.OnSecurityListener(){
+        SecurityDialog.show(getActivity(),mContext.getString(R.string.security_title),new SecurityDialog.OnSecurityListener(){
             @Override
             public void onPass() {
                 toChatAct(conversation, username, result);

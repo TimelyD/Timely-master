@@ -116,6 +116,7 @@
     <string name="language">语言设置</string>
     <string name="input_six_num">请输入正确的六位数密码</string>
     <string name="dialog_security_title">输入旧安全密码</string>
+    <string name="security_title">请输入安全密码</string>
     <string name="confirm">确认</string>
     <string name="retry_pwd">密码错误，请重试</string>
     <string name="verify_account">验证账号</string>
@@ -235,4 +236,7 @@
     <string name="ti">旧密码不能与新密码一致</string>
     <string name="ti2">系统已向您Timely注册手机</string>
     <string name="ti3">发送了验证码，请注意查收。</string>
+    <string name="ti4">头像不能为空</string>
+    <string name="ti5">请输入Timely账户</string>
+    <string name="ti6">T号</string>
 </resources>

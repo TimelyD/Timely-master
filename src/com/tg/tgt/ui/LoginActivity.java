@@ -295,6 +295,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         map.put(Constant.INFOCODE, loginResult.getSafePassword());
                         map.put(Constant.QR, loginResult.getQrCode());
                         map.put(Constant.ADDRESS, loginResult.getAddress());
+                        map.put(Constant.SN, loginResult.getSn());
 
                         SharedPreStorageMgr.getIntance()
                                 .saveStringValueMap(LoginActivity.this, map);

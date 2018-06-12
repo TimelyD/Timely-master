@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
@@ -35,10 +36,12 @@ public class SecurityDialog {
     /**
      * @param context 需要实现 IView
      */
-    public static void show(final Activity context, final OnSecurityListener listener) {
+    public static void show(final Activity context,String text, final OnSecurityListener listener) {
         final String[] infocode = new String[1];
 
         View view = LayoutInflater.from(context).inflate(com.tg.tgt.R.layout.pop_security_password, null);
+        TextView tv = (TextView) view.findViewById(R.id.tv);
+        tv.setText(text);
         AlertDialog.Builder builder = new AlertDialog.Builder(context).setView(view);
         final AlertDialog dialog = builder.show();
         final KurtEditText kurtedit = (KurtEditText) view.findViewById(com.tg.tgt.R.id.pop_kurtet);

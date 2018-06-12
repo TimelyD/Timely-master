@@ -2,12 +2,12 @@
 <resources   xmlns:tools="http://schemas.android.com/tools"
              tools:ignore="MissingTranslation">
     <string-array name="emails">
-        <item>"+86      "</item>
-        <item>"+852     "</item>
-        <item>"+853     "</item>
-        <item>"+886     "</item>
-        <item>"+63      "</item>
-        <item>"+66      "</item>
+        <item>"+86    "</item>
+        <item>"+852   "</item>
+        <item>"+853   "</item>
+        <item>"+886   "</item>
+        <item>"+63    "</item>
+        <item>"+66    "</item>
         <!--<item>"@qeveworld.biz"</item>-->
     </string-array>
 </resources>

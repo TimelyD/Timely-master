@@ -35,6 +35,15 @@ public class LoginModel {
     private long signatureId;
     private String token;
     private String userId;
+    private String sn;
+
+    public String getSn() {
+        return sn;
+    }
+
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
 
     public String getAddress() {
         return address;

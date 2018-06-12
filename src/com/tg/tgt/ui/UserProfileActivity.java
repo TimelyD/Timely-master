@@ -80,6 +80,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
     private TextView tvid;
     private TextView tvsex;
     private View layoutclear;
+    private String sn;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -194,8 +195,8 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         ApiManger2.getApiService().showFriendInfo(mUsername)
                 .map(new Function<HttpResult<UserFriendModel>, EaseUser>() {
                     @Override
-                    public EaseUser apply(@NonNull HttpResult<UserFriendModel> userFriendModelHttpResult) throws
-                            Exception {
+                    public EaseUser apply(@NonNull HttpResult<UserFriendModel> userFriendModelHttpResult) throws Exception {
+                        sn = userFriendModelHttpResult.getData().getSn();
                         if(HttpHelper.isHttpSuccess(userFriendModelHttpResult)) {
                             isFriend = UserHelper.isFriend(userFriendModelHttpResult.getData().getRelationStatus());
                             return CodeUtils.wrapUser(userFriendModelHttpResult.getData());
@@ -209,9 +210,9 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void accept(@NonNull EaseUser easeUser) throws Exception {
                         if(isFriend)
-                        //CodeUtils.updateContact(easeUser);
+                        CodeUtils.updateContact(easeUser);
                         mEaseUser = easeUser;
-
+                        updata();
                         refreshUi(easeUser);
                     }
                 }, new Consumer<Throwable>() {
@@ -283,11 +284,13 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         }
         //mood.setText(easeUser.getChatidstate());
         mood.setText(App.xin);
+        mood.setText(sn);
         ImageUtils.show(mActivity, easeUser.getAvatar(), R.drawable.default_avatar, ivhead);
         tvname.setText(easeUser.safeGetRemark());
         tvnote.setText(easeUser.safeGetRemark());
         //tvemail.setText(easeUser.getEmail());
         tvemail.setText(App.xin);
+        tvemail.setText(sn);
 
     }
 
@@ -296,16 +299,20 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.switch_btn:
                 String safePwd = SpUtils.get(mContext, Constant.INFOCODE, "");
-                if (safePwd == null || safePwd
-                        .equals("0") || safePwd.length() < 6) {
+                if (safePwd == null || safePwd.equals("0") || safePwd.length() < 6) {
                     ToastUtils.showToast(App.applicationContext, getString(R.string.set_info_code));
                     Intent intent = new Intent(mActivity, SecurityPasswordAct.class);
                     intent.putExtra("toChatUsername", mUsername);
                     startActivityForResult(intent, REQUEST_CODE_SET_PWD);
                     return;
                 }
-
-                if(checkbox.isSwitchOpen()){
+                SecurityDialog.show(mActivity,mContext.getString(R.string.security_title),new SecurityDialog.OnSecurityListener() {
+                    @Override
+                    public void onPass() {
+                        reverseCheck();
+                    }
+                });
+                /*if(checkbox.isSwitchOpen()){
                     SecurityDialog.show(mActivity, new SecurityDialog.OnSecurityListener() {
                         @Override
                         public void onPass() {
@@ -314,7 +321,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                     });
                 }else {
                     reverseCheck();
-                }
+                }*/
                 break;
             case R.id.set_beizhu_tv:
                 updateRemark();
@@ -389,6 +396,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                             checkbox.openSwitch();
                         }
                         mEaseUser.setIsLock(checkbox.isSwitchOpen() ? 1 : 0);
+                        updata();
                         CodeUtils.updateContact(mEaseUser);
                     }
 
@@ -429,6 +437,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                                 mEaseUser.setRemark(con);
                                 tvname.setText(mEaseUser.safeGetRemark());
                                 tvnote.setText(mEaseUser.safeGetRemark());
+                                CodeUtils.updateContact(mEaseUser);
                                 updata();
                             }
                         });
@@ -462,6 +471,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                 checkbox.openSwitch();
                 CodeUtils.updateContact(mEaseUser);
                 refreshUi(mEaseUser);
+                updata();
             }else {
 //                check();
             }

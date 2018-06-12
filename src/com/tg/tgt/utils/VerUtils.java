@@ -3,8 +3,10 @@ package com.tg.tgt.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 
 import com.chiclam.android.updater.Updater;
@@ -12,6 +14,7 @@ import com.chiclam.android.updater.UpdaterConfig;
 import com.tg.tgt.BuildConfig;
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiManger2;
+import com.tg.tgt.http.ApiService2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.VerModel;
@@ -75,7 +78,12 @@ public class VerUtils {
                                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            update(mActivity, model.getUrl(), model.getVersion());
+                                            //update(mActivity, model.getUrl(), model.getVersion());
+                                            Intent intent= new Intent();
+                                            intent.setAction("android.intent.action.VIEW");
+                                            Uri content_url = Uri.parse(ApiService2.downUrl);
+                                            intent.setData(content_url);
+                                            mActivity.startActivity(intent);
                                         }
                                     })
                                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -207,6 +207,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 			Toast.makeText(this, getResources().getString(com.tg.tgt.R.string.Two_input_password), Toast.LENGTH_SHORT).show();
 			return;
 		}
+		if(TextUtils.isEmpty(imgPath)) {
+			ToastUtils.showToast(App.applicationContext, R.string.ti4);
+			return;
+		}
 		ApiManger2.getApiService()
 				.servernonce(Constant.MYUID)
 				.compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))

@@ -33,7 +33,7 @@ public class SecurityPasswodTypeSelectActivity extends BaseActivity implements V
                     startActivity(intentSecurity);
                     return;
                 }
-                SecurityDialog.show(mActivity, new SecurityDialog.OnSecurityListener() {
+                SecurityDialog.show(mActivity,mContext.getString(R.string.dialog_security_title),new SecurityDialog.OnSecurityListener() {
                     @Override
                     public void onPass() {
                         Intent intentSecurity = new Intent(mActivity,SecurityPasswordAct.class);

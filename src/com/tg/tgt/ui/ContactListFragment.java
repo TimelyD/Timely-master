@@ -254,7 +254,7 @@ public class ContactListFragment extends EaseContactListFragment {
     }
 
     private void showSecurity(final String username, final EaseUser result) {
-        SecurityDialog.show(getActivity(), new SecurityDialog.OnSecurityListener(){
+        SecurityDialog.show(getActivity(),this.getString(R.string.security_title),new SecurityDialog.OnSecurityListener(){
             @Override
             public void onPass() {
                 toChatAct(username, result);

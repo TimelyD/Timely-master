@@ -39,6 +39,7 @@ public class Constant extends EaseConstant {
 	public static final String QR = "login_qr_code";
 	public static final String AGE = "login_age";
 	public static final String ADDRESS = "login_address";
+	public static final String SN = "";
 
 	//是否加密
 	public static final String ISCODE = "isCode";

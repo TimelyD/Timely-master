@@ -53,7 +53,7 @@ public class ForwardMessageActivity extends PickContactNoCheckboxActivity {
                     final IsCodeResult isCodeResult = CodeUtils.getIsCodeResult(ForwardMessageActivity.this, selectUser.getUsername());
 
                     if(isCodeResult.getIscode() == 1){
-                        SecurityDialog.show(ForwardMessageActivity.this, new SecurityDialog.OnSecurityListener() {
+                        SecurityDialog.show(ForwardMessageActivity.this,mContext.getString(R.string.security_title),new SecurityDialog.OnSecurityListener() {
                             @Override
                             public void onPass() {
                                 toChat(isCodeResult);

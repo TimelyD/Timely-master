@@ -1,9 +1,11 @@
 package com.tg.tgt.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -11,11 +13,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.classic.common.MultipleStatusView;
 import com.hyphenate.easeui.GlideApp;
+import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.MomentsLogModel;
+import com.tg.tgt.moment.ui.activity.MomentAct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,16 @@ public class MomentsLogAct extends BaseActivity {
                 loadData(true);
             }
         }, mRecyclerView);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                /*Intent intent = new Intent(mContext,.class);
+                intent.putExtra("userId",mDatas.get(position).getId());intent.putExtra("username",mDatas.get(position).getNickname());
+                startActivity(intent);*/
+                mContext.startActivity(new Intent(mContext, MomentAct.class).putExtra(Constant.USERNAME,mDatas.get(position).getNickname()).putExtra
+                        (Constant.USER_ID,mDatas.get(position).getFromId()).putExtra(Constant.IS_MINE_HOME_PAGE, true));
+            }
+        });
     }
 
     private void loadData(final boolean loadMore) {

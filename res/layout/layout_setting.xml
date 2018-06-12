@@ -138,6 +138,7 @@
             android:id="@+id/unread_moment_number"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
+            android:visibility="gone"
             style="@style/NotifyDotTvStyle"/>
 
         <ImageView

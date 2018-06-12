@@ -71,9 +71,10 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
         setContentView(R.layout.em_activity_add_contact);
 //        TextView mTextView = (TextView) findViewById(R.id.add_list_friends);
         EaseTitleBar titleBar = (EaseTitleBar) findViewById(R.id.title_bar);
-setTitleBarLeftBack();
+        setTitleBarLeftBack();
         editText = (EditText) findViewById(R.id.edit_note);
-        String strUserName = getResources().getString(R.string.user_name);
+        //String strUserName = getResources().getString(R.string.user_name);
+        String strUserName = getResources().getString(R.string.ti5);
         editText.setHint(strUserName);
         editText.setOnEditorActionListener(this);
 //		searchedUserLayout = (RelativeLayout) findViewById(R.id.ll_user);

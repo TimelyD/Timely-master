@@ -118,6 +118,7 @@
     <string name="language">Language setting</string>
     <string name="input_six_num">Please enter correct password(6 characters)</string>
     <string name="dialog_security_title">Enter the old security password</string>
+    <string name="security_title">Please enter the security password</string>
     <string name="confirm">Confirm</string>
     <string name="retry_pwd">Incorrect password，please try again</string>
     <string name="verify_account">Verify account</string>
@@ -237,4 +238,7 @@
     <string name="ti">Old and new passwords do not agree</string>
     <string name="ti2">It has sent you the verification code on </string>
     <string name="ti3">registered mobile phone. Please check it.</string>
+    <string name="ti4">Heads can\'t be empty</string>
+    <string name="ti5">Please enter Timely account</string>
+    <string name="ti6">T no</string>
 </resources>

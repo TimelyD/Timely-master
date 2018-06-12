@@ -1,5 +1,6 @@
 package com.tg.tgt.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.utils.DeviceUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
+import com.hyphenate.easeui.utils.NotificationsUtils;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.widget.CircleImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -101,6 +104,31 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         });
     }
 
+    //手动开启相机权限
+    private void quan(){
+        if(NotificationsUtils.cameraIsCanUse()==true){
+            Log.i("dcz2","有权限");
+            startActivityForResult(new Intent(mContext, ScanAct.class), REQUEST_SCAN);
+        }else {
+            Log.i("dcz2","没有权限");
+            ActivityCompat.requestPermissions(mContext, new String[]{Manifest.permission.CAMERA}, 1);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @android.support.annotation.NonNull String[] permissions, @android.support.annotation.NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.i("dcz2","获取权限");
+        if(requestCode == 1) {
+            if(NotificationsUtils.cameraIsCanUse()==true){
+                Log.i("dcz2","有权限");
+                startActivityForResult(new Intent(mContext, ScanAct.class), REQUEST_SCAN);
+            }else {
+                Log.i("dcz2","没有权限");
+            }
+        }
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -165,6 +193,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             tvemail.setText(xin);*/
         }
         tvemail.setText(App.xin);
+        tvemail.setText(SharedPreStorageMgr.getIntance().getStringValue(getActivity(), Constant.SN));
 //        String sex = SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.SEX);
         int genderDrawableRes = UserHelper.getGenderDrawableRes(mContext);
         if(genderDrawableRes > 0){
@@ -222,7 +251,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 startActivity(new Intent(mContext, SetUpAct.class));
                 break;
             case R.id.scan_layout:
-                startActivityForResult(new Intent(mContext, ScanAct.class), REQUEST_SCAN);
+                quan();
                 break;
             case R.id.iv_qr_code:
                 showQrCode();

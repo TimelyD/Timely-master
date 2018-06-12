@@ -257,7 +257,7 @@ public class CodeUtils {
     }
 
     public static void updateContact(EaseUser easeUser){
-        DemoHelper.getInstance().saveContact(easeUser);
+        //DemoHelper.getInstance().saveContact(easeUser);
     }
 
     /**

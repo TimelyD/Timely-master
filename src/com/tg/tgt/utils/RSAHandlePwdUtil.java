@@ -2,6 +2,8 @@ package com.tg.tgt.utils;
 
 import android.util.Log;
 
+import com.tg.tgt.http.ApiService2;
+
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -144,7 +146,7 @@ public class RSAHandlePwdUtil {
     public static String jia(String str){
         String jmh = null;
         try {
-            jmh = encryptByPublicKey(str,ppk);
+            jmh = encryptByPublicKey(str,ApiService2.ppk);
         } catch (Exception e) {
             e.printStackTrace();
         }
