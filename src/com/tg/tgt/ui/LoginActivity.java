@@ -139,11 +139,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         passwordEditText.setText(null);
                         String str = SharedPreStorageMgr.getIntance().getStringValue(LoginActivity.this,
                                 charSequence.toString());
-
+                        Log.i("dcz_",str+"");
                         if(!TextUtils.isEmpty(str)){
                             try {
-                                String url = str.substring(0, str.indexOf("-"));
-                                String nickname = str.substring(str.indexOf("-")+1);
+                                String url = str.substring(0, str.lastIndexOf("-"));
+                                String nickname = str.substring(str.lastIndexOf("-")+1);
 //                            Glide.with(LoginActivity.this).load(picture).placeholder(R.drawable.youhead).into(mHeadIv);
                                 ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
                                 mNickNameTv.setText(nickname);

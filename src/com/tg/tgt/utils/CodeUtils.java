@@ -191,7 +191,7 @@ public class CodeUtils {
     public static InputFilter filter=new InputFilter() {
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            if(source.equals(" ")||source.toString().contentEquals("\n"))return "";
+            if(source.equals(" ")||source.equals("-")||source.toString().contentEquals("\n"))return "";
             else return null;
         }
     };

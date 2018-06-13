@@ -159,6 +159,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
     private boolean showImageView(final String thumbernailPath, final ImageView iv, final String localFullSizePath,final EMMessage message) {
         // first check if the thumbnail image already loaded into cache
         Bitmap bitmap = EaseImageCache.getInstance().get(thumbernailPath);
+        Log.i("dcz","显示");
         if (bitmap != null) {
             // thumbnail image is already loaded, reuse the drawable
             iv.setImageBitmap(bitmap);
