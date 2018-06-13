@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.tg.tgt.moment.ui.activity.MomentAct;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -67,8 +69,15 @@ public class MomentsLogAct extends BaseActivity {
                 /*Intent intent = new Intent(mContext,.class);
                 intent.putExtra("userId",mDatas.get(position).getId());intent.putExtra("username",mDatas.get(position).getNickname());
                 startActivity(intent);*/
-                mContext.startActivity(new Intent(mContext, MomentAct.class).putExtra(Constant.USERNAME,mDatas.get(position).getNickname()).putExtra
-                        (Constant.USER_ID,mDatas.get(position).getFromId()).putExtra(Constant.IS_MINE_HOME_PAGE, true));
+                try {
+                    mActivity.startActivity(new Intent(mActivity, MomentAct.class).putExtra(Constant.USERNAME,mDatas.get(position).getNickname()).putExtra
+                            (Constant.USER_ID,mDatas.get(position).getFromId()).putExtra(Constant.IS_MINE_HOME_PAGE, true));
+                }catch (Exception e){
+                    Log.i("异常",e.getMessage());
+
+                }
+              /*  mContext.startActivity(new Intent(mContext, MomentAct.class).putExtra(Constant.USERNAME,mDatas.get(position).getNickname()).putExtra
+                        (Constant.USER_ID,mDatas.get(position).getFromId()).putExtra(Constant.IS_MINE_HOME_PAGE, true));*/
             }
         });
     }

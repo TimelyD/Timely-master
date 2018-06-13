@@ -157,7 +157,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private void refreshMotionUnread() {
         int motionUnread = getMotionUnread();
         if(motionUnread>0){
-            tvUnreadMoment.setVisibility(View.VISIBLE);
+            //tvUnreadMoment.setVisibility(View.VISIBLE);
+            tvUnreadMoment.setVisibility(View.GONE);
             tvUnreadMoment.setText(""+motionUnread);
         }else {
             tvUnreadMoment.setVisibility(View.GONE);
@@ -302,6 +303,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         tvName.setText(nickName);
         ImageUtils.show(mContext, headImage, R.drawable.default_avatar, ivAvatar);
         tvEmail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME,"")/*+SpUtils.get(mContext, Constant.EMAIL_LAST, "")*/);
+        tvEmail.setText(App.xin);
+        tvEmail.setText(SharedPreStorageMgr.getIntance().getStringValue(mContext, Constant.SN));
 //ivQr.setOnClickListener(new View.OnClickListener() {
 //    @Override
 //    public void onClick(View v) {

@@ -45,7 +45,8 @@ public interface ApiService2 {
      * 网络请求超时时间毫秒
      */
     int DEFAULT_TIMEOUT = 15000;
-    /*String BASE_URL = "http://timly2.live2017.biz/timely/";
+    /*String downUrl="https://fir.im/uf39";
+    String BASE_URL = "http://timly2.live2017.biz/timely/";
     String ppk="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCHLe0aLInF//BveiN22YAOLQ8EFdS+qHfuqb8FmO9lIzs/TwG2LNyd7X1KXsP14B6LgsatNzxGvwVwTe2WYHECGm4iWaTB6lUVHnc4MuVb+4gLgCmIH+TP2BfOfNtkjGuKygSaXUMKi/uzngeybqp0dgQ2YDpcExurRax/2+L0jwIDAQAB";*/
     String downUrl="https://www.pgyer.com/NTfV";
     String BASE_URL = "http://timly.live2017.biz/timly/";
