@@ -1,21 +1,21 @@
 package com.hyphenate.easeui.widget.chatrow;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseImageUtils;
-import com.hyphenate.easeui.utils.GlideCircleTransform;
+import com.hyphenate.easeui.utils.GlideRoundTransform;
 
 import android.content.Context;
 import android.content.Intent;
@@ -162,8 +162,11 @@ public class EaseChatRowImage extends EaseChatRowFile{
         if (bitmap != null) {
             // thumbnail image is already loaded, reuse the drawable
             iv.setImageBitmap(bitmap);
-           // RequestManager glideRequest = Glide.with(this);
-           // glideRequest.load("https://www.baidu.com/img/bdlogo.png").transform(new GlideCircleTransform(context)).into(imageView);
+            /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes=baos.toByteArray();
+            GlideApp.with(this).load(bytes).transform(new GlideRoundTransform(context,10)).into(iv);*/
+
             return true;
         } else {
             new AsyncTask<Object, Void, Bitmap>() {
@@ -192,6 +195,11 @@ public class EaseChatRowImage extends EaseChatRowFile{
                 protected void onPostExecute(Bitmap image) {
                     if (image != null) {
                         iv.setImageBitmap(image);
+                        /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        image.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] bytes=baos.toByteArray();
+                        GlideApp.with(activity).load(bytes).transform(new GlideRoundTransform(context,10)).into(iv);*/
+
                         EaseImageCache.getInstance().put(thumbernailPath, image);
                     } else {
                         if (message.status() == EMMessage.Status.FAIL) {

@@ -127,7 +127,7 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
         TextView tEmailTv = (TextView) findViewById(R.id.tv_email);
         tEmailTv.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, "")+SpUtils.get(mContext, Constant.EMAIL_LAST, ""));
         tEmailTv.setText(App.xin);
-        tEmailTv.setText(SharedPreStorageMgr.getIntance().getStringValue(this, Constant.SN));
+        tEmailTv.setText(this.getString(R.string.ti6)+SharedPreStorageMgr.getIntance().getStringValue(this, Constant.SN));
         linear_name = (LinearLayout) findViewById(R.id.linear_name);
         linear_mood = (LinearLayout) findViewById(R.id.linear_mood);
         linear_sex = (LinearLayout) findViewById(R.id.linear_sex);

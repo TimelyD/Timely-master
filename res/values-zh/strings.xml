@@ -238,5 +238,5 @@
     <string name="ti3">发送了验证码，请注意查收。</string>
     <string name="ti4">头像不能为空</string>
     <string name="ti5">请输入Timely账户</string>
-    <string name="ti6">T号</string>
+    <string name="ti6">Timely号：</string>
 </resources>

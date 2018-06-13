@@ -194,7 +194,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             tvemail.setText(xin);*/
         }
         tvemail.setText(App.xin);
-        tvemail.setText(SharedPreStorageMgr.getIntance().getStringValue(getActivity(), Constant.SN));
+        tvemail.setText(this.getString(R.string.ti6)+SharedPreStorageMgr.getIntance().getStringValue(getActivity(), Constant.SN));
 //        String sex = SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.SEX);
         int genderDrawableRes = UserHelper.getGenderDrawableRes(mContext);
         if(genderDrawableRes > 0){
@@ -304,7 +304,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         ImageUtils.show(mContext, headImage, R.drawable.default_avatar, ivAvatar);
         tvEmail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME,"")/*+SpUtils.get(mContext, Constant.EMAIL_LAST, "")*/);
         tvEmail.setText(App.xin);
-        tvEmail.setText(SharedPreStorageMgr.getIntance().getStringValue(mContext, Constant.SN));
+        tvEmail.setText(this.getString(R.string.ti6)+SharedPreStorageMgr.getIntance().getStringValue(mContext, Constant.SN));
 //ivQr.setOnClickListener(new View.OnClickListener() {
 //    @Override
 //    public void onClick(View v) {

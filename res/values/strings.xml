@@ -240,5 +240,5 @@
     <string name="ti3">registered mobile phone. Please check it.</string>
     <string name="ti4">Heads can\'t be empty</string>
     <string name="ti5">Please enter Timely account</string>
-    <string name="ti6">T no</string>
+    <string name="ti6">Timely ID：</string>
 </resources>

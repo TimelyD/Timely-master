@@ -72,10 +72,13 @@ import com.hyphenate.util.EMLog;
 import com.hyphenate.util.PathUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import top.zibin.luban.Luban;
 
 /**
  * you can new an EaseChatFragment to use or you can inherit it to expand.
@@ -1053,8 +1056,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
 
     protected void sendImageMessage(String imagePath) {
-        EMMessage message = EMMessage.createImageSendMessage(imagePath, false, toChatUsername);
-        sendMessage(message);
+        try {
+            File file = Luban.with(getActivity()).load(imagePath).setTargetDir(com.hyphenate.easeui.utils.PhotoUtils.getTempDirPath(getActivity())).get(imagePath);
+            EMMessage message = EMMessage.createImageSendMessage(file.getPath(), false, toChatUsername);
+            sendMessage(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void sendLocationMessage(double latitude, double longitude, String locationAddress) {

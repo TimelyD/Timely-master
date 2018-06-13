@@ -529,7 +529,7 @@ public class MainActivity extends BaseActivity {
 			menuuserName.setText(userName+last);
 		}
 		menuuserName.setText(App.xin);
-		menuuserName.setText(SharedPreStorageMgr.getIntance().getStringValue(this, Constant.SN));
+		menuuserName.setText(this.getString(R.string.ti6)+SharedPreStorageMgr.getIntance().getStringValue(this, Constant.SN));
 		/*if (sex.equals("女")) {
 			menusexImage.setImageDrawable(getResources().getDrawable(R.drawable.woman));
 		}else if(sex.equals("男")){

@@ -284,13 +284,13 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         }
         //mood.setText(easeUser.getChatidstate());
         mood.setText(App.xin);
-        mood.setText(sn);
+        mood.setText(this.getString(R.string.ti6)+sn);
         ImageUtils.show(mActivity, easeUser.getAvatar(), R.drawable.default_avatar, ivhead);
         tvname.setText(easeUser.safeGetRemark());
         tvnote.setText(easeUser.safeGetRemark());
         //tvemail.setText(easeUser.getEmail());
         tvemail.setText(App.xin);
-        tvemail.setText(sn);
+        tvemail.setText(this.getString(R.string.ti6)+sn);
 
     }
 
