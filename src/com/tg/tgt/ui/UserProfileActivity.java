@@ -3,6 +3,7 @@ package com.tg.tgt.ui;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -411,6 +412,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         View view = View.inflate(this, R.layout.dialog_beizhu, null);
         final EditText edittext = (EditText) view.findViewById(R.id.beizhu_et);
         edittext.setText(mEaseUser.safeGetRemark());
+        edittext.setFilters(new InputFilter[]{CodeUtils.filter});
         CommonDialog.show(this, getString(R.string.set_beizhu), view, new CommonDialog.OnConfirmListener() {
             @Override
             public void onConfirm(AlertDialog dialog) {
