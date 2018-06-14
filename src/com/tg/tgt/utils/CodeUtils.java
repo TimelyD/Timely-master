@@ -17,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
@@ -208,7 +211,25 @@ public class CodeUtils {
                                      final ImageView avatar, final TextView name) {
         setIsMsgClock(react, username, msgClock, avatar, name, null);
     }
-
+    /**
+     *  实体类转json字符串
+     * */
+    private String toJson(Object obj,int method) {
+        // TODO Auto-generated method stub
+        if (method==1) {
+            //字段是首字母小写，其余单词首字母大写
+            Gson gson = new Gson();
+            String obj2 = gson.toJson(obj);
+            return obj2;
+        }else if(method==2){
+            // FieldNamingPolicy.LOWER_CASE_WITH_DASHES    全部转换为小写，并用空格或者下划线分隔
+            //FieldNamingPolicy.UPPER_CAMEL_CASE    所以单词首字母大写
+            Gson gson2=new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+            String obj2=gson2.toJson(obj);
+            return obj2;
+        }
+        return "";
+    }
 
     public static void fetchUser(IView react, String userName, boolean showLoading, final Consumer<EaseUser> consumer) {
             ApiManger2.getApiService()
@@ -218,11 +239,8 @@ public class CodeUtils {
                     .subscribe(new BaseObserver2<UserFriendModel>(showLoading) {
                         @Override
                         protected void onSuccess(UserFriendModel model) {
-                            Log.i("数据：","3");
                             EaseUser user = wrapUser(model);
-                            Log.i("数据3：",user.getAvatar()+"2");
-                            Log.i("数据4：",user.getChatidstate()+"1");
-                            //DemoHelper.getInstance().saveContact(user);
+                            DemoHelper.getInstance().saveContact(user);
                             try {
                                 consumer.accept(user);
                             } catch (Exception e) {
@@ -260,7 +278,7 @@ public class CodeUtils {
     }
 
     public static void updateContact(EaseUser easeUser){
-        //DemoHelper.getInstance().saveContact(easeUser);
+        DemoHelper.getInstance().saveContact(easeUser);
     }
 
     /**

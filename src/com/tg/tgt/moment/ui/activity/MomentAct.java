@@ -102,7 +102,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     private ProgressBar mProgressBar;
     private ImageView mParallax;
     private int mCurrentItem = -1;
-    private String signature;
+   // private String signature;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,18 +110,16 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         setContentView(R.layout.layout_moment);
 
         String userId = getIntent().getStringExtra(Constant.USER_ID);
-        signature=getIntent().getStringExtra("signature");
+        //signature=getIntent().getStringExtra("signature");
         mPresenter = new MomentPresenter(this, userId);
-
+        Log.i("user_id",userId+"q");
         mIsHomePage = getIntent().getBooleanExtra(Constant.IS_MINE_HOME_PAGE, false);
         if(TextUtils.isEmpty(userId) || App.getMyUid().equals(userId)){
             mUserInfo = EaseUserUtils.getUserInfo(SpUtils.get(mContext, Constant.USERNAME, ""));
-            mUserInfo.setChatidstate(SpUtils.get(mContext, Constant.STATE,"").equals("")?this.getString(R.string.nox):SpUtils.get(mContext, Constant.STATE,""));
+           // mUserInfo.setChatidstate(SpUtils.get(mContext, Constant.STATE,"").equals("")?this.getString(R.string.nox):SpUtils.get(mContext, Constant.STATE,""));
         }else {
             mUserInfo = EaseUserUtils.getUserInfo(getIntent().getStringExtra(Constant.USERNAME));
         }
-        Log.i("数据：",mUserInfo.getAvatar());
-        Log.i("数据2：",mUserInfo.getChatidstate()+"");
         initView();
         initEvent();
     }
@@ -404,11 +402,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         }
             mAdapter.addHeaderView(header);
         TextView stateTv = (TextView) header.findViewById(R.id.tv_state);
-        if(signature==null){
-            stateTv.setText(mUserInfo.getChatidstate()==null?this.getString(R.string.nox):mUserInfo.getChatidstate());
-        }else {
-            stateTv.setText(signature);
-        }
+        stateTv.setText(mUserInfo.getChatidstate()==null?this.getString(R.string.nox):mUserInfo.getChatidstate());
         TextView nameTv = (TextView) header.findViewById(R.id.tv_name);
         nameTv.setText(mUserInfo.safeGetRemark());
         ImageView avatarIv = (ImageView) header.findViewById(R.id.iv_avatar);

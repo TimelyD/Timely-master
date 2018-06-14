@@ -295,7 +295,7 @@ public class MomentAdapter extends BaseMomentAdapter {
                     mContext.startActivity(new Intent(mContext, MomentAct.class)
                             .putExtra(Constant.USERNAME, username)
                             .putExtra(Constant.USER_ID, userId)
-                            .putExtra("signature",easeUser.getChatidstate())
+                           // .putExtra("signature",easeUser.getChatidstate())
                             .putExtra(Constant.IS_MINE_HOME_PAGE, true));
                 }
             });

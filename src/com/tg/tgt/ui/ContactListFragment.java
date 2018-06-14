@@ -88,7 +88,7 @@ public class ContactListFragment extends EaseContactListFragment {
         contentContainer.addView(loadingView);
 
         registerForContextMenu(listView);
-        ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
+       /* ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
             @Override
             public void onSuccess(List<EaseUser> easeUsers) {
                 DemoHelper.getInstance().updateContactList(easeUsers);
@@ -98,7 +98,7 @@ public class ContactListFragment extends EaseContactListFragment {
             public void onError(int i, String s) {
                 ToastUtils.showToast(getActivity(), s);
             }
-        });
+        });*/
     }
     
     @Override

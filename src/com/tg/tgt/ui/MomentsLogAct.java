@@ -70,8 +70,10 @@ public class MomentsLogAct extends BaseActivity {
                 intent.putExtra("userId",mDatas.get(position).getId());intent.putExtra("username",mDatas.get(position).getNickname());
                 startActivity(intent);*/
                 try {
-                    mActivity.startActivity(new Intent(mActivity, MomentAct.class).putExtra(Constant.USERNAME,mDatas.get(position).getNickname()).putExtra
-                            (Constant.USER_ID,mDatas.get(position).getFromId()).putExtra(Constant.IS_MINE_HOME_PAGE, true));
+                    mActivity.startActivity(new Intent(mActivity, MomentAct.class)
+                            .putExtra(Constant.USERNAME,mDatas.get(position).getFromName())
+                            .putExtra(Constant.USER_ID,mDatas.get(position).getFromId())
+                            .putExtra(Constant.IS_MINE_HOME_PAGE, true));
                 }catch (Exception e){
                     Log.i("异常",e.getMessage());
 

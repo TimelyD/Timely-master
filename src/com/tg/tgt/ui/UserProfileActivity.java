@@ -446,7 +446,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void updata(){
-        ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
+       /* ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
             @Override
             public void onSuccess(List<EaseUser> easeUsers) {
                 DemoHelper.getInstance().updateContactList(easeUsers);
@@ -457,7 +457,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                 dismissProgress();
                 ToastUtils.showToast(getApplicationContext(), s);
             }
-        });
+        });*/
     }
 
     @Override
