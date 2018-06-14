@@ -102,6 +102,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     private ProgressBar mProgressBar;
     private ImageView mParallax;
     private int mCurrentItem = -1;
+    private String signature;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,6 +110,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         setContentView(R.layout.layout_moment);
 
         String userId = getIntent().getStringExtra(Constant.USER_ID);
+        signature=getIntent().getStringExtra("signature");
         mPresenter = new MomentPresenter(this, userId);
 
         mIsHomePage = getIntent().getBooleanExtra(Constant.IS_MINE_HOME_PAGE, false);
@@ -118,7 +120,8 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         }else {
             mUserInfo = EaseUserUtils.getUserInfo(getIntent().getStringExtra(Constant.USERNAME));
         }
-
+        Log.i("数据：",mUserInfo.getAvatar());
+        Log.i("数据2：",mUserInfo.getChatidstate()+"");
         initView();
         initEvent();
     }
@@ -401,7 +404,11 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         }
             mAdapter.addHeaderView(header);
         TextView stateTv = (TextView) header.findViewById(R.id.tv_state);
-        stateTv.setText(mUserInfo.getChatidstate());
+        if(signature==null){
+            stateTv.setText(mUserInfo.getChatidstate()==null?this.getString(R.string.nox):mUserInfo.getChatidstate());
+        }else {
+            stateTv.setText(signature);
+        }
         TextView nameTv = (TextView) header.findViewById(R.id.tv_name);
         nameTv.setText(mUserInfo.safeGetRemark());
         ImageView avatarIv = (ImageView) header.findViewById(R.id.iv_avatar);

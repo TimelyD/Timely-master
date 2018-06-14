@@ -289,11 +289,14 @@ public class MomentAdapter extends BaseMomentAdapter {
     private void toHomePage(final String username, final String userId) {
         EaseUser userInfo = EaseUserUtils.getUserInfo(username);
         if(userInfo.getChatidstate() == null){
-            CodeUtils.fetchUser((IView) mContext, userId, true, new Consumer<EaseUser>() {
+            CodeUtils.fetchUser((IView) mContext, userId,false, new Consumer<EaseUser>() {
                 @Override
                 public void accept(@NonNull EaseUser easeUser) throws Exception {
-                    mContext.startActivity(new Intent(mContext, MomentAct.class).putExtra(Constant.USERNAME, username).putExtra
-                            (Constant.USER_ID, userId).putExtra(Constant.IS_MINE_HOME_PAGE, true));
+                    mContext.startActivity(new Intent(mContext, MomentAct.class)
+                            .putExtra(Constant.USERNAME, username)
+                            .putExtra(Constant.USER_ID, userId)
+                            .putExtra("signature",easeUser.getChatidstate())
+                            .putExtra(Constant.IS_MINE_HOME_PAGE, true));
                 }
             });
         }else {

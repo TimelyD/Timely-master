@@ -218,7 +218,10 @@ public class CodeUtils {
                     .subscribe(new BaseObserver2<UserFriendModel>(showLoading) {
                         @Override
                         protected void onSuccess(UserFriendModel model) {
+                            Log.i("数据：","3");
                             EaseUser user = wrapUser(model);
+                            Log.i("数据3：",user.getAvatar()+"2");
+                            Log.i("数据4：",user.getChatidstate()+"1");
                             //DemoHelper.getInstance().saveContact(user);
                             try {
                                 consumer.accept(user);
