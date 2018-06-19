@@ -51,7 +51,6 @@ public class EaseChatRowText extends EaseChatRow{
         Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);
-
         //设置阅后即焚标识
         mFireView.setVisibility(message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_FIRE, "").equals("1") ? VISIBLE : GONE);
 

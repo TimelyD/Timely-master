@@ -574,7 +574,6 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
     protected void setListItemClickListener() {
         messageList.setItemClickListener(new EaseChatMessageList.MessageListItemClickListener() {
-
             @Override
             public void onUserAvatarClick(String username) {
                 if (chatFragmentHelper != null) {
@@ -606,6 +605,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public void onBubbleLongClick(EMMessage message) {
+                Log.i("dcz","长按");
                 contextMenuMessage = message;
                 if (chatFragmentHelper != null) {
                     chatFragmentHelper.onMessageBubbleLongClick(message);
@@ -614,6 +614,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             @Override
             public boolean onBubbleClick(EMMessage message) {
+                Log.i("dcz","点击");
                 if (chatFragmentHelper == null) {
                     return false;
                 }

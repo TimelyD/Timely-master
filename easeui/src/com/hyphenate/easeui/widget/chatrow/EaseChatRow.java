@@ -274,6 +274,7 @@ public abstract class EaseChatRow extends LinearLayout {
 
                 @Override
                 public boolean onLongClick(View v) {
+                    Log.i("dcz","setOnLongClickListener");
                     if (itemClickListener != null) {
                         itemClickListener.onBubbleLongClick(message);
                     }

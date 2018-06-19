@@ -177,10 +177,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if(EaseUserUtils.getUserInfo(username).getIsLock() == 1){
                     holder.message.setText("******");
                 }else {
-                    holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),
-
-
-                            BufferType.SPANNABLE);
+                    holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),BufferType.SPANNABLE);
                 }
             }
             if(content != null){

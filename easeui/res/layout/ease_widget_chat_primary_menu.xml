@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="2dip"
-              android:background="@color/bg_t"
+    android:background="@color/bg_t"
     android:paddingTop="2dip" >
 
     <!--<View-->
@@ -125,7 +125,7 @@
         <Button
             android:id="@+id/btn_send"
             android:layout_height="@dimen/common.35dp"
-            style="@style/ChatSendBtnStyle"
+            style="@style/ChatSendBtnStyle2"
             android:layout_marginRight="@dimen/common.15dp"
             android:text="@string/button_send"
             android:enabled="false"

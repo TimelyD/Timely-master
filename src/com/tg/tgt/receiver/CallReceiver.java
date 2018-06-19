@@ -17,6 +17,7 @@ package com.tg.tgt.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.tg.tgt.DemoHelper;
 import com.tg.tgt.ui.VideoCallActivity;
@@ -38,6 +39,7 @@ public class CallReceiver extends BroadcastReceiver{
                     putExtra("username", from).putExtra("isComingCall", true).
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 		}else{ //voice call
+			Log.i("dcz","正在连接语音电话");
 		    context.startActivity(new Intent(context, VoiceCallActivity.class).
 		            putExtra("username", from).putExtra("isComingCall", true).
 		            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

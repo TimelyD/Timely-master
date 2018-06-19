@@ -100,12 +100,12 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                 if (!TextUtils.isEmpty(s)) {
 //                    buttonMore.setVisibility(View.GONE);
 //                    buttonSend.setVisibility(View.VISIBLE);
-                    buttonSend.setEnabled(true);
+                    buttonSend.setEnabled(true);buttonSend.setBackgroundResource(R.drawable.ease_chat_send_btn_selector);
                     RxBus.get().send(BusCode.CHAT_ACTION_SEND_ENABLE, true);
                 } else {
 //                    buttonMore.setVisibility(View.VISIBLE);
 //                    buttonSend.setVisibility(View.GONE);
-                    buttonSend.setEnabled(false);
+                    buttonSend.setEnabled(false);buttonSend.setBackgroundResource(R.drawable.ease_chat_send_btn_selector2);
                     RxBus.get().send(BusCode.CHAT_ACTION_SEND_ENABLE, false);
                 }
             }

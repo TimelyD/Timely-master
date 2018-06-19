@@ -522,6 +522,9 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                     case DISCONNECTED: // call is disconnected
                         handler.removeCallbacks(timeoutHangup);
                         @SuppressWarnings("UnnecessaryLocalVariable") final CallError fError = error;
+                        if (fError == CallError.ERROR_UNAVAILABLE){
+                            return;
+                        }
                         runOnUiThread(new Runnable() {
                             private void postDelayedCloseMsg() {
                                 uiHandler.postDelayed(new Runnable() {

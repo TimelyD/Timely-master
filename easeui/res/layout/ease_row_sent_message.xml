@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-              android:clipChildren="false"
-              android:clipToPadding="false"
+    android:descendantFocusability="blocksDescendants"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="13dp" >
@@ -50,12 +51,12 @@
             android:layout_toLeftOf="@id/iv_userhead"
              android:background="@drawable/ease_chatto_bg"
             >
-
-            <TextView
+            <!--android:autoLink="web"-->
+            <com.hyphenate.easeui.utils.AutoLinkTextView
                 android:id="@+id/tv_chatcontent"
+                android:autoLink="web"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:autoLink="web"
                 android:textColorLink="#fff"
                 android:layout_centerInParent="true"
                 android:gravity="center|left"

@@ -283,6 +283,7 @@ public class CodeUtils {
 
     /**
      * 跳转到chat界面需要该参数
+     *
      * @param appContext
      * @param from
      * @return
