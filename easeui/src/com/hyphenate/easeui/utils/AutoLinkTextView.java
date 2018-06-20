@@ -1,10 +1,13 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -16,11 +19,9 @@ public class AutoLinkTextView extends TextView {
         super(context, attrs, defStyle);
     }
 
-
     public AutoLinkTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
 
     public AutoLinkTextView(Context context) {
         super(context);
@@ -30,15 +31,18 @@ public class AutoLinkTextView extends TextView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
-
-
         SpannableString span = new SpannableString(getText());
-        ClickableSpan[] links = span.getSpans(getSelectionStart(),
-                getSelectionEnd(), ClickableSpan.class);
+        ClickableSpan[] links = span.getSpans(getSelectionStart(), getSelectionEnd(), ClickableSpan.class);
         if (links.length != 0) {
             return true;
         }
         return false;
 
+    }
+
+    @Override
+    public void setOnLongClickListener(@Nullable OnLongClickListener l) {
+        Log.i("dcz","zzz");
+        super.setOnLongClickListener(l);
     }
 }

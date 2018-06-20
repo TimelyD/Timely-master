@@ -6,12 +6,15 @@ import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.exceptions.HyphenateException;
 
 import android.content.Context;
+import android.os.Message;
 import android.text.Spannable;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -44,25 +47,50 @@ public class EaseChatRowText extends EaseChatRow{
         select= (CheckBox) findViewById(R.id.select);
         bt= findViewById(R.id.bt);
     }
-
+    private boolean mIsLongClick = false;
     @Override
     public void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);
+        //写这个方法为了防止长按和点击的冲突
+        contentView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    return mIsLongClick;
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    mIsLongClick = false;
+                    return false;
+                }
+                return false;
+            }
+        });
+        contentView.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.i("dcz","item长按中");
+                mIsLongClick = true;
+                EaseChatFragment.enu=true;
+                Message msg = EaseChatFragment.mHandler.obtainMessage();
+                msg.obj=message;msg.what=1;
+                EaseChatFragment.mHandler.sendMessage(msg);
+                return true;
+            }
+        });
         //设置阅后即焚标识
         mFireView.setVisibility(message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_FIRE, "").equals("1") ? VISIBLE : GONE);
 
         handleTextMessage();
-        Log.i("dcz_MESAGE1",EaseConstant.MESSAGE_ATTR_SELECT+"");
+        //Log.i("dcz_MESAGE1",EaseConstant.MESSAGE_ATTR_SELECT+"");
 
         select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
         bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
         select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i("dcz_id",message.getMsgId()+"qqq");
+                Log.i("dcz_id",message.getMsgId()+"q");
                 if(isChecked==true){
                     if(!EaseConstant.list_ms.contains(message.getMsgId())){
                         EaseConstant.list_ms.add(message.getMsgId());

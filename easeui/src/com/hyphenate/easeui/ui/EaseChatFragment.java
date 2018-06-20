@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -139,6 +140,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected MyItemClickListener extendMenuItemClickListener;
     protected View mReadFireView;
     private String mVideoCachePath;
+    public static Boolean enu=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -572,7 +574,28 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         isMessageListInited = true;
     }
 
+    public static Handler mHandler ;
+    private void initHandler(){
+        //下线通知
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1:
+                        EMMessage message=(EMMessage)msg.obj;
+                        contextMenuMessage = message;
+                        if (chatFragmentHelper != null) {
+                            chatFragmentHelper.onMessageBubbleLongClick(message);
+                        }
+                        break;
+                }
+            }
+        };
+    }
+
     protected void setListItemClickListener() {
+        initHandler();
         messageList.setItemClickListener(new EaseChatMessageList.MessageListItemClickListener() {
             @Override
             public void onUserAvatarClick(String username) {
@@ -606,6 +629,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             @Override
             public void onBubbleLongClick(EMMessage message) {
                 Log.i("dcz","长按");
+                if(enu==true){
+                    enu=false;
+                    return;
+                }
                 contextMenuMessage = message;
                 if (chatFragmentHelper != null) {
                     chatFragmentHelper.onMessageBubbleLongClick(message);
