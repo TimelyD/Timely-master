@@ -41,6 +41,7 @@ import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.EMVideoMessageBody;
 import com.hyphenate.easeui.EaseConstant;
@@ -59,6 +60,7 @@ import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
 import com.tg.tgt.Constant;
 import com.tg.tgt.DemoHelper;
@@ -548,6 +550,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         //消息框点击事件，demo这里不做覆盖，如需覆盖，return true
         //red packet code : 拆红包页面
         Log.i("dcz","onMessageBubbleClick");
+        if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL,false)==true){
+            Log.i("dcz","1");
+            startVoiceCall();
+        }
+        if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL,false)==true){
+            Log.i("dcz","2");
+            startVideoCall();
+        }
         if (message.getBooleanAttribute(RPConstant.MESSAGE_ATTR_IS_RED_PACKET_MESSAGE, false)) {
             RedPacketUtil.openRedPacket(getActivity(), chatType, message, toChatUsername, messageList);
             return true;
