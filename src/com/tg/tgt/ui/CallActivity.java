@@ -1,6 +1,7 @@
 package com.tg.tgt.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.Ringtone;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.os.Vibrator;
 import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
@@ -54,17 +56,30 @@ public class CallActivity extends BaseActivity {
     protected int streamID = -1;
     
     EMCallManager.EMCallPushProvider pushProvider;
-    
+    protected Vibrator mVibrator;  //声明一个振动器对象
     /**
      * 0：voice call，1：video call
      */
     protected int callType = 0;
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mVibrator.cancel();
+    }
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-
+        /**
+         * 想设置震动大小可以通过改变pattern来设定，如果开启时间太短，震动效果可能感觉不到
+         */
+        mVibrator = (Vibrator) getApplication().getSystemService(Service.VIBRATOR_SERVICE);
+        /**
+         * 四个参数就是——停止 开启 停止 开启
+         * -1不重复，非-1为从pattern的指定下标开始重复
+         */
+        //mVibrator.vibrate(new long[]{1000, 1000, 1000, 1000},0);
+        //停止1秒，开启震动10秒，然后又停止1秒，又开启震动10秒，不重复.
         pushProvider = new EMCallManager.EMCallPushProvider() {
             
             void updateMessageText(final EMMessage oldMsg, final String to) {

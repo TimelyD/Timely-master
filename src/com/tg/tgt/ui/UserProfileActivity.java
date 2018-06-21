@@ -291,7 +291,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         tvnote.setText(easeUser.safeGetRemark());
         //tvemail.setText(easeUser.getEmail());
         tvemail.setText(App.xin);
-        tvemail.setText(this.getString(R.string.ti6)+sn);
+        tvemail.setText(sn);
 
     }
 

@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -63,7 +64,6 @@ import java.util.UUID;
 import static com.tg.tgt.R.id.tv_mute;
 
 public class VideoCallActivity extends CallActivity implements OnClickListener {
-
     private boolean isMuteState;
     private boolean isHandsfreeState;
     private boolean isAnswered;
@@ -246,6 +246,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 }
             }, 300);
         } else { // incoming call
+            mVibrator.vibrate(new long[]{1000, 1000, 1000, 1000},0);
             EaseUser user = EaseUserUtils.getUserInfo(username);
             if (user.safeGetRemark() != null) {
                 nickTextView.setText(user.safeGetRemark());

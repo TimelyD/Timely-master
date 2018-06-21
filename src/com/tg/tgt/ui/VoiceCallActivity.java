@@ -140,6 +140,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                 }
             }, 300);
         } else { // incoming call
+            mVibrator.vibrate(new long[]{1000, 1000, 1000, 1000},0);
             EaseUser user = EaseUserUtils.getUserInfo(username);
             if (user.safeGetRemark() != null) {
                 nickTextView.setText(user.safeGetRemark());

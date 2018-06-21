@@ -381,27 +381,6 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-
-                    <LinearLayout
-                        android:id="@+id/answer_call_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="45dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/t_answer"/>
-
-                        <TextView
-                            style="@style/CallCtrlTvStyle"
-                            android:text="@string/answer"/>
-
-                    </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/refuse_call_layout"
                         android:layout_width="wrap_content"
@@ -418,6 +397,25 @@
                         <TextView
                             style="@style/CallCtrlTvStyle"
                             android:text="@string/hang_up"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/answer_call_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="45dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/t_answer"/>
+
+                        <TextView
+                            style="@style/CallCtrlTvStyle"
+                            android:text="@string/answer"/>
+
                     </LinearLayout>
                 </LinearLayout>
             </FrameLayout>
