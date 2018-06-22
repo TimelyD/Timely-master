@@ -44,6 +44,7 @@ import android.widget.Toast;
 import com.hyphenate.chat.EMCallManager.EMCameraDataProcessor;
 import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMVideoCallHelper;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
@@ -55,6 +56,9 @@ import com.superrtc.sdk.VideoView;
 import com.tg.tgt.App;
 import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -524,6 +528,17 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                         handler.removeCallbacks(timeoutHangup);
                         @SuppressWarnings("UnnecessaryLocalVariable") final CallError fError = error;
                         if (fError == CallError.ERROR_UNAVAILABLE){
+                            EMMessage message = EMMessage.createTxtSendMessage("未接听，点击回拨",username);
+                            JSONObject a=new JSONObject();
+                            try {
+                                a.put("em_push_title","您有一个新来电");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            message.setAttribute("em_apns_ext",a);
+                            message.setAttribute("VoiceOrVideoText","未接听，点击回拨");
+                            message.setAttribute("VoiceOrVideoImage","ease_chat_video_call_receive");
+                            EMClient.getInstance().chatManager().sendMessage(message);
                             return;
                         }
                         runOnUiThread(new Runnable() {
