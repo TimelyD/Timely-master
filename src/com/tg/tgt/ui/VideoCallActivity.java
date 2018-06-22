@@ -528,6 +528,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                         handler.removeCallbacks(timeoutHangup);
                         @SuppressWarnings("UnnecessaryLocalVariable") final CallError fError = error;
                         if (fError == CallError.ERROR_UNAVAILABLE){
+                            App.sf.edit().putBoolean("zq",false).commit();
                             EMMessage message = EMMessage.createTxtSendMessage("未接听，点击回拨",username);
                             JSONObject a=new JSONObject();
                             try {

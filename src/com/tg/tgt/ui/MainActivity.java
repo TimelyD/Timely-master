@@ -19,10 +19,12 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -183,7 +186,13 @@ public class MainActivity extends BaseActivity {
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         L.e("DEN", "Density is "+displayMetrics.density+" densityDpi is "+displayMetrics.densityDpi+" height: "+displayMetrics.heightPixels+
                 " width: "+displayMetrics.widthPixels+" DP is:"+convertPixelToDp(displayMetrics.widthPixels));
-        //jumpStartInterface();
+		if(App.sf.getBoolean("zq",false)==false){
+			jumpStartInterface();
+		}
+
+		/*ComponentName localComponentName = new ComponentName(this,MainActivity.class);
+		int i = this.getPackageManager().getComponentEnabledSetting(localComponentName);
+		Log.i("dcz",i+"q");*/
 
 	}
 	/**
@@ -192,8 +201,29 @@ public class MainActivity extends BaseActivity {
 	 */
 	private void jumpStartInterface() {
 		try {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("由于Android系统限制，请您手动开启本软件自启动权限，并将此软件设置为受保护应用以及允许后台运行，从而保障软件运行的最佳环境");
+
+			AlertDialog dialog = new AlertDialog.Builder(this)
+					//.setTitle("AlerDialog")
+					.setMessage("由于系统限制，为了你的消息能够正常提醒，请手动设置你的系统权限!")
+					.setPositiveButton("立即设置", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							MobileInfoUtils.jumpStartInterface(MainActivity.this);
+						}
+					})
+					.setNegativeButton("不再提醒", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							App.sf.edit().putBoolean("zq",true).commit();
+						}
+					})
+					.create();
+			dialog.show();
+			dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
+			dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+
+			/*AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("由于系统限制，为了你的消息能够正常提醒，请手动设置你的系统权限!");
 			builder.setPositiveButton("立即设置",
 					new DialogInterface.OnClickListener() {
 						@Override
@@ -201,15 +231,22 @@ public class MainActivity extends BaseActivity {
 							MobileInfoUtils.jumpStartInterface(MainActivity.this);
 						}
 					});
-			builder.setNegativeButton("暂时不设置",
+			*//*builder.setNeutralButton("不再提醒", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					App.sf.edit().putBoolean("zq",true).commit();
+				}
+			});*//*
+			builder.setNegativeButton("不再提醒",
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
 					});
+
 			builder.setCancelable(false);
-			builder.create().show();
+			builder.create().show();*/
 		} catch (Exception e) {
 		}
 	}
@@ -444,7 +481,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();		
-		
+
 		if (exceptionBuilder != null) {
 		    exceptionBuilder.create().dismiss();
 		    exceptionBuilder = null;

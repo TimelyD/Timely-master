@@ -41,6 +41,7 @@ import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
+import com.tg.tgt.App;
 import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
 import com.tg.tgt.domain.VoiceBean;
@@ -278,6 +279,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                     handler.removeCallbacks(timeoutHangup);
                     @SuppressWarnings("UnnecessaryLocalVariable") final CallError fError = error;
                     if (fError == CallError.ERROR_UNAVAILABLE){
+                        App.sf.edit().putBoolean("zq",false).commit();
                         EMMessage message = EMMessage.createTxtSendMessage("未接听，点击回拨",username);
                         JSONObject a=new JSONObject();
                         try {

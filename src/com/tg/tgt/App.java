@@ -14,7 +14,9 @@
 package com.tg.tgt;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
@@ -50,14 +52,16 @@ public class App extends EaseApp {
 	 */
 	public static String currentUserNick = "";
 	private  static RefWatcher mRefWatcher;
-
+	public static SharedPreferences sf;
+	public static Boolean zq;
 	@Override
 	public void onCreate() {
 		MultiDex.install(this);
 		super.onCreate();
         applicationContext = this;
         instance = this;
-
+		sf= PreferenceManager.getDefaultSharedPreferences(this);
+		zq=sf.getBoolean("zq",false);
 		//init demo helper
         DemoHelper.getInstance().init(applicationContext);
 		//red packet code : 初始化红包SDK，开启日志输出开关

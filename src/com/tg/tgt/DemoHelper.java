@@ -486,6 +486,7 @@ public class DemoHelper {
 
             @Override
             public void onConnected() {
+                EMLog.d("global listener", "onDisconnect/");
                 // in case group and contact were already synced, we supposed to notify sdk we are ready to receive
                 // the events
                 if (isGroupsSyncedWithServer && isContactsSyncedWithServer) {
@@ -506,8 +507,7 @@ public class DemoHelper {
             }
         };
 
-        IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager()
-                .getIncomingCallBroadcastAction());
+        IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
         if (callReceiver == null) {
             callReceiver = new CallReceiver();
         }

@@ -41,8 +41,9 @@ public class MobileInfoUtils {
                 intent.setAction("com.letv.android.permissionautoboot");
             } else if (getMobileType().equals("samsung")) { // 三星Note5测试通过
                 componentName = new ComponentName("com.samsung.android.sm_cn", "com.samsung.android.sm.ui.ram.AutoRunActivity");
-            } else if (getMobileType().equals("HUAWEI")) { // 华为测试通过
-                componentName = new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity");
+            } else if (getMobileType().equals("HUAWEI")) { // 华为测试通过com.huawei.systemmanager/.startupmgr.ui.StartupNormalAppListActivity
+                //componentName = new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity");
+                componentName = ComponentName.unflattenFromString("com.huawei.systemmanager/.startupmgr.ui.StartupNormalAppListActivity");
             } else if (getMobileType().equals("vivo")) { // VIVO测试通过
                 componentName = ComponentName.unflattenFromString("com.iqoo.secure/.safeguard.PurviewTabActivity");
             } else if (getMobileType().equals("Meizu")) { //万恶的魅族
