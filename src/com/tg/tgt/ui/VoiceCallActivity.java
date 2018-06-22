@@ -380,6 +380,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_refuse_call:
+            mVibrator.cancel();
 		    if(isInComingCall) {
                 isRefused = true;
                 refuseBtn.setEnabled(false);
@@ -388,6 +389,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
             }
 
 		case R.id.btn_hangup_call:
+            mVibrator.cancel();
 		    hangupBtn.setEnabled(false);
 			chronometer.stop();
 			endCallTriggerByMe = true;

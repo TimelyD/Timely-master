@@ -17,6 +17,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -73,6 +74,7 @@ import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.runtimepermissions.PermissionsManager;
 import com.tg.tgt.runtimepermissions.PermissionsResultAction;
 import com.tg.tgt.utils.CodeUtils;
+import com.tg.tgt.utils.MobileInfoUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.uuzuche.lib_zxing.activity.QrCodeUtils;
 
@@ -132,7 +134,6 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		}
-		
 		//make sure activity will not in background if user is logged into another device or removed
 		if (savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) {
 		    DemoHelper.getInstance().logout(false,null);
@@ -182,6 +183,35 @@ public class MainActivity extends BaseActivity {
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         L.e("DEN", "Density is "+displayMetrics.density+" densityDpi is "+displayMetrics.densityDpi+" height: "+displayMetrics.heightPixels+
                 " width: "+displayMetrics.widthPixels+" DP is:"+convertPixelToDp(displayMetrics.widthPixels));
+        //jumpStartInterface();
+
+	}
+	/**
+	 * Jump Start Interface
+	 * 提示是否跳转设置自启动界面
+	 */
+	private void jumpStartInterface() {
+		try {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("由于Android系统限制，请您手动开启本软件自启动权限，并将此软件设置为受保护应用以及允许后台运行，从而保障软件运行的最佳环境");
+			builder.setPositiveButton("立即设置",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							MobileInfoUtils.jumpStartInterface(MainActivity.this);
+						}
+					});
+			builder.setNegativeButton("暂时不设置",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
+			builder.setCancelable(false);
+			builder.create().show();
+		} catch (Exception e) {
+		}
 	}
 	private int convertPixelToDp(int pixel) {
 		DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();

@@ -718,6 +718,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 break;
             case R.id.answer_call_layout: // answer the call
                 EMLog.d(TAG, "btn_answer_call clicked");
+                mVibrator.cancel();
                 answerBtn.setEnabled(false);
                 openSpeakerOn();
                 if (ringtone != null)
@@ -735,6 +736,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 findViewById(R.id.call_control_layout).setVisibility(View.VISIBLE);
                 break;
             case R.id.refuse_call_layout: // decline the call
+                mVibrator.cancel();
                 if(isInComingCall) { //outgoing
                     isRefused = true;
                     refuseBtn.setEnabled(false);

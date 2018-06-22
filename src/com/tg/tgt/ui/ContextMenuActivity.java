@@ -28,6 +28,7 @@ public class ContextMenuActivity extends BaseActivity {
     public static final int RESULT_CODE_DELETE = 2;
     public static final int RESULT_CODE_FORWARD = 3;
 	public static final int RESULT_CODE_DUOFORWARD = 4;
+	public static final int RESULT_CODE_RECALL = 5;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,10 @@ public class ContextMenuActivity extends BaseActivity {
 	}
 	public void duo_forward(View view){
 		setResult(RESULT_CODE_DUOFORWARD);
+		finish();
+	}
+	public void recall(View view){
+		setResult(RESULT_CODE_RECALL);
 		finish();
 	}
 	

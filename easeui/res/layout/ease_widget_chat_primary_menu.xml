@@ -131,61 +131,66 @@
             android:enabled="false"
              />
     </LinearLayout>
+    <View
+        android:id="@+id/kong"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="15dp">
+    </View>
     <LinearLayout
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:gravity="center_vertical"
         android:id="@+id/linearUnder"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common.40dp"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
         <ImageView
             android:id="@+id/iv_voice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/send_voice_selector"/>
+            android:src="@drawable/send_voice_selector" />
 
         <ImageView
             android:id="@+id/iv_face"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:src="@drawable/send_emj_selector"
-            />
+            android:layout_weight="1"
+            android:src="@drawable/send_emj_selector" />
 
         <ImageView
             android:id="@+id/iv_photo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/send_image_selector"/>
+            android:src="@drawable/send_image_selector" />
 
         <!--<RelativeLayout-->
-            <!--android:id="@+id/rl_face"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="wrap_content">-->
-            <!--<ImageView-->
-                <!--android:id="@+id/iv_face_normal"-->
-                <!--android:layout_width="24dip"-->
-                <!--android:layout_height="24dip"-->
-                <!--android:scaleType="fitCenter"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:src="@drawable/send_emj"-->
-                <!--android:visibility="visible" />-->
+        <!--android:id="@+id/rl_face"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_face_normal"-->
+        <!--android:layout_width="24dip"-->
+        <!--android:layout_height="24dip"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@drawable/send_emj"-->
+        <!--android:visibility="visible" />-->
 
-            <!--<ImageView-->
-                <!--android:id="@+id/iv_face_checked"-->
-                <!--android:layout_width="24dip"-->
-                <!--android:layout_height="24dip"-->
-                <!--android:scaleType="fitCenter"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:src="@drawable/send_emj"-->
-                <!--android:visibility="invisible" />-->
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_face_checked"-->
+        <!--android:layout_width="24dip"-->
+        <!--android:layout_height="24dip"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@drawable/send_emj"-->
+        <!--android:visibility="invisible" />-->
 
         <!--</RelativeLayout>-->
 
@@ -194,7 +199,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/send_capture_selector"/>
+            android:src="@drawable/send_capture_selector" />
 
         <ImageView
             android:id="@+id/iv_video"
@@ -202,7 +207,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/send_video_selector"/>
+            android:src="@drawable/send_video_selector" />
 
         <ImageView
             android:id="@+id/btn_more"
@@ -212,10 +217,10 @@
             android:src="@drawable/send_add_more_selector" />
 
         <!--<ImageView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:src="@drawable/addmore"/>-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:src="@drawable/addmore"/>-->
 
     </LinearLayout>
 

@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="@string/ti6"
+                android:text="@string/ti7"
                 android:textColor="@color/tx_black_1"
                 android:textSize="@dimen/tx_3"/>
 

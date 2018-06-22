@@ -47,6 +47,7 @@ import com.hyphenate.chat.EMVideoMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
@@ -374,6 +375,34 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     /*conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername, EaseCommonUtils
                             .getConversationType(chatType), true);*/
                     break;
+                case ContextMenuActivity.RESULT_CODE_RECALL:
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",contextMenuMessage.getTo());
+                                EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
+                                msgNotification.addBody(txtBody);
+                                msgNotification.setMsgTime(contextMenuMessage.getMsgTime());
+                                msgNotification.setLocalTime(contextMenuMessage.getMsgTime());
+                                msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+                                msgNotification.setStatus(EMMessage.Status.SUCCESS);
+                                EMClient.getInstance().chatManager().recallMessage(contextMenuMessage);
+                                EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                                messageList.refresh();
+                            } catch (final HyphenateException e) {
+                                e.printStackTrace();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
+                    // Delete group-ack data according to this message.
+                    EaseDingMessageHelper.get().delete(contextMenuMessage);
+                    break;
                 default:
                     break;
             }
@@ -584,7 +613,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onMessageBubbleLongClick(EMMessage message) {
         // no message forward when in chat room
-        Log.i("dcz","onMessageBubbleLongClick");
+        Log.i("dcz","onMessageBubbleLongClick"+message.ext());
         if(EaseConstant.MESSAGE_ATTR_SELECT==false){
             startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message", message)
                             .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
@@ -732,6 +761,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         public int getCustomChatRowType(EMMessage message) {
             if (message.getType() == EMMessage.Type.TXT) {
                 //voice call
+                Log.i("类型",message.ext().get("VoiceOrVideoImage")+"");
                 if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL :
                             MESSAGE_TYPE_SENT_VOICE_CALL;
@@ -739,7 +769,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     //video call
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO_CALL :
                             MESSAGE_TYPE_SENT_VIDEO_CALL;
-                }
+                }/*else if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_voice_call_receive")){
+                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL :
+                            MESSAGE_TYPE_SENT_VOICE_CALL;
+                }else if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_video_call_receive")){
+                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO_CALL :
+                            MESSAGE_TYPE_SENT_VIDEO_CALL;
+                }*/
                 //red packet code : 红包消息、红包回执消息以及转账消息的chatrow type
                 else if (RedPacketUtil.isRandomRedPacket(message)) {
                     //小额随机红包

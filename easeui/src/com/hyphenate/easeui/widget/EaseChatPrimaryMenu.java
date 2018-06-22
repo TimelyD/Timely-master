@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     private ImageView buttonMore;
     private boolean ctrlPress = false;
     private ImageView mIvVideo;
+    private LinearLayout linearUnder;
+    private View kong;
 
     public EaseChatPrimaryMenu(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -67,6 +70,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         View faceLayout =  findViewById(R.id.iv_face);
         buttonMore = (ImageView) findViewById(R.id.btn_more);
         edittext_layout.setBackgroundResource(R.drawable.editbackground);
+        linearUnder= (LinearLayout) findViewById(R.id.linearUnder);
+        kong=findViewById(R.id.kong);
 
         buttonSend.setOnClickListener(this);
         buttonSetModeKeyboard.setOnClickListener(this);
@@ -360,11 +365,14 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 //        }else {
 //            buttonFire.setBackgroundResource(R.drawable.fire);
 //        }
-        if (buttonFire.getBackground().getConstantState().equals(ContextCompat.getDrawable(getContext(), R.drawable
-                .fire).getConstantState())) {
+        if (buttonFire.getBackground().getConstantState().equals(ContextCompat.getDrawable(getContext(), R.drawable.fire).getConstantState())) {
             buttonFire.setBackgroundResource(R.drawable.fire_checked);
+            linearUnder.setVisibility(GONE);
+            kong.setVisibility(VISIBLE);
         } else {
             buttonFire.setBackgroundResource(R.drawable.fire);
+            linearUnder.setVisibility(VISIBLE);
+            kong.setVisibility(GONE);
         }
     }
 

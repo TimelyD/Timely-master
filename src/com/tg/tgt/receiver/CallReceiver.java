@@ -31,6 +31,7 @@ public class CallReceiver extends BroadcastReceiver{
 		if(!DemoHelper.getInstance().isLoggedIn())
 		    return;
 		//username
+		Log.i("dcz","服务");
 		String from = intent.getStringExtra("from");
 		//call type
 		String type = intent.getStringExtra("type");
