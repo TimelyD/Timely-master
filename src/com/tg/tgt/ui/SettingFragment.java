@@ -96,6 +96,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.titlebar = (EaseTitleBar) view.findViewById(R.id.title_bar);
 
         titlebar.setLeftImageResource(R.drawable.menu);
+        titlebar.setLeftLayoutVisibility(View.INVISIBLE);
         titlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

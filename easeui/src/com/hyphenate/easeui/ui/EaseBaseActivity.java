@@ -60,7 +60,7 @@ public class EaseBaseActivity extends AppCompatActivity {
             mImmersionBar
                     .fitsSystemWindows(true)
                     .keyboardEnable(enableKeyBoard)
-                    .statusBarColor(R.color.white)
+                    .statusBarColor(R.color.chenjin)
                     .statusBarDarkFont(true, 0.5f)
                     .init();
         }

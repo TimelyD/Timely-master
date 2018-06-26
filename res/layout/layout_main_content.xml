@@ -6,7 +6,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/chenjin"
     app:layout_role="content"
     android:paddingTop="@dimen/status_bar_height"
     tools:showIn="@layout/em_activity_main">

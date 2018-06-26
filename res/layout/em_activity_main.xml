@@ -1,22 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.tangke.slidemenu.SlideMenu
-    android:id="@+id/slideMenu"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:primaryShadowWidth="0dp"
-    app:slideDirection="right">
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_main_content"/>
+    <me.tangke.slidemenu.SlideMenu
+        android:id="@+id/slideMenu"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:primaryShadowWidth="0dp"
+        app:slideDirection="right">
 
-    <include
+        <include
 
-        layout="@layout/layout_menu"/>
-    <!--<View-->
+            layout="@layout/layout_menu"/>
+        <!--<View-->
         <!--app:layout_role="primaryMenu"-->
         <!--android:layout_marginRight="66dp"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"/>-->
 
-    <include layout="@layout/layout_main_content"/>
-</me.tangke.slidemenu.SlideMenu>
+        <include layout="@layout/layout_main_content"/>
+    </me.tangke.slidemenu.SlideMenu>
+</RelativeLayout>
+<!--
+<me.tangke.slidemenu.SlideMenu
+android:id="@+id/slideMenu"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:visibility="gone"
+app:primaryShadowWidth="0dp"
+app:slideDirection="right">
+
+<include
+
+    layout="@layout/layout_menu"/>
+&lt;!&ndash;<View&ndash;&gt;
+&lt;!&ndash;app:layout_role="primaryMenu"&ndash;&gt;
+&lt;!&ndash;android:layout_marginRight="66dp"&ndash;&gt;
+&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;android:layout_height="match_parent"/>&ndash;&gt;
+
+<include layout="@layout/layout_main_content"/>
+</me.tangke.slidemenu.SlideMenu>-->

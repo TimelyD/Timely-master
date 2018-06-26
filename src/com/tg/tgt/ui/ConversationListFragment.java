@@ -142,6 +142,7 @@ public class ConversationListFragment extends EaseConversationListFragment {
     protected void setUpView() {
         super.setUpView();
         titleBar.setLeftImageResource(R.drawable.menu);
+        titleBar.setLeftLayoutVisibility(View.INVISIBLE);
         titleBar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

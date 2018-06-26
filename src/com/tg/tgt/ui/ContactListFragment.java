@@ -137,6 +137,7 @@ public class ContactListFragment extends EaseContactListFragment {
 //            }
 //        });
         titleBar.setLeftImageResource(R.drawable.menu);
+        titleBar.setLeftLayoutVisibility(View.INVISIBLE);
         titleBar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

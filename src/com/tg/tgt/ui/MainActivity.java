@@ -915,6 +915,7 @@ public class MainActivity extends BaseActivity {
 	protected void initBar(boolean enableKeyBoard) {
 			mImmersionBar = ImmersionBar.with(this);
 			mImmersionBar
+					.statusBarColor(com.hyphenate.easeui.R.color.chenjin)
 					.statusBarDarkFont(true, 0.5f)
 					.init();
 	}

@@ -3,7 +3,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="@dimen/title_bar_height"
-    android:background="@color/white"
+    android:background="@color/chenjin"
     android:gravity="center_vertical" >
 
     <RelativeLayout
@@ -11,7 +11,7 @@
         android:layout_width="@dimen/title_bar_height"
         android:layout_height="match_parent"
         android:background="@drawable/ease_common_tab_bg"
-         >
+         android:visibility="invisible">
 
         <ImageView
             android:id="@+id/left_image"
