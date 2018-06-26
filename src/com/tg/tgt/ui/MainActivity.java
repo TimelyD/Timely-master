@@ -47,15 +47,20 @@ import android.widget.Toast;
 
 import com.easemob.redpacket.utils.RedPacketUtil;
 import com.easemob.redpacketsdk.constant.RPConstant;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.EMMessageListener;
+import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.L;
@@ -74,14 +79,17 @@ import com.tg.tgt.helper.MenuPopup;
 import com.tg.tgt.helper.UserHelper;
 import com.tg.tgt.logger.Logger;
 import com.tg.tgt.moment.ui.activity.MomentAct;
+import com.tg.tgt.parse.ParseManager;
 import com.tg.tgt.runtimepermissions.PermissionsManager;
 import com.tg.tgt.runtimepermissions.PermissionsResultAction;
 import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.MobileInfoUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
+import com.tg.tgt.utils.ToastUtils;
 import com.uuzuche.lib_zxing.activity.QrCodeUtils;
 
 import java.util.List;
+import java.util.Map;
 
 import me.tangke.slidemenu.SlideMenu;
 
@@ -186,14 +194,29 @@ public class MainActivity extends BaseActivity {
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         L.e("DEN", "Density is "+displayMetrics.density+" densityDpi is "+displayMetrics.densityDpi+" height: "+displayMetrics.heightPixels+
                 " width: "+displayMetrics.widthPixels+" DP is:"+convertPixelToDp(displayMetrics.widthPixels));
-		if(App.sf.getBoolean("zq",false)==false){
+		/*if(App.sf.getBoolean("zq",false)==false){
 			jumpStartInterface();
-		}
+		}*/
 
 		/*ComponentName localComponentName = new ComponentName(this,MainActivity.class);
 		int i = this.getPackageManager().getComponentEnabledSetting(localComponentName);
 		Log.i("dcz",i+"q");*/
+		Map<String, EaseUser> users = DemoHelper.getInstance().getContactList();
+		for (Map.Entry<String, EaseUser> entry : users.entrySet()) {
+			Log.i("ss",App.toJson(entry.getValue(),1));
+		}
+		ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
+			@Override
+			public void onSuccess(List<EaseUser> easeUsers) {
+				DemoHelper.getInstance().updateContactList(easeUsers);
+			}
 
+			@Override
+			public void onError(int i, String s) {
+				dismissProgress();
+				ToastUtils.showToast(getApplicationContext(), s);
+			}
+		});
 	}
 	/**
 	 * Jump Start Interface

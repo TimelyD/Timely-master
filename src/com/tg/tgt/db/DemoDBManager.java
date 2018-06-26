@@ -54,6 +54,7 @@ public class DemoDBManager {
                     values.put(UserDao.COLUMN_NAME_CHATID, user.getChatid());
                 if(user.getIsLock() != -1)
                     values.put(UserDao.COLUMN_NAME_ISLOCK, user.getIsLock());
+                if(user.getSn() != null) values.put(UserDao.SN, user.getSn());
                 db.replace(UserDao.TABLE_NAME, null, values);
             }
         }
@@ -77,6 +78,7 @@ public class DemoDBManager {
                 String chatid = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_CHATID));
                 String sex = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_SEX));
                 String state = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_STATE));
+                String sn = cursor.getString(cursor.getColumnIndex(UserDao.SN));
                 int isLock = cursor.getInt(cursor.getColumnIndex(UserDao.COLUMN_NAME_ISLOCK));
                 EaseUser user = new EaseUser(username);
                 user.setNick(nick);
@@ -89,6 +91,7 @@ public class DemoDBManager {
                 user.setChatid(chatid);
                 user.setChatidsex(sex);
                 user.setChatidstate(state);
+                user.setSn(sn);
 
                 if (username.equals(Constant.NEW_FRIENDS_USERNAME) || username.equals(Constant.GROUP_USERNAME)
                         || username.equals(Constant.CHAT_ROOM)|| username.equals(Constant.CHAT_ROBOT)) {
@@ -126,6 +129,7 @@ public class DemoDBManager {
             values.put(UserDao.COLUMN_NAME_NICK, user.getNick());
         if(user.getAvatar() != null)
             values.put(UserDao.COLUMN_NAME_AVATAR, user.getAvatar());
+        if(user.getSn()!=null){values.put(UserDao.SN,user.getSn());}
         if(user.getIsLock()!=-1) {
             values.put(UserDao.COLUMN_NAME_ISLOCK, user.getIsLock());
             values.put(UserDao.COLUMN_NAME_CON, user.safeGetRemark());

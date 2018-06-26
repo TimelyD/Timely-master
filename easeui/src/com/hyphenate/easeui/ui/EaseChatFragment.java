@@ -135,6 +135,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     public static final int ITEM_TAKE_PICTURE = 1;
     public static final int ITEM_PICTURE = 2;
     public static final int ITEM_LOCATION = 3;
+    public static final int ITEM_BUSINESS = 4;
 
     protected int[] itemStrings = {com.hyphenate.easeui.R.string.attach_take_pic, com.hyphenate.easeui.R.string
             .attach_picture, com.hyphenate.easeui.R.string.attach_location};

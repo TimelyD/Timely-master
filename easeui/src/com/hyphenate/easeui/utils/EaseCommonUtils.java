@@ -191,6 +191,12 @@ public class EaseCommonUtils {
             return;
         }
 
+        /*if ( !TextUtils.isEmpty(user.getSn()) ) {
+            letter = new GetInitialLetter().getLetter(user.getSn());
+            user.setInitialLetter(letter);
+            return;
+        }*/
+
         if (letter.equals(DefaultLetter) && !TextUtils.isEmpty(user.getUsername())) {
             letter = new GetInitialLetter().getLetter(user.getUsername());
         }

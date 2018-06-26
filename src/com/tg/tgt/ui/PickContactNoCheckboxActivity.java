@@ -16,11 +16,16 @@ package com.tg.tgt.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.DemoHelper;
 import com.hyphenate.easeui.adapter.EaseContactAdapter;
@@ -64,8 +69,7 @@ public class PickContactNoCheckboxActivity extends BaseActivity {
 	}
 
 	protected void onListItemClick(int position) {
-		setResult(RESULT_OK, new Intent().putExtra("username", contactAdapter.getItem(position)
-				.getUsername()));
+		setResult(RESULT_OK, new Intent().putExtra("username", contactAdapter.getItem(position).getUsername()));
 		finish();
 	}
 
@@ -79,6 +83,7 @@ public class PickContactNoCheckboxActivity extends BaseActivity {
 		for (Entry<String, EaseUser> entry : users.entrySet()) {
 			if (!entry.getKey().equals(Constant.NEW_FRIENDS_USERNAME) && !entry.getKey().equals(Constant.GROUP_USERNAME) && !entry.getKey().equals(Constant.CHAT_ROOM) && !entry.getKey().equals(Constant.CHAT_ROBOT))
 				contactList.add(entry.getValue());
+			Log.i("sss", App.toJson(entry.getValue(),1));
 		}
 		// sort
         Collections.sort(contactList, new Comparator<EaseUser>() {

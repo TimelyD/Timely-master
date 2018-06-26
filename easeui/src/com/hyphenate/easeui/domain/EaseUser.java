@@ -44,6 +44,7 @@ public class EaseUser extends EMContact {
 	 */
 	private String chatid;
 	private String chatidsex;
+	private String sn;
 	/**
 	 * 心情
 	 */
@@ -57,6 +58,14 @@ public class EaseUser extends EMContact {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSn() {
+		return sn;
+	}
+
+	public void setSn(String sn) {
+		this.sn = sn;
 	}
 
 	public String getChatid() {

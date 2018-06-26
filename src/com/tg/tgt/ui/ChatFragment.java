@@ -1,24 +1,15 @@
 package com.tg.tgt.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +32,6 @@ import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.EMVideoMessageBody;
 import com.hyphenate.easeui.EaseConstant;
@@ -50,7 +40,6 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.SpUtils;
@@ -72,7 +61,11 @@ import com.tg.tgt.domain.RobotUser;
 import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
+import com.tg.tgt.widget.ChatRowBussines;
 import com.tg.tgt.widget.ChatRowVoiceCall;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -98,6 +91,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private static final int REQUEST_CODE_SELECT_AT_USER = 15;
     private static final int REQUEST_CODE_SELECT_CONFERENCE = 16;
     private static final int REQUEST_CODE_SELECT_CONFERENCE_VIDEO = 17;
+    private static final int REQUEST_CODE_SELECT_BUSINESS = 18;
 
     //设置密码的requestcode
     private static final int REQUEST_CODE_SET_PWD = 78;
@@ -326,12 +320,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         //use the menu in base class
 //        super.registerExtendMenuItem();
         //extend menu items
-        inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_video, com.tg.tgt.R.drawable.em_chat_video_selector, ITEM_VIDEO,
-                extendMenuItemClickListener);
+        inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_video, com.tg.tgt.R.drawable.em_chat_video_selector, ITEM_VIDEO, extendMenuItemClickListener);
         inputMenu.registerExtendMenuItem(R.string.attach_take_pic, R.drawable.ease_chat_takepic_selector, ITEM_TAKE_PICTURE, extendMenuItemClickListener);
-        inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_file, com.tg.tgt.R.drawable.em_chat_file_selector, ITEM_FILE,
-                extendMenuItemClickListener);
+        inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_file, com.tg.tgt.R.drawable.em_chat_file_selector, ITEM_FILE, extendMenuItemClickListener);
         inputMenu.registerExtendMenuItem(R.string.attach_location, R.drawable.ease_chat_location_selector, ITEM_LOCATION, extendMenuItemClickListener);
+        inputMenu.registerExtendMenuItem(R.string.Business, R.drawable.ease_chat_location_selector, ITEM_BUSINESS, extendMenuItemClickListener);
         /*if (chatType == Constant.CHATTYPE_SINGLE) {
             inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_voice_call, com.tg.tgt.R.drawable.em_chat_voice_call_selector,
                     ITEM_VOICE_CALL, extendMenuItemClickListener);
@@ -468,6 +461,16 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                             .putExtra(Constant.EXTRA_CONFERENCE_IS_VIDEO, true)
                             .putExtra(Constant.EXTRA_CONFERENCE_IS_CREATOR, true));
                     break;
+                case REQUEST_CODE_SELECT_BUSINESS:
+                    Log.i("dcz","发送名片");
+                    EMMessage message = EMMessage.createTxtSendMessage("名片",toChatUsername);
+                    message.setAttribute(Constant.BUSSINES_ID,data.getStringExtra(Constant.BUSSINES_ID));
+                    message.setAttribute(Constant.BUSSINES_NAME,data.getStringExtra(Constant.BUSSINES_NAME));
+                    message.setAttribute(Constant.BUSSINES_NUMBER,data.getStringExtra(Constant.BUSSINES_NUMBER));
+                    message.setAttribute(Constant.BUSSINES_PIC,data.getStringExtra(Constant.BUSSINES_PIC));
+                    EMClient.getInstance().chatManager().sendMessage(message);
+                    messageList.refresh();
+                    break;
                 default:
                     break;
             }
@@ -556,8 +559,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 return;
             }
         }
-
-
         intent.putExtra("username", username);
         startActivityForResult(intent, UserProfileActivity.REQUEST_CODE_ISCODE);
     }
@@ -580,12 +581,20 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         //red packet code : 拆红包页面
         Log.i("dcz","onMessageBubbleClick");
         if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL,false)==true){
-            Log.i("dcz","1");
             startVoiceCall();
+            return true;
         }
         if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL,false)==true){
-            Log.i("dcz","2");
             startVideoCall();
+            return true;
+        }
+        if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES,false)==true){
+            String id = message.getStringAttribute(Constant.BUSSINES_ID, null);
+            String name=message.getStringAttribute(Constant.BUSSINES_NAME,null);
+            Log.i("ddd",id+"+"+name);
+            Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+            intent.putExtra("username",id);
+            startActivity(intent);
         }
         if (message.getBooleanAttribute(RPConstant.MESSAGE_ATTR_IS_RED_PACKET_MESSAGE, false)) {
             RedPacketUtil.openRedPacket(getActivity(), chatType, message, toChatUsername, messageList);
@@ -669,6 +678,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             case ITEM_VIDEO_CALL:
                 startVideoCall();
                 break;
+            case ITEM_BUSINESS:
+                startBusiness();
+                break;
             //red packet code : 进入发红包页面
             case ITEM_RED_PACKET:
                 //注意：不再支持原有的startActivityForResult进入红包相关页面
@@ -744,6 +756,12 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             inputMenu.hideExtendMenuContainer();
         }
     }
+    /**
+     *   发送名片
+     * */
+    protected void startBusiness(){
+        startActivityForResult(new Intent(getActivity(),BusinessActivity.class),REQUEST_CODE_SELECT_BUSINESS);
+    }
 
     /**
      * chat row provider
@@ -806,6 +824,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false) || message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)) {
                     return new ChatRowVoiceCall(getActivity(), message, position, adapter);
                 }
+                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, false)) {
+                    return new ChatRowBussines(getActivity(), message, position, adapter);
+                }
                 Log.i("dcz",message.ext().toString());
                 if(message.ext().get("VoiceOrVideoImage")!=null){
                     if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_voice_call_receive")||message.ext().get("VoiceOrVideoImage").equals("ease_chat_video_call_receive")){
@@ -813,6 +834,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                                 equals("ease_chat_voice_call_receive")?Constant.MESSAGE_ATTR_IS_VOICE_CALL:Constant.MESSAGE_ATTR_IS_VIDEO_CALL, true);
                         return new ChatRowVoiceCall(getActivity(), message, position, adapter);
                     }
+                }
+                if(message.ext().get("bussines_id")!=null){
+                    message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
+                    message.setAttribute(Constant.BUSSINES_NUMBER,message.ext().get(Constant.BUSSINES_NUMBER).toString());
+                    return new ChatRowBussines(getActivity(), message, position, adapter);
                 }
                 //red packet code : 红包消息、红包回执消息以及转账消息的chat row
                 else if (RedPacketUtil.isRandomRedPacket(message)) {//小额随机红包

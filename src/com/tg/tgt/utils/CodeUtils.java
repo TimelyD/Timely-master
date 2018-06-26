@@ -264,11 +264,13 @@ public class CodeUtils {
     public static EaseUser wrapUser(UserFriendModel model){
         if(model==null)
             return null;
+        Log.i("sn",model.getSn());
         EaseUser easeUser = new EaseUser(model.getUsername());
         easeUser.setIsLock(model.isSafe()?1:0);
         easeUser.setNickname(model.getNickname());
         easeUser.setAvatar(model.getPicture());
         easeUser.setChatid(String.valueOf(model.getId()));
+        easeUser.setSn(model.getSn());
         easeUser.setChatidstate(model.getSignature());
         easeUser.setChatidsex(model.getSex());
         easeUser.setRemark(model.getRemark());

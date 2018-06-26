@@ -16,12 +16,13 @@ package com.tg.tgt.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.tg.tgt.DemoHelper;
 
 public class DbOpenHelper extends SQLiteOpenHelper{
 
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	private static DbOpenHelper instance;
 
 	private static final String USERNAME_TABLE_CREATE = "CREATE TABLE "
@@ -33,6 +34,7 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 			+ UserDao.COLUMN_NAME_CHATID + " TEXT, "
 			+ UserDao.COLUMN_NAME_SEX + " TEXT, "
 			+ UserDao.COLUMN_NAME_STATE + " TEXT, "
+			+ UserDao.SN + " TEXT, "
 			+ UserDao.COLUMN_NAME_ID + " TEXT PRIMARY KEY);";
 	
 	private static final String INIVTE_MESSAGE_TABLE_CREATE = "CREATE TABLE "
@@ -81,11 +83,12 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 		db.execSQL(INIVTE_MESSAGE_TABLE_CREATE);
 		db.execSQL(CREATE_PREF_TABLE);
 		db.execSQL(ROBOT_TABLE_CREATE);
-		
+		Log.e("Tag","zou zheli ");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		Log.e("Tag","oldVersion="+oldVersion);
 		if(oldVersion < 2){
 //			//TODO 由于新版本加入群功能，老版本会将该群当作联系人写入表，造成错误。发布版本时需将这个改为删表，再重建
 //			db.execSQL("ALTER TABLE "+ UserDao.TABLE_NAME +" ADD COLUMN "+
@@ -103,6 +106,10 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 			//2017.10.31 其实之前版本都是无效的，这个写不写无所谓，修改为使用透传，新增了messageId字段
 			db.execSQL("DROP TABLE IF EXISTS "+InviteMessgeDao.TABLE_NAME);
 			db.execSQL(INIVTE_MESSAGE_TABLE_CREATE);
+		}
+		if(oldVersion < 4){
+			db.execSQL("ALTER TABLE "+ UserDao.TABLE_NAME +" ADD COLUMN "+ UserDao.SN + " TEXT ;");
+			//db.execSQL("ALTER TABLE "+ UserDao.TABLE_NAME+ " ADD sn TEXT");
 		}
 	}
 	

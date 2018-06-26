@@ -33,6 +33,7 @@ public class UserDao {
 	public static final String COLUMN_NAME_CHATID = "chatid";
 	public static final String COLUMN_NAME_SEX = "sex";
 	public static final String COLUMN_NAME_STATE = "state";
+	public static final String SN = "sn";
 
 
 
