@@ -916,7 +916,7 @@ public class MainActivity extends BaseActivity {
 			mImmersionBar = ImmersionBar.with(this);
 			mImmersionBar
 					.statusBarColor(com.hyphenate.easeui.R.color.chenjin)
-					.statusBarDarkFont(true, 0.5f)
+					//.statusBarDarkFont(true, 0.5f)
 					.init();
 	}
 }

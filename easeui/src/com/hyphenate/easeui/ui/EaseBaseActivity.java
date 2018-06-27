@@ -61,7 +61,7 @@ public class EaseBaseActivity extends AppCompatActivity {
                     .fitsSystemWindows(true)
                     .keyboardEnable(enableKeyBoard)
                     .statusBarColor(R.color.chenjin)
-                    .statusBarDarkFont(true, 0.5f)
+                   // .statusBarDarkFont(true, 0.5f)//设置状态栏字体颜色
                     .init();
         }
     }

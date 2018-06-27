@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -95,12 +96,13 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.ivhead = (CircleImageView) view.findViewById(R.id.iv_head);
         this.titlebar = (EaseTitleBar) view.findViewById(R.id.title_bar);
 
-        titlebar.setLeftImageResource(R.drawable.menu);
-        titlebar.setLeftLayoutVisibility(View.INVISIBLE);
+        titlebar.setLeftImageResource(R.drawable.sao);
+        titlebar.setBackgroundColor(Color.parseColor("#00000000"));
         titlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).toggleMenu();
+                showQrCode();
+                //((MainActivity)getActivity()).toggleMenu();
             }
         });
     }

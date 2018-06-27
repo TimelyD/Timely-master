@@ -184,6 +184,7 @@
     <string name="not_support_require_update">该版本不支持该类型的信息，请升级到最新版本</string>
     <string name="moment">朋友圈</string>
     <string name="foot">来访脚印</string>
+    <string name="collection">收藏</string>
     <string name="user_not_exist">找不到该用户</string>
     <string name="refuse_be_you_friend">拒绝添加你为好友</string>
     <string name="group_i_create">我创建的群</string>

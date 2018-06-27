@@ -186,6 +186,7 @@
     <string name="not_support_require_update">This version does not support this type of information, please upgrade to the latest version</string>
     <string name="moment">Friends</string>
     <string name="foot">Invited record</string>
+    <string name="collection">collection</string>
     <string name="user_not_exist">No data</string>
     <string name="refuse_be_you_friend">Reject your application</string>
     <string name="group_i_create">My group</string>
