@@ -27,5 +27,5 @@
     <!--底色-->
     <color name="bg_t">#f5f5f5</color>
     <!--分割线-->
-    <color name="divider_t">#cecece</color>
+    <color name="divider_t">#E5E5E5</color>
 </resources>
