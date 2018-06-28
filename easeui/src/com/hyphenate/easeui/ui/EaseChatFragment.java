@@ -37,6 +37,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMChatRoom;
@@ -460,6 +461,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
     protected void setUpView() {
 //        titleBar.setTitle(toChatUsername);
+        ImmersionBar mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar
+                .statusBarColor(R.color.white)
+                .statusBarDarkFont(true, 0.5f)
+                .init();
+        titleBar.setTitleColor(getResources().getColor(R.color.title_black));
+        titleBar.setLeftImageResource(R.drawable.back_black);
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
             if (EaseUserUtils.getUserInfo(toChatUsername) != null) {
@@ -469,6 +477,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 }
             }
             titleBar.setRightImageResource(R.drawable.chat_single);
+            titleBar.setBackgroundColor(getResources().getColor(R.color.white));
         } else {
             titleBar.setRightImageResource(R.drawable.chat_group);
             if (chatType == EaseConstant.CHATTYPE_GROUP) {

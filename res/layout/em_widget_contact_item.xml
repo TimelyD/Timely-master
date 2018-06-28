@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/common.5dp"
             >
 
-            <com.hyphenate.easeui.widget.CircleImageView
+            <com.hyphenate.easeui.widget.ZQImageViewRoundOval
                 android:id="@+id/avatar"
                 android:layout_width="@dimen/contact_avatar_width"
                 android:layout_height="@dimen/contact_avatar_width"

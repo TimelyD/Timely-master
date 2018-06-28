@@ -8,15 +8,17 @@
     <dimen name="tx_2">@dimen/common.16sp</dimen>
     <!--标准-->
     <dimen name="tx_3">@dimen/common.14sp</dimen>
+    <dimen name="tx_5">@dimen/common.13sp</dimen>
     <!--提示等-->
     <dimen name="tx_4">@dimen/common.12sp</dimen>
 
 
     <dimen name="layout_padding">@dimen/common.10dp</dimen>
+    <dimen name="msg_padding">@dimen/common.62dp</dimen>
     <dimen name="avatar_width">@dimen/common.42dp</dimen>
     <dimen name="avatar2_width">@dimen/common.80dp</dimen>
     <dimen name="contact_avatar_width">@dimen/common.35dp</dimen>
-    <dimen name="contact_row_height">@dimen/common.50dp</dimen>
+    <dimen name="contact_row_height">@dimen/common.55dp</dimen>
     <dimen name="title_bar_height">@dimen/common.40dp</dimen>
     <dimen name="divider_height">.5dp</dimen>
     <dimen name="ctrl_bar_height">40dp</dimen>

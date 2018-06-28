@@ -19,12 +19,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseConversationList;
 
@@ -48,7 +51,6 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     protected FrameLayout errorItemContainer;
 
     protected boolean isConflict;
-    
     protected EMConversationListener convListener = new EMConversationListener(){
 
 		@Override

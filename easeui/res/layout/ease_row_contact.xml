@@ -50,7 +50,7 @@
             android:layout_marginRight="@dimen/common.5dp"
             >
 
-            <com.hyphenate.easeui.widget.CircleImageView
+            <com.hyphenate.easeui.widget.ZQImageViewRoundOval
                 android:id="@+id/avatar"
                 android:layout_width="@dimen/contact_avatar_width"
                 android:layout_height="@dimen/contact_avatar_width"
@@ -62,8 +62,7 @@
                 android:id="@+id/iv_msg_lock"
                 android:layout_width="@dimen/common.15dp"
                 android:layout_height="@dimen/common.15dp"
-                android:layout_alignRight="@id/avatar"
-                android:layout_marginRight="@dimen/negative.7dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/common.5dp"
                 android:src="@drawable/lock"
                 android:visibility="invisible"

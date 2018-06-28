@@ -1,4 +1,4 @@
-package com.tg.tgt.utils;
+package com.hyphenate.easeui.widget;
 
 /**
  * Created by DELL on 2018/6/13.

@@ -225,6 +225,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 onBackPressed();
             }
         });
+        titleBar.setBackgroundColor(getResources().getColor(com.hyphenate.easeui.R.color.white));
         //TODO 在这里添加表情
 //        ((EaseEmojiconMenu) inputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());
         if (chatType == EaseConstant.CHATTYPE_GROUP) {
