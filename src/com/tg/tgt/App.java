@@ -30,13 +30,19 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMJobService;
 import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
+import com.marswin89.marsdaemon.DaemonClient;
+import com.marswin89.marsdaemon.DaemonConfigurations;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.tg.tgt.keepservice.Receiver1;
+import com.tg.tgt.keepservice.Receiver2;
+import com.tg.tgt.keepservice.Service2;
 
 public class App extends EaseApp {
 
@@ -57,6 +63,10 @@ public class App extends EaseApp {
 	private  static RefWatcher mRefWatcher;
 	public static SharedPreferences sf;
 	public static Boolean zq;
+
+	//6.0以下的常驻service
+	private DaemonClient mDaemonClient;
+
 	@Override
 	public void onCreate() {
 		MultiDex.install(this);
@@ -132,6 +142,8 @@ public class App extends EaseApp {
 	protected void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 		MultiDex.install(this);
+		mDaemonClient = new DaemonClient(createDaemonConfigurations());
+		mDaemonClient.onAttachBaseContext(base);
 	}
 
 
@@ -155,4 +167,34 @@ public class App extends EaseApp {
 		}
 		return "";
 	}
+
+	private DaemonConfigurations createDaemonConfigurations(){
+		DaemonConfigurations.DaemonConfiguration configuration1 = new DaemonConfigurations.DaemonConfiguration(
+				"com.marswin89.marsdaemon.demo:process1",
+				EMJobService.class.getCanonicalName(),
+				Receiver1.class.getCanonicalName());
+		DaemonConfigurations.DaemonConfiguration configuration2 = new DaemonConfigurations.DaemonConfiguration(
+				"com.marswin89.marsdaemon.demo:process2",
+				Service2.class.getCanonicalName(),
+				Receiver2.class.getCanonicalName());
+		DaemonConfigurations.DaemonListener listener = new MyDaemonListener();
+		//return new DaemonConfigurations(configuration1, configuration2);//listener can be null
+		return new DaemonConfigurations(configuration1, configuration2, listener);
+	}
+
+
+	class MyDaemonListener implements DaemonConfigurations.DaemonListener{
+		@Override
+		public void onPersistentStart(Context context) {
+		}
+
+		@Override
+		public void onDaemonAssistantStart(Context context) {
+		}
+
+		@Override
+		public void onWatchDaemonDaed() {
+		}
+	}
+
 }
