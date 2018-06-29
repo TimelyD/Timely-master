@@ -27,7 +27,6 @@
                 android:id="@+id/layout_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/mine_bg2"
                 android:orientation="horizontal"
                 android:padding="@dimen/common.12dp">
 
@@ -136,13 +135,61 @@
             android:id="@+id/unread_moment_number"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:visibility="gone"
             style="@style/NotifyDotTvStyle"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/friends_me"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <View
+            android:layout_marginLeft="@dimen/layout_padding"
+            android:background="@color/divider_t"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/common.12dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="@dimen/common.0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <com.hyphenate.easeui.widget.ZQImageViewRoundOval
+                    android:id="@+id/iv1"
+                    android:layout_width="@dimen/common.60dp"
+                    android:layout_height="@dimen/common.60dp"/>
+                <com.hyphenate.easeui.widget.ZQImageViewRoundOval
+                    android:id="@+id/iv2"
+                    android:layout_width="@dimen/common.60dp"
+                    android:layout_height="@dimen/common.60dp"
+                    android:layout_marginLeft="@dimen/common.10dp"/>
+                <com.hyphenate.easeui.widget.ZQImageViewRoundOval
+                    android:id="@+id/iv3"
+                    android:layout_width="@dimen/common.60dp"
+                    android:layout_height="@dimen/common.60dp"
+                    android:layout_marginLeft="@dimen/common.10dp"/>
+                <com.hyphenate.easeui.widget.ZQImageViewRoundOval
+                    android:id="@+id/iv4"
+                    android:layout_width="@dimen/common.60dp"
+                    android:layout_height="@dimen/common.60dp"
+                    android:layout_marginLeft="@dimen/common.10dp"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"/>
+        </LinearLayout>
     </LinearLayout>
     <View
         android:background="@color/divider_t"

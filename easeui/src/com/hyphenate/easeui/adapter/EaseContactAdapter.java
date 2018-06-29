@@ -19,6 +19,7 @@ import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseContactList;
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 import com.hyphenate.util.EMLog;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
     }
     
     public static class ViewHolder {
-        ImageView avatar;
+        ZQImageViewRoundOval avatar;
         TextView nameView;
         TextView headerView;
         ImageView lockImg;
@@ -63,7 +64,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
                 convertView = layoutInflater.inflate(com.hyphenate.easeui.R.layout.ease_row_contact, parent, false);
             else
                 convertView = layoutInflater.inflate(res, null);
-            holder.avatar = (ImageView) convertView.findViewById(com.hyphenate.easeui.R.id.avatar);
+            holder.avatar = (ZQImageViewRoundOval) convertView.findViewById(com.hyphenate.easeui.R.id.avatar);
             holder.nameView = (TextView) convertView.findViewById(com.hyphenate.easeui.R.id.name);
             holder.headerView = (TextView) convertView.findViewById(com.hyphenate.easeui.R.id.header);
             holder.lockImg = (ImageView) convertView.findViewById(com.hyphenate.easeui.R.id.iv_msg_lock);
@@ -74,7 +75,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.avatar.setType(ZQImageViewRoundOval.TYPE_ROUND);holder.avatar.setRoundRadius(20);
         EaseUser user = getItem(position);
         if(user == null)
             Log.d("ContactAdapter", position + "");

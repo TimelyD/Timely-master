@@ -40,8 +40,13 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -119,7 +124,11 @@ public class MainActivity extends BaseActivity {
 	private ImageView menusexImage;
 	private TextView menuuserName;
 	private MyContactListener mMyContactListener;
-
+	protected static RelativeLayout pup;        //弹框
+	protected static LinearLayout pup2;         //弹框里面的内容
+	private LinearLayout ll1;
+	private LinearLayout ll2;
+	private LinearLayout ll3;
 
 	/**
 	 * check if current user account was remove
@@ -217,6 +226,14 @@ public class MainActivity extends BaseActivity {
 				ToastUtils.showToast(getApplicationContext(), s);
 			}
 		});
+		pup= (RelativeLayout)findViewById(R.id.pup);
+		pup2= (LinearLayout)findViewById(R.id.pup2);
+		pup.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				shou();
+			}
+		});
 	}
 	/**
 	 * Jump Start Interface
@@ -312,6 +329,9 @@ public class MainActivity extends BaseActivity {
 		menuuserName = (TextView) findViewById(R.id.menu_userName);
 		menusexImage = (ImageView) findViewById(R.id.menu_sexImage);
 		menunickName = (TextView) findViewById(R.id.menu_nickName);
+		ll1=(LinearLayout)findViewById(R.id.ll1);
+		ll2=(LinearLayout)findViewById(R.id.ll2);
+		ll3=(LinearLayout)findViewById(R.id.ll3);
 
 
 		mTabs = new View[3];
@@ -324,6 +344,26 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(mContext, EditProfileAct.class));
+			}
+		});
+		ll1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				shou();
+				startActivity(new Intent(MainActivity.this, AddContactActivity.class));
+			}
+		});
+		ll2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				shou();
+				startActivity(new Intent(MainActivity.this, NewGroupActivity.class));
+			}
+		});
+		ll3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				shou();quan();
 			}
 		});
 	}
@@ -918,5 +958,42 @@ public class MainActivity extends BaseActivity {
 					.statusBarColor(com.hyphenate.easeui.R.color.chenjin)
 					//.statusBarDarkFont(true, 0.5f)
 					.init();
+	}
+
+	public static void tan(){
+		pup.setVisibility(View.VISIBLE);
+		Animation a = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				-1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+		a.setDuration(300);
+		a.setInterpolator(new LinearInterpolator());
+		pup2.startAnimation(a);
+		pup2.setVisibility(View.VISIBLE);
+	}
+
+	public static void shou(){
+		Animation a = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, -1.0f);
+		a.setDuration(300);
+		a.setInterpolator(new LinearInterpolator());
+		a.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				pup2.setVisibility(View.GONE);
+				pup.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
+		pup2.startAnimation(a);
 	}
 }

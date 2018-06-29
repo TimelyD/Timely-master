@@ -67,8 +67,9 @@ public class EaseTitleBar extends RelativeLayout{
                 Drawable drawable = ta.getDrawable(R.styleable.EaseTitleBar_titleBarTitleImage);
                 if(null != drawable){
                     ivTitle = (ImageView) findViewById(R.id.iv_title);
-                    ivTitle.setVisibility(VISIBLE);
+                    //ivTitle.setVisibility(VISIBLE);
                     ivTitle.setImageDrawable(drawable);
+                    titleView.setText(R.string.session);
                 }
             }else {
                 titleView.setText(title);
@@ -113,6 +114,10 @@ public class EaseTitleBar extends RelativeLayout{
 
     public void setLeftLayoutClickListener(OnClickListener listener){
         leftLayout.setOnClickListener(listener);
+    }
+
+    public void setTitleColor(int resId){
+        titleView.setTextColor(resId);
     }
 
     public void setRightLayoutClickListener(OnClickListener listener){

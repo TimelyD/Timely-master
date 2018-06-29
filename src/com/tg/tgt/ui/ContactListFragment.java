@@ -148,7 +148,12 @@ public class ContactListFragment extends EaseContactListFragment {
         titleBar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).showMenu(titleBar);
+                //((MainActivity)getActivity()).showMenu(titleBar);
+                if(MainActivity.pup.getVisibility()==View.GONE){
+                    MainActivity.tan();
+                }else {
+                    MainActivity.shou();
+                }
             }
         });
         /*titleBar.setSecondRightImageResource(R.drawable.search);

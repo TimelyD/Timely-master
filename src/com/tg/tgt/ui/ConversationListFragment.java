@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -153,7 +156,12 @@ public class ConversationListFragment extends EaseConversationListFragment {
         titleBar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).showMenu(titleBar);
+               //((MainActivity)getActivity()).showMenu(titleBar);
+                if(MainActivity.pup.getVisibility()==View.GONE){
+                    MainActivity.tan();
+                }else {
+                    MainActivity.shou();
+                }
             }
         });
         /*titleBar.setSecondRightImageResource(R.drawable.search);
@@ -412,5 +420,4 @@ public class ConversationListFragment extends EaseConversationListFragment {
         ((MainActivity) getActivity()).updateUnreadLabel();
         return true;
     }
-
 }

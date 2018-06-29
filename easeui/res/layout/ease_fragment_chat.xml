@@ -11,9 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         hyphenate:titleBarLeftImage="@drawable/back"/>
-
-    <LinearLayout
+    <View
+        android:id="@+id/xian"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
         android:layout_below="@id/title_bar"
+        android:background="@color/divider_t"/>
+    <LinearLayout
+        android:layout_below="@id/xian"
         android:paddingLeft="@dimen/common.10dp"
         android:paddingTop="@dimen/common.5dp"
         android:paddingBottom="@dimen/common.5dp"

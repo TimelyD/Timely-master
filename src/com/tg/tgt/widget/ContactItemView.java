@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 import com.tg.tgt.R;
 import com.tg.tgt.utils.CodeUtils;
 
@@ -34,7 +35,8 @@ public class ContactItemView extends LinearLayout{
         ta.recycle();
         
         LayoutInflater.from(context).inflate(R.layout.em_widget_contact_item, this);
-        ImageView avatar = (ImageView) findViewById(R.id.avatar);
+        ZQImageViewRoundOval avatar = (ZQImageViewRoundOval) findViewById(R.id.avatar);
+        avatar.setType(ZQImageViewRoundOval.TYPE_ROUND);avatar.setRoundRadius(20);
         unreadMsgView = (TextView) findViewById(R.id.unread_msg_number);
         TextView nameView = (TextView) findViewById(R.id.name);
         if(image != null){

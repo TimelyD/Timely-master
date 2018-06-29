@@ -26,12 +26,15 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.hyphenate.easeui.GlideApp;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.DeviceUtils;
+import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.NotificationsUtils;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.widget.CircleImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.tg.tgt.App;
 import com.hyphenate.easeui.utils.rxbus2.BusCode;
@@ -43,10 +46,12 @@ import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.ApiService2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.http.IView;
 import com.tg.tgt.http.RxUtils;
 import com.tg.tgt.http.interceptor.AddTokenInterceptor;
 import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.ui.base.BaseFragment;
+import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.hyphenate.easeui.utils.rxbus2.RxBus;
 import com.hyphenate.easeui.utils.rxbus2.Subscribe;
@@ -80,6 +85,11 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private ImageView ivQrCode;
     private LinearLayout profilelayout;
     private TextView tvUnreadMoment;
+    private LinearLayout friends_me;
+    private ZQImageViewRoundOval iv1;
+    private ZQImageViewRoundOval iv2;
+    private ZQImageViewRoundOval iv3;
+    private ZQImageViewRoundOval iv4;
 
     @Override
     protected void initView(View view) {
@@ -95,6 +105,20 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.tvname = (TextView) view.findViewById(R.id.tv_name);
         this.ivhead = (CircleImageView) view.findViewById(R.id.iv_head);
         this.titlebar = (EaseTitleBar) view.findViewById(R.id.title_bar);
+        this.friends_me = (LinearLayout) view.findViewById(R.id.friends_me);
+        this.iv1=(ZQImageViewRoundOval)view.findViewById(R.id.iv1);
+        this.iv2=(ZQImageViewRoundOval)view.findViewById(R.id.iv2);
+        this.iv3=(ZQImageViewRoundOval)view.findViewById(R.id.iv3);
+        this.iv4=(ZQImageViewRoundOval)view.findViewById(R.id.iv4);
+
+        iv1.setType(ZQImageViewRoundOval.TYPE_ROUND);iv1.setRoundRadius(20);//矩形凹行大小
+        iv2.setType(ZQImageViewRoundOval.TYPE_ROUND);iv2.setRoundRadius(20);
+        iv3.setType(ZQImageViewRoundOval.TYPE_ROUND);iv3.setRoundRadius(20);
+        iv4.setType(ZQImageViewRoundOval.TYPE_ROUND);iv4.setRoundRadius(20);
+        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv1);
+        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv2);
+        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv3);
+        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv4);
 
         titlebar.setLeftImageResource(R.drawable.sao);
         titlebar.setBackgroundColor(Color.parseColor("#00000000"));
@@ -221,7 +245,12 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         titlebar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).showMenu(titlebar);
+               // ((MainActivity) getActivity()).showMenu(titlebar);
+                if(MainActivity.pup.getVisibility()==View.GONE){
+                    MainActivity.tan();
+                }else {
+                    MainActivity.shou();
+                }
             }
         });
         settinglayout.setOnClickListener(this);
@@ -230,6 +259,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         friendsCircleLayout.setOnClickListener(this);
         scanLayout.setOnClickListener(this);
         ivQrCode.setOnClickListener(this);
+        friends_me.setOnClickListener(this);
     }
 
     @Override
@@ -264,7 +294,30 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 DBManager.getInstance().saveUnreadMotionActionCount(0);
                 startActivity(new Intent(mContext, MomentAct.class));
                 break;
+            case R.id.friends_me:
+                toHomePage(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME),
+                        SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));
+                break;
 
+        }
+    }
+
+    private void toHomePage(final String username, final String userId) {
+        EaseUser userInfo = EaseUserUtils.getUserInfo(username);
+        if(userInfo.getChatidstate() == null){
+            CodeUtils.fetchUser((IView) mContext, userId,false, new Consumer<EaseUser>() {
+                @Override
+                public void accept(@NonNull EaseUser easeUser) throws Exception {
+                    mContext.startActivity(new Intent(mContext, MomentAct.class)
+                            .putExtra(Constant.USERNAME, username)
+                            .putExtra(Constant.USER_ID, userId)
+                            // .putExtra("signature",easeUser.getChatidstate())
+                            .putExtra(Constant.IS_MINE_HOME_PAGE, true));
+                }
+            });
+        }else {
+            mContext.startActivity(new Intent(mContext, MomentAct.class).putExtra(Constant.USERNAME, username).putExtra
+                    (Constant.USER_ID, userId).putExtra(Constant.IS_MINE_HOME_PAGE, true));
         }
     }
 
