@@ -167,17 +167,17 @@ public class MainActivity extends BaseActivity {
 			}
 		}
 
-//		// 1. 注册锁屏广播监听器
-//        mScreenListener = new ScreenReceiverUtil(this);
-//        mScreenManager = ScreenManager.getScreenManagerInstance(this);
-//        mScreenListener.setScreenReceiverListener(mScreenListenerer);
-//		// 2. 启动系统任务
-//		mJobManager = JobSchedulerManager.getJobSchedulerInstance(this);
-//		mJobManager.startJobScheduler();
-//		// 3. 启动前台Service
-//		startDaemonService();
-//		// 4. 启动播放音乐Service
-//		startPlayMusicService();
+		// 1. 注册锁屏广播监听器
+        mScreenListener = new ScreenReceiverUtil(this);
+        mScreenManager = ScreenManager.getScreenManagerInstance(this);
+        mScreenListener.setScreenReceiverListener(mScreenListenerer);
+		// 2. 启动系统任务
+		mJobManager = JobSchedulerManager.getJobSchedulerInstance(this);
+		mJobManager.startJobScheduler();
+		// 3. 启动前台Service
+		startDaemonService();
+		// 4. 启动播放音乐Service
+		startPlayMusicService();
 
 		//make sure activity will not in background if user is logged into another device or removed
 		if (savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) {
