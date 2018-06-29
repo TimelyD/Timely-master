@@ -82,6 +82,11 @@ import com.tg.tgt.helper.ActionItem;
 import com.tg.tgt.helper.DBManager;
 import com.tg.tgt.helper.MenuPopup;
 import com.tg.tgt.helper.UserHelper;
+import com.tg.tgt.keepservice.receiver.ScreenReceiverUtil;
+import com.tg.tgt.keepservice.service.DaemonService;
+import com.tg.tgt.keepservice.service.PlayerMusicService;
+import com.tg.tgt.keepservice.utils.JobSchedulerManager;
+import com.tg.tgt.keepservice.utils.ScreenManager;
 import com.tg.tgt.logger.Logger;
 import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.parse.ParseManager;
@@ -137,6 +142,13 @@ public class MainActivity extends BaseActivity {
 		return isCurrentAccountRemoved;
 	}
 
+	// JobService，执行系统任务
+	private JobSchedulerManager mJobManager;
+	// 动态注册锁屏等广播
+	private ScreenReceiverUtil mScreenListener;
+	// 1像素Activity管理类
+	private ScreenManager mScreenManager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -154,6 +166,19 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		}
+
+		// 1. 注册锁屏广播监听器
+        mScreenListener = new ScreenReceiverUtil(this);
+        mScreenManager = ScreenManager.getScreenManagerInstance(this);
+        mScreenListener.setScreenReceiverListener(mScreenListenerer);
+		// 2. 启动系统任务
+		mJobManager = JobSchedulerManager.getJobSchedulerInstance(this);
+		mJobManager.startJobScheduler();
+		// 3. 启动前台Service
+		startDaemonService();
+		// 4. 启动播放音乐Service
+		startPlayMusicService();
+
 		//make sure activity will not in background if user is logged into another device or removed
 		if (savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) {
 		    DemoHelper.getInstance().logout(false,null);
@@ -235,6 +260,50 @@ public class MainActivity extends BaseActivity {
 			}
 		});
 	}
+
+	private ScreenReceiverUtil.SreenStateListener mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
+		@Override
+		public void onSreenOn() {
+			// 亮屏，移除"1像素"
+			mScreenManager.finishActivity();
+		}
+
+		@Override
+		public void onSreenOff() {
+			// 接到锁屏广播，将SportsActivity切换到可见模式
+			// "咕咚"、"乐动力"、"悦动圈"就是这么做滴
+//            Intent intent = new Intent(SportsActivity.this,SportsActivity.class);
+//            startActivity(intent);
+			// 如果你觉得，直接跳出SportActivity很不爽
+			// 那么，我们就制造个"1像素"惨案
+			mScreenManager.startActivity();
+		}
+
+		@Override
+		public void onUserPresent() {
+			// 解锁，暂不用，保留
+		}
+	};
+	private void stopPlayMusicService() {
+		Intent intent = new Intent(MainActivity.this, PlayerMusicService.class);
+		stopService(intent);
+	}
+
+	private void startPlayMusicService() {
+		Intent intent = new Intent(MainActivity.this,PlayerMusicService.class);
+		startService(intent);
+	}
+
+	private void startDaemonService() {
+		Intent intent = new Intent(MainActivity.this, DaemonService.class);
+		startService(intent);
+	}
+
+	private void stopDaemonService() {
+		Intent intent = new Intent(MainActivity.this, DaemonService.class);
+		stopService(intent);
+	}
+
 	/**
 	 * Jump Start Interface
 	 * 提示是否跳转设置自启动界面
