@@ -16,7 +16,8 @@
         app:titleBarTitle="@string/new_title"
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.hyphenate.easeui.widget.EaseTitleBar>
+        android:layout_height="wrap_content">
+    </com.hyphenate.easeui.widget.EaseTitleBar>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -26,7 +27,8 @@
             android:id="@+id/recycler_view"
             android:paddingTop="@dimen/common.10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
     <!--<com.tg.tgt.widget.LoadMoreListView
         android:divider="@null"
         android:background="@color/gray_bg"

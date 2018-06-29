@@ -342,6 +342,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 .build()
         );
         String qr_url = SpUtils.get(mContext, Constant.QR, "");
+        //ImageUtils.show(getContext(),glideUrl, R.drawable.photo1,ivQr);
         GlideApp.with(this).load(glideUrl).diskCacheStrategy(DiskCacheStrategy.NONE).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {

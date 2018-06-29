@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.tg.tgt.Constant;
@@ -131,7 +132,16 @@ public class NewsListAct extends BaseActivity {
     }
 
     private void initView() {
+        mImmersionBar
+                .fitsSystemWindows(true)
+                .statusBarColor(com.hyphenate.easeui.R.color.white)
+                .statusBarDarkFont(true, 0.5f)//设置状态栏字体颜色
+                .init();
         mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
+        mTitleBar.setBackgroundColor(getResources().getColor(R.color.white));
+        mTitleBar.setLeftImageResource(R.drawable.back_black);
+        mTitleBar.setTitleColor(getResources().getColor(R.color.title_black));
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         
