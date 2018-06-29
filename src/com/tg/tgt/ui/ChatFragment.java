@@ -48,6 +48,7 @@ import com.hyphenate.easeui.utils.rxbus2.BusCode;
 import com.hyphenate.easeui.utils.rxbus2.RxBus;
 import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
+import com.hyphenate.easeui.widget.chatrow.ChatRowBussines;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.exceptions.HyphenateException;
@@ -61,11 +62,7 @@ import com.tg.tgt.domain.RobotUser;
 import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
-import com.tg.tgt.widget.ChatRowBussines;
 import com.tg.tgt.widget.ChatRowVoiceCall;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +98,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private static final int MESSAGE_TYPE_RECV_VOICE_CALL = 2;
     private static final int MESSAGE_TYPE_SENT_VIDEO_CALL = 3;
     private static final int MESSAGE_TYPE_RECV_VIDEO_CALL = 4;
+    private static final int MESSAGE_SENT_BUSSINES = 5;
+    private static final int MESSAGE_RECV_BUSSINES = 6;
 
     //red packet code : 红包功能使用的常量
     private static final int MESSAGE_TYPE_RECV_RED_PACKET = 5;
@@ -787,7 +786,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     //video call
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO_CALL :
                             MESSAGE_TYPE_SENT_VIDEO_CALL;
-                }/*else if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_voice_call_receive")){
+                }else  if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_RECV_BUSSINES :
+                            MESSAGE_SENT_BUSSINES;
+                }
+                /*else if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_voice_call_receive")){
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL :
                             MESSAGE_TYPE_SENT_VOICE_CALL;
                 }else if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_video_call_receive")){
@@ -825,9 +828,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false) || message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)) {
                     return new ChatRowVoiceCall(getActivity(), message, position, adapter);
                 }
-                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, false)) {
+                /*if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, false)) {
                     return new ChatRowBussines(getActivity(), message, position, adapter);
-                }
+                }*/
                 Log.i("dcz",message.ext().toString());
                 if(message.ext().get("VoiceOrVideoImage")!=null){
                     if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_voice_call_receive")||message.ext().get("VoiceOrVideoImage").equals("ease_chat_video_call_receive")){
@@ -836,11 +839,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                         return new ChatRowVoiceCall(getActivity(), message, position, adapter);
                     }
                 }
-                if(message.ext().get("bussines_id")!=null){
+               /* if(message.ext().get("bussines_id")!=null){
                     message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
                     message.setAttribute(Constant.BUSSINES_NUMBER,message.ext().get(Constant.BUSSINES_NUMBER).toString());
                     return new ChatRowBussines(getActivity(), message, position, adapter);
-                }
+                }*/
                 //red packet code : 红包消息、红包回执消息以及转账消息的chat row
                 else if (RedPacketUtil.isRandomRedPacket(message)) {//小额随机红包
                     return new ChatRowRandomPacket(getActivity(), message, position, adapter);

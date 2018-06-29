@@ -34,7 +34,13 @@ public class EaseConstant {
     public static final String MESSAGE_ATTR_AT_MSG = "em_at_list";
     public static final String MESSAGE_ATTR_VALUE_AT_MSG_ALL = "ALL";
 
-    
+    /**
+     * 名片的参数
+     * */
+    public static final String BUSSINES_ID="bussines_id";
+    public static final String BUSSINES_PIC="bussines_pic";
+    public static final String BUSSINES_NAME="bussines_name";
+    public static final String BUSSINES_NUMBER="bussines_number";
     
 	public static final int CHATTYPE_SINGLE = 1;
     public static final int CHATTYPE_GROUP = 2;

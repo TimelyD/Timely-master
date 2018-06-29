@@ -1,4 +1,4 @@
-package com.tg.tgt.widget;
+package com.hyphenate.easeui.widget.chatrow;
 
 import android.content.Context;
 import android.widget.BaseAdapter;
@@ -6,8 +6,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
-import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
-import com.tg.tgt.Constant;
+import com.hyphenate.easeui.EaseConstant;
 
 public class ChatRowBussines extends EaseChatRow {
 
@@ -34,8 +33,8 @@ public class ChatRowBussines extends EaseChatRow {
     protected void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         state.setText(txtBody.getMessage());
-        name.setText(message.getStringAttribute(Constant.BUSSINES_NAME,null));
-        state.setText(message.getStringAttribute(Constant.BUSSINES_NUMBER,null));
+        name.setText(message.getStringAttribute(EaseConstant.BUSSINES_NAME,null));
+        state.setText(message.getStringAttribute(EaseConstant.BUSSINES_NUMBER,null));
     }
     
     @Override

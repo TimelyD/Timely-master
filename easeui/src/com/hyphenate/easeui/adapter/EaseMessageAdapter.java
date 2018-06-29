@@ -32,6 +32,7 @@ import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.GroupHelper;
 import com.hyphenate.easeui.widget.EaseChatMessageList.MessageListItemClickListener;
+import com.hyphenate.easeui.widget.chatrow.ChatRowBussines;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowBigExpression;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowFile;
@@ -71,7 +72,8 @@ public class EaseMessageAdapter extends BaseAdapter {
     private static final int MESSAGE_TYPE_SENT_EXPRESSION = 12;
     private static final int MESSAGE_TYPE_RECV_EXPRESSION = 13;
     private static final int MESSAGE_TYPE_INVITE_INTO_GROUP = 14;
-
+    private static final int MESSAGE_SENT_BUSSINES = 15;
+    private static final int MESSAGE_RECV_BUSSINES = 16;
 
     public int itemTypeCount;
 
@@ -225,6 +227,10 @@ public class EaseMessageAdapter extends BaseAdapter {
             if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)) {
                 return MESSAGE_TYPE_INVITE_INTO_GROUP;
             }
+            if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+                return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_RECV_BUSSINES :
+                        MESSAGE_SENT_BUSSINES;
+            }
             return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_TXT : MESSAGE_TYPE_SENT_TXT;
         }
         if (message.getType() == EMMessage.Type.IMAGE) {
@@ -257,6 +263,8 @@ public class EaseMessageAdapter extends BaseAdapter {
             case TXT:
                 if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)) {
                     chatRow = new EaseChatRowBigExpression(context, message, position, this);
+                } else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+                    chatRow = new ChatRowBussines(context, message, position, this);
                 } else {
                     chatRow = new EaseChatRowText(context, message, position, this);
                 }

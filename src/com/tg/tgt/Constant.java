@@ -27,13 +27,6 @@ public class Constant extends EaseConstant {
 	public static final String ACTION_GROUP_CHANAGED = "action_group_changed";
 	public static final String ACTION_CONTACT_CHANAGED = "action_contact_changed";
 
-	/**
-	 * 名片的参数
-	 * */
-	public static final String BUSSINES_ID="bussines_id";
-	public static final String BUSSINES_PIC="bussines_pic";
-	public static final String BUSSINES_NAME="bussines_name";
-	public static final String BUSSINES_NUMBER="bussines_number";
 
 //登陆信息
 	public static final String MYUID = "login_myUid";
