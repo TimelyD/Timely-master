@@ -10,8 +10,8 @@
     <string name="attach_smile">表情</string>
     <string name="attach_picture">图片</string>
     <string name="attach_take_pic">拍照</string>
-    <string name="attach_location">位置</string>
-    <string name="Business">名片</string>
+    <string name="attach_location">定位</string>
+    <string name="Business">个人名片</string>
     <string name="attach_video">视频</string>
     <string name="attach_file">文件</string>
     <string name="attach_voice_call">语音电话</string>
@@ -311,5 +311,5 @@
     <string name="toast_updatephoto_fail">更新头像失败!</string>
     <string name="quiting_the_chat_room">正在退出聊天室……</string>
 
-    <string name="read_and_fire_hint">您已经开启了阅后即焚功能，当前模式下对方看完消息后将会自动销毁。注:系统会根据消息长度设定销毁时间</string>
+    <string name="read_and_fire_hint">你已开启了阅后即焚功能，对方看到消息后会自动销毁！</string>
 </resources>

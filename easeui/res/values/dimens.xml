@@ -15,7 +15,7 @@
 
     <dimen name="layout_padding">@dimen/common.10dp</dimen>
     <dimen name="msg_padding">@dimen/common.62dp</dimen>
-    <dimen name="avatar_width">@dimen/common.42dp</dimen>
+    <dimen name="avatar_width">@dimen/common.45dp</dimen>
     <dimen name="avatar2_width">@dimen/common.80dp</dimen>
     <dimen name="contact_avatar_width">@dimen/common.35dp</dimen>
     <dimen name="contact_row_height">@dimen/common.55dp</dimen>

@@ -19,7 +19,7 @@
         android:layout_marginTop="@dimen/margin_chat_activity"
         android:paddingLeft="20dp" >
 
-        <com.hyphenate.easeui.widget.CircleImageView
+        <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"

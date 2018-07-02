@@ -55,8 +55,7 @@
                 android:layout_width="@dimen/contact_avatar_width"
                 android:layout_height="@dimen/contact_avatar_width"
                 android:layout_centerInParent="true"
-                android:src="@drawable/default_avatar"
-                />
+                android:src="@drawable/default_avatar"/>
 
             <ImageView
                 android:id="@+id/iv_msg_lock"

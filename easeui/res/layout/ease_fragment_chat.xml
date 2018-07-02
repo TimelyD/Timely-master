@@ -20,10 +20,10 @@
     <LinearLayout
         android:layout_below="@id/xian"
         android:paddingLeft="@dimen/common.10dp"
-        android:paddingTop="@dimen/common.5dp"
-        android:paddingBottom="@dimen/common.5dp"
+        android:paddingTop="@dimen/common.7dp"
+        android:paddingBottom="@dimen/common.7dp"
         android:paddingRight="@dimen/common.10dp"
-        android:background="#F6E1B2"
+        android:background="#e46649"
         android:id="@+id/read_and_fire_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:visibility="gone">
 
         <ImageView
-            android:src="@drawable/fire_checked"
+            android:src="@drawable/fire2"
             android:layout_width="@dimen/common.22dp"
             android:layout_height="@dimen/common.22dp"/>
 
@@ -41,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/read_and_fire_hint"
+            android:textColor="@color/white"
             android:textSize="@dimen/tx_4"/>
     </LinearLayout>
 

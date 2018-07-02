@@ -29,14 +29,14 @@
                 android:focusable="false"
                 android:button="@drawable/round_selector"
                 android:layout_centerVertical="true"/>
-            <com.hyphenate.easeui.widget.CircleImageView
+            <com.hyphenate.easeui.widget.ZQImageViewRoundOval
                 android:id="@+id/iv_userhead"
                 android:layout_width="@dimen/size_avatar"
                 android:layout_height="@dimen/size_avatar"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@id/select"
                 android:layout_marginLeft="@dimen/margin_chat_activity"
-                android:src="@drawable/default_avatar" />
+                android:src="@drawable/default_avatar2" />
         </RelativeLayout>
         <TextView
             android:id="@+id/tv_userid"

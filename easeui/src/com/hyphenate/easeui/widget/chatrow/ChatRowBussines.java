@@ -1,12 +1,16 @@
 package com.hyphenate.easeui.widget.chatrow;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 
 public class ChatRowBussines extends EaseChatRow {
@@ -30,12 +34,13 @@ public class ChatRowBussines extends EaseChatRow {
         name = (TextView) findViewById(com.hyphenate.easeui.R.id.tv_file_name);
         state = (TextView) findViewById(com.hyphenate.easeui.R.id.tv_file_state);
         avatar = (ImageViewRoundOval) findViewById(com.hyphenate.easeui.R.id.pic);
-        //avatar.setType(ImageViewRoundOval.TYPE_ROUND);avatar.setRoundRadius(20);
+        avatar.setType(ImageViewRoundOval.TYPE_ROUND);avatar.setRoundRadius(20);
     }
 
     @Override
     protected void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
+        ImageUtils.show(getContext(),message.getStringAttribute(EaseConstant.BUSSINES_PIC,null), R.drawable.default_avatar2,avatar);
         state.setText(txtBody.getMessage());
         name.setText(message.getStringAttribute(EaseConstant.BUSSINES_NAME,null));
         state.setText(message.getStringAttribute(EaseConstant.BUSSINES_NUMBER,null));

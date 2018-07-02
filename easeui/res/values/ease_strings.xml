@@ -299,5 +299,5 @@
     <string name="toast_updatephoto_fail">update photo fail!</string>
     <string name="quiting_the_chat_room">Exiting chat room</string>
 
-    <string name="read_and_fire_hint">You have already started the clearance after reading function, and the current mode will automatically destroy the news after reading. Note: the system will set the destruction time according to the message length</string>
+    <string name="read_and_fire_hint">You have turned on the burn after reading, the other side will see the message will be destroyed automatically!</string>
 </resources>

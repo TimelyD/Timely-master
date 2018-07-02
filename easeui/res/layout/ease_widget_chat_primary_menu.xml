@@ -68,8 +68,8 @@
                 android:singleLine="true"
                 android:layout_centerVertical="true"
                 android:minHeight="@dimen/common.38dp"
-                android:paddingLeft="@dimen/common.42dp"
-                android:paddingRight="@dimen/common.10dp"
+                android:paddingRight="@dimen/common.42dp"
+                android:paddingLeft="@dimen/common.10dp"
                 android:textSize="15sp"
                 android:imeOptions="actionSend"/>
 
@@ -106,7 +106,8 @@
                 android:id="@+id/btn_set_fire"
                 android:layout_width="@dimen/common.22dp"
                 android:layout_height="@dimen/common.22dp"
-                android:layout_marginLeft="@dimen/common.10dp"
+                android:layout_marginRight="@dimen/common.10dp"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/fire"
                 android:visibility="visible" />

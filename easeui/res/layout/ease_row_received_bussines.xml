@@ -17,14 +17,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity">
 
-        <com.hyphenate.easeui.widget.CircleImageView
+        <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/margin_chat_activity"
-            android:src="@drawable/default_avatar" />
+            android:src="@drawable/default_avatar2" />
 
         <RelativeLayout
             android:id="@+id/bubble"
@@ -43,8 +43,8 @@
                     android:layout_height="wrap_content">
                     <com.hyphenate.easeui.widget.chatrow.ImageViewRoundOval
                         android:id="@+id/pic"
-                        android:layout_width="@dimen/common.50dp"
-                        android:layout_height="@dimen/common.50dp"
+                        android:layout_width="@dimen/common.45dp"
+                        android:layout_height="@dimen/common.45dp"
                         android:layout_margin="5dp"
                         android:src="@drawable/ease_chat_item_file" />
                     <LinearLayout

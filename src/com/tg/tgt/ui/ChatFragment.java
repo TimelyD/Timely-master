@@ -48,7 +48,6 @@ import com.hyphenate.easeui.utils.rxbus2.BusCode;
 import com.hyphenate.easeui.utils.rxbus2.RxBus;
 import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
-import com.hyphenate.easeui.widget.chatrow.ChatRowBussines;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.exceptions.HyphenateException;
@@ -320,11 +319,12 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         //use the menu in base class
 //        super.registerExtendMenuItem();
         //extend menu items
-        inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_video, com.tg.tgt.R.drawable.em_chat_video_selector, ITEM_VIDEO, extendMenuItemClickListener);
-        inputMenu.registerExtendMenuItem(R.string.attach_take_pic, R.drawable.ease_chat_takepic_selector, ITEM_TAKE_PICTURE, extendMenuItemClickListener);
+        /*inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_video, com.tg.tgt.R.drawable.em_chat_video_selector, ITEM_VIDEO, extendMenuItemClickListener);
+        inputMenu.registerExtendMenuItem(R.string.attach_take_pic, R.drawable.ease_chat_takepic_selector, ITEM_TAKE_PICTURE, extendMenuItemClickListener);*/
         inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_file, com.tg.tgt.R.drawable.em_chat_file_selector, ITEM_FILE, extendMenuItemClickListener);
         inputMenu.registerExtendMenuItem(R.string.attach_location, R.drawable.ease_chat_location_selector, ITEM_LOCATION, extendMenuItemClickListener);
-        inputMenu.registerExtendMenuItem(R.string.Business, R.drawable.ease_chat_location_selector, ITEM_BUSINESS, extendMenuItemClickListener);
+        inputMenu.registerExtendMenuItem(R.string.collection, R.drawable.collection,ITEM_COLLECTION, extendMenuItemClickListener);
+        inputMenu.registerExtendMenuItem(R.string.Business, R.drawable.ease_chat_bussines, ITEM_BUSINESS, extendMenuItemClickListener);
         /*if (chatType == Constant.CHATTYPE_SINGLE) {
             inputMenu.registerExtendMenuItem(com.tg.tgt.R.string.attach_voice_call, com.tg.tgt.R.drawable.em_chat_voice_call_selector,
                     ITEM_VOICE_CALL, extendMenuItemClickListener);
@@ -677,6 +677,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 break;
             case ITEM_VIDEO_CALL:
                 startVideoCall();
+                break;
+            case ITEM_COLLECTION:
                 break;
             case ITEM_BUSINESS:
                 startBusiness();

@@ -21,7 +21,7 @@
     <dimen name="tx_4">@dimen/common.12sp</dimen>
 
     <dimen name="layout_padding">@dimen/common.10dp</dimen>
-    <dimen name="avatar_width">@dimen/common.42dp</dimen>
+    <dimen name="avatar_width">@dimen/common.45dp</dimen>
     <dimen name="avatar2_width">@dimen/common.80dp</dimen>
 
 </resources>
