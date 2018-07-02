@@ -66,12 +66,20 @@
                 android:textSize="15sp" />
 
         </RelativeLayout>
-        <ImageView
+        <!--<ImageView
             android:id="@+id/iv_fire"
             android:src="@drawable/fire3"
             android:layout_toRightOf="@id/bubble"
             android:layout_marginTop="-9dp"
             android:layout_marginLeft="-9dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"/>-->
+        <ImageView
+            android:id="@+id/iv_fire"
+            android:src="@drawable/fire3"
+            android:layout_toRightOf="@id/bubble"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common.5dp"
             android:layout_width="18dp"
             android:layout_height="18dp"/>
         <TextView

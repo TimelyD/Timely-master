@@ -26,7 +26,7 @@
             android:focusable="false"
             android:button="@drawable/round_selector"
             android:layout_centerVertical="true"/>
-        <com.hyphenate.easeui.widget.CircleImageView
+        <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
@@ -98,6 +98,7 @@
             <ProgressBar
                 android:id="@+id/progress_bar"
                 style="?android:attr/progressBarStyleSmall"
+                android:indeterminateDrawable="@drawable/progress"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:visibility="visible" />

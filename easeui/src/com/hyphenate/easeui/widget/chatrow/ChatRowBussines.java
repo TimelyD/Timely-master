@@ -2,9 +2,11 @@ package com.hyphenate.easeui.widget.chatrow;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseConstant;
@@ -12,6 +14,7 @@ import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
+import com.hyphenate.exceptions.HyphenateException;
 
 public class ChatRowBussines extends EaseChatRow {
 
@@ -44,12 +47,47 @@ public class ChatRowBussines extends EaseChatRow {
         state.setText(txtBody.getMessage());
         name.setText(message.getStringAttribute(EaseConstant.BUSSINES_NAME,null));
         state.setText(message.getStringAttribute(EaseConstant.BUSSINES_NUMBER,null));
+        handleTextMessage();
         //ImageUtils.show(getContext(),message.getStringAttribute(EaseConstant.BUSSINES_PIC,null), R.drawable.ease_chat_item_file,avatar);
     }
     
     @Override
     protected void onUpdateView() {
-        
+        adapter.notifyDataSetChanged();
+    }
+
+    protected void handleTextMessage() {
+        if (message.direct() == EMMessage.Direct.SEND) {
+            setMessageSendCallback();
+            switch (message.status()) {
+                case CREATE:
+                    progressBar.setVisibility(View.GONE);
+                    statusView.setVisibility(View.VISIBLE);
+                    break;
+                case SUCCESS:
+                    progressBar.setVisibility(View.GONE);
+                    statusView.setVisibility(View.GONE);
+                    break;
+                case FAIL:
+                    progressBar.setVisibility(View.GONE);
+                    statusView.setVisibility(View.VISIBLE);
+                    break;
+                case INPROGRESS:
+                    progressBar.setVisibility(View.VISIBLE);
+                    statusView.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            if(!message.isAcked() && message.getChatType() == EMMessage.ChatType.Chat){
+                try {
+                    EMClient.getInstance().chatManager().ackMessageRead(message.getFrom(), message.getMsgId());
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

@@ -111,6 +111,8 @@
             android:id="@+id/progress_bar"
             android:layout_width="25dp"
             android:layout_height="25dp"
+              android:layout_marginRight="@dimen/common.5dp"
+              android:indeterminateDrawable="@drawable/progress"
               android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/bubble"
             />

@@ -37,8 +37,12 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 //    private ImageView faceNormal;
 //    private ImageView faceChecked;
     private ImageView buttonMore;
-    private boolean ctrlPress = false;
+    private ImageView ivVoice;
+    private ImageView ivPhoto;
+    private ImageView ivCamera;
     private ImageView mIvVideo;
+    private View faceLayout;
+    private boolean ctrlPress = false;
     private LinearLayout linearUnder;
     private View kong;
 
@@ -67,7 +71,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         buttonPressToSpeak = findViewById(R.id.btn_press_to_speak);
 //        faceNormal = (ImageView) findViewById(R.id.iv_face_normal);
 //        faceChecked = (ImageView) findViewById(R.id.iv_face_checked);
-        View faceLayout =  findViewById(R.id.iv_face);
+        faceLayout =  findViewById(R.id.iv_face);
         buttonMore = (ImageView) findViewById(R.id.btn_more);
         edittext_layout.setBackgroundResource(R.drawable.editbackground);
         linearUnder= (LinearLayout) findViewById(R.id.linearUnder);
@@ -178,9 +182,9 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
 
         //下面是自己添加的底部按钮
-        ImageView ivVoice = (ImageView) findViewById(R.id.iv_voice);
-        ImageView ivPhoto = (ImageView) findViewById(R.id.iv_photo);
-        ImageView ivCamera = (ImageView) findViewById(R.id.iv_camera);
+        ivVoice = (ImageView) findViewById(R.id.iv_voice);
+        ivPhoto = (ImageView) findViewById(R.id.iv_photo);
+        ivCamera = (ImageView) findViewById(R.id.iv_camera);
         mIvVideo = (ImageView) findViewById(R.id.iv_video);
 
         ivVoice.setOnClickListener(typeOnclickListener);
@@ -369,6 +373,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             buttonFire.setBackgroundResource(R.drawable.fire_checked);
             linearUnder.setVisibility(GONE);
             kong.setVisibility(VISIBLE);
+            buttonMore.setSelected(false);ivVoice.setSelected(false);ivPhoto.setSelected(false);
+            ivCamera.setSelected(false);mIvVideo.setSelected(false);faceLayout.setSelected(false);
         } else {
             buttonFire.setBackgroundResource(R.drawable.fire);
             linearUnder.setVisibility(VISIBLE);

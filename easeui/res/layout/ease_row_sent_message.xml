@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/margin_chat_activity"
-            android:src="@drawable/default_avatar2"
+            android:src="@drawable/default_avatar"
              />
 
         <RelativeLayout
@@ -71,14 +71,14 @@
 
         </RelativeLayout>
 
-        <ImageView
+        <!--<ImageView
             android:layout_marginTop="-9dp"
             android:layout_marginRight="-9dp"
             android:layout_toLeftOf="@id/bubble"
             android:id="@+id/iv_fire"
             android:src="@drawable/fire_checked"
             android:layout_width="18dp"
-            android:layout_height="18dp"/>
+            android:layout_height="18dp"/>-->
         
        <!--  <TextView
             android:id="@+id/tv_userid"
@@ -89,16 +89,6 @@
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@id/iv_userhead"
             android:text="xxx" /> -->
-
-        <ImageView
-            android:id="@+id/msg_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/bubble"
-            android:clickable="true"
-            android:src="@drawable/ease_msg_state_failed_resend"
-            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_ack"
@@ -123,13 +113,36 @@
             android:textSize="12sp"
             android:visibility="invisible" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/bubble"
-            android:visibility="visible" />
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/msg_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common.5dp"
+                android:clickable="true"
+                android:src="@drawable/ease_msg_state_failed_resend"
+                android:visibility="gone" />
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="@dimen/common.5dp"
+                android:indeterminateDrawable="@drawable/progress"
+                android:visibility="visible" />
+            <ImageView
+                android:id="@+id/iv_fire"
+                android:src="@drawable/fire3"
+                android:layout_marginRight="@dimen/common.5dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"/>
+        </LinearLayout>
         <RelativeLayout
             android:id="@+id/bt"
             android:layout_width="match_parent"
