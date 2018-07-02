@@ -32,6 +32,7 @@
     <string name="edit_sex">性别</string>
     <string name="edit_T">T号</string>
     <string name="edit_mood">心情</string>
+    <string name="tui">推送给好友</string>
     
     <string name="popName_title">昵称</string>
     <string name="popName_text">一个好的昵称可以让朋友对你的印象更加深刻哦！</string>

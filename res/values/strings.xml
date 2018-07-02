@@ -32,6 +32,7 @@
     <string name="edit_sex">Gender</string>
     <string name="edit_T">Number</string>
     <string name="edit_mood">mood</string>
+    <string name="tui">Push to friends</string>
 
     <string name="popName_title">Nickname</string>
     <string name="popName_text">A good nickname can make a friend feel better about you！</string>

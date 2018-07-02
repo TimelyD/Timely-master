@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -29,6 +30,7 @@ import com.hyphenate.easeui.widget.CircleImageView;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseSwitchButton;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 import com.hyphenate.easeui.widget.photoselect.PreviewImageActivity;
 import com.hyphenate.easeui.widget.photoselect.SelectObserable;
 import com.tg.tgt.App;
@@ -60,7 +62,7 @@ import io.reactivex.functions.Function;
 public class UserProfileActivity extends BaseActivity implements View.OnClickListener {
 
     private com.hyphenate.easeui.widget.EaseTitleBar titlebar;
-    private com.hyphenate.easeui.widget.CircleImageView ivhead;
+    private com.hyphenate.easeui.widget.ZQImageViewRoundOval ivhead;
     private android.widget.TextView tvname;
     private android.widget.TextView tvnote;
     private android.widget.ImageView ivsex;
@@ -163,10 +165,16 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         this.ivsex = (ImageView) findViewById(R.id.iv_sex);
         this.tvname = (TextView) findViewById(R.id.tv_name);
         this.tvnote = (TextView) findViewById(R.id.tv_note);
-        this.ivhead = (CircleImageView) findViewById(R.id.iv_head);
+        this.ivhead = (ZQImageViewRoundOval) findViewById(R.id.iv_head);
+        ivhead.setType(ZQImageViewRoundOval.TYPE_ROUND);ivhead.setRoundRadius(20);
         this.titlebar = (EaseTitleBar) findViewById(R.id.title_bar);
         this.btnRelation = (Button) findViewById(R.id.btn_relation);
         this.layoutcode = (LinearLayout) findViewById(R.id.layout_code);
+        mImmersionBar
+                .fitsSystemWindows(true)
+                .statusBarColor(com.hyphenate.easeui.R.color.chenjin)
+                //.statusBarDarkFont(true, 0.5f)//设置状态栏字体颜色
+                .init();
         titlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
