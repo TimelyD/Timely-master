@@ -168,4 +168,7 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     compile project(':LibMarsdaemon')
+
+//    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
+//    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

@@ -71,4 +71,5 @@
     <color name="reject_depth">#c33d2e</color>
     <!--同意、通过等-->
     <color name="agree">#78d472</color>
+
 </resources>

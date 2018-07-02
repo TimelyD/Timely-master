@@ -50,6 +50,13 @@
             android:textColor="@color/im_font_color_text_hint"
             android:textSize="@dimen/tx_4" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.2dp"
+            android:layout_below="@id/headIv"
+            android:layout_marginTop="@dimen/common.15dp"
+            android:background="@color/divider_t"/>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -90,42 +97,100 @@
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
-
-
-            <TextView
-                android:id="@+id/deleteBtn"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="@dimen/common.0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:text="删除"
-                android:textSize="12sp"
-                android:textColor="#8290AF"
-                android:visibility="gone"/>
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="删除"
+                    android:textSize="12sp"
+                    android:textColor="#8290AF"
+                    android:visibility="gone"/>
 
-            <View
-                android:layout_width="0dip"
-                android:layout_height="1dip"
-                android:layout_weight="1" />
+                <View
+                    android:layout_width="0dip"
+                    android:layout_height="1dip"
+                    android:layout_weight="1"
+                    android:visibility="gone"/>
 
-            <!-- <ImageView
-                 android:id="@+id/snsBtn"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:src="@drawable/ic_launcher"/>-->
-            <ImageView
-                android:id="@+id/btn_add_like"
-                android:layout_width="wrap_content"
+                <!-- <ImageView
+                     android:id="@+id/snsBtn"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:src="@drawable/ic_launcher"/>-->
+                <RelativeLayout
+                    android:id="@+id/like_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <ImageView
+                        android:id="@+id/btn_add_like"
+                        android:layout_width="@dimen/common.22dp"
+                        android:layout_height="@dimen/common.22dp"
+                        android:src="@drawable/add_like_selector"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/btn_add_like"
+                        android:textColor="@color/black90"
+                        android:layout_marginLeft="@dimen/common.10dp"
+                        android:textSize="@dimen/common.15sp"
+                        android:text="@string/thumbs_up"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common.2dp"
+                    android:layout_below="@+id/like_relative"
+                    android:layout_marginTop="@dimen/common.30dp"
+                    android:background="@color/divider_t"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="@dimen/common.0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/add_like_selector"/>
-            <ImageView
-                android:layout_marginLeft="@dimen/common.10dp"
-                android:layout_marginRight="@dimen/common.10dp"
-                android:id="@+id/btn_add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/add_comment_selector"/>
+                android:layout_weight="1">
+
+                <RelativeLayout
+                    android:id="@+id/comment_relative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <ImageView
+                        android:layout_marginLeft="@dimen/common.10dp"
+                        android:layout_marginRight="@dimen/common.10dp"
+                        android:id="@+id/btn_add_comment"
+                        android:layout_width="@dimen/common.22dp"
+                        android:layout_height="@dimen/common.22dp"
+                        android:src="@drawable/add_comment_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/btn_add_comment"
+                        android:textColor="@color/black90"
+                        android:layout_marginLeft="@dimen/common.10dp"
+                        android:textSize="@dimen/common.15sp"
+                        android:text="@string/comment_detail"/>
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common.2dp"
+                    android:layout_below="@+id/comment_relative"
+                    android:layout_marginTop="@dimen/common.30dp"
+                    android:background="@color/divider_t"/>
+            </RelativeLayout>
         </LinearLayout>
         <View
             android:id="@+id/divider"

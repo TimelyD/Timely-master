@@ -9,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +32,8 @@ public class EaseTitleBar extends RelativeLayout{
     private ImageView secondRightImage;
     private RelativeLayout secondRightLayout;
     private ImageView ivTitle;
+
+    private Button rightButton;
 
     public EaseTitleBar(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);
@@ -55,6 +59,7 @@ public class EaseTitleBar extends RelativeLayout{
         secondRightImage = (ImageView) findViewById(R.id.second_right_image);
         titleView = (TextView) findViewById(R.id.title);
         titleLayout = (RelativeLayout) findViewById(R.id.root);
+        rightButton = (Button) findViewById(R.id.right_button);
 
         parseStyle(context, attrs);
     }
@@ -114,6 +119,19 @@ public class EaseTitleBar extends RelativeLayout{
 
     public void setLeftLayoutClickListener(OnClickListener listener){
         leftLayout.setOnClickListener(listener);
+    }
+
+    public void setRightButtonText(String rightText){
+        rightButton.setText(rightText);
+    }
+
+    public void setRightClick(OnClickListener listener){
+        rightButton.setOnClickListener(listener);
+    }
+
+    public void setRightButtonVisibility(int visibility){
+        rightLayout.setVisibility(visibility);
+        rightImage.setVisibility(GONE);
     }
 
     public void setTitleColor(int resId){

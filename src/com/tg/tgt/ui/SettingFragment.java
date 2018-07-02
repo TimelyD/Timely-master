@@ -80,6 +80,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private android.widget.LinearLayout settinglayout;
     private LinearLayout friendsCircleLayout;
     private LinearLayout scanLayout;
+    private LinearLayout collectionLayout;
     private ImageView ivQrCode;
     private LinearLayout profilelayout;
     private TextView tvUnreadMoment;
@@ -95,6 +96,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.profilelayout = (LinearLayout) view.findViewById(R.id.layout_profile);
         this.friendsCircleLayout = (LinearLayout) view.findViewById(R.id.friends_circle_layout);
         this.scanLayout = (LinearLayout) view.findViewById(R.id.scan_layout);
+        this.collectionLayout = (LinearLayout) view.findViewById(R.id.collection);
         this.editlayout = (LinearLayout) view.findViewById(R.id.layout_come);
         this.tvemail = (TextView) view.findViewById(R.id.tv_email);
         this.tvUnreadMoment = (TextView) view.findViewById(R.id.unread_moment_number);
@@ -256,6 +258,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         editlayout.setOnClickListener(this);
         friendsCircleLayout.setOnClickListener(this);
         scanLayout.setOnClickListener(this);
+        collectionLayout.setOnClickListener(this);
         ivQrCode.setOnClickListener(this);
         friends_me.setOnClickListener(this);
     }
@@ -295,6 +298,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             case R.id.friends_me:
                 toHomePage(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME),
                         SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));
+                break;
+            case R.id.collection:
+                startActivity(new Intent(mContext,CollectionActivity.class));
                 break;
 
         }
