@@ -159,4 +159,10 @@
         <item name="android:windowNoDisplay">false</item>
     </style>
 
+    <style name="checkDelete">
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/detele_collection_selector</item>
+    </style>
+
+
 </resources>

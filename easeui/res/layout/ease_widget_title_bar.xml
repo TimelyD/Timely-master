@@ -53,12 +53,24 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/ease_common_tab_bg" >
 
+        <Button
+            android:id="@+id/right_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/common.5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common.15sp"
+            android:background="@android:color/transparent"
+            android:visibility="gone"/>
+
         <ImageView
             android:id="@+id/right_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:scaleType="centerInside" />
+
     </RelativeLayout>
 
     <RelativeLayout

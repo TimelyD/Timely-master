@@ -716,6 +716,16 @@
             android:launchMode="singleInstance"
             android:theme="@style/SingleActivityStyle"/>
 
+        <activity
+            android:name=".ui.CollectionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+
+        <activity
+            android:name=".ui.CollectionShowActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+
     </application>
 
 </manifest>

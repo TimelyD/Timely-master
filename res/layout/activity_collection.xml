@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarTitle="@string/collection_title"
+        app:titleBarLeftImage="@drawable/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.12dp"
+        android:background="@color/white"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.53dp"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone">
+
+            <CheckBox
+                android:id="@+id/selected_all"
+                android:layout_width="@dimen/common.27dp"
+                android:layout_height="@dimen/common.27dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/common.45dp"
+                style="@style/checkDelete"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/selected_all"
+                android:layout_marginLeft="@dimen/common.33dp"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/common.18sp"
+                android:textColor="@color/black90"
+                android:text="@string/selected_all"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common.2dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/divider_t"/>
+
+            <View
+                android:id="@+id/center"
+                android:layout_width="@dimen/common.0dp"
+                android:layout_height="@dimen/common.0dp"
+                android:layout_centerInParent="true"
+                android:background="@color/transparent"/>
+
+            <Button
+                android:id="@+id/delete_bt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/center"
+                android:background="@color/delete_bt"
+                android:textColor="@color/white"
+                android:text="@string/delete_button"/>
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/collection_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layout_bottom">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/collection_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+        
+    </RelativeLayout>
+
+</LinearLayout>

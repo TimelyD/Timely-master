@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common.96dp">
+
+    <CheckBox
+        android:id="@+id/delete_image"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_width="@dimen/common.27dp"
+        android:layout_height="@dimen/common.27dp"
+        android:layout_marginLeft="@dimen/common.20dp"
+        style="@style/checkDelete"/>
+    
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="@dimen/common.60dp"
+        android:layout_height="@dimen/common.60dp"
+        android:layout_toRightOf="@+id/delete_image"
+        android:layout_marginLeft="@dimen/common.30dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item_image"
+        android:layout_alignTop="@+id/item_image"
+        android:textSize="@dimen/common.18sp"
+        android:textColor="@color/black90"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/common.25dp"
+        android:text="Title"/>
+
+    <TextView
+        android:id="@+id/item_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item_title"
+        android:layout_below="@+id/item_title"
+        android:layout_marginTop="@dimen/common.12dp"
+        android:textSize="@dimen/common.13sp"
+        android:textColor="@color/black"
+        android:text="message"/>
+
+</RelativeLayout>

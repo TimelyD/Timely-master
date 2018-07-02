@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarTitle="@string/collection_title"
+        app:titleBarLeftImage="@drawable/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.90dp">
+
+        <ImageView
+            android:id="@+id/image_user"
+            android:layout_width="@dimen/common.60dp"
+            android:layout_height="@dimen/common.60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common.20dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/common.20dp"
+            android:layout_marginRight="@dimen/common.20dp"
+            android:background="@color/divider_t"/>
+
+        <TextView
+            android:id="@+id/nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image_user"
+            android:layout_alignTop="@+id/image_user"
+            android:textSize="@dimen/common.18sp"
+            android:textColor="@color/black90"/>
+
+
+        <TextView
+            android:id="@+id/collection_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/nick_name"
+            android:layout_below="@+id/nick_name"
+            android:layout_marginTop="@dimen/common.12dp"
+            android:textSize="@dimen/common.13sp"
+            android:textColor="@color/black50"/>
+
+    </RelativeLayout>
+
+    <!--<fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard-->
+        <!--android:id="@+id/play_video"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/common.220dp"-->
+        <!--android:layout_marginRight="@dimen/common.20dp"-->
+        <!--android:layout_marginLeft="@dimen/common.20dp" />-->
+
+    <RelativeLayout
+        android:id="@+id/play_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common.20dp"
+        android:layout_marginRight="@dimen/common.20dp">
+
+        <VideoView
+            android:id="@+id/play_video"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.240dp"
+            android:background="@color/transparent"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/play_music"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.60dp"
+            android:background="@drawable/music_background"
+            android:layout_alignBottom="@id/play_video">
+
+            <ImageView
+                android:id="@+id/play_image"
+                android:layout_width="@dimen/common.30dp"
+                android:layout_height="@dimen/common.30dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/common.15dp"/>
+
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/play_image"
+                android:layout_marginLeft="@dimen/common.15dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common.15sp" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/time_text"
+                android:layout_marginLeft="@dimen/common.18dp"
+                android:layout_marginRight="@dimen/common.20dp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/common.20dp"
+        android:layout_marginLeft="@dimen/common.20dp"
+        android:textSize="@dimen/common.15sp"
+        android:textColor="@color/black90"
+        android:singleLine="false"/>
+
+</LinearLayout>
