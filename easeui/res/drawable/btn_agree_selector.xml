@@ -3,14 +3,14 @@
     <!--<item android:drawable="@drawable/button_bg" android:state_pressed="false"/>-->
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
-            <corners android:radius="3dp"/>
+            <corners android:radius="300dp"/>
             <stroke android:color="@color/divider_t" android:width=".5dp"/>
             <solid android:color="@color/white"/>
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <corners android:radius="3dp"/>
+            <corners android:radius="300dp"/>
             <solid android:color="@color/agree"/>
         </shape>
     </item>

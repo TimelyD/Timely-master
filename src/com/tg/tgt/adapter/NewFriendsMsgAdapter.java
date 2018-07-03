@@ -74,12 +74,12 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 			holder.status = (Button) convertView.findViewById(R.id.user_state);
 			holder.groupContainer = (LinearLayout) convertView.findViewById(R.id.ll_group);
 			holder.groupname = (TextView) convertView.findViewById(R.id.tv_groupName);
+			holder.kong = convertView.findViewById(R.id.kong);
 			// holder.time = (TextView) convertView.findViewById(R.id.time);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
 		String str1 = context.getResources().getString(R.string.Has_agreed_to_your_friend_request);
 		String str2 = context.getResources().getString(R.string.agree);
 
@@ -92,12 +92,22 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 		String str8 = context.getResources().getString(R.string.invite_join_group);
         String str9 = context.getResources().getString(R.string.accept_join_group);
 		String str10 = context.getResources().getString(R.string.refuse_join_group);
-
 		final InviteMessage msg = getItem(position);
+
+		if(position!=0){
+			if(msg.getStatus() == InviteMessage.InviteMesageStatus.BEINVITEED ||msg.getStatus() == InviteMessage.InviteMesageStatus.BEAPPLYED ||
+					msg.getStatus() == InviteMessage.InviteMesageStatus.GROUPINVITATION){
+			}else {
+				if(getItem(position-1).getStatus() == InviteMessage.InviteMesageStatus.BEINVITEED ||getItem(position-1).getStatus() == InviteMessage.InviteMesageStatus.BEAPPLYED ||
+						getItem(position-1).getStatus() == InviteMessage.InviteMesageStatus.GROUPINVITATION){
+					holder.kong.setVisibility(View.VISIBLE);
+				}else {
+					holder.kong.setVisibility(View.GONE);
+				}
+			}
+		}
 		if (msg != null) {
-
-		    holder.agree.setVisibility(View.INVISIBLE);
-
+		    holder.agree.setVisibility(View.GONE);
 			if(msg.getGroupId() != null){ // show group name
 				holder.groupContainer.setVisibility(View.VISIBLE);
 				holder.groupname.setText(TextUtils.isEmpty(msg.getGroupName())?msg.getGroupId():msg.getGroupName());
@@ -144,13 +154,13 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 			    holder.agree.setVisibility(View.VISIBLE);
                 holder.agree.setEnabled(true);
 //                holder.agree.setBackgroundResource(android.R.drawable.btn_default);
-                holder.agree.setBackgroundResource(R.drawable.btn_agree_selector);
+                holder.status.setBackgroundResource(R.drawable.btn_agree_selector);
                 holder.agree.setText(str2);
 
 				holder.status.setVisibility(View.VISIBLE);
 				holder.status.setEnabled(true);
 //				holder.status.setBackgroundResource(android.R.drawable.btn_default);
-				holder.status.setBackgroundResource(R.drawable.btn_reject_selector);
+				holder.agree.setBackgroundResource(R.drawable.btn_reject_selector);
 				holder.status.setText(str7);
 				if(msg.getStatus() == InviteMesageStatus.BEINVITEED){
 					if (msg.getReason() == null) {
@@ -184,21 +194,21 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 				});
 			} else if (msg.getStatus() == InviteMesageStatus.AGREED) {
 				holder.status.setText(str5);
-				holder.status.setTextColor(Color.BLACK);
+				holder.status.setTextColor(ContextCompat.getColor(context, R.color.tx_black_2));
 				holder.status.setBackgroundDrawable(null);
 				holder.status.setEnabled(false);
 				holder.agree.setVisibility(View.GONE);
 			} else if(msg.getStatus() == InviteMesageStatus.REFUSED){
 				holder.status.setText(str6);
 				holder.status.setBackgroundDrawable(null);
-				holder.status.setTextColor(Color.BLACK);
+				holder.status.setTextColor(ContextCompat.getColor(context, R.color.tx_black_2));
 				holder.status.setEnabled(false);
 				holder.agree.setVisibility(View.GONE);
 			} else if(msg.getStatus() == InviteMesageStatus.GROUPINVITATION_ACCEPTED){
 				String inviter = TextUtils.isEmpty(EaseUserUtils.getUserInfo(msg.getGroupInviter()).safeGetRemark())?msg.getGroupInviter():EaseUserUtils.getUserInfo(msg.getGroupInviter()).safeGetRemark();
 			    String str = inviter + str9 + msg.getGroupName();
                 holder.status.setText(str);
-				holder.status.setTextColor(ContextCompat.getColor(context, R.color.black));
+				holder.status.setTextColor(ContextCompat.getColor(context, R.color.tx_black_2));
                 holder.status.setBackgroundDrawable(null);
                 holder.status.setEnabled(false);
 				holder.agree.setVisibility(View.GONE);
@@ -356,8 +366,8 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                                  buttonRefuse.setText(str2);
                                  buttonRefuse.setBackgroundDrawable(null);
                                  buttonRefuse.setEnabled(false);
-                                 buttonRefuse.setTextColor(Color.BLACK);
-                                 buttonAgree.setVisibility(View.INVISIBLE);
+                                 buttonRefuse.setTextColor(ContextCompat.getColor(context, R.color.tx_black_2));
+                                 buttonAgree.setVisibility(View.GONE);
                              }
                          });
                      }
@@ -422,6 +432,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 		Button status;
 		LinearLayout groupContainer;
 		TextView groupname;
+		View kong;
 		// TextView time;
 	}
 

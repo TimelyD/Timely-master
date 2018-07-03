@@ -9,9 +9,11 @@
 	<com.hyphenate.easeui.widget.EaseTitleBar
 		android:id="@+id/title_bar"
 		app:titleBarLeftImage="@drawable/back"
+		app:titleBarRightImage="@drawable/more"
 		app:titleBarTitle="@string/group_chat"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"></com.hyphenate.easeui.widget.EaseTitleBar>
+		android:layout_height="wrap_content">
+	</com.hyphenate.easeui.widget.EaseTitleBar>
     <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_top_bar"

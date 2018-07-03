@@ -105,13 +105,13 @@ public class GroupAdapter extends ArrayAdapter<GroupModel> {
 					query.getText().clear();
 				}
 			});
-		} else if (getItemViewType(position) == TYPE_ADD) {
+		}/* else if (getItemViewType(position) == TYPE_ADD) {
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.em_row_add_group, parent, false);
 			}
 			((ImageView) convertView.findViewById(R.id.avatar)).setImageResource(R.drawable.em_create_group);
 			((TextView) convertView.findViewById(R.id.name)).setText(newGroup);
-		} else if (getItemViewType(position) == 2) {
+		}*/ else if (getItemViewType(position) == 2) {
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.em_row_add_group, parent, false);
 			}
@@ -147,7 +147,7 @@ public class GroupAdapter extends ArrayAdapter<GroupModel> {
 		return convertView;
 	}
 
-	public static final int headCount = 1;
+	public static final int headCount = 0;
 	@Override
 	public int getCount() {
 		return super.getCount() + headCount;

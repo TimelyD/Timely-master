@@ -14,6 +14,7 @@
 package com.tg.tgt.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -23,6 +24,7 @@ import com.tg.tgt.adapter.NewFriendsMsgAdapter;
 import com.tg.tgt.db.InviteMessgeDao;
 import com.tg.tgt.domain.InviteMessage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,12 +46,23 @@ public class NewFriendsMsgActivity extends BaseActivity {
 		ListView listView = (ListView) findViewById(com.tg.tgt.R.id.list);
 		InviteMessgeDao dao = new InviteMessgeDao(this);
 		List<InviteMessage> msgs = dao.getMessagesList();
-
+		List<InviteMessage> ce = new ArrayList<>();
+		List<InviteMessage> shi = new ArrayList<>();
 		if(msgs==null || msgs.size()==0){
 			mMultipleStatusView.showEmpty();
 		}
-
-		NewFriendsMsgAdapter adapter = new NewFriendsMsgAdapter(this, 1, msgs);
+		for(int i=0;i<msgs.size();i++){
+			if(msgs.get(i).getStatus() == InviteMessage.InviteMesageStatus.BEINVITEED ||msgs.get(i).getStatus() == InviteMessage.InviteMesageStatus.BEAPPLYED ||
+					msgs.get(i).getStatus() == InviteMessage.InviteMesageStatus.GROUPINVITATION){
+				ce.add(msgs.get(i));
+			}else {
+				shi.add(msgs.get(i));
+			}
+		}
+		for(InviteMessage a:shi){
+			ce.add(a);
+		}
+		NewFriendsMsgAdapter adapter = new NewFriendsMsgAdapter(this, 1,ce);
 		listView.setAdapter(adapter);
 		dao.saveUnreadMessageCount(0);
 		

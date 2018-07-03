@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -29,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.tg.tgt.App;
 import com.tg.tgt.R;
 import com.tg.tgt.adapter.GroupAdapter;
@@ -49,6 +51,7 @@ public class GroupsActivity extends BaseActivity {
 	public static GroupsActivity instance;
 	private View progressBar;
 	private SwipeRefreshLayout swipeRefreshLayout;
+	private EaseTitleBar bar;
 	
 	
 	Handler handler = new Handler(){
@@ -82,6 +85,7 @@ public class GroupsActivity extends BaseActivity {
 
 		sortGroup();
 		groupListView = (ListView) findViewById(R.id.list);
+		bar= (EaseTitleBar) findViewById(R.id.title_bar);
 		//show group list
         groupAdapter = new GroupAdapter(this, 1, grouplist);
         groupListView.setAdapter(groupAdapter);
@@ -110,23 +114,14 @@ public class GroupsActivity extends BaseActivity {
 		});
 		
 		groupListView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				/*if (position == 1) {
-					// create a new group
-					startActivityForResult(new Intent(GroupsActivity.this, NewGroupActivity.class), 0);
-				} else if (position == 2) {
-					// join a public group
-					startActivityForResult(new Intent(GroupsActivity.this, PublicGroupsActivity.class), 0);
-				} else {
-					GroupManger.toChat(mActivity, groupAdapter.getItem(position - groupAdapter.headCount).getGroupSn());
-				}*/
-				if(groupAdapter.getItemViewType(position) == GroupAdapter.TYPE_ADD){
+				/*if(groupAdapter.getItemViewType(position) == GroupAdapter.TYPE_ADD){
 					startActivityForResult(new Intent(GroupsActivity.this, NewGroupActivity.class), 0);
 				}else {
 					GroupManger.toChat(mActivity, groupAdapter.getItem(position - GroupAdapter.headCount).getGroupSn());
-				}
+				}*/
+				GroupManger.toChat(mActivity, groupAdapter.getItem(position - GroupAdapter.headCount).getGroupSn());
 			}
 
 		});
@@ -140,6 +135,12 @@ public class GroupsActivity extends BaseActivity {
 								InputMethodManager.HIDE_NOT_ALWAYS);
 				}
 				return false;
+			}
+		});
+		bar.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivityForResult(new Intent(GroupsActivity.this, NewGroupActivity.class), 0);
 			}
 		});
 		

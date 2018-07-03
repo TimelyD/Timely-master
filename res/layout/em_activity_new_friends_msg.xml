@@ -48,7 +48,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:descendantFocusability="afterDescendants"
-        android:divider="@color/divider_t"
+        android:divider="@color/white"
         android:footerDividersEnabled="false"
         android:dividerHeight="@dimen/divider_height"
         android:cacheColorHint="#00000000"

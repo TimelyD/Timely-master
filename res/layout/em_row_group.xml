@@ -10,18 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_t"
-        android:paddingBottom="@dimen/common.2dp"
-        android:paddingLeft="@dimen/layout_padding"
-        android:paddingTop="@dimen/common.2dp"
+        android:visibility="gone"
+        android:padding="@dimen/common.14dp"
         android:textColor="@color/tx_black_3"
-        android:textSize="@dimen/tx_3"
-        android:visibility="gone"/>
+        android:textSize="@dimen/tx_4"
+   />
     <View
         style="@style/LineHorizontalStyle"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common.60dp"
+        android:layout_height="@dimen/common.65dp"
         android:background="@drawable/layout_ripple"
         android:gravity="center_vertical">
 
