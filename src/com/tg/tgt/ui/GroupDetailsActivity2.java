@@ -179,7 +179,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         if(memberList.size()>8){
             more.setVisibility(View.VISIBLE);
         }else {
-            more.setVisibility(View.VISIBLE);
+            more.setVisibility(View.GONE);
         }
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner, memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
