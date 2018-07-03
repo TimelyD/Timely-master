@@ -162,7 +162,8 @@
     <string name="voice_chat">Voice</string>
     <string name="close_camera">Video off</string>
     <string name="open_camera">Video on</string>
-    <string name="invite_member">invite</string>
+    <string name="invite_member">Add</string>
+    <string name="move">remove</string>
     <string name="reply_msg">reply</string>
     <string name="opposite_open_camera">your friend  has turned on the camera</string>
     <string name="opposite_close_camera">your friend  has turned off the camera</string>

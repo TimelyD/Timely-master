@@ -121,6 +121,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private PublishSubject<List<GroupUserModel>> mSubject;
     private Disposable disposable;
     private EaseTitleBar mTitleBar;
+    private View more;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +150,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         loadingPB = (ProgressBar) findViewById(R.id.progressBar);
         exitBtn = (Button) findViewById(R.id.btn_exit_grp);
         deleteBtn = (Button) findViewById(R.id.btn_exitdel_grp);
+        more = findViewById(R.id.more);
         RelativeLayout changeGroupNameLayout = (RelativeLayout) findViewById(R.id.rl_change_group_name);
         RelativeLayout changeGroupDescriptionLayout = (RelativeLayout) findViewById(R.id.rl_change_group_description);
         RelativeLayout idLayout = (RelativeLayout) findViewById(R.id.rl_group_id);
@@ -174,6 +176,11 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         mGroupUsers = GroupManger.getGroupUsers(groupId);
         memberList.addAll(mGroupUsers.values());
         sortGroup(memberList);
+        if(memberList.size()>8){
+            more.setVisibility(View.VISIBLE);
+        }else {
+            more.setVisibility(View.GONE);
+        }
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner, memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
         userGridview.setAdapter(membersAdapter);
@@ -182,7 +189,12 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 //		updateGroup();
         refreshUi();
         updateGroup();
+        more.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
         clearAllHistory.setOnClickListener(this);
         changeGroupNameLayout.setOnClickListener(this);
@@ -1055,7 +1067,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private class GridAdapter extends ArrayAdapter<GroupUserModel> {
 
         public int getHeadCount() {
-            return isCurrentOwner()||mGroup.getAllowInvites() ? 1 : 0;
+            return isCurrentOwner()||mGroup.getAllowInvites() ? 2 : 0;
         }
 
         private int res;
@@ -1082,11 +1094,18 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             final View button =  convertView.findViewById(R.id.button_avatar);
 
             // add button
+            Log.i("qqq",position+"+"+getCount()+"+"+getHeadCount());
+            int num=0;
+            if(getHeadCount()==0){
+                num=0;
+            }else {
+                num=1;
+            }
             if (position == getCount() - getHeadCount()) {
                 holder.ownerstar.setVisibility(View.GONE);
                 holder.textView.setText(R.string.invite_member);
 //                holder.imageView.setImageResource(R.drawable.em_smiley_add_btn);
-                GlideApp.with(mActivity).load(R.drawable.add_contract).placeholder(R.drawable.add_contract)
+                GlideApp.with(mActivity).load(R.drawable.add_contract2).placeholder(R.drawable.add_contract2)
                         .into(holder.imageView);
                 if (isCanAddMember(group)) {
                     convertView.setVisibility(View.VISIBLE);
@@ -1103,10 +1122,34 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                         }
                     });
                 } else {
-                    convertView.setVisibility(View.INVISIBLE);
+                    convertView.setVisibility(View.VISIBLE);
                 }
                 return convertView;
-            } else {
+            }else if(position == getCount() - num){
+                holder.ownerstar.setVisibility(View.GONE);
+                holder.textView.setText(R.string.move);
+//                holder.imageView.setImageResource(R.drawable.em_smiley_add_btn);
+                GlideApp.with(mActivity).load(R.drawable.add_jian).placeholder(R.drawable.add_jian)
+                        .into(holder.imageView);
+                if (isCanAddMember(group)) {
+                    convertView.setVisibility(View.VISIBLE);
+                    button.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final String st11 = getResources().getString(R.string.Add_a_button_was_clicked);
+                            EMLog.d(TAG, st11);
+                            // 进入选人页面
+                            startActivityForResult(
+                                    (new Intent(GroupDetailsActivity2.this, GroupPickContactsActivity.class).putExtra
+                                            ("groupId", groupId)),
+                                    REQUEST_CODE_ADD_USER);
+                        }
+                    });
+                } else {
+                    convertView.setVisibility(View.VISIBLE);
+                }
+                return convertView;
+            }else {
                 // members
                 final GroupUserModel groupUserModel = getItem(position);
                 final String username = String.valueOf(groupUserModel.getUserId());

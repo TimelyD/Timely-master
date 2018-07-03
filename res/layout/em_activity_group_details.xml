@@ -58,7 +58,7 @@
             <TextView
                 android:paddingTop="@dimen/common.5dp"
                 android:paddingLeft="@dimen/common.12dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:background="@color/white"
                 android:id="@+id/tv_group_member_count"
                 android:layout_width="match_parent"
@@ -76,6 +76,8 @@
                 android:background="@color/white"
                 android:paddingLeft="@dimen/common.5dp"
                 android:paddingRight="@dimen/common.5dp"
+                android:paddingTop="@dimen/common.10dp"
+                android:paddingBottom="@dimen/common.10dp"
                 android:listSelector="@android:color/transparent"
                 android:numColumns="5"/>
             <TextView
@@ -83,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:visibility="gone"
                 android:padding="@dimen/common.15dp"
                 android:gravity="center"
                 android:textSize="@dimen/tx_3"

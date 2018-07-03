@@ -161,7 +161,8 @@
     <string name="voice_chat">语音聊天</string>
     <string name="close_camera">关闭摄像头</string>
     <string name="open_camera">打开摄像头</string>
-    <string name="invite_member">邀请</string>
+    <string name="invite_member">添加</string>
+    <string name="move">移除</string>
     <string name="reply_msg">消息回复</string>
     <string name="opposite_open_camera">对方已打开摄像头</string>
     <string name="opposite_close_camera">对方已关闭摄像头</string>
