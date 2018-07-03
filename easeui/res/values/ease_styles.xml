@@ -13,6 +13,10 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
+    <style name="mystyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/popa</item>  //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/popb</item>    //退出时的动画
+    </style>
 
     <style name="ChatSendBtnStyle"  parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>

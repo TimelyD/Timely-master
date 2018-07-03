@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-              android:background="@color/bg_t"
+    android:background="@color/bg_t"
     android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.hyphenate.easeui.widget.EaseTitleBar
@@ -24,16 +24,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/bg_t">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:clipToPadding="false"
-            android:orientation="vertical"
-            >
-
+            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +43,6 @@
                 android:textSize="18sp"
                 android:typeface="serif"
                 android:visibility="gone"/>
-
             <com.hyphenate.easeui.widget.EaseExpandGridView
                 android:id="@+id/owner_and_administrators_grid_view"
                 android:layout_width="match_parent"
@@ -58,18 +55,11 @@
                 android:numColumns="4"
                 android:verticalSpacing="10dp"
                 android:visibility="gone"/>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="@dimen/common.10dp"
-                android:background="@color/divider_list"/>
-
             <TextView
-                android:layout_marginTop="@dimen/common.5dp"
-                android:layout_marginLeft="@dimen/common.12dp"
+                android:paddingTop="@dimen/common.5dp"
+                android:paddingLeft="@dimen/common.12dp"
                 android:visibility="visible"
+                android:background="@color/white"
                 android:id="@+id/tv_group_member_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,19 +73,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/common.5dp"
+                android:paddingRight="@dimen/common.5dp"
                 android:listSelector="@android:color/transparent"
-                android:numColumns="5"
-                />
-
+                android:numColumns="5"/>
+            <TextView
+                android:id="@+id/more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/common.15dp"
+                android:gravity="center"
+                android:textSize="@dimen/tx_3"
+                android:textColor="@color/tx_black_1"
+                android:text="@string/more"/>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/divider_list"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="@dimen/common.10dp"
-                android:background="@color/divider_list"/>
+                android:background="@color/bg_t"
+                android:layout_height="@dimen/common.10dp"/>
 
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
@@ -104,14 +100,39 @@
                 <!--android:layout_marginRight="-10dip"-->
                 <!--android:background="@color/common_bg"/>-->
             <LinearLayout
-                android:paddingLeft="@dimen/common.10dp"
                 android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginBottom="@dimen/common.10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <RelativeLayout
-                android:id="@+id/rl_group_id"
-                android:visibility="visible"
-                style="@style/InfoLayoutStyle">
+                <RelativeLayout
+                    android:gravity="top"
+                    android:paddingLeft="@dimen/common.10dp"
+                    android:id="@+id/rl_change_group_name"
+                    style="@style/InfoLayoutStyle">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical|left"
+                        android:text="@string/Change_the_group_name"
+                        android:textColor="@color/tx_black_2"
+                        android:textSize="@dimen/tx_3"
+                        />
+                    <View
+                        android:layout_alignParentTop="true"
+                        style="@style/LineHorizontalStyle"/>
+                </RelativeLayout>
+                <View
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/common.10dp"
+                    style="@style/LineHorizontalStyle"/>
+                <RelativeLayout
+                    android:id="@+id/rl_group_id"
+                    android:visibility="visible"
+                    android:paddingLeft="@dimen/common.10dp"
+                    style="@style/InfoLayoutStyle">
 
                 <TextView
                     android:id="@+id/tv_group_id"
@@ -120,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/tx_3"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/tx_black_2"
                     />
 
                 <TextView
@@ -128,12 +149,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/tx_3"
-                    android:textColor="@color/tx_black_2"
+                    android:textColor="@color/tx_black_1"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     />
 
             </RelativeLayout>
+
             <!--<RelativeLayout-->
             <!--android:id="@+id/rl_group_nick"-->
             <!--android:layout_width="match_parent"-->
@@ -196,117 +218,107 @@
             <!--android:layout_alignParentBottom="true"-->
             <!--android:background="#E6E6E6" />-->
             <!--</RelativeLayout>-->
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:gravity="top"
+                    android:paddingLeft="@dimen/common.10dp"
+                    android:id="@+id/rl_change_group_description"
+                    style="@style/InfoLayoutStyle"
+                    >
+                    <View
+                        android:layout_alignParentTop="true"
+                        style="@style/LineHorizontalStyle"/>
 
-            <RelativeLayout
-                android:id="@+id/clear_all_history"
-                android:gravity="top"
-                style="@style/InfoLayoutStyle"
-                >
-
-                <TextView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical|left"
+                        android:text="@string/change_the_group_description"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/tx_3"/>
+                </RelativeLayout>
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical|left"
-                    android:text="@string/Empty_the_chat_record"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/tx_3"/>
+                    android:background="@color/bg_t"
+                    android:layout_height="@dimen/common.10dp"/>
+                <RelativeLayout
+                    android:gravity="top"
+                    android:paddingLeft="@dimen/common.10dp"
+                    android:id="@+id/rl_switch_block_groupmsg"
+                    style="@style/InfoLayoutStyle"
+                    >
+                    <View
+                        android:layout_alignParentTop="true"
+                        style="@style/LineHorizontalStyle"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/Shielding_of_the_message"
+                        android:textColor="@color/tx_black_2"
+                        android:textSize="@dimen/tx_3"/>
+
+                    <com.hyphenate.easeui.widget.EaseSwitchButton
+                        android:id="@+id/switch_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:switchStatus="close"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_switch_block_offline_message"
+                    style="@style/InfoLayoutStyle"
+                    android:paddingLeft="@dimen/common.10dp"
+                    android:gravity="top"
+                    >
+                    <View
+                        android:layout_alignParentTop="true"
+                        style="@style/LineHorizontalStyle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/block_offline_group_push"
+                        android:textColor="@color/tx_black_2"
+                        android:textSize="@dimen/tx_3"/>
+
+                    <com.hyphenate.easeui.widget.EaseSwitchButton
+                        android:id="@+id/switch_block_offline_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:switchStatus="close"/>
+                </RelativeLayout>
                 <View
-                    android:layout_alignParentTop="true"
-                    style="@style/LineHorizontalStyle"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:gravity="top"
-                android:id="@+id/rl_change_group_name"
-                style="@style/InfoLayoutStyle">
-
-                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical|left"
-                    android:text="@string/Change_the_group_name"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/tx_3"
-                    />
-                <View
-                    android:layout_alignParentTop="true"
-                    style="@style/LineHorizontalStyle"/>
-            </RelativeLayout>
+                    android:background="@color/bg_t"
+                    android:layout_height="@dimen/common.10dp"/>
+                <RelativeLayout
+                    android:id="@+id/clear_all_history"
+                    android:gravity="top"
+                    android:paddingLeft="@dimen/common.10dp"
+                    style="@style/InfoLayoutStyle"
+                    >
 
-            <RelativeLayout
-                android:visibility="gone"
-                android:gravity="top"
-                android:id="@+id/rl_change_group_description"
-                style="@style/InfoLayoutStyle"
-                >
-                <View
-                    android:layout_alignParentTop="true"
-                    style="@style/LineHorizontalStyle"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical|left"
+                        android:text="@string/Empty_the_chat_record"
+                        android:textColor="@color/tx_black_2"
+                        android:textSize="@dimen/tx_3"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical|left"
-                    android:text="@string/change_the_group_description"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/tx_3"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:gravity="top"
-                android:id="@+id/rl_switch_block_groupmsg"
-                style="@style/InfoLayoutStyle"
-                >
-                <View
-                    android:layout_alignParentTop="true"
-                    style="@style/LineHorizontalStyle"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/Shielding_of_the_message"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/tx_3"/>
-
-                <com.hyphenate.easeui.widget.EaseSwitchButton
-                    android:id="@+id/switch_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    app:switchStatus="close"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_switch_block_offline_message"
-                style="@style/InfoLayoutStyle"
-                android:gravity="top"
-                >
-                <View
-                    android:layout_alignParentTop="true"
-                    style="@style/LineHorizontalStyle"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/block_offline_group_push"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/tx_3"/>
-
-                <com.hyphenate.easeui.widget.EaseSwitchButton
-                    android:id="@+id/switch_block_offline_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    app:switchStatus="close"/>
-            </RelativeLayout>
+                    <View
+                        android:layout_alignParentTop="true"
+                        style="@style/LineHorizontalStyle"/>
+                </RelativeLayout>
 
             <RelativeLayout
                 android:visibility="gone"
@@ -326,24 +338,21 @@
             </RelativeLayout>
 
             </LinearLayout>
-
-            <View
-                style="@style/LineHorizontalStyle"/>
             <Button
                 android:id="@+id/btn_exit_grp"
-                style="@style/BtnPrimaryStyle"
+                style="@style/DeleteBtnPrimaryStyle"
                 android:onClick="exitGroup"
-                android:layout_marginLeft="@dimen/common.10dp"
-                android:layout_marginRight="@dimen/common.10dp"
+                android:layout_marginLeft="@dimen/common.20dp"
+                android:layout_marginRight="@dimen/common.20dp"
                 android:text="@string/Exit_the_group_chat"
                 />
 
             <Button
                 android:id="@+id/btn_exitdel_grp"
-                style="@style/BtnPrimaryStyle"
+                style="@style/DeleteBtnPrimaryStyle"
                 android:onClick="exitDeleteGroup"
-                android:layout_marginLeft="@dimen/common.10dp"
-                android:layout_marginRight="@dimen/common.10dp"
+                android:layout_marginLeft="@dimen/common.20dp"
+                android:layout_marginRight="@dimen/common.20dp"
                 android:text="@string/dismiss_group"
                 android:visibility="gone"/>
         </LinearLayout>

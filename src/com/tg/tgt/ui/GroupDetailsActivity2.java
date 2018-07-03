@@ -17,13 +17,17 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,6 +53,7 @@ import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseExpandGridView;
 import com.hyphenate.easeui.widget.EaseSwitchButton;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
 import com.tg.tgt.App;
@@ -63,6 +68,7 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -566,10 +572,10 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
      * @param view
      */
     public void exitDeleteGroup(View view) {
-        startActivityForResult(new Intent(this, ExitGroupDialog.class).putExtra("deleteToast", getString(R.string
+        /*startActivityForResult(new Intent(this, ExitGroupDialog.class).putExtra("deleteToast", getString(R.string
                         .dissolution_group_hint)),
-                REQUEST_CODE_EXIT_DELETE);
-
+                REQUEST_CODE_EXIT_DELETE);*/
+        showDialog();
     }
 
     /**
@@ -1065,7 +1071,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = LayoutInflater.from(getContext()).inflate(res, null);
-                holder.imageView = (ImageView) convertView.findViewById(R.id.iv_avatar);
+                holder.imageView = (ZQImageViewRoundOval) convertView.findViewById(R.id.iv_avatar);
+                holder.imageView.setType(ZQImageViewRoundOval.TYPE_ROUND);holder.imageView.setRoundRadius(20);
                 holder.textView = (TextView) convertView.findViewById(R.id.tv_name);
                 holder.ownerstar = (ImageView) convertView.findViewById(R.id.owner_star);
                 convertView.setTag(holder);
@@ -1110,7 +1117,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                 }else {
                     holder.ownerstar.setVisibility(View.GONE);
                 }
-                GlideApp.with(mActivity).load(groupUserModel.getPicture()).placeholder(R.drawable.default_avatar)
+                GlideApp.with(mActivity).load(groupUserModel.getPicture()).placeholder(R.drawable.default_avatar2)
                         .into(holder.imageView);
                 EaseUser userInfo = EaseUserUtils.getUserInfo(groupUserModel.getUsername());
                 if (userInfo != null && !TextUtils.isEmpty(userInfo.getRemark()))
@@ -1249,7 +1256,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     }
 
     private static class ViewHolder {
-        ImageView imageView;
+        ZQImageViewRoundOval imageView;
         TextView textView;
         ImageView badgeDeleteView;
         ImageView ownerstar;
@@ -1341,6 +1348,47 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         public void onSharedFileDeleted(String s, String s1) {
 
         }
+    }
+
+    private void showDialog() {
+        View view = getLayoutInflater().inflate(R.layout.pop, null);
+        final Dialog dialog = new Dialog(this, R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        TextView bt1 = (TextView) view.findViewById(R.id.bt1);
+        TextView cancle = (TextView) view.findViewById(R.id.cancle);
+
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                deleteGrop();
+            }
+        });
+
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

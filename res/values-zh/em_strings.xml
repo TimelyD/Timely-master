@@ -318,7 +318,8 @@
     <string name="auto_accept_group_invitation">自动同意群组加群邀请</string>
     <string name="adaptive_video_encode">视频自适应码率编码</string>
     <string name="offline_call_push">通话离线推送</string>
-    <string name="group_id">群ID</string>
+    <string name="group_id">群组ID</string>
+    <string name="more">查看更多群成员</string>
     <string name="move_out_backlist">移出黑名单</string>
     <string name="input_new_nick_hint">输入新昵称</string>
     <string name="search_pubic_group">搜索公开群</string>
