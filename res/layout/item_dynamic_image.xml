@@ -20,5 +20,6 @@
         android:text="@string/photo_and_video"
         android:id="@+id/tv_hint"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </com.tg.tgt.widget.SquareFrameLayout>

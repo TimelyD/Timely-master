@@ -3,6 +3,7 @@ package com.tg.tgt.ui;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,9 +13,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -335,12 +339,65 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     }
 
+    public void initDialog(){
+        dialog = new Dialog(mContext, R.style.shapeDialogTheme);
+        View root = LayoutInflater.from(mContext).inflate(
+                R.layout.dialog_qr, null);
+        root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setContentView(root);
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.CENTER);
+     //   dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        lp.x = 0; // 新位置X坐标
+        lp.y = -20; // 新位置Y坐标
+        lp.width = (int) mContext.getResources().getDisplayMetrics().widthPixels; // 宽度
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
+//      lp.alpha = 9f; // 透明度
+        root.measure(0, 0);
+//        lp.height = root.getMeasuredHeight();
+        lp.alpha = 9f; // 透明度
+        dialogWindow.setAttributes(lp);
+        dialog.show();
+    }
+
+    private Dialog dialog;
+
     private void showQrCode() {
-        View inflate = View.inflate(mContext, R.layout.dialog_qr, null);
-        new AlertDialog.Builder(getActivity())
-                .setView(inflate)
-                .show();
-        final ImageView ivQr = (ImageView) inflate.findViewById(R.id.iv_qr_code);
+//        View inflate = View.inflate(mContext, R.layout.dialog_qr, null);
+//        new AlertDialog.Builder(getActivity())
+//                .setView(inflate)
+//                .show();
+        dialog = new Dialog(mContext, R.style.shapeDialogTheme);
+        View root = LayoutInflater.from(mContext).inflate(
+                R.layout.dialog_qr, null);
+        root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setContentView(root);
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.CENTER);
+        //   dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        lp.x = 0; // 新位置X坐标
+        lp.y = -20; // 新位置Y坐标
+        lp.width = (int) mContext.getResources().getDisplayMetrics().widthPixels; // 宽度
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT; // 高度
+//      lp.alpha = 9f; // 透明度
+        root.measure(0, 0);
+//        lp.height = root.getMeasuredHeight();
+        lp.alpha = 9f; // 透明度
+        dialogWindow.setAttributes(lp);
+        dialog.show();
+        final ImageView ivQr = (ImageView) root.findViewById(R.id.iv_qr_code);
         GlideUrl glideUrl = new GlideUrl(ApiService2.BASE_URL+ ApiService2.QR_CODE, new LazyHeaders.Builder()
                 .addHeader("Accept", "image/png")
                 .addHeader("token", SpUtils.get(mContext, AddTokenInterceptor.TOKEN, ""))
@@ -358,9 +415,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         String nickName = SharedPreStorageMgr.getIntance().getStringValue(mContext, Constant.NICKNAME);
         String headImage = SharedPreStorageMgr.getIntance().getStringValue(mContext, Constant.HEADIMAGE);
 
-        ImageView ivAvatar = (ImageView) inflate.findViewById(R.id.iv_avatar);
-        TextView tvName = (TextView) inflate.findViewById(R.id.tv_name);
-        TextView tvEmail = (TextView) inflate.findViewById(R.id.tv_email);
+        ImageView ivAvatar = (ImageView) root.findViewById(R.id.iv_avatar);
+        TextView tvName = (TextView) root.findViewById(R.id.tv_name);
+        TextView tvEmail = (TextView) root.findViewById(R.id.tv_email);
         tvName.setText(nickName);
         ImageUtils.show(mContext, headImage, R.drawable.default_avatar, ivAvatar);
         tvEmail.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME,"")/*+SpUtils.get(mContext, Constant.EMAIL_LAST, "")*/);

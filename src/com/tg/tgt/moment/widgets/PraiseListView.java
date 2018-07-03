@@ -106,7 +106,7 @@ public class PraiseListView extends TextView {
     private SpannableString setImageSpan(){
         String text = "  ";
         SpannableString imgSpanText = new SpannableString(text);
-        imgSpanText.setSpan(new ImageSpan(getContext(), R.drawable.icon_praise, DynamicDrawableSpan.ALIGN_BOTTOM),
+        imgSpanText.setSpan(new ImageSpan(getContext(), R.drawable.add_like_selected, DynamicDrawableSpan.ALIGN_BOTTOM),
                 0 , 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return imgSpanText;
     }

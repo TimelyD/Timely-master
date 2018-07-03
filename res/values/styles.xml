@@ -159,6 +159,15 @@
         <item name="android:windowNoDisplay">false</item>
     </style>
 
+    <style name="shapeDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
     <style name="checkDelete">
         <item name="android:button">@null</item>
         <item name="android:background">@drawable/detele_collection_selector</item>

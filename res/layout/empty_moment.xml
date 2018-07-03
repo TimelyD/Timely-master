@@ -18,5 +18,6 @@
         android:textColor="@color/tx_black_3"
         android:text="@string/no_moment_yet"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </LinearLayout>

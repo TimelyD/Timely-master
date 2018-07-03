@@ -32,15 +32,30 @@
         android:id="@+id/load_more_load_fail_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="#f5f5f5">
 
-
-        <TextView
-            android:id="@+id/tv_prompt"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/load_failed"/>
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/fail_image"
+                android:layout_width="50dp"
+                android:layout_height="100dp"
+                android:background="@drawable/load_fail"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/tv_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fail_image"
+                android:layout_centerHorizontal="true"
+                android:text="@string/load_failed"/>
+
+        </RelativeLayout>
 
     </FrameLayout>
 
