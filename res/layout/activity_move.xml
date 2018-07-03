@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_t"
+    android:orientation="vertical"
+    tools:context="com.tg.tgt.ui.MoveActivity">
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/back"
+        android:gravity="center_vertical" >
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+    <com.hyphenate.easeui.widget.EaseExpandGridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingLeft="@dimen/common.5dp"
+        android:paddingRight="@dimen/common.5dp"
+        android:paddingTop="@dimen/common.10dp"
+        android:paddingBottom="@dimen/common.10dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="5"/>
+</LinearLayout>

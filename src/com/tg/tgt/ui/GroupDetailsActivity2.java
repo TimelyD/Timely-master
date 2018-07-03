@@ -179,7 +179,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         if(memberList.size()>8){
             more.setVisibility(View.VISIBLE);
         }else {
-            more.setVisibility(View.GONE);
+            more.setVisibility(View.VISIBLE);
         }
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner, memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
@@ -192,7 +192,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         more.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(mContext,MoveActivity.class);
+                intent.putExtra("groupId",groupId);
+                startActivity(intent);
             }
         });
 
@@ -209,8 +211,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             synchronized (loadingPB) {
                 if (mSubject == null) {
                     mSubject = PublishSubject.create();
-                    mSubject
-                            .doOnSubscribe(new Consumer<Disposable>() {
+                    mSubject.doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
                                 public void accept(@NonNull Disposable disposable) throws Exception {
                                     GroupDetailsActivity2.this.disposable = disposable;

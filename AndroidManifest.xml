@@ -46,10 +46,8 @@
 
     <uses-permission android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 必需的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -103,7 +101,7 @@
             android:name=".ui.VerifySafeCodeAct"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustResize|stateVisible"></activity>
+            android:windowSoftInputMode="adjustResize|stateVisible" />
         <!-- 修改密码 -->
         <activity
             android:name=".ui.UpdatePwdAct"
@@ -137,7 +135,7 @@
         <activity
             android:name=".ui.NotifySettingAct"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"></activity>
+            android:theme="@style/horizontal_slide" />
         <!-- 新闻列表 -->
         <activity
             android:name=".ui.NewsListAct"
@@ -175,7 +173,7 @@
             android:theme="@style/horizontal_slide" />
         <activity
             android:name=".ui.MomentsLogAct"
-            android:theme="@style/horizontal_slide"></activity>
+            android:theme="@style/horizontal_slide" />
         <!-- 选择相册文件夹 -->
         <activity
             android:name=".ui.AlbumsAct"
@@ -334,13 +332,13 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"></activity>
+            android:theme="@style/horizontal_slide" />
         <!-- 邀请 -->
         <activity
             android:name=".conference.ConferenceInviteJoinActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"></activity>
+            android:theme="@style/horizontal_slide" />
         <!-- 群聊简单信息 -->
         <activity
             android:name=".ui.GroupSimpleDetailActivity"
@@ -616,14 +614,22 @@
             tools:ignore="ExportedService" />
         <service
             android:name="com.hyphenate.chat.EMJobService"
-            android:process=":process1"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":process1" />
 
-        <!--<service android:name=".Service1" android:process=":process1"/>-->
-        <receiver android:name=".keepservice.Receiver1" android:process=":process1"/>
-        <service android:name=".keepservice.Service2" android:process=":process2"/>
-        <receiver android:name=".keepservice.Receiver2" android:process=":process2"/>
+        <!-- <service android:name=".Service1" android:process=":process1"/> -->
+        <receiver
+            android:name=".keepservice.Receiver1"
+            android:process=":process1" />
+
+        <service
+            android:name=".keepservice.Service2"
+            android:process=":process2" />
+
+        <receiver
+            android:name=".keepservice.Receiver2"
+            android:process=":process2" />
 
         <!-- 声明sdk所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
@@ -656,52 +662,56 @@
         <!-- android:name="UMENG_CHANNEL" -->
         <!-- android:value="hyphenate" /> -->
 
-        <activity android:name=".ui.BusinessActivity"></activity>
+        <activity android:name=".ui.BusinessActivity" />
 
-
-        <!--注册Service-->
-        <service android:name=".keepservice.service.DaemonService"
+        <!-- 注册Service -->
+        <service
+            android:name=".keepservice.service.DaemonService"
             android:enabled="true"
             android:exported="true"
-            android:process=":daemon_service"/>
-
-        <service android:name=".keepservice.service.CancelNoticeService"
+            android:process=":daemon_service" />
+        <service
+            android:name=".keepservice.service.CancelNoticeService"
             android:enabled="true"
             android:exported="true"
-            android:process=":service"/>
-        <service android:name=".keepservice.service.PlayerMusicService"
+            android:process=":service" />
+        <service
+            android:name=".keepservice.service.PlayerMusicService"
             android:enabled="true"
             android:exported="true"
-            android:process=":music_service"/>
+            android:process=":music_service" />
         <service
             android:name=".keepservice.service.AliveJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <!--接收系统广播接收器-->
+        <!-- 接收系统广播接收器 -->
         <receiver android:name=".keepservice.receiver.KeepAliveReceiver">
-            <!--设备重启广播-->
+
+            <!-- 设备重启广播 -->
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!--安装或卸载广播-->
+            <!-- 安装或卸载广播 -->
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
-            <!--解锁广播-->
+            <!-- 解锁广播 -->
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_USER_PRESENT" />
             </intent-filter>
-            <!--存储卡挂载广播-->
-            <intent-filter >
-                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
-                <action android:name="android.intent.action.MEDIA_UNMOUNTED"/>
-                <data android:scheme="file">
-                </data>
+            <!-- 存储卡挂载广播 -->
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+
+                <data android:scheme="file"></data>
             </intent-filter>
-            <!--网络状态广播-->
+            <!-- 网络状态广播 -->
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
@@ -709,23 +719,22 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".keepservice.activity.SinglePixelActivity"
+        <activity
+            android:name=".keepservice.activity.SinglePixelActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
             android:excludeFromRecents="true"
             android:finishOnTaskLaunch="false"
             android:launchMode="singleInstance"
-            android:theme="@style/SingleActivityStyle"/>
-
+            android:theme="@style/SingleActivityStyle" />
         <activity
             android:name=".ui.CollectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
-
         <activity
             android:name=".ui.CollectionShowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
-
+        <activity android:name=".ui.MoveActivity"></activity>
     </application>
 
 </manifest>

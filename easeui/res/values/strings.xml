@@ -17,4 +17,5 @@
     <string name="cancel_compress">cancel compress</string>
     <string name="digest_location">[Location]</string>
     <string name="confirm">Confirm</string>
+    <string name="title_activity_move">MoveActivity</string>
 </resources>
