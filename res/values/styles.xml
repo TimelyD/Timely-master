@@ -45,11 +45,11 @@
         <item name="android:paddingLeft">@dimen/common.10dp</item>
         <item name="android:paddingRight">@dimen/common.10dp</item>
         <item name="android:layout_marginRight">@dimen/common.10dp</item>
-        <item name="android:background">@drawable/btn_normal_selector</item>
+        <item name="android:background">@drawable/btn_agree_selector</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textSize">@dimen/tx_3</item>
-        <item name="android:textColor">@drawable/btn_tx_selector</item>
+        <item name="android:textColor">@drawable/btn_tx_selector2</item>
     </style>
 
     <style name="DeleteBtnPrimaryStyle"  parent="@style/Widget.AppCompat.Button.Borderless">

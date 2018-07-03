@@ -239,7 +239,7 @@
     <string name="ti2">系统已向您Timely注册手机</string>
     <string name="ti3">发送了验证码，请注意查收。</string>
     <string name="ti4">头像不能为空</string>
-    <string name="ti5">请输入Timely账户</string>
+    <string name="ti5">请输入对方的Timely账号</string>
     <string name="ti6">Timely号：</string>
     <string name="ti7">Timely号</string>
     <string name="ti8">清空该好友聊天记录将无法恢复，是否确定？</string>

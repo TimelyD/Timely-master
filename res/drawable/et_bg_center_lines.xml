@@ -4,8 +4,9 @@
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
             <!--  这里改填充颜色 -->
             <solid android:color="#fff"/>
+            <corners android:radius="8dp"/>
             <!--  这里改底部线条颜色 -->
-            <stroke android:color="@color/divider_t" android:width="@dimen/line_divider"/>
+          <!--  <stroke android:color="@color/divider_t" android:width="@dimen/line_divider"/>-->
         </shape>
     </item>
 </layer-list>

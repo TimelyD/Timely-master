@@ -64,6 +64,7 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
 //	private ProgressDialog progressDialog;
     private ListView mListView;
     private FriendsAdapter mAdapter;
+    private ImageView x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
         EaseTitleBar titleBar = (EaseTitleBar) findViewById(R.id.title_bar);
         setTitleBarLeftBack();
         editText = (EditText) findViewById(R.id.edit_note);
+        x = (ImageView) findViewById(R.id.x);
         //String strUserName = getResources().getString(R.string.user_name);
         String strUserName = getResources().getString(R.string.ti5);
         editText.setHint(strUserName);
@@ -93,11 +95,19 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
                     public void accept(@NonNull CharSequence charSequence) throws Exception {
                         String name = charSequence.toString();
                         if (TextUtils.isEmpty(name)) {
+                            x.setVisibility(View.GONE);
                             return;
                         }
+                        x.setVisibility(View.VISIBLE);
                         search(name, false);
                     }
                 });
+        x.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private List<UserRelationInfoModel> mDatas = new ArrayList<>();
@@ -142,6 +152,7 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
                 holder.avatar = (ImageView) convertView.findViewById(R.id.avatar_iv);
                 holder.name = (TextView) convertView.findViewById(R.id.name_tv);
                 holder.add = (Button) convertView.findViewById(R.id.add_btn);
+                holder.id = (TextView) convertView.findViewById(R.id.ID);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -152,6 +163,7 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
 // .drawable.default_avatar).into(holder.avatar);
             ImageUtils.show(AddContactActivity.this, bean.getPicture(), R.drawable.default_avatar, holder.avatar);
             holder.name.setText(bean.getNickname() == null ? bean.getEmail() : bean.getNickname());
+            holder.id.setText("ID:"+bean.getSn());
             holder.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -168,6 +180,7 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
             ImageView avatar;
             TextView name;
             Button add;
+            TextView id;
         }
     }
 

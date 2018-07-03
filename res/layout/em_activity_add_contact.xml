@@ -27,31 +27,47 @@
             android:textSize="@dimen/tx_3"
             android:visibility="gone"/>
     </com.hyphenate.easeui.widget.EaseTitleBar>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/edit_note"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common.13dp">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common.45dp"
-            android:background="@drawable/et_bg_center_lines"
-            android:hint="@string/ti5"
-            android:imeOptions="actionSearch"
-            android:paddingLeft="@dimen/common.40dp"
-            android:singleLine="true"
-            android:textSize="@dimen/tx_3"/>
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:onClick="searchContact"
-            android:layout_centerVertical="true"
-            android:src="@drawable/search"
-            android:padding="@dimen/common.5dp"
-            android:layout_marginLeft="@dimen/common.10dp"
-            android:layout_width="@dimen/common.25dp"
-            android:layout_height="@dimen/common.25dp"/>
+            <EditText
+                android:id="@+id/edit_note"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common.35dp"
+                android:background="@drawable/et_bg_center_lines"
+                android:hint="@string/ti5"
+                android:imeOptions="actionSearch"
+                android:paddingLeft="@dimen/common.40dp"
+                android:paddingRight="@dimen/common.40dp"
+                android:singleLine="true"
+                android:textSize="@dimen/tx_3"/>
+
+            <ImageView
+                android:onClick="searchContact"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search"
+                android:padding="@dimen/common.5dp"
+                android:layout_marginLeft="@dimen/common.10dp"
+                android:layout_width="@dimen/common.25dp"
+                android:layout_height="@dimen/common.25dp"/>
+            <ImageView
+                android:id="@+id/x"
+                android:layout_centerVertical="true"
+                android:src="@drawable/x"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/common.5dp"
+                android:layout_marginRight="@dimen/common.10dp"
+                android:layout_width="@dimen/common.25dp"
+                android:layout_height="@dimen/common.25dp"/>
+        </RelativeLayout>
     </RelativeLayout>
+
 
     <View
         style="@style/LineHorizontalStyle"/>

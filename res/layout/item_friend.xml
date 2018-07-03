@@ -8,26 +8,38 @@
 
     <com.hyphenate.easeui.widget.CircleImageView
         android:id="@+id/avatar_iv"
-        android:layout_width="@dimen/common.42dp"
-        android:layout_height="@dimen/common.42dp"
+        android:layout_width="@dimen/common.48dp"
+        android:layout_height="@dimen/common.48dp"
         android:layout_centerVertical="true"
         android:src="@drawable/default_avatar" />
-
-    <TextView
-        android:id="@+id/name_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:orientation="vertical"
         android:layout_marginLeft="@dimen/common.10dp"
         android:layout_marginRight="@dimen/common.10dp"
         android:layout_toRightOf="@id/avatar_iv"
         android:layout_toLeftOf="@+id/add_btn"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@color/tx_black_1"
-        android:textSize="@dimen/tx_2" />
-
-
+        android:layout_centerVertical="true">
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_2" />
+        <TextView
+            android:id="@+id/ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="ID:"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_4" />
+    </LinearLayout>
     <Button
         android:id="@+id/add_btn"
         android:text="@string/button_add"
