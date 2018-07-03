@@ -562,8 +562,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
      * @param view
      */
     public void exitGroup(View view) {
-        startActivityForResult(new Intent(this, ExitGroupDialog.class), REQUEST_CODE_EXIT);
-
+        //startActivityForResult(new Intent(this, ExitGroupDialog.class), REQUEST_CODE_EXIT);
+        ShowDialog(getString(R.string.exit_group),0);
     }
 
     /**
@@ -575,7 +575,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         /*startActivityForResult(new Intent(this, ExitGroupDialog.class).putExtra("deleteToast", getString(R.string
                         .dissolution_group_hint)),
                 REQUEST_CODE_EXIT_DELETE);*/
-        showDialog();
+        ShowDialog(getString(R.string.dismiss_group),1);
     }
 
     /**
@@ -728,7 +728,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                 break;
 
             case R.id.clear_all_history: // 清空聊天记录
-                String st9 = getResources().getString(R.string.sure_to_empty_this);
+                showDialog2();
+                /*String st9 = getResources().getString(R.string.sure_to_empty_this);
                 new EaseAlertDialog(GroupDetailsActivity2.this, null, st9, null, new EaseAlertDialog.AlertDialogUser() {
 
                     @Override
@@ -737,8 +738,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                             clearGroupHistory();
                         }
                     }
-                }, true).show();
-
+                }, true).show();*/
                 break;
 
             case R.id.rl_change_group_name:
@@ -1350,7 +1350,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         }
     }
 
-    private void showDialog() {
+    private void ShowDialog(final String ti, final int i) {
         View view = getLayoutInflater().inflate(R.layout.pop, null);
         final Dialog dialog = new Dialog(this, R.style.TransparentFrameWindowStyle);
         dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
@@ -1374,12 +1374,18 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
         TextView bt1 = (TextView) view.findViewById(R.id.bt1);
         TextView cancle = (TextView) view.findViewById(R.id.cancle);
+        bt1.setText(ti);
 
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 dialog.dismiss();
-                deleteGrop();
+                if(i==0){
+                    exitGrop();
+                }else {
+                    deleteGrop();
+                }
+
             }
         });
 
@@ -1390,5 +1396,47 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             }
         });
     }
+    private void showDialog2() {
+        View view = getLayoutInflater().inflate(R.layout.pup2, null);
+        final Dialog dialog = new Dialog(this, R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        TextView bt1 = (TextView) view.findViewById(R.id.ok);
+        TextView ti = (TextView) view.findViewById(R.id.ti);
+        TextView cancle = (TextView) view.findViewById(R.id.cancle);
+        ti.setText(R.string.ti9);
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                clearGroupHistory();
+            }
+        });
+
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
+    }
+
 
 }

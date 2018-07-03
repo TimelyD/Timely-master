@@ -242,6 +242,8 @@
     <string name="ti5">请输入Timely账户</string>
     <string name="ti6">Timely号：</string>
     <string name="ti7">Timely号</string>
+    <string name="ti8">清空该好友聊天记录将无法恢复，是否确定？</string>
+    <string name="ti9">清空聊天记录将无法恢复，是否确定？</string>
     <string name="selected_all">全选</string>
     <string name="delete_button">删除</string>
     <string name="collection_title">收藏</string>

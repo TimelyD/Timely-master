@@ -1,6 +1,7 @@
 package com.tg.tgt.ui;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -8,7 +9,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -340,7 +343,8 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.btn_relation:
                 if(isFriend) {
-                    new EaseAlertDialog(mActivity, getString(R.string.sure_delete), getString(R.string.cancel), getString(R.string.confirm), new EaseAlertDialog.AlertDialogUser() {
+                    showDialog();
+                    /*new EaseAlertDialog(mActivity, getString(R.string.sure_delete), getString(R.string.cancel), getString(R.string.confirm), new EaseAlertDialog.AlertDialogUser() {
                         @Override
                         public void onResult(boolean confirmed, Bundle bundle) {
                             if (confirmed) {
@@ -354,7 +358,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                                 });
                             }
                         }
-                    }).show();
+                    }).show();*/
                 }else {
                     if(mEaseUser!=null){
                         CodeUtils.addContact(mActivity, mEaseUser.getChatid(), mEaseUser.getUsername());
@@ -362,7 +366,8 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
             case R.id.layout_clear:
-                String st9 = getResources().getString(R.string.sure_to_empty_record);
+                showDialog2();
+                /*String st9 = getResources().getString(R.string.sure_to_empty_record);
                 new EaseAlertDialog(mActivity, null, st9, null, new EaseAlertDialog.AlertDialogUser() {
 
                     @Override
@@ -376,7 +381,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                             Toast.makeText(mContext, R.string.messages_are_empty, Toast.LENGTH_SHORT).show();
                         }
                     }
-                }, true).show();
+                }, true).show();*/
                 break;
             case R.id.iv_head:
                 List<MediaBean> beans = new ArrayList<MediaBean>();
@@ -490,12 +495,101 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
             }
         }
     }
-//
-//    private boolean checkListenerEnable = true;
-//    private void check(){
-//        checkListenerEnable = false;
-//        checkbox.setChecked(!checkbox.isChecked());
-//    }
+    private void showDialog() {
+        View view = getLayoutInflater().inflate(R.layout.pop, null);
+        final Dialog dialog = new Dialog(this, R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        TextView bt1 = (TextView) view.findViewById(R.id.bt1);
+        TextView cancle = (TextView) view.findViewById(R.id.cancle);
+        bt1.setText(R.string.delete_friend);
+
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                CodeUtils.deleteContact(mActivity, mEaseUser, new Consumer<Boolean>() {
+                    @Override
+                    public void accept(@NonNull Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+                            finish();
+                        }
+                    }
+                });
+            }
+        });
+
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void showDialog2() {
+        View view = getLayoutInflater().inflate(R.layout.pup2, null);
+        final Dialog dialog = new Dialog(this, R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        TextView bt1 = (TextView) view.findViewById(R.id.ok);
+        TextView ti = (TextView) view.findViewById(R.id.ti);
+        TextView cancle = (TextView) view.findViewById(R.id.cancle);
+        ti.setText(R.string.ti8);
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(mUsername,
+                        EMConversation.EMConversationType.Chat);
+                if (conversation != null) {
+                    conversation.clearAllMessages();
+                }
+                Toast.makeText(mContext, R.string.messages_are_empty, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
+    }
 
     @Override
     public void finish() {

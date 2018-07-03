@@ -260,6 +260,7 @@
     <string name="Move_into_the_blacklist_new">Move into the blacklist</string>
     <string name="Change_the_group_name">Change group name</string>
     <string name="dismiss_group">Dismiss group</string>
+    <string name="tishi">Warm prompt</string>
     <string name="add_public_group_chat">Add public group</string>
     <string name="gorup_not_found">Can not find this group</string>
     <string name= "no_more_messages">no more messages</string>
