@@ -14,6 +14,7 @@ import com.tg.tgt.moment.bean.CommentItem;
 import com.tg.tgt.moment.bean.FavortItem;
 import com.tg.tgt.moment.bean.PhotoInfo;
 import com.tg.tgt.moment.contract.MomentContract;
+import com.tg.tgt.moment.ui.activity.MomentAct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,7 @@ public class MomentPresenter extends BasePresenter<IModel, MomentContract.View> 
                         }
 //                        List<CircleItem> datas = DatasUtil.createCircleDatas();
                         mView.setData(true, loadMore, hasMore, mData);
+                        MomentAct.mineSize = mData.size();
                     }
 
                     @Override

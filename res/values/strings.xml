@@ -256,4 +256,5 @@
     <string name="comment_detail">评论</string>
     <string name="dynamic_cancel">取消</string>
     <string name="empty_moments">您暂无来访脚印...</string>
+    <string name="collection_empty">您的收藏夹暂时为空</string>
 </resources>

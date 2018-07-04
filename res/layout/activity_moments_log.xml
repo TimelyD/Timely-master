@@ -17,7 +17,7 @@
 
 <com.classic.common.MultipleStatusView
     android:id="@+id/status_layout"
-    app:emptyView="@layout/empty_moment_log"
+    app:emptyView="@layout/empty_moments_log"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <View
