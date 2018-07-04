@@ -105,11 +105,7 @@ public class MomentAdapter extends BaseMomentAdapter {
                 }
             });
             contentTv.setText(UrlUtils.formatUrlString(content));
-            helper.setVisible(R.id.view_line_like,t);
-            helper.setVisible(R.id.view_line_comment,false);
         }else {
-            helper.setVisible(R.id.view_line_like,false);
-            helper.setVisible(R.id.view_line_comment,false);
         }
         helper.setVisible(R.id.contentTv, !TextUtils.isEmpty(content));
 
