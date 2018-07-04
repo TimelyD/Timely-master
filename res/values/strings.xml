@@ -254,4 +254,6 @@
     <string name="cancel_collection">取消</string>
     <string name="thumbs_up">点赞</string>
     <string name="comment_detail">评论</string>
+    <string name="dynamic_cancel">取消</string>
+    <string name="empty_moments">您暂无来访脚印...</string>
 </resources>

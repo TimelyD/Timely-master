@@ -13,7 +13,9 @@
         android:width="2dp"
         android:color="#00000000" >
     </stroke>
-		描边
+		描边
+
+
     -->
 
     <corners

@@ -187,5 +187,6 @@ public class MomentsLogAct extends BaseActivity {
             }
         };
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setEmptyView(R.layout.empty_moments_log);
     }
 }

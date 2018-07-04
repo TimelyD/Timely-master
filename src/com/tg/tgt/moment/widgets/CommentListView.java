@@ -88,7 +88,7 @@ public class CommentListView extends LinearLayout {
 //        }finally {
 //            typedArray.recycle();
 //        }
-        itemColor = ContextCompat.getColor(App.applicationContext, R.color.tx_black_1);
+        itemColor = ContextCompat.getColor(App.applicationContext, R.color.blue);
         itemSelectorColor = ContextCompat.getColor(App.applicationContext, R.color.press);
     }
 

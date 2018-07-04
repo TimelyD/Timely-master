@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.easeui.utils.PhotoUtils;
 import com.hyphenate.easeui.utils.photo.MediaBean;
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -170,8 +171,8 @@ public class NewDynamicAct extends BaseActivity{
             ImageView iv = (ImageView) convertView.findViewById(R.id.item_image);
             View tvHint = convertView.findViewById(R.id.tv_hint);
             if(getItem(position) == null){
-                tvHint.setVisibility(View.VISIBLE);
-                Glide.with(mActivity).load(R.drawable.moment_take_photo).apply(new RequestOptions().centerCrop()).into(iv);
+                tvHint.setVisibility(View.GONE);
+                Glide.with(mActivity).load(R.drawable.moment_take_photo1).apply(new RequestOptions().centerCrop()).into(iv);
             }else {
 //                iv.setImageResource(R.drawable.ic_launcher);
                 tvHint.setVisibility(View.GONE);
@@ -182,21 +183,26 @@ public class NewDynamicAct extends BaseActivity{
     }
 
     public void send(View view) {
-       if(TextUtils.isEmpty(etdynamic.getText().toString())){
-           ToastUtils.showToast(getApplicationContext(), getString(R.string.dynamic_cannot_empty));
-           return;
-       }
-        Observable.just(mPhotos)
-                .map(new Function<List<MediaBean>, List<File>>() {
-                    @Override
-                    public List<File> apply(@NonNull List<MediaBean> mediaBeen) throws Exception {
-                        ArrayList<String> strings = new ArrayList<>();
-                        for (MediaBean mediaBean : mediaBeen) {
-                            strings.add(mediaBean.getPath());
-                        }
-                        return Luban.with(mActivity).load(strings).setTargetDir(PhotoUtils.getTempDirPath(mContext)).get();
-                    }
-                })
+        switch (view.getId()){
+            case R.id.cancel_button:
+                finish();
+                break;
+            case R.id.send_button:
+                if(TextUtils.isEmpty(etdynamic.getText().toString())){
+                    ToastUtils.showToast(getApplicationContext(), getString(R.string.dynamic_cannot_empty));
+                    return;
+                }
+                Observable.just(mPhotos)
+                        .map(new Function<List<MediaBean>, List<File>>() {
+                            @Override
+                            public List<File> apply(@NonNull List<MediaBean> mediaBeen) throws Exception {
+                                ArrayList<String> strings = new ArrayList<>();
+                                for (MediaBean mediaBean : mediaBeen) {
+                                    strings.add(mediaBean.getPath());
+                                }
+                                return Luban.with(mActivity).load(strings).setTargetDir(PhotoUtils.getTempDirPath(mContext)).get();
+                            }
+                        })
                 /*.map(new Function<MediaBean, File>() {
                     @Override
                     public File apply(@NonNull MediaBean mediaBean) throws Exception {
@@ -207,34 +213,37 @@ public class NewDynamicAct extends BaseActivity{
                     }
                 })
                 .buffer(9)*/
-                .flatMap(new Function<List<File>, ObservableSource<HttpResult<EmptyData>>>() {
-                    @Override
-                    public ObservableSource<HttpResult<EmptyData>> apply(@NonNull List<File> files) throws Exception {
-                        int outHeight = 0;
-                        int outWidth = 0;
-                        if(files.size()>0) {
-                            String path = files.get(0).getPath();
-                            BitmapFactory.Options options = new BitmapFactory.Options();
-                            options.inJustDecodeBounds = true;//这个参数设置为true才有效，
-                            Bitmap bmp = BitmapFactory.decodeFile(path, options);//这里的bitmap是个空
-                            outHeight = options.outHeight;
-                            outWidth = options.outWidth;
-                        }
-                        return ApiManger2.getApiService()
-                                .applyMoments(HttpHelper.getMomentPicMap(files), HttpHelper.toTextPlain(etdynamic.getText().toString()),
-                                        HttpHelper.toTextPlain(""+outWidth),HttpHelper.toTextPlain(""+outHeight));
-                    }
-                })
-                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
-                .subscribe(new BaseObserver2<EmptyData>() {
-                    @Override
-                    protected void onSuccess(EmptyData emptyData) {
-                        ToastUtils.showToast(getApplicationContext(), R.string.publish_success);
-                        setResult(RESULT_OK);
-                        finish();
-                    }
-                });
-
+                        .flatMap(new Function<List<File>, ObservableSource<HttpResult<EmptyData>>>() {
+                            @Override
+                            public ObservableSource<HttpResult<EmptyData>> apply(@NonNull List<File> files) throws Exception {
+                                int outHeight = 0;
+                                int outWidth = 0;
+                                if(files.size()>0) {
+                                    String path = files.get(0).getPath();
+                                    BitmapFactory.Options options = new BitmapFactory.Options();
+                                    options.inJustDecodeBounds = true;//这个参数设置为true才有效，
+                                    Bitmap bmp = BitmapFactory.decodeFile(path, options);//这里的bitmap是个空
+                                    outHeight = options.outHeight;
+                                    outWidth = options.outWidth;
+                                }
+                                return ApiManger2.getApiService()
+                                        .applyMoments(HttpHelper.getMomentPicMap(files), HttpHelper.toTextPlain(etdynamic.getText().toString()),
+                                                HttpHelper.toTextPlain(""+outWidth),HttpHelper.toTextPlain(""+outHeight));
+                            }
+                        })
+                        .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+                        .subscribe(new BaseObserver2<EmptyData>() {
+                            @Override
+                            protected void onSuccess(EmptyData emptyData) {
+                                ToastUtils.showToast(getApplicationContext(), R.string.publish_success);
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        });
+                break;
+                default:
+                    break;
+        }
         /*ApiManger2.getApiService()
                 .applyMoments(HttpHelper.getMomentPicMap(mPhotos), HttpHelper.toTextPlain(etdynamic.getText().toString()))
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
@@ -247,4 +256,15 @@ public class NewDynamicAct extends BaseActivity{
                     }
                 });*/
     }
+
+    @Override
+    protected void initBar(boolean enableKeyBoard) {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar
+            //    .transparentStatusBar()
+                .statusBarDarkFont(true,.2f)
+                .keyboardEnable(true)
+                .init();
+    }
+
 }

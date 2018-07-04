@@ -56,6 +56,7 @@ import com.tg.tgt.moment.bean.CommentItem;
 import com.tg.tgt.moment.bean.FavortItem;
 import com.tg.tgt.moment.contract.MomentContract;
 import com.tg.tgt.moment.presenter.MomentPresenter;
+import com.tg.tgt.moment.ui.CircleRecycleViewDivider;
 import com.tg.tgt.moment.ui.adapter.MomentAdapter;
 import com.tg.tgt.moment.widgets.CommentInputMenu;
 import com.tg.tgt.moment.widgets.CommentListView;
@@ -396,7 +397,9 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             mTitle.setText(R.string.home_page);
 //            header = LayoutInflater.from(mContext).inflate(R.layout.head_circle_mine, null);
         }else {
-            recyclerView.addItemDecoration(new SimpleDividerDecoration(mContext, true));
+         //   recyclerView.addItemDecoration(new SimpleDividerDecoration(mContext, true));
+            recyclerView.addItemDecoration(new CircleRecycleViewDivider(mContext,LinearLayoutManager.VERTICAL,
+                    R.drawable.divider,0));
             mAdapter = new MomentAdapter(mData,R.layout.adapter_circle_item);
             header.findViewById(R.id.iv_avatar).setOnClickListener(this);
         }
