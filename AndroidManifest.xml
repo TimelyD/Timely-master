@@ -709,7 +709,7 @@
                 <action android:name="android.intent.action.MEDIA_MOUNTED" />
                 <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
 
-                <data android:scheme="file"></data>
+                <data android:scheme="file" />
             </intent-filter>
             <!-- 网络状态广播 -->
             <intent-filter>
@@ -734,7 +734,8 @@
             android:name=".ui.CollectionShowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
-        <activity android:name=".ui.MoveActivity"></activity>
+        <activity android:name=".ui.MoveActivity" />
+        <activity android:name=".ui.GroupPickContacts2Activity"></activity>
     </application>
 
 </manifest>

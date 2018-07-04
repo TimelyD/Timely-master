@@ -61,6 +61,7 @@ import io.reactivex.subjects.PublishSubject;
 public class MoveActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "GroupDetailsActivity";
     private static final int REQUEST_CODE_ADD_USER = 0;
+    private static final int REQUEST_CODE_ADD_USER2 =7;
     private static final int REQUEST_CODE_EDIT_GROUP_DESCRIPTION = 6;
     private EMPushConfigs pushConfigs;
     private String groupId;
@@ -235,6 +236,23 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
                 progressDialog.setCanceledOnTouchOutside(false);
             }
             switch (requestCode) {
+                case REQUEST_CODE_ADD_USER2://踢群成员
+                final String[] newmember = data.getStringArrayExtra("newmembers");
+                if(newmember == null || newmember.length < 1){
+                    return;
+                }
+                ApiManger2.getApiService().deleteUser(mGroup.getId().toString(),getMembers(newmember)).compose(mActivity
+                        .<HttpResult<List<GroupUserModel>>>bindToLifeCyclerAndApplySchedulers(false))
+                        .subscribe(new BaseObserver2<List<GroupUserModel>>() {
+                            @Override
+                            protected void onSuccess(List<GroupUserModel> emptyData) {
+                                mGroup.setGroupUserModels(emptyData);
+                                GroupManger.saveGroup(mGroup);
+                                membersAdapter.setData(emptyData);
+                                mTitleBar.setTitle(mGroup.getGroupName() + "(" + emptyData.size() + ")");
+                            }
+                        });
+                break;
                 case REQUEST_CODE_ADD_USER:// 添加群成员
                     final String[] newmembers = data.getStringArrayExtra("newmembers");
                     if(newmembers == null || newmembers.length < 1){
@@ -440,11 +458,11 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
                         public void onClick(View v) {
                             final String st11 = getResources().getString(R.string.Add_a_button_was_clicked);
                             EMLog.d(TAG, st11);
-                            // 进入选人页面
+                            // 进入踢人页面
                             startActivityForResult(
-                                    (new Intent(MoveActivity.this, GroupPickContactsActivity.class).putExtra
+                                    (new Intent(MoveActivity.this, GroupPickContacts2Activity.class).putExtra
                                             ("groupId", groupId)),
-                                    REQUEST_CODE_ADD_USER);
+                                    REQUEST_CODE_ADD_USER2);
                         }
                     });
                 } else {
@@ -519,13 +537,11 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void back(View view) {
-        setResult(RESULT_OK);
         finish();
     }
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_OK);
         finish();
     }
 
