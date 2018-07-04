@@ -78,9 +78,9 @@
         <item name="android:paddingBottom">2dip</item>
         <item name="android:paddingLeft">5dip</item>
         <item name="android:paddingRight">5dip</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/tx_black_3</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:background">@drawable/ease_timestampe_bg</item>
+        <!--<item name="android:background">@drawable/ease_timestampe_bg</item>-->
     </style>
 
     <style name="AnimFade" parent="@android:style/Animation.Activity">

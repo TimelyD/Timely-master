@@ -54,10 +54,9 @@ public class NewsDetail extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_news_detail);
         initView();
-
-
         mId = getIntent().getStringExtra(Constant.NEWS);
-
+        mTitleBar.setBackgroundColor(getResources().getColor(R.color.white));
+        mTitleBar.setTitleColor(getResources().getColor(R.color.title_black));
         ApiManger2.getApiService().showNewsDetail(mId)
                 .compose(this.<HttpResult<NewsModel>>bindToLifeCyclerAndApplySchedulers(null))
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -155,9 +154,13 @@ public class NewsDetail extends BaseActivity {
     private void initView() {
         mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
         mNewsDetailTv = (TextView) findViewById(R.id.news_detail_tv);
-
+        mImmersionBar
+                .fitsSystemWindows(true)
+                .statusBarColor(com.hyphenate.easeui.R.color.white)
+                .statusBarDarkFont(true, 0.5f)//设置状态栏字体颜色
+                .init();
         setTitleBarLeftBack();
-        mTitleBar.setRightLayoutVisibility(View.VISIBLE);
+        mTitleBar.setRightLayoutVisibility(View.INVISIBLE);
         mTitleBar.setRightImageResource(R.drawable.share);
         mTitleBar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override

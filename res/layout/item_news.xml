@@ -29,6 +29,7 @@
     <ImageView
         android:id="@+id/news_iv"
         android:scaleType="centerCrop"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="150dp"/>
     <TextView

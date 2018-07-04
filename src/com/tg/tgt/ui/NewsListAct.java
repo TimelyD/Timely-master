@@ -154,7 +154,12 @@ public class NewsListAct extends BaseActivity {
                 helper.setText(R.id.news_time_top, item.getCreateTime());
                 helper.setText(R.id.news_title_tv, item.getTitle());
                 ImageView view = (ImageView) helper.getView(R.id.news_iv);
-                GlideApp.with(mActivity).load(item.getPicture()).centerCrop().placeholder(R.drawable.default_img).into(view);
+                if(item.getPicture()==null){
+                    view.setVisibility(View.GONE);
+                }else {
+                    view.setVisibility(View.VISIBLE);
+                    GlideApp.with(mActivity).load(item.getPicture()).centerCrop().placeholder(R.drawable.default_img).into(view);
+                }
                 if(!TextUtils.isEmpty(item.getBrief()))
                 helper.setText(R.id.news_des, item.getBrief());
                 helper.setText(R.id.news_time_tv, item.getCreateTime());
