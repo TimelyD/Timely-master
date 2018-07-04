@@ -16,7 +16,7 @@
     <TextView
         android:id="@+id/tv_invite_msg"
         android:layout_margin="@dimen/margin_chat_activity"
-        style="@style/chat_text_date_style"
+        style="@style/chat_text_date_style2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />

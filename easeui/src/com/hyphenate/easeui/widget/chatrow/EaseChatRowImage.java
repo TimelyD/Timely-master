@@ -16,10 +16,12 @@ import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseImageUtils;
 import com.hyphenate.easeui.utils.GlideRoundTransform;
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -32,7 +34,7 @@ import android.widget.TextView;
 
 public class EaseChatRowImage extends EaseChatRowFile{
 
-    protected ImageView imageView;
+    protected ZQImageViewRoundOval imageView;
     private EMImageMessageBody imgBody;
     private CheckBox select;
     private View bt;
@@ -49,7 +51,8 @@ public class EaseChatRowImage extends EaseChatRowFile{
     @Override
     protected void onFindViewById() {
         percentageView = (TextView) findViewById(R.id.percentage);
-        imageView = (ImageView) findViewById(R.id.image);
+        imageView = (ZQImageViewRoundOval) findViewById(R.id.image);
+        imageView.setType(ZQImageViewRoundOval.TYPE_ROUND);imageView.setRoundRadius(10);
         select= (CheckBox) findViewById(R.id.select);
         bt= findViewById(R.id.bt);
     }
@@ -147,6 +150,32 @@ public class EaseChatRowImage extends EaseChatRowFile{
         }
         context.startActivity(intent);
     }
+
+    public Bitmap setImgSize(Bitmap bm, int newWidth ,int newHeight){
+        // 获得图片的宽高.
+        int width = bm.getWidth();Log.i("宽：",width+"");
+        int height = bm.getHeight();Log.i("高：",height+"");
+        // 计算缩放比例.
+       /* float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;*/
+        float scaleWidth = 0;
+        float scaleHeight =0;
+        float bi = (float)width / (float)height;Log.i("比例1：",bi+"");
+        float li = 50 / bi;Log.i("比例2：",li+"");
+       if(width==height){
+           scaleWidth = ((float)width+50) / width;
+           scaleHeight = ((float)height+50) / height;
+       }else {
+           scaleWidth = ((float)width+50) / width;
+           scaleHeight = ((float)height+li) / height;
+       }
+        // 取得想要缩放的matrix参数.
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        // 得到新的图片.
+        Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return newbm;
+    }
     
     /**
      * load image into image view
@@ -162,6 +191,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
         Log.i("dcz","显示");
         if (bitmap != null) {
             // thumbnail image is already loaded, reuse the drawable
+            bitmap=setImgSize(bitmap,500,500);
             iv.setImageBitmap(bitmap);
             /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -195,6 +225,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
 
                 protected void onPostExecute(Bitmap image) {
                     if (image != null) {
+                        image=setImgSize(image,500,500);
                         iv.setImageBitmap(image);
                         /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         image.compress(Bitmap.CompressFormat.PNG, 100, baos);

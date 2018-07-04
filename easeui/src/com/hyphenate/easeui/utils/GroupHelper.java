@@ -1,5 +1,11 @@
 package com.hyphenate.easeui.utils;
 
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.hyphenate.chat.EMClient;
@@ -75,7 +81,8 @@ public class GroupHelper {
         }
         sb.append("加入了群聊");
         return sb.toString();*/
-        StringBuilder sb = new StringBuilder();
+        //StringBuilder sb = new StringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //此处bean中的userId实际上是环信id
             InviteMsgBean inviteMsgBean = new Gson().fromJson(((EMTextMessageBody) message.getBody()).getMessage(),
@@ -108,10 +115,13 @@ public class GroupHelper {
                     }else {
                         nickname = inviteeBean.getNickname();
                     }
+                    int len = sb.length();
                     sb.append(nickname);
+                   // sb.setSpan(new ForegroundColorSpan(Color.parseColor("#ffffff")),len,sb.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置后面的字体颜色
                 }
                 if (i != invitee.size() - 1)
-                    sb.append(",");
+                    sb.append("、");
+                Log.i("qqq",sb.toString());
             }
             sb.append("加入了群聊");
         } catch (JsonSyntaxException e) {

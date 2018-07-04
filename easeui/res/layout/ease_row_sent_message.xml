@@ -38,19 +38,17 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/margin_chat_activity"
-            android:src="@drawable/default_avatar"
-             />
+            android:src="@drawable/default_avatar"/>
 
         <RelativeLayout
             android:clipChildren="false"
             android:clipToPadding="false"
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:layout_toLeftOf="@id/iv_userhead"
-            android:background="@drawable/ease_chatto_bg"
-            >
+            android:background="@drawable/ease_chatto_bg">
             <!--android:autoLink="web"-->
             <TextView
                 android:id="@+id/tv_chatcontent"
@@ -62,7 +60,8 @@
                 android:gravity="center|left"
                 android:paddingRight="6dp"
                 android:paddingLeft="1dp"
-                android:minHeight="38dp"
+                android:minHeight="35dp"
+                android:text="avasb"
                 android:lineSpacingExtra="2dp"
               	android:textColor="#fff"
                 android:maxWidth="225.0dip"

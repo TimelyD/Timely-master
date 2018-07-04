@@ -33,23 +33,20 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/margin_chat_activity"
-            android:src="@drawable/default_avatar"
-             />
+            android:src="@drawable/default_avatar" />
 
         <RelativeLayout
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_chat_activity"
-            android:background="@drawable/ease_chatto_bg"
             android:layout_toLeftOf="@id/iv_userhead" >
 
-            <ImageView
+            <com.hyphenate.easeui.widget.ZQImageViewRoundOval
                 android:id="@+id/image"
-                android:layout_width="50dp"
-                android:layout_height="70dp"
-                android:scaleType="fitCenter"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"/>
         </RelativeLayout>
         <LinearLayout
             android:id="@+id/ll"

@@ -264,7 +264,7 @@ public class CodeUtils {
     public static EaseUser wrapUser(UserFriendModel model){
         if(model==null)
             return null;
-        Log.i("sn",model.getSn());
+        Log.i("sn",model.getSn()+"");
         EaseUser easeUser = new EaseUser(model.getUsername());
         easeUser.setIsLock(model.isSafe()?1:0);
         easeUser.setNickname(model.getNickname());

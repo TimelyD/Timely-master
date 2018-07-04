@@ -68,7 +68,8 @@ public class ConversationListFragment extends EaseConversationListFragment {
         View newsView = LayoutInflater.from(mContext).inflate(R.layout.ease_row_chat_history, null);
         newsView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.common_65dp)));
         conversationListView.addHeaderView(newsView);
-        newsView.setOnClickListener(new View.OnClickListener() {
+        View a = newsView.findViewById(R.id.list_itease_layout);
+        a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), NewsListAct.class);
