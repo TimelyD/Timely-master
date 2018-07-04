@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+    android:background="@color/bg_t"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <com.hyphenate.easeui.widget.EaseTitleBar
@@ -13,7 +14,7 @@
             android:layout_centerVertical="true"
             android:text="@string/confirm"
             android:background="@null"
-            android:onClick="confirm"
+            android:visibility="gone"
             android:minWidth="@dimen/common.50dp"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
@@ -24,7 +25,6 @@
           android:layout_marginTop="@dimen/common.10dp"/>
     <LinearLayout
         android:orientation="vertical"
-        android:padding="@dimen/layout_padding"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -33,6 +33,7 @@
             android:textColor="@color/tx_black_3"
             android:textSize="@dimen/tx_4"
             android:text="nixianzzai"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -42,13 +43,27 @@
             android:hint="@string/please_input"
             android:paddingTop="@dimen/common.10dp"
             android:paddingBottom="@dimen/common.10dp"
-            android:textColorHint="@color/tx_black_1"
+            android:paddingLeft="@dimen/common.10dp"
+            android:paddingRight="@dimen/common.10dp"
+            android:textColorHint="@color/tx_black_2"
             android:minLines="2"
             android:maxLines="5"
-            android:gravity="top"
             android:textSize="@dimen/tx_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-    <View style="@style/LineHorizontalStyle"/>
+    <TextView
+        android:id="@+id/text_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="confirm"
+        android:layout_marginLeft="@dimen/common.30dp"
+        android:layout_marginRight="@dimen/common.30dp"
+        android:layout_marginTop="@dimen/common.30dp"
+        android:text="@string/save_new_nickname"
+        android:textColor="@color/chenjin"
+        android:textSize="@dimen/tx_3"
+        android:gravity="center"
+        android:padding="@dimen/common.15dp"
+        android:background="@drawable/write_selector" />
 </LinearLayout>

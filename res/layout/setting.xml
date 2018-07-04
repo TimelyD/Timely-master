@@ -69,9 +69,7 @@
                 android:textSize="12sp"
                 android:textColor="#B3B3B3"/>
         </LinearLayout>
-        
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -81,79 +79,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#FFF"
-        >
-    
-
-    <LinearLayout
-        android:id="@+id/linear_set_notify"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/layout_padding"
-        android:background="#FFF"
-        
-        >
-        
-        <TextView 
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/notify_set"
-            android:textSize="@dimen/tx_3"
-            android:textColor="@color/tx_black_1"
-            android:layout_gravity="center"/>
-        
-        <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/arrow"/>
-    </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/divider_t"
-            android:layout_marginLeft="@dimen/layout_padding"
-            />
-
+        android:background="#FFF">
         <LinearLayout
-            android:id="@+id/linear_setlang"
+            android:id="@+id/linear_set_notify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/layout_padding"
-            android:background="#FFF"
-            >
-
+            android:padding="@dimen/common.15dp"
+            android:background="#FFF">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/set_langset"
+                android:text="@string/notify_set"
                 android:textSize="@dimen/tx_3"
                 android:textColor="@color/tx_black_1"
                 android:layout_gravity="center"/>
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/arrow"/>
         </LinearLayout>
-
-    <View 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divider_t"
+            android:layout_marginLeft="@dimen/layout_padding" />
+        <LinearLayout
+        android:id="@+id/linear_setlang"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/divider_t"
-        android:layout_marginLeft="@dimen/layout_padding"
-        />
-
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/common.15dp"
+        android:background="#FFF">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/set_langset"
+            android:textSize="@dimen/tx_3"
+            android:textColor="@color/tx_black_1"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow"/>
+    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divider_t"/>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/bg_t"
+            android:layout_height="@dimen/common.10dp">
+        </View>
     <LinearLayout
         android:id="@+id/linear_setpass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/layout_padding"
+        android:padding="@dimen/common.15dp"
         android:background="#FFF"
 
         >
@@ -172,20 +158,17 @@
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"/>
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/divider_t"
-        android:layout_marginLeft="@dimen/layout_padding"
-        />
-
+        android:layout_marginLeft="@dimen/layout_padding" />
     <LinearLayout
         android:id="@+id/linear_safepass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/layout_padding"
+        android:padding="@dimen/common.15dp"
         android:background="#FFF"
         android:layout_marginTop="5dp"
         >
@@ -204,8 +187,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"/>
     </LinearLayout>
-    
-
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
@@ -223,73 +204,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#FFF"
-        >
-    <RelativeLayout
-        android:id="@+id/layout_ver"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#FFF"
-        android:padding="@dimen/layout_padding"
-        >
-        
-        <TextView
-            android:id="@+id/tv_version_unused"
-            android:layout_width="wrap_content"
+        android:background="@color/bg_t">
+        <RelativeLayout
+            android:id="@+id/layout_ver"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/tx_3"
-            android:textColor="@color/tx_black_1"
-            android:text="@string/set_version"/>
+            android:orientation="horizontal"
+            android:background="#FFF"
+            android:padding="@dimen/common.15dp"
+            >
 
-        <ImageView
-            android:id="@+id/iv_new_version"
-            android:visibility="gone"
-            android:layout_toRightOf="@id/tv_version_unused"
-            android:src="@drawable/new_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_alignParentRight="true"
-            android:id="@+id/tv_version"
-            android:textColor="@color/tx_black_1"
-            android:textSize="@dimen/tx_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-    </RelativeLayout>
-    
-    <View 
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/divider_t"
-        />
+            <TextView
+                android:id="@+id/tv_version_unused"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tx_3"
+                android:textColor="@color/tx_black_1"
+                android:text="@string/set_version"/>
 
+            <ImageView
+                android:id="@+id/iv_new_version"
+                android:visibility="gone"
+                android:layout_toRightOf="@id/tv_version_unused"
+                android:src="@drawable/new_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_version"
+                android:textColor="@color/tx_black_1"
+                android:textSize="@dimen/tx_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divider_t" />
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_padding"
-            android:background="@color/bg_t"
-            />
+            android:background="@color/bg_t" />
+        <TextView
+            android:id="@+id/text_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common.80dp"
+            android:layout_marginRight="@dimen/common.80dp"
+            android:layout_marginTop="@dimen/common.30dp"
+            android:text="@string/logout"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_3"
+            android:gravity="center"
+            android:padding="@dimen/common.15dp"
+            android:background="#FFF" />
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/divider_t"
-            />
-    <TextView
-        android:id="@+id/text_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        android:textColor="@color/tx_black_1"
-        android:textSize="@dimen/tx_3"
-        android:gravity="center"
-        android:padding="@dimen/layout_padding"
-        android:background="#FFF"
-        />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/divider_t"
-            />
+            android:background="@color/divider_t" />
 </LinearLayout>
 </LinearLayout>

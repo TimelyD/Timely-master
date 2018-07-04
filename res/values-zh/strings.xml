@@ -54,8 +54,8 @@
     <string name="set_title">设置</string>
     <string name="set_message">消息提醒</string>
     <string name="set_type">请勿打扰模式</string>
-    <string name="set_passwset">登录密码设置</string>
-    <string name="set_safepasswset">安全密码设置</string>
+    <string name="set_passwset">密码设置</string>
+    <string name="set_safepasswset">安全密码</string>
     <string name="set_langset">语言设置</string>
     <string name="set_version">版本更新</string>
     <string name="set_drop_out">退出登陆</string>

@@ -58,9 +58,7 @@
 
         <LinearLayout
             android:id="@+id/linear_name"
-            style="@style/InfoLayoutStyle"
-            >
-
+            style="@style/InfoLayoutStyle">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
