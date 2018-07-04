@@ -13,6 +13,7 @@ import com.hyphenate.util.TimeInfo;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -103,6 +104,19 @@ public class TimeUtils {
         Date var0 = df.parse(createTime);
         return timeUtil.getTimestampString(var0);
     }
+    /**
+     * 将长时间格式字符串转换为时间 yyyy-MM-dd HH:mm:ss
+     *
+     * @param strDate
+     * @return
+     */
+    public static Date strToDateLong(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        ParsePosition pos = new ParsePosition(0);
+        Date strtodate = formatter.parse(strDate, pos);
+        return strtodate;
+    }
+
 
     private static boolean isSameDay(long var0) {
         TimeInfo var2 = getTodayStartAndEndTime();

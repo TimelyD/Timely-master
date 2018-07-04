@@ -105,6 +105,8 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     private int mCurrentItem = -1;
    // private String signature;
 
+    public static int mineSize;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -395,6 +397,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             rightLayout.setClickable(false);
             rightLayout.setEnabled(false);
             mTitle.setText(R.string.home_page);
+            //recyclerView.setBackgroundColor(Color.rgb(128,128,128));
 //            header = LayoutInflater.from(mContext).inflate(R.layout.head_circle_mine, null);
         }else {
          //   recyclerView.addItemDecoration(new SimpleDividerDecoration(mContext, true));

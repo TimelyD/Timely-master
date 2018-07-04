@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.annotation.LayoutRes;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -56,9 +57,11 @@ import io.reactivex.functions.Consumer;
 public class MomentAdapter extends BaseMomentAdapter {
 
     public static final int HEADVIEW_SIZE = 1;
+    private int size;
 
     public MomentAdapter(List<CircleItem> data, @LayoutRes int res) {
         super(data, res);
+        size = data.size();
     }
 
     @Override
@@ -87,6 +90,13 @@ public class MomentAdapter extends BaseMomentAdapter {
         try {
             if(res == R.layout.adapter_circle_item_mine){
                 helper.setText(R.id.timeTv, TimeUtils.getMomentDateShortString(createTime));
+                Log.e("Tag","标号:"+helper.getPosition()+"id:"+helper.getItemId()+"列表大小："+MomentAct.mineSize);
+                if (helper.getPosition() == 1) {
+                    helper.getView(R.id.split).setVisibility(View.INVISIBLE);
+                }
+                if (helper.getPosition() == MomentAct.mineSize){
+                    helper.getView(R.id.line_circle).setVisibility(View.GONE);
+                }
             }else {
                 helper.setText(R.id.timeTv, TimeUtils.getMomentDateString(createTime));
             }
@@ -105,7 +115,6 @@ public class MomentAdapter extends BaseMomentAdapter {
                 }
             });
             contentTv.setText(UrlUtils.formatUrlString(content));
-        }else {
         }
         helper.setVisible(R.id.contentTv, !TextUtils.isEmpty(content));
 
