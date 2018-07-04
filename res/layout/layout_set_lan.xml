@@ -15,6 +15,7 @@
         <Button
             android:layout_centerVertical="true"
             android:text="@string/save"
+            android:textColor="@color/white"
             android:background="@null"
             android:onClick="save"
             android:minWidth="@dimen/common.50dp"
