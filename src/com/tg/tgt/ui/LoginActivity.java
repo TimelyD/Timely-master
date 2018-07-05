@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
@@ -113,7 +114,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         setContentView(R.layout.em_activity_login);
 
         initSpinner();
-
+        mImmersionBar
+                .statusBarColor(com.hyphenate.easeui.R.color.white)
+                .statusBarDarkFont(true, 0.5f)
+                .init();
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
         codeEditText = (EditText) findViewById(R.id.code_et);

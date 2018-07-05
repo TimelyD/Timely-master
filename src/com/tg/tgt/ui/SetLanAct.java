@@ -29,7 +29,7 @@ public class SetLanAct extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_set_lan);
-setTitleBarLeftBack();
+        setTitleBarLeftBack();
         RadioGroup rg_language = (RadioGroup) findViewById(R.id.rg_language);
         RadioButton rbenglish = (RadioButton) findViewById(R.id.rb_english);
         RadioButton rbchinese = (RadioButton) findViewById(R.id.rb_chinese);

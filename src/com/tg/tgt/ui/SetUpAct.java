@@ -48,6 +48,7 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
     private AlertDialog mDialog;
     private int mCheckLan = 0;
     private LinearLayout setNotify;
+    private TextView lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
             }
         });
         initView();
-
+        setLang();
         setPassWorld.setOnClickListener(this);
         setNotify.setOnClickListener(this);
         securityPass.setOnClickListener(this);
@@ -81,6 +82,18 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
         });
     }
 
+    private void setLang(){
+        int value = SharedPreStorageMgr.getIntance().getIntegerValue(SharedPreStorageMgr.PREFSNAMES, this,
+                Constant.LANGUAGE);
+        if(value == 0){
+            lang.setText(R.string.setlang_system);
+        }else if(value == 1){
+            lang.setText(R.string.setlang_chinese);
+        }else if(value == 2){
+            lang.setText(R.string.setlang_english);
+        }
+    }
+
     private void initView() {
         setPassWorld = (LinearLayout) findViewById(R.id.linear_setpass);
         setNotify = (LinearLayout) findViewById(R.id.linear_set_notify);
@@ -94,6 +107,7 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
         mEmailTv = (TextView) findViewById(R.id.tv_email);
         mSexIv = (ImageView) findViewById(R.id.iv_sex);
         mHeadIv = (ImageView) findViewById(R.id.iv_head);
+        lang=(TextView)findViewById(R.id.lang);
 
         mVersionTv.setText(VerUtils.getVer(this));
         GlideApp.with(this).load(SharedPreStorageMgr.getIntance().getStringValue(this, Constant.HEADIMAGE))/*.diskCacheStrategy(DiskCacheStrategy.RESULT)*/.placeholder(R.drawable.default_avatar).into(mHeadIv);

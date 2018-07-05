@@ -105,6 +105,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(com.tg.tgt.R.layout.em_activity_register);
+		mImmersionBar
+				.statusBarColor(com.hyphenate.easeui.R.color.white)
+				.statusBarDarkFont(true, 0.5f)
+				.init();
 		userNameEditText = (EditText) findViewById(com.tg.tgt.R.id.username);
 		nickNameEditText = (EditText) findViewById(R.id.nickname_et);
 		codeEditText = (EditText) findViewById(R.id.code_et);
