@@ -100,14 +100,14 @@ public class EaseChatRowLocation extends EaseChatRow{
             }
         });
         if(select.getVisibility()==VISIBLE){
-            //select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
+            select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
         }
         bt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("dcz","点击了");
                 if(select.getVisibility()==VISIBLE){
-                    // select.setChecked(select.isChecked()?false:true);
+                     select.setChecked(select.isChecked()?false:true);
                 }
             }
         });

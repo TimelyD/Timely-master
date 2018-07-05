@@ -30,6 +30,7 @@ public class ContextMenuActivity extends BaseActivity {
     public static final int RESULT_CODE_FORWARD = 3;
 	public static final int RESULT_CODE_DUOFORWARD = 4;
 	public static final int RESULT_CODE_RECALL = 5;
+	public static final int RESULT_CODE_COLLECT = 6;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,10 @@ public class ContextMenuActivity extends BaseActivity {
 	}
 	public void recall(View view){
 		setResult(RESULT_CODE_RECALL);
+		finish();
+	}
+	public void collection(View view){
+		setResult(RESULT_CODE_COLLECT);
 		finish();
 	}
 	

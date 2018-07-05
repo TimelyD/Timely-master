@@ -72,17 +72,51 @@
             android:id="@+id/input_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:id="@+id/zhuan"
+        <LinearLayout
+            android:id="@+id/ll_zhuan"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:background="@color/white">
-            <ImageView
-                android:id="@+id/iv_zhuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/share"/>
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/zhuan"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@color/white">
+                <ImageView
+                    android:id="@+id/iv_zhuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/share"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/del"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@color/white">
+                <ImageView
+                    android:id="@+id/iv_del"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/del"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/collect"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@color/white">
+                <ImageView
+                    android:id="@+id/iv_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/collect"/>
+            </RelativeLayout>
+        </LinearLayout>
+
     </RelativeLayout>
 </RelativeLayout>

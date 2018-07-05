@@ -16,8 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_chat_activity"
-        android:paddingLeft="20dp" >
+        android:layout_marginTop="@dimen/margin_chat_activity">
         <CheckBox
             android:id="@+id/select"
             android:layout_width="wrap_content"
@@ -99,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/tv_chatcontent"
+            android:layout_toLeftOf="@id/bubble"
             android:text="@string/text_ack_msg"
             android:textSize="12sp"
             android:visibility="invisible" />
