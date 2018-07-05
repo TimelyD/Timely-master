@@ -115,10 +115,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.iv3=(ZQImageViewRoundOval)view.findViewById(R.id.iv3);
         this.iv4=(ZQImageViewRoundOval)view.findViewById(R.id.iv4);
 
-        iv1.setType(ZQImageViewRoundOval.TYPE_ROUND);iv1.setRoundRadius(20);//矩形凹行大小
-        iv2.setType(ZQImageViewRoundOval.TYPE_ROUND);iv2.setRoundRadius(20);
-        iv3.setType(ZQImageViewRoundOval.TYPE_ROUND);iv3.setRoundRadius(20);
-        iv4.setType(ZQImageViewRoundOval.TYPE_ROUND);iv4.setRoundRadius(20);
+        iv1.setType(ZQImageViewRoundOval.TYPE_ROUND);iv1.setRoundRadius(10);//矩形凹行大小
+        iv2.setType(ZQImageViewRoundOval.TYPE_ROUND);iv2.setRoundRadius(10);
+        iv3.setType(ZQImageViewRoundOval.TYPE_ROUND);iv3.setRoundRadius(10);
+        iv4.setType(ZQImageViewRoundOval.TYPE_ROUND);iv4.setRoundRadius(10);
         ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv1);
         ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv2);
         ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv3);

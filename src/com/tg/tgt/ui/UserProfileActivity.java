@@ -172,7 +172,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         this.tvname = (TextView) findViewById(R.id.tv_name);
         this.tvnote = (TextView) findViewById(R.id.tv_note);
         this.ivhead = (ZQImageViewRoundOval) findViewById(R.id.iv_head);
-        ivhead.setType(ZQImageViewRoundOval.TYPE_ROUND);ivhead.setRoundRadius(20);
+        ivhead.setType(ZQImageViewRoundOval.TYPE_ROUND);ivhead.setRoundRadius(10);
         this.titlebar = (EaseTitleBar) findViewById(R.id.title_bar);
         this.btnRelation = (Button) findViewById(R.id.btn_relation);
         this.layoutcode = (LinearLayout) findViewById(R.id.layout_code);

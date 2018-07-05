@@ -6,74 +6,83 @@
     android:paddingBottom="2dip"
     android:background="@color/bg_t"
     android:paddingTop="2dip" >
-
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0.5dp"-->
-        <!--android:background="@color/gray_normal" />-->
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.5dp">
+    </View>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#cdcdcd" />
     <LinearLayout
-        android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="4dp" >
-
-        <Button
-            android:id="@+id/btn_set_mode_keyboard"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="6dp"
-            android:background="@drawable/ease_chatting_setmode_keyboard_btn"
-            android:visibility="gone" />
-
+        android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/btn_press_to_speak"
-            android:layout_width="0dp"
+            android:id="@+id/rl_bottom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/ease_chat_press_speak_btn"
-            android:gravity="center"
-            android:visibility="gone" >
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="4dp" >
+            <Button
+                android:id="@+id/btn_set_mode_keyboard"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/ease_chatting_setmode_keyboard_btn"
+                android:visibility="gone" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/btn_press_to_speak"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="@string/button_pushtotalk"
-                android:textColor="#666666"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/ease_chat_press_speak_btn"
+                android:gravity="center"
+                android:visibility="gone" >
 
-        <RelativeLayout
-            android:id="@+id/edittext_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common.15dp"
-            android:layout_marginRight="@dimen/common.10dp"
-            android:layout_weight="1"
-            android:gravity="bottom" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/button_pushtotalk"
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <com.hyphenate.easeui.widget.MsgEditText
-                android:id="@+id/et_sendmessage"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/edittext_layout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/primary_edit_bg_unfocus"
-                android:maxLines="3"
-                android:singleLine="true"
-                android:layout_centerVertical="true"
-                android:minHeight="@dimen/common.38dp"
-                android:paddingRight="@dimen/common.42dp"
-                android:paddingLeft="@dimen/common.10dp"
-                android:textSize="15sp"
-                android:imeOptions="actionSend"/>
+                android:layout_marginLeft="@dimen/common.1dp"
+                android:layout_marginRight="@dimen/common.10dp"
+                android:layout_weight="1"
+                android:gravity="bottom" >
 
-            <!--<RelativeLayout-->
+                <!-- android:background="@drawable/primary_edit_bg_unfocus"-->
+                <com.hyphenate.easeui.widget.MsgEditText
+                    android:id="@+id/et_sendmessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:background="@color/white"
+                    android:singleLine="true"
+                    android:hint="@string/msg"
+                    android:textColorHint="@color/tx_black_3"
+                    android:layout_centerVertical="true"
+                    android:minHeight="@dimen/common.38dp"
+                    android:paddingRight="@dimen/common.42dp"
+                    android:paddingLeft="@dimen/common.10dp"
+                    android:textSize="15sp"
+                    android:imeOptions="actionSend"/>
+
+                <!--<RelativeLayout-->
                 <!--android:visibility="gone"-->
                 <!--android:id="@+id/rl_face"-->
                 <!--android:layout_width="wrap_content"-->
@@ -81,7 +90,7 @@
                 <!--android:layout_alignParentRight="true"-->
                 <!--android:layout_centerVertical="true"-->
                 <!--&gt;-->
-            <!--<ImageView-->
+                <!--<ImageView-->
                 <!--android:id="@+id/iv_face_normal"-->
                 <!--android:layout_width="24dip"-->
                 <!--android:layout_height="24dip"-->
@@ -90,7 +99,7 @@
                 <!--android:src="@drawable/ease_chatting_biaoqing_btn_normal"-->
                 <!--android:visibility="visible" />-->
 
-            <!--<ImageView-->
+                <!--<ImageView-->
                 <!--android:id="@+id/iv_face_checked"-->
                 <!--android:layout_width="24dip"-->
                 <!--android:layout_height="24dip"-->
@@ -98,23 +107,23 @@
                 <!--android:scaleType="fitCenter"-->
                 <!--android:src="@drawable/ease_chatting_biaoqing_btn_enable"-->
                 <!--android:visibility="invisible" />-->
-            <!---->
-            <!--</RelativeLayout>-->
+                <!---->
+                <!--</RelativeLayout>-->
 
 
-            <Button
-                android:id="@+id/btn_set_fire"
-                android:layout_width="@dimen/common.22dp"
-                android:layout_height="@dimen/common.22dp"
-                android:layout_marginRight="@dimen/common.10dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/fire"
-                android:visibility="visible" />
+                <Button
+                    android:id="@+id/btn_set_fire"
+                    android:layout_width="@dimen/common.22dp"
+                    android:layout_height="@dimen/common.22dp"
+                    android:layout_marginRight="@dimen/common.10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/fire"
+                    android:visibility="visible" />
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <!--<Button-->
+            <!--<Button-->
             <!--android:visibility="gone"-->
             <!--android:id="@+id/btn_more"-->
             <!--android:layout_width="32dip"-->
@@ -123,14 +132,15 @@
             <!--android:layout_marginRight="10dp"-->
             <!--android:background="@drawable/ease_type_select_btn" />-->
 
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_height="@dimen/common.35dp"
-            style="@style/ChatSendBtnStyle2"
-            android:layout_marginRight="@dimen/common.15dp"
-            android:text="@string/button_send"
-            android:enabled="false"
-             />
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_height="@dimen/common.35dp"
+                style="@style/ChatSendBtnStyle2"
+                android:layout_marginRight="@dimen/common.15dp"
+                android:text="@string/button_send"
+                android:enabled="false"
+                />
+        </LinearLayout>
     </LinearLayout>
     <View
         android:id="@+id/kong"
@@ -144,6 +154,7 @@
         android:layout_height="@dimen/common.40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:background="@color/white"
         android:paddingBottom="5dp"
         android:paddingTop="5dp">
 

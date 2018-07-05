@@ -197,6 +197,7 @@
     <string name="publish_success">Release successful</string>
     <string name="group_mems">members of the group</string>
     <string name="sure_delete">Cancel?</string>
+    <string name="sure_layout">Are you sure to log out?</string>
     <string name="sure_to_empty_record">Clear chat logs?</string>
     <string name="add_friend_by_qr">QR code for add friends</string>
     <string name="delete_success">deleted successful</string>
@@ -238,6 +239,8 @@
     <string name="con">Contains video not downloaded</string>
     <string name="noxz">The video was not downloaded</string>
     <string name="nox">Did not add</string>
+    <string name="delete_ti">Delete will not recover, is it certain?</string>
+    <string name="che_ti">Withdrawal will not recover, is it certain?</string>
     <string name="ti">Old and new passwords do not agree</string>
     <string name="ti2">It has sent you the verification code on </string>
     <string name="ti3">registered mobile phone. Please check it.</string>

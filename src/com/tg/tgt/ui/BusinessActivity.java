@@ -31,10 +31,6 @@ public class BusinessActivity extends PickContactNoCheckboxActivity{
                 if (confirmed) {
                     if (selectUser == null)
                         return;
-                    /*try {
-                        ChatActivity.activityInstance.finish();
-                    } catch (Exception e) {
-                    }*/
                     final IsCodeResult isCodeResult = CodeUtils.getIsCodeResult(BusinessActivity.this, selectUser.getUsername());
 
                     if(isCodeResult.getIscode() == 1){

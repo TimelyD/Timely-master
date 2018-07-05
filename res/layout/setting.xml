@@ -124,9 +124,9 @@
                 android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/lang"
-                android:text="agasfg"
                 android:layout_marginRight="@dimen/common.10dp"
                 android:textColor="@color/tx_black_1"
+                android:text="@string/setlang_system"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <ImageView

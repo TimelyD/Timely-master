@@ -625,7 +625,7 @@ public class MainActivity extends BaseActivity {
             unregisterReceiver(internalDebugReceiver);
         } catch (Exception e) {
         }
-
+		mScreenListener.stopScreenReceiverListener();
         //如有错误删除掉，环信本身没有添加，自己添加以免内存泄漏的
         if(mMyContactListener != null)
 			EMClient.getInstance().contactManager().removeContactListener(mMyContactListener);

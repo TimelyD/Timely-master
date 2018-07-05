@@ -25,6 +25,6 @@
         android:text="@string/attach_take_pic"
         android:layout_marginBottom="@dimen/common.10dp"
         android:textSize="@dimen/tx_4"
-        android:textColor="@color/tx_black_2" />
+        android:textColor="@color/tx_black_3" />
 
 </LinearLayout>

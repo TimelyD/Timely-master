@@ -1,13 +1,19 @@
 package com.tg.tgt.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -64,7 +70,6 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
             }
         });
         initView();
-        setLang();
         setPassWorld.setOnClickListener(this);
         setNotify.setOnClickListener(this);
         securityPass.setOnClickListener(this);
@@ -80,6 +85,7 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
                     findViewById(R.id.iv_new_version).setVisibility(View.VISIBLE);
             }
         });
+        setLang();
     }
 
     private void setLang(){
@@ -145,7 +151,7 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
                 break;
 
             case R.id.text_logout:
-                logout();
+                showDia(this,getString(R.string.sure_layout));
                 break;
 
             case R.id.linear_setlang:
@@ -269,4 +275,45 @@ public class SetUpAct extends BaseActivity implements View.OnClickListener{
             }
         });
     }
+    protected void showDia(Activity context, String content) {
+        View view = context.getLayoutInflater().inflate(com.hyphenate.easeui.R.layout.pup2, null);
+        final Dialog dialog = new Dialog(context, com.hyphenate.easeui.R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(com.hyphenate.easeui.R.style.main_menu_animstyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = context.getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        TextView ti = (TextView) view.findViewById(com.hyphenate.easeui.R.id.ti);
+        ti.setText(content);
+        TextView ok = (TextView) view.findViewById(com.hyphenate.easeui.R.id.ok);
+        TextView cancle = (TextView) view.findViewById(com.hyphenate.easeui.R.id.cancle);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                logout();
+            }
+        });
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
+    }
+
 }

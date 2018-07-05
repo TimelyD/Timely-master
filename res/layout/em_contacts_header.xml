@@ -19,7 +19,7 @@
         android:id="@+id/group_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contactItemImage="@drawable/ease_group_icon"
+        app:contactItemImage="@drawable/group"
         app:contactItemName="@string/group_chat" />
 
     <!--<ContactItemView-->

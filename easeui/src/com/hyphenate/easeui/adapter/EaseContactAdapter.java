@@ -75,7 +75,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.avatar.setType(ZQImageViewRoundOval.TYPE_ROUND);holder.avatar.setRoundRadius(20);
+        holder.avatar.setType(ZQImageViewRoundOval.TYPE_ROUND);holder.avatar.setRoundRadius(10);
         EaseUser user = getItem(position);
         if(user == null)
             Log.d("ContactAdapter", position + "");

@@ -77,7 +77,7 @@ public abstract class EaseChatRow extends LinearLayout {
         onInflateView();
         timeStampView = (TextView) findViewById(R.id.timestamp);
         userAvatarView = (ZQImageViewRoundOval) findViewById(R.id.iv_userhead);
-        userAvatarView.setType(ZQImageViewRoundOval.TYPE_ROUND); userAvatarView .setRoundRadius(20);
+        userAvatarView.setType(ZQImageViewRoundOval.TYPE_ROUND); userAvatarView .setRoundRadius(10);
         bubbleLayout = findViewById(R.id.bubble);
         usernickView = (TextView) findViewById(R.id.tv_userid);
 

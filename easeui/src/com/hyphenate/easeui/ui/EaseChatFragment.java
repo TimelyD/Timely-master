@@ -150,7 +150,23 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected View mReadFireView;
     private String mVideoCachePath;
     public static Boolean enu=false;
-
+    public static Handler Handler ;
+    private void handler(){
+        Handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1://视频
+                        chatFragmentHelper.onVideoClick(1);
+                        break;
+                    case 2://语音
+                        chatFragmentHelper.onVideoClick(2);
+                        break;
+                }
+            }
+        };
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(com.hyphenate.easeui.R.layout.ease_fragment_chat, container, false);
@@ -175,7 +191,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         // hold to record voice
         //noinspection ConstantConditions
         voiceRecorderView = (EaseVoiceRecorderView) getView().findViewById(com.hyphenate.easeui.R.id.voice_recorder);
-
+        handler();
         // message list layout
         messageList = (EaseChatMessageList) getView().findViewById(com.hyphenate.easeui.R.id.message_list);
         if (chatType != EaseConstant.CHATTYPE_SINGLE)
@@ -235,7 +251,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             @Override
             public void onVideoClick() {
                 if (null != chatFragmentHelper)
-                    chatFragmentHelper.onVideoClick();
+                    chatFragmentHelper.onVideoClick(1);
             }
 
             @Override
@@ -1586,7 +1602,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
          */
         EaseCustomChatRowProvider onSetCustomChatRowProvider();
 
-        void onVideoClick();
+        void onVideoClick(int i);
     }
 
     /**

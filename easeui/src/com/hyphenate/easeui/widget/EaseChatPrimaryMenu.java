@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.utils.DialogUtil;
 import com.hyphenate.easeui.utils.rxbus2.BusCode;
 import com.hyphenate.easeui.utils.rxbus2.RxBus;
 import com.hyphenate.easeui.utils.rxbus2.Subscribe;
@@ -308,7 +309,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             if (listener != null)
                 listener.onCameraClick();
         }else if(id == R.id.iv_video){
-            view.showContextMenu();
+            //view.showContextMenu();
+            DialogUtil.showDia(activity);
         } else {
         }
     }

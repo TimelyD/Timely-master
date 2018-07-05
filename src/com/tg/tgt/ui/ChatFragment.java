@@ -1,6 +1,7 @@
 package com.tg.tgt.ui;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -339,6 +342,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         }*/
         //end of red packet code
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -349,8 +353,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                             ((EMTextMessageBody) contextMenuMessage.getBody()).getMessage()));
                     break;
                 case ContextMenuActivity.RESULT_CODE_DELETE: // delete
-                    conversation.removeMessage(contextMenuMessage.getMsgId());
-                    messageList.refresh();
+                    showDia(getActivity(),getString(R.string.delete_ti));
                     break;
 
                 case ContextMenuActivity.RESULT_CODE_FORWARD: // forward
@@ -369,32 +372,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                             .getConversationType(chatType), true);*/
                     break;
                 case ContextMenuActivity.RESULT_CODE_RECALL:
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",contextMenuMessage.getTo());
-                                EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
-                                msgNotification.addBody(txtBody);
-                                msgNotification.setMsgTime(contextMenuMessage.getMsgTime());
-                                msgNotification.setLocalTime(contextMenuMessage.getMsgTime());
-                                msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
-                                msgNotification.setStatus(EMMessage.Status.SUCCESS);
-                                EMClient.getInstance().chatManager().recallMessage(contextMenuMessage);
-                                EMClient.getInstance().chatManager().saveMessage(msgNotification);
-                                messageList.refresh();
-                            } catch (final HyphenateException e) {
-                                e.printStackTrace();
-                                getActivity().runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        }
-                    }).start();
-                    // Delete group-ack data according to this message.
-                    EaseDingMessageHelper.get().delete(contextMenuMessage);
+                    che(getActivity(),getString(R.string.che_ti));
                     break;
                 default:
                     break;
@@ -633,8 +611,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
 
     @Override
-    public void onVideoClick() {
+    public void onVideoClick(int i) {
 //        startVideoCall();
+        if(i==1){
+            startVideoCall();
+        }else {
+            startVoiceCall();
+        }
     }
 
     @Override
@@ -855,11 +838,116 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 {//红包回执消息
                     return new ChatRowRedPacketAck(getActivity(), message, position, adapter);
                 }
-                //end of red packet code
             }
             return null;
         }
+    }
+    protected void showDia(Activity context,String content) {
+        View view = context.getLayoutInflater().inflate(com.hyphenate.easeui.R.layout.pup2, null);
+        final Dialog dialog = new Dialog(context, com.hyphenate.easeui.R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(com.hyphenate.easeui.R.style.main_menu_animstyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = context.getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        TextView ti = (TextView) view.findViewById(com.hyphenate.easeui.R.id.ti);
+        ti.setText(content);
+        TextView ok = (TextView) view.findViewById(com.hyphenate.easeui.R.id.ok);
+        TextView cancle = (TextView) view.findViewById(com.hyphenate.easeui.R.id.cancle);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                conversation.removeMessage(contextMenuMessage.getMsgId());
+                messageList.refresh();
+            }
+        });
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    protected void che(Activity context,String content) {
+        View view = context.getLayoutInflater().inflate(com.hyphenate.easeui.R.layout.pup2, null);
+        final Dialog dialog = new Dialog(context, com.hyphenate.easeui.R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(com.hyphenate.easeui.R.style.main_menu_animstyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = context.getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        TextView ti = (TextView) view.findViewById(com.hyphenate.easeui.R.id.ti);
+        ti.setText(content);
+        TextView ok = (TextView) view.findViewById(com.hyphenate.easeui.R.id.ok);
+        TextView cancle = (TextView) view.findViewById(com.hyphenate.easeui.R.id.cancle);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",contextMenuMessage.getTo());
+                            EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
+                            msgNotification.addBody(txtBody);
+                            msgNotification.setMsgTime(contextMenuMessage.getMsgTime());
+                            msgNotification.setLocalTime(contextMenuMessage.getMsgTime());
+                            msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+                            msgNotification.setStatus(EMMessage.Status.SUCCESS);
+                            EMClient.getInstance().chatManager().recallMessage(contextMenuMessage);
+                            EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                            messageList.refresh();
+                        } catch (final HyphenateException e) {
+                            e.printStackTrace();
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
+                // Delete group-ack data according to this message.
+                EaseDingMessageHelper.get().delete(contextMenuMessage);
+            }
+        });
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override

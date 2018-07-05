@@ -1104,7 +1104,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                 holder = new ViewHolder();
                 convertView = LayoutInflater.from(getContext()).inflate(res, null);
                 holder.imageView = (ZQImageViewRoundOval) convertView.findViewById(R.id.iv_avatar);
-                holder.imageView.setType(ZQImageViewRoundOval.TYPE_ROUND);holder.imageView.setRoundRadius(20);
+                holder.imageView.setType(ZQImageViewRoundOval.TYPE_ROUND);holder.imageView.setRoundRadius(10);
                 holder.textView = (TextView) convertView.findViewById(R.id.tv_name);
                 holder.ownerstar = (ImageView) convertView.findViewById(R.id.owner_star);
                 convertView.setTag(holder);
