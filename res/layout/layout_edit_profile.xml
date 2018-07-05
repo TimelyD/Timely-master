@@ -31,15 +31,17 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="@string/edit_head"
-            android:textColor="@color/tx_black_1"
+            android:textColor="@color/tx_black_3"
             android:textSize="@dimen/tx_3"/>
 
-        <com.hyphenate.easeui.widget.CircleImageView
+        <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/head"
             android:layout_width="@dimen/common.45dp"
             android:layout_height="@dimen/common.45dp"
             android:layout_gravity="center"
-            android:src="@drawable/default_avatar"/>
+            android:layout_marginTop="@dimen/common.5dp"
+            android:layout_marginBottom="@dimen/common.5dp"
+            android:src="@drawable/default_avatar2"/>
     </LinearLayout>
 
     <View
@@ -55,7 +57,6 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="@dimen/common.10dp">
-
         <LinearLayout
             android:id="@+id/linear_name"
             style="@style/InfoLayoutStyle">
@@ -65,7 +66,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/edit_name"
-                android:textColor="@color/tx_black_1"
+                android:textColor="@color/tx_black_3"
                 android:textSize="@dimen/tx_3"/>
 
             <TextView
@@ -74,51 +75,53 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="李染墨"
-                android:textColor="@color/tx_black_3"
+                android:textColor="@color/tx_black_1"
+                android:layout_marginRight="@dimen/common.10dp"
                 android:textSize="@dimen/tx_4"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"/>
         </LinearLayout>
-
         <View
             style="@style/LineHorizontalStyle"/>
-
         <LinearLayout
             android:id="@+id/linear_sex"
             style="@style/InfoLayoutStyle">
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/edit_sex"
-                android:textColor="@color/tx_black_1"
+                android:textColor="@color/tx_black_3"
                 android:textSize="@dimen/tx_3"/>
-
             <TextView
                 android:id="@+id/edit_profile_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="女"
-                android:textColor="@color/tx_black_3"
+                android:textColor="@color/tx_black_1"
                 android:textSize="@dimen/tx_4"/>
-
             <ImageView
                 android:id="@+id/image_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginRight="@dimen/common.10dp"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/woman"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"/>
         </LinearLayout>
-
         <View
             style="@style/LineHorizontalStyle"/>
-
         <LinearLayout
             android:visibility="gone"
             style="@style/InfoLayoutStyle">
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
@@ -128,7 +131,6 @@
                 android:text="ID"
                 android:textColor="@color/tx_black_1"
                 android:textSize="@dimen/tx_3"/>
-
             <TextView
                 android:id="@+id/t_number_tv"
                 android:layout_width="wrap_content"
@@ -141,26 +143,28 @@
         <View
             android:visibility="gone"
             style="@style/LineHorizontalStyle"/>
-
         <LinearLayout
             style="@style/InfoLayoutStyle">
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:text="@string/ti7"
-                android:textColor="@color/tx_black_1"
+                android:textColor="@color/tx_black_3"
                 android:textSize="@dimen/tx_3"/>
-
             <TextView
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginRight="@dimen/common.10dp"
                 android:textColor="@color/tx_black_3"
                 android:textSize="@dimen/tx_4"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"/>
         </LinearLayout>
     </LinearLayout>
     <View
@@ -179,22 +183,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:text="@string/edit_mood"
-            android:textColor="@color/tx_black_1"
+            android:textColor="@color/tx_black_3"
             android:textSize="@dimen/tx_3"/>
 
         <TextView
             android:id="@+id/edit_profile_mood"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:singleLine="true"
             android:ellipsize="end"
+            android:gravity="right"
+            android:layout_marginRight="@dimen/common.10dp"
             android:layout_marginLeft="@dimen/common.10dp"
             android:text="未添加"
-            android:textColor="@color/tx_black_3"
+            android:textColor="@color/tx_black_1"
             android:textSize="@dimen/tx_4"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow"/>
     </LinearLayout>
     <View
         style="@style/LineHorizontalStyle"/>
