@@ -9,8 +9,11 @@ import com.hyphenate.util.EMLog;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +23,8 @@ public class EaseChatRowVoice extends EaseChatRowFile{
     private TextView voiceLengthView;
     private ImageView readStatusView;
     private View mFireView;
+    private CheckBox select;
+    private View bt;
 
     public EaseChatRowVoice(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -37,6 +42,8 @@ public class EaseChatRowVoice extends EaseChatRowFile{
         voiceLengthView = (TextView) findViewById(R.id.tv_length);
         readStatusView = (ImageView) findViewById(R.id.iv_unread_voice);
         mFireView = findViewById(com.hyphenate.easeui.R.id.iv_fire);
+        select= (CheckBox) findViewById(com.hyphenate.easeui.R.id.select);
+        bt= findViewById(com.hyphenate.easeui.R.id.bt);
     }
 
     @Override
@@ -96,9 +103,37 @@ public class EaseChatRowVoice extends EaseChatRowFile{
             }
             return;
         }
-
-        // until here, handle sending voice message
         handleSendMessage();
+        select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("dcz_id",message.getMsgId()+"q");
+                if(isChecked==true){
+                    if(!EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.add(message.getMsgId());
+                    }
+                }else {
+                    if(EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.remove(message.getMsgId());
+                    }
+                }
+                Log.i("dcz_check",EaseConstant.list_ms+"");
+            }
+        });
+        if(select.getVisibility()==VISIBLE){
+            //select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
+        }
+        bt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dcz","点击了");
+                if(select.getVisibility()==VISIBLE){
+                    // select.setChecked(select.isChecked()?false:true);
+                }
+            }
+        });
     }
 
     @Override

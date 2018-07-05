@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.easemob.redpacketsdk.constant.RPConstant;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 
@@ -47,7 +48,9 @@ public class ContextMenuActivity extends BaseActivity {
 				setContentView(R.layout.em_context_menu_for_location);
 		    }else if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
 		        setContentView(R.layout.em_context_menu_for_image);
-		    }else{
+		    }else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+				setContentView(R.layout.em_context_menu_for_location);
+			}else{
 		        setContentView(R.layout.em_context_menu_for_text);
 		    }
 		} else if (type == EMMessage.Type.LOCATION.ordinal()) {

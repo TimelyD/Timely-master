@@ -4,6 +4,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMLocationMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.ui.EaseBaiduMapActivity;
 import com.hyphenate.exceptions.HyphenateException;
@@ -11,14 +12,19 @@ import com.hyphenate.util.LatLng;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 public class EaseChatRowLocation extends EaseChatRow{
 
     private TextView locationView;
     private EMLocationMessageBody locBody;
+    private CheckBox select;
+    private View bt;
 
 	public EaseChatRowLocation(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -33,6 +39,8 @@ public class EaseChatRowLocation extends EaseChatRow{
     @Override
     protected void onFindViewById() {
     	locationView = (TextView) findViewById(R.id.tv_location);
+        select= (CheckBox) findViewById(com.hyphenate.easeui.R.id.select);
+        bt= findViewById(com.hyphenate.easeui.R.id.bt);
     }
 
 
@@ -73,6 +81,36 @@ public class EaseChatRowLocation extends EaseChatRow{
                 }
             }
         }
+        select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("dcz_id",message.getMsgId()+"q");
+                if(isChecked==true){
+                    if(!EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.add(message.getMsgId());
+                    }
+                }else {
+                    if(EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.remove(message.getMsgId());
+                    }
+                }
+                Log.i("dcz_check",EaseConstant.list_ms+"");
+            }
+        });
+        if(select.getVisibility()==VISIBLE){
+            //select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
+        }
+        bt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dcz","点击了");
+                if(select.getVisibility()==VISIBLE){
+                    // select.setChecked(select.isChecked()?false:true);
+                }
+            }
+        });
     }
     
     @Override

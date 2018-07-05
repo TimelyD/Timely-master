@@ -20,7 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
-
+        <CheckBox
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:focusable="false"
+            android:button="@drawable/round_selector"
+            android:layout_centerVertical="true"/>
         <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
@@ -30,7 +38,6 @@
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:src="@drawable/default_avatar"
              />
-
         <LinearLayout
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
@@ -72,7 +79,6 @@
 	            android:layout_height="wrap_content"
 	            android:src="@drawable/ease_chatto_voice_playing" />
 		</LinearLayout>
-
         <ImageView
             android:id="@+id/msg_status"
             android:layout_width="wrap_content"
@@ -82,7 +88,6 @@
             android:clickable="true"
             android:src="@drawable/ease_msg_state_failed_resend"
             android:visibility="gone" />
-        
         <TextView
             android:id="@+id/tv_ack"
             style="@style/chat_text_name_style"
@@ -106,7 +111,7 @@
             android:layout_toLeftOf="@id/bubble"
             android:visibility="invisible"
             />
-          <ProgressBar 
+        <ProgressBar
             android:visibility="visible"
             android:id="@+id/progress_bar"
             android:layout_width="25dp"
@@ -114,8 +119,11 @@
               android:layout_marginRight="@dimen/common.5dp"
               android:indeterminateDrawable="@drawable/progress"
               android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/bubble"
-            />
+            android:layout_toLeftOf="@id/bubble" />
+        <RelativeLayout
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_avatar"/>
     </RelativeLayout>
 
 </LinearLayout>

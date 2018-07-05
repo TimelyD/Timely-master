@@ -16,17 +16,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
-
+        <CheckBox
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:focusable="false"
+            android:button="@drawable/round_selector"
+            android:layout_centerVertical="true"/>
         <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@id/select"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:src="@drawable/default_avatar2"
             />
-
         <RelativeLayout
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
@@ -57,8 +64,7 @@
                 android:gravity="center_vertical"
                 android:textColor="#ff000000" />
         </RelativeLayout>
-
-         <TextView
+        <TextView
             android:id="@+id/tv_userid"
             style="@style/chat_text_name_style"
             android:layout_width="wrap_content"
@@ -67,6 +73,10 @@
             android:textSize="@dimen/chat_nick_text_size"
             android:layout_toRightOf="@id/iv_userhead"
             android:visibility="gone" />
+        <RelativeLayout
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.48dp"/>
     </RelativeLayout>
 
 </LinearLayout>

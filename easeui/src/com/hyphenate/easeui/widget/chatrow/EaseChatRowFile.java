@@ -3,8 +3,11 @@ package com.hyphenate.easeui.widget.chatrow;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.hyphenate.EMCallBack;
@@ -12,6 +15,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMNormalFileMessageBody;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.ui.EaseShowNormalFileActivity;
 import com.hyphenate.exceptions.HyphenateException;
@@ -25,11 +29,11 @@ public class EaseChatRowFile extends EaseChatRow{
     protected TextView fileNameView;
 	protected TextView fileSizeView;
     protected TextView fileStateView;
-    
     protected EMCallBack sendfileCallBack;
-    
     protected boolean isNotifyProcessed;
     private EMNormalFileMessageBody fileMessageBody;
+    private CheckBox select;
+    private View bt;
 
     public EaseChatRowFile(Context context, EMMessage message, int position, BaseAdapter adapter) {
 		super(context, message, position, adapter);
@@ -47,6 +51,8 @@ public class EaseChatRowFile extends EaseChatRow{
         fileSizeView = (TextView) findViewById(R.id.tv_file_size);
         fileStateView = (TextView) findViewById(R.id.tv_file_state);
         percentageView = (TextView) findViewById(R.id.percentage);
+        select= (CheckBox) findViewById(com.hyphenate.easeui.R.id.select);
+        bt= findViewById(com.hyphenate.easeui.R.id.bt);
 	}
 
 
@@ -65,9 +71,37 @@ public class EaseChatRowFile extends EaseChatRow{
             }
             return;
         }
-
-        // until here, to sending message
         handleSendMessage();
+        select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("dcz_id",message.getMsgId()+"q");
+                if(isChecked==true){
+                    if(!EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.add(message.getMsgId());
+                    }
+                }else {
+                    if(EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.remove(message.getMsgId());
+                    }
+                }
+                Log.i("dcz_check",EaseConstant.list_ms+"");
+            }
+        });
+        if(select.getVisibility()==VISIBLE){
+            //select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
+        }
+        bt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dcz","点击了");
+                if(select.getVisibility()==VISIBLE){
+                    // select.setChecked(select.isChecked()?false:true);
+                }
+            }
+        });
 	}
 
 	/**

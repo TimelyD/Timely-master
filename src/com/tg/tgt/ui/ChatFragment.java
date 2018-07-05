@@ -636,7 +636,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             case R.id.video_chat:
                 startVideoCall();
                 break;
-
             default:
                 break;
         }

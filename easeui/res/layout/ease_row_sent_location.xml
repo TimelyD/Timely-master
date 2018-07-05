@@ -16,7 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
-
+        <CheckBox
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:focusable="false"
+            android:button="@drawable/round_selector"
+            android:layout_centerVertical="true"/>
         <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
@@ -25,7 +33,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/margin_chat_activity"
             />
-
         <LinearLayout
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
@@ -44,7 +51,6 @@
                 android:textSize="13sp"
                 android:textColor="@android:color/white" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,7 +75,6 @@
                 android:indeterminateDrawable="@drawable/progress"
                 android:visibility="visible" />
         </LinearLayout>
-        
         <TextView
             android:id="@+id/tv_ack"
             style="@style/chat_text_name_style"
@@ -82,7 +87,6 @@
             android:layout_toLeftOf="@id/bubble"
             android:visibility="invisible"
             />
-
         <TextView
             android:id="@+id/tv_delivered"
             style="@style/chat_text_name_style"
@@ -94,6 +98,10 @@
             android:layout_toLeftOf="@id/tv_chatcontent"
             android:visibility="invisible"
             />
+        <RelativeLayout
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.80dp"/>
     </RelativeLayout>
 
 </LinearLayout>

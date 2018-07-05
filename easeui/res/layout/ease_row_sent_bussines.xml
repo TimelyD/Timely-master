@@ -5,18 +5,24 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="13dp" >
-
     <TextView
         android:id="@+id/timestamp"
         style="@style/chat_text_date_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_chat_activity" >
-
+        <CheckBox
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:focusable="false"
+            android:button="@drawable/round_selector"
+            android:layout_centerVertical="true"/>
         <com.hyphenate.easeui.widget.ZQImageViewRoundOval
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
@@ -26,7 +32,6 @@
             android:layout_marginRight="@dimen/margin_chat_activity"
             android:src="@drawable/default_avatar2"
              />
-
         <RelativeLayout
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
@@ -140,8 +145,6 @@
                 android:indeterminateDrawable="@drawable/progress"
                 android:visibility="visible" />
         </LinearLayout>
-
-
         <TextView
             android:id="@+id/tv_ack"
             style="@style/chat_text_name_style"
@@ -153,6 +156,10 @@
             android:layout_marginRight="5dp"
             android:textSize="12sp"
             android:visibility="invisible" />
+        <RelativeLayout
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.80dp"/>
     </RelativeLayout>
 
 </LinearLayout>
