@@ -60,10 +60,16 @@ import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
 import com.tg.tgt.conference.ConferenceActivity;
 import com.tg.tgt.conference.ConferenceInviteJoinActivity;
+import com.tg.tgt.db.UserDao;
 import com.tg.tgt.domain.RobotUser;
 import com.tg.tgt.helper.GroupManger;
+import com.tg.tgt.http.ApiManger2;
+import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.EmptyData;
+import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
+import com.tg.tgt.moment.bean.CollectBean;
 import com.tg.tgt.widget.ChatRowVoiceCall;
 
 import java.io.File;
@@ -301,8 +307,24 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         if(state==1){
             onBackPressed();
         }else {
-
+            set();
         }
+    }
+    protected void set(){
+        ApiManger2.getApiService()
+                .collection(null)
+                .compose(((BaseActivity)mContext).<HttpResult<CollectBean>>bindToLifeCyclerAndApplySchedulers())
+                .subscribe(new BaseObserver2<CollectBean>() {
+                    @Override
+                    protected void onSuccess(CollectBean emptyData) {
+
+                    }
+
+                    @Override
+                    public void onFaild(int code, String message) {
+                        super.onFaild(code, message);
+                    }
+                });
     }
 
     protected void zheng(String forward_msg_id) {

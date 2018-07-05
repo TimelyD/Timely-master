@@ -41,8 +41,7 @@ public class EaseChatRowFile extends EaseChatRow{
 
 	@Override
 	protected void onInflateView() {
-	    inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ? 
-	            R.layout.ease_row_received_file : R.layout.ease_row_sent_file, this);
+	    inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?R.layout.ease_row_received_file : R.layout.ease_row_sent_file, this);
 	}
 
 	@Override
@@ -51,8 +50,8 @@ public class EaseChatRowFile extends EaseChatRow{
         fileSizeView = (TextView) findViewById(R.id.tv_file_size);
         fileStateView = (TextView) findViewById(R.id.tv_file_state);
         percentageView = (TextView) findViewById(R.id.percentage);
-        select= (CheckBox) findViewById(com.hyphenate.easeui.R.id.select);
-        bt= findViewById(com.hyphenate.easeui.R.id.bt);
+        select= (CheckBox) findViewById(R.id.select);
+        bt= findViewById(R.id.bt);
 	}
 
 
