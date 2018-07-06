@@ -1,11 +1,13 @@
 package com.tg.tgt.ui;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ public class AddContactByQrCodeActivity extends BaseActivity {
     private com.hyphenate.easeui.widget.CircleImageView ivavatar;
     private String mUrl;
     private UserRelationInfoModel mModel;
+    private Button bt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,26 +56,9 @@ public class AddContactByQrCodeActivity extends BaseActivity {
         this.tvid = (TextView) findViewById(R.id.tv_id);
         this.tvnick = (TextView) findViewById(R.id.tv_nick);
         this.titlebar = (EaseTitleBar) findViewById(R.id.title_bar);
-
-
+        this.bt=(Button)findViewById(R.id.bt);
         setTitleBarLeftBack();
-
         mUrl = getIntent().getStringExtra(Constant.USERNAME);
-        /*ApiManger.getApiService().search(mUrl)
-                .compose(RxUtils.<SearchResult>applySchedulers())
-                .subscribe(new BaseObserver<SearchResult>(this) {
-                    @Override
-                    protected void onSuccess(SearchResult searchResult) {
-                        List<SearchResult.SearchBean> search = searchResult.getSearch();
-                        if (search != null && search.size() > 0) {
-                            SearchResult.SearchBean searchBean = search.get(0);
-                            ImageUtils.show(mActivity, searchBean.getCover(), R.drawable.default_avatar, ivavatar);
-                            tvnick.setText(searchBean.getNickname());
-                            tvstate.setText(searchBean.getState());
-                        }
-
-                    }
-                });*/
         ApiManger2.getApiService()
                 .qrSearch(mUrl)
                 .compose(this.<HttpResult<UserRelationInfoModel>>bindToLifeCyclerAndApplySchedulers())
@@ -85,24 +71,40 @@ public class AddContactByQrCodeActivity extends BaseActivity {
                         tvemail.setText(model.getEmail());
                         tvid.setText("ID:"+ model.getId());
                         tvnick.setText(model.getNickname());
+                        if(mModel.getRelationStatus().equals("1")){
+                            bt.setText(R.string.ti12);
+                        }else {
+                            bt.setText(R.string.add_friend);
+                        }
+                        setListener();
                     }
                 });
     }
 
-    public void addContact(View view) {
-        /*if(mId != 0) {
-            saySomething(String.valueOf(mId));
-        }*/
-        if(mModel!=null){
-            CodeUtils.addContact(mActivity, mModel.getId(), mModel.getUsername(), new Consumer<Boolean>() {
-                @Override
-                public void accept(@NonNull Boolean aBoolean) throws Exception {
-                    if(aBoolean){
+    private void setListener() {
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mModel!=null){
+                    if(mModel.getRelationStatus().equals("1")){
+                        Intent intent = new Intent(mActivity, ChatActivity.class);
+                        intent.putExtra("userId",mModel.getId());
+                        startActivity(intent);
                         finish();
+                    }else {
+                        CodeUtils.addContact(mActivity, mModel.getId(), mModel.getUsername(), new Consumer<Boolean>() {
+                            @Override
+                            public void accept(@NonNull Boolean aBoolean) throws Exception {
+                                if(aBoolean){
+                                    finish();
+                                }
+                            }
+                        });
                     }
                 }
-            });
-        }
+            }
+        });
+
     }
 
     private void saySomething(final String chatid) {

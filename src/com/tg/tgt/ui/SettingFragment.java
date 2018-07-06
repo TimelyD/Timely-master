@@ -336,6 +336,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SCAN && resultCode == Activity.RESULT_OK) {
+            Log.i("dcz","setting");
             String chatId = data.getStringExtra(QrCodeUtils.RESULT_STRING);
             startActivity(new Intent(mContext, AddContactByQrCodeActivity.class).putExtra(Constant.USERNAME, chatId));
         }

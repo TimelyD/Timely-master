@@ -5,13 +5,13 @@
               android:background="@color/common_bg"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
         app:titleBarLeftImage="@drawable/back"
         app:titleBarTitle="@string/add_friend_by_qr"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.hyphenate.easeui.widget.EaseTitleBar>
+        android:layout_height="wrap_content">
+    </com.hyphenate.easeui.widget.EaseTitleBar>
 
     <LinearLayout
         android:orientation="vertical"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:onClick="addContact"
+            android:id="@+id/bt"
             android:text="@string/add_friend"
             android:layout_marginTop="@dimen/common.20dp"
             android:layout_marginLeft="@dimen/common.30dp"

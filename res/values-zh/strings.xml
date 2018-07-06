@@ -195,7 +195,7 @@
     <string name="publish_success">发布成功</string>
     <string name="group_mems">群成员</string>
     <string name="sure_delete">确定删除?</string>
-    <string name="sure_layout">确定退出登录?</string>
+    <string name="sure_layout">是否确定退出登录?</string>
     <string name="sure_to_empty_record">确认清除聊天记录?</string>
     <string name="add_friend_by_qr">二维码添加好友</string>
     <string name="delete_success">删除成功</string>
@@ -248,6 +248,7 @@
     <string name="ti9">清空聊天记录将无法恢复，是否确定？</string>
     <string name="ti10">选择的消息中，含有语音/文件/位置/名片等不能转发的消息。</string>
     <string name="ti11">名片推送成功</string>
+    <string name="ti12">发送消息</string>
     <string name="selected_all">全选</string>
     <string name="delete_button">删除</string>
     <string name="delete_ti">删除该消息将无法恢复，是否确定？</string>
