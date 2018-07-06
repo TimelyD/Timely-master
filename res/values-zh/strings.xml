@@ -132,7 +132,7 @@
     <string name="hava_acouunt">已有Timely账号!</string>
     <string name="forget_pwd">忘记密码？</string>
     <string name="register_email">注册安全邮箱</string>
-    <string name="code_cannot_empty">验证码不能为空!</string>
+    <string name="code_cannot_empty">验证码不能为空</string>
     <string name="input_nick">请输入昵称</string>
     <string name="register_nickname"><![CDATA[昵称        ]]></string>
     <string name="register_account"><![CDATA[账号        ]]></string>

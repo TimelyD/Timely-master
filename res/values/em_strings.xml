@@ -76,6 +76,7 @@
     <string name="select_contacts">Select the contact</string>
     <string name="confirm_forward_to">Confirm to forward to：%1$s ?</string>
     <string name="send_to">Send the"%1$s"card?</string>
+    <string name="zi">You can also type %1$s words</string>
     <string name="send2_to">Recommend friends to“%1$s”?</string>
     <string name="logout">Logout</string>
     <string name="logout_hint">Logout will never clear the chat history, this account can be used on next login</string>
@@ -237,7 +238,7 @@
     <string name="temporary_does_not">Currently the video size greater than 10M is not supported!</string>
     <string name="Video_footage">Video record</string>
     <string name="User_name_cannot_be_empty">Cell phone Numbers should not be empty</string>
-    <string name="Password_cannot_be_empty">Password cannot be empty!</string>
+    <string name="Password_cannot_be_empty">Password cannot be empty</string>
     <string name="please_set_the_current">"Please set the current user's nickname \ n to ios offline push not userid but Nick, see commentModels"</string>
     <string name="Is_landing">logining..</string>
     <string name="list_is_for">Retrieving the groups and contacts</string>

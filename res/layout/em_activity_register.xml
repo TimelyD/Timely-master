@@ -31,7 +31,7 @@
             android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
             android:layout_alignBottom="@id/head_iv"
-            android:text="You Photo"
+            android:text="Your Photo"
             android:textSize="@dimen/tx_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

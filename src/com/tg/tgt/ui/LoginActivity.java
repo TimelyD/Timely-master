@@ -245,14 +245,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Toast.makeText(this, R.string.User_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(code)){
-            codeEditText.requestFocus();
-            Toast.makeText(this, R.string.code_cannot_empty, Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (TextUtils.isEmpty(currentPassword)) {
             passwordEditText.requestFocus();
             Toast.makeText(this, R.string.Password_cannot_be_empty, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(code)){
+            codeEditText.requestFocus();
+            Toast.makeText(this, R.string.code_cannot_empty, Toast.LENGTH_SHORT).show();
             return;
         }
 

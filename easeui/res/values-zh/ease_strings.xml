@@ -64,6 +64,7 @@
     <string name="select_contacts">选择联系人</string>
     <string name="confirm_forward_to">确定转发到：%1$s ?</string>
     <string name="send_to">发送“%1$s”的名片?</string>
+    <string name="zi">还可以输入%1$s个字</string>
     <string name="send2_to">推荐好友给“%1$s”?</string>
     <string name="logout">退出登录</string>
     <string name="logout_hint">退出后不会删除任何历史数据，下次登录依然可以使用本账号</string>
@@ -208,7 +209,7 @@
     <string name="Failed_to_join_the_group_chat">加入群聊失败:</string>
     <string name="temporary_does_not">暂不支持大于10M的视频！</string>
     <string name="Video_footage">拍摄录像</string>
-    <string name="Password_cannot_be_empty">密码不能为空！</string>
+    <string name="Password_cannot_be_empty">密码不能为空</string>
     <string name="please_set_the_current">设置当前用户的昵称\n用于ios离线推送时显示用户昵称</string>
     <string name="Is_landing">正在登录……</string>
     <string name="list_is_for">将在后台获取好友和群聊列表……</string>

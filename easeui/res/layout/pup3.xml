@@ -67,7 +67,7 @@
                     android:background="@color/white"
                     android:layout_marginLeft="@dimen/common.10dp"
                     android:layout_centerVertical="true"
-                    android:text="@string/attach_video_call"
+                    android:text="@string/attach_voice_call"
                     android:textColor="@color/tx_black_1"
                     android:textSize="@dimen/tx_2"/>
             </LinearLayout>
