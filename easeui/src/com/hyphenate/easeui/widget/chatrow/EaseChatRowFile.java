@@ -53,24 +53,12 @@ public class EaseChatRowFile extends EaseChatRow{
         select= (CheckBox) findViewById(R.id.select);
         bt= findViewById(R.id.bt);
 	}
-
-
 	@Override
 	protected void onSetUpView() {
 	    fileMessageBody = (EMNormalFileMessageBody) message.getBody();
         String filePath = fileMessageBody.getLocalUrl();
         fileNameView.setText(fileMessageBody.getFileName());
         fileSizeView.setText(TextFormater.getDataSize(fileMessageBody.getFileSize()));
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
-            File file = new File(filePath);
-            if (file.exists()) {
-                fileStateView.setText(R.string.Have_downloaded);
-            } else {
-                fileStateView.setText(R.string.Did_not_download);
-            }
-            return;
-        }
-        handleSendMessage();
         select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
         bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
         select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -97,10 +85,20 @@ public class EaseChatRowFile extends EaseChatRow{
             public void onClick(View v) {
                 Log.i("dcz","点击了");
                 if(select.getVisibility()==VISIBLE){
-                     select.setChecked(select.isChecked()?false:true);
+                    select.setChecked(select.isChecked()?false:true);
                 }
             }
         });
+        if (message.direct() == EMMessage.Direct.RECEIVE) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                fileStateView.setText(R.string.Have_downloaded);
+            } else {
+                fileStateView.setText(R.string.Did_not_download);
+            }
+            return;
+        }
+        handleSendMessage();
 	}
 
 	/**

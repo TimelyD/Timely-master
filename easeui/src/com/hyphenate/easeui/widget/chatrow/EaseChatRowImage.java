@@ -191,7 +191,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
         Log.i("dcz","显示");
         if (bitmap != null) {
             // thumbnail image is already loaded, reuse the drawable
-            bitmap=setImgSize(bitmap,500,500);
+            //bitmap=setImgSize(bitmap,500,500);
             iv.setImageBitmap(bitmap);
             /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -225,7 +225,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
 
                 protected void onPostExecute(Bitmap image) {
                     if (image != null) {
-                        image=setImgSize(image,500,500);
+                        //image=setImgSize(image,500,500);
                         iv.setImageBitmap(image);
                         /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         image.compress(Bitmap.CompressFormat.PNG, 100, baos);

@@ -66,7 +66,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 public class UserProfileActivity extends BaseActivity implements View.OnClickListener {
-
+    private static final int REQUEST_CODE_SELECT_BUSINESS2 = 182;
     private com.hyphenate.easeui.widget.EaseTitleBar titlebar;
     private com.hyphenate.easeui.widget.ZQImageViewRoundOval ivhead;
     private android.widget.TextView tvname;
@@ -90,6 +90,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
     private TextView tvsex;
     private View layoutclear;
     private String sn;
+    private LinearLayout tui;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -119,6 +120,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         layoutclear.setOnClickListener(this);
         checkbox.setOnClickListener(this);
         ivhead.setOnClickListener(this);
+        tui.setOnClickListener(this);
         /*checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
@@ -176,6 +178,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         this.titlebar = (EaseTitleBar) findViewById(R.id.title_bar);
         this.btnRelation = (Button) findViewById(R.id.btn_relation);
         this.layoutcode = (LinearLayout) findViewById(R.id.layout_code);
+        this.tui=(LinearLayout)findViewById(R.id.tui);
         mImmersionBar
                 .fitsSystemWindows(true)
                 .statusBarColor(com.hyphenate.easeui.R.color.chenjin)
@@ -286,9 +289,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         }*/
         int genderRes = UserHelper.getGenderString(easeUser);
         tvsex.setText(genderRes);
-
         tvid.setText(easeUser.getChatid());
-
 //        checkListenerEnable=false;
 //        checkbox.setChecked(easeUser.getIsLock() != 0);
 //        checkListenerEnable=true;
@@ -306,12 +307,17 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         //tvemail.setText(easeUser.getEmail());
         tvemail.setText(App.xin);
         tvemail.setText(sn);
-
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tui:
+                startActivityForResult(new Intent(mContext,BusinessActivity.class).putExtra("type","2")
+                        .putExtra(Constant.BUSSINES_ID,mEaseUser.getChatid())
+                        .putExtra(Constant.BUSSINES_NAME,mEaseUser.safeGetRemark())
+                        .putExtra(Constant.BUSSINES_NUMBER,mEaseUser.getSn())
+                        .putExtra(Constant.BUSSINES_PIC,mEaseUser.getAvatar()),REQUEST_CODE_SELECT_BUSINESS2);
+                break;
             case R.id.switch_btn:
                 String safePwd = SpUtils.get(mContext, Constant.INFOCODE, "");
                 if (safePwd == null || safePwd.equals("0") || safePwd.length() < 6) {

@@ -293,6 +293,16 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     }
                 }
             }
+            if(type==EMMessage.Type.VOICE||type==EMMessage.Type.FILE||type==EMMessage.Type.LOCATION){
+                Toast.makeText(getActivity(),getActivity().getString(R.string.ti10),Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(type==EMMessage.Type.TXT){
+                if(forward_msg.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+                    Toast.makeText(getActivity(),getActivity().getString(R.string.ti10),Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
             if(i==EaseConstant.list_ms.size()-1){
                 Intent intent = new Intent(getActivity(), ForwardMessageActivity.class);
                 intent.putExtra("forward_msg_id","duo");
@@ -791,7 +801,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
      *   发送名片
      * */
     protected void startBusiness(){
-        startActivityForResult(new Intent(getActivity(),BusinessActivity.class),REQUEST_CODE_SELECT_BUSINESS);
+        startActivityForResult(new Intent(getActivity(),BusinessActivity.class).putExtra("type","1"),REQUEST_CODE_SELECT_BUSINESS);
     }
 
     /**
