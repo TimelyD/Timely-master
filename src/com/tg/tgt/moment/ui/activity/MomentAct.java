@@ -357,7 +357,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                 if(alpha>.4f){
                     StatusBarUtil.darkMode(mActivity);
                     mTitle.setTextColor(Color.BLACK);
-                    mLeftImage.setImageResource(R.drawable.back);
+                    mLeftImage.setImageResource(R.drawable.back_black);
                     mRightImage.setImageResource(R.drawable.add_moment);
                     mTitleBar.setBackgroundColor(Color.WHITE);
                     mTitleBarDivider.setBackgroundColor(dividerColor);

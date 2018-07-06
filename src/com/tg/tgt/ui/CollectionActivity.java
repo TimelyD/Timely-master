@@ -2,6 +2,7 @@ package com.tg.tgt.ui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -195,7 +196,6 @@ public class CollectionActivity extends BaseActivity{
         };
         mAdapter.bindToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -211,22 +211,12 @@ public class CollectionActivity extends BaseActivity{
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                /*Intent intent = new Intent(mContext,.class);
-
-                intent.putExtra("userId",mDatas.get(position).getId());intent.putExtra("username",mDatas.get(position).getNickname());
-//                startActivity(intent);*/
-//                try {
-//                    mActivity.startActivity(new Intent(mActivity, MomentAct.class)
-//                            .putExtra(Constant.USERNAME,mDatas.get(position).getFromName())
-//                            .putExtra(Constant.USER_ID,mDatas.get(position).getFromId())
-//                            .putExtra(Constant.IS_MINE_HOME_PAGE, true));
-//                }catch (Exception e){
-//                    Log.i("异常",e.getMessage());
-//
-//                }
-              /*  mContext.startActivity(new Intent(mContext, MomentAct.class).putExtra(Constant.USERNAME,mDatas.get(position).getNickname()).putExtra
-                        (Constant.USER_ID,mDatas.get(position).getFromId()).putExtra(Constant.IS_MINE_HOME_PAGE, true));*/
-
+                Intent mIntent = new Intent();
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("model",mDatas.get(position));
+                mIntent.putExtras(mBundle);
+                mIntent.setClass(CollectionActivity.this,CollectionShowActivity.class);
+                startActivity(mIntent);
             }
         });
 

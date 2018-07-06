@@ -1,10 +1,12 @@
 package com.tg.tgt.http.model2;
 
+import java.io.Serializable;
+
 /**
  * Created by DELL on 2018/7/5.
  */
 
-public class CollectionItemModel {
+public class CollectionItemModel implements Serializable{
     private String content;//": "string", 文本内容
     private String createTime;//": "2018-07-05T09:50:26.728Z",
     private String crtTime;//": "2018-07-05T09:50:26.728Z",创建时间
