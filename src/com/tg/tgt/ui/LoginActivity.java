@@ -121,9 +121,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
         codeEditText = (EditText) findViewById(R.id.code_et);
-        usernameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+        //usernameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
         passwordEditText.setFilters(new InputFilter[]{CodeUtils.filter});
-        codeEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+        //codeEditText.setFilters(new InputFilter[]{CodeUtils.filter});
         mGetCodeBtn = (Button) findViewById(R.id.get_code_btn);
         mPwdTypeIv = (ImageView) findViewById(R.id.password_type_iv);
         mHeadIv = (ImageView) findViewById(R.id.head_iv);
@@ -184,6 +184,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             usernameEditText.setText(DemoHelper.getInstance().getCurrentUsernName());
         }*/
         usernameEditText.setText(SpUtils.get(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, ""));
+        usernameEditText.setSelection(usernameEditText.getText().length());
     }
 
     private void setFocus(final View v) {

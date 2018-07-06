@@ -198,6 +198,13 @@ public class CodeUtils {
             else return null;
         }
     };
+    public static InputFilter fil=new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if(source.equals(" ")||source.length()>20||source.equals("-")||source.toString().contentEquals("\n"))return "";
+            else return null;
+        }
+    };
 
     /**
      * 设置用户头像、名字、是否加锁

@@ -112,6 +112,7 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:background="@null"
+                android:maxLength="20"
                 android:inputType="number"
                 android:hint="@string/register_editusername"
                 android:singleLine="true"
@@ -144,10 +145,10 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:background="@null"
-                android:inputType="number"
                 android:maxLength="8"
-                android:hint="@string/login_editcode"
+                android:inputType="number"
                 android:singleLine="true"
+                android:hint="@string/login_editcode"
                 android:textSize="@dimen/tx_3"/>
 
             <!--<View-->
@@ -281,6 +282,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
                 android:background="@null"
+                android:visibility="gone"
                 android:onClick="toRegisterEmail"
                 android:text="@string/register_email"
                 android:textSize="@dimen/tx_4"/>
