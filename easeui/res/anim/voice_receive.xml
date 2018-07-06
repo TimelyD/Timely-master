@@ -2,15 +2,15 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="false">
     <item
-        android:drawable="@drawable/voice_receive_1"
+        android:drawable="@drawable/voice_receive_16"
         android:duration="200" />
     <item
-        android:drawable="@drawable/voice_receive_2"
+        android:drawable="@drawable/voice_receive_17"
         android:duration="200" />
     <item
-        android:drawable="@drawable/voice_receive_3"
+        android:drawable="@drawable/voice_receive_18"
         android:duration="200" />
-    <item
+   <!-- <item
         android:drawable="@drawable/voice_receive_4"
         android:duration="200" />
     <item
@@ -36,5 +36,5 @@
         android:duration="200" />
     <item
         android:drawable="@drawable/voice_receive_12"
-        android:duration="200" />
+        android:duration="200" />-->
 </animation-list>

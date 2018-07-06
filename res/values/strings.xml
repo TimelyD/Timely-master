@@ -249,6 +249,7 @@
     <string name="ti7">Timely ID</string>
     <string name="ti8">Empty will not recover, are you sure?</string>
     <string name="ti9">Empty will not recover, are you sure?</string>
+    <string name="ti10">The selected message contains voice/file, business card and other messages that cannot be forwarded.</string>
     <string name="selected_all">全选</string>
     <string name="delete_button">删除</string>
     <string name="collection_title">收藏</string>
