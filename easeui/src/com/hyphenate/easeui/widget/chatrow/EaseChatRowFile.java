@@ -53,8 +53,6 @@ public class EaseChatRowFile extends EaseChatRow{
         select= (CheckBox) findViewById(R.id.select);
         bt= findViewById(R.id.bt);
 	}
-
-
 	@Override
 	protected void onSetUpView() {
 	    fileMessageBody = (EMNormalFileMessageBody) message.getBody();
