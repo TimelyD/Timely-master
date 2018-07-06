@@ -303,7 +303,9 @@ public class EaseChatInputMenu extends LinearLayout {
                 listener.onToggleReadFire();
                 chatExtendMenuContainer.setVisibility(View.GONE);
                 chatExtendMenu.setVisibility(View.GONE);
-                mCurrentMenu.setVisibility(GONE);
+                if(mCurrentMenu!=null){
+                    mCurrentMenu.setVisibility(GONE);
+                }
                 mCurrentMenu = chatExtendMenu;
             }
 

@@ -136,7 +136,7 @@
                 android:id="@+id/btn_send"
                 android:layout_height="@dimen/common.35dp"
                 style="@style/ChatSendBtnStyle2"
-                android:layout_marginRight="@dimen/common.15dp"
+                android:layout_marginRight="@dimen/common.10dp"
                 android:text="@string/button_send"
                 android:enabled="false"
                 />

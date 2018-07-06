@@ -374,7 +374,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         if (buttonFire.getBackground().getConstantState().equals(ContextCompat.getDrawable(getContext(), R.drawable.fire).getConstantState())) {
             buttonFire.setBackgroundResource(R.drawable.fire_checked);
             linearUnder.setVisibility(GONE);
-            kong.setVisibility(VISIBLE);
+            kong.setVisibility(GONE);
             buttonMore.setSelected(false);ivVoice.setSelected(false);ivPhoto.setSelected(false);
             ivCamera.setSelected(false);mIvVideo.setSelected(false);faceLayout.setSelected(false);
         } else {
