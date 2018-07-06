@@ -24,7 +24,8 @@
             android:layout_marginTop="-5dp"
             android:textSize="@dimen/common.18sp"
             android:textColor="@color/black50"
-            android:text="@string/empty_moments"/>
+            android:text="@string/empty_moments"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

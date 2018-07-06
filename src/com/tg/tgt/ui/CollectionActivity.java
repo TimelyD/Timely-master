@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.classic.common.MultipleStatusView;
@@ -112,13 +115,13 @@ public class CollectionActivity extends BaseActivity{
                                     mAdapter.remove(deletePos.get(i));
                                 }
                                 mAdapter.notifyDataSetChanged();
-                                Toast.makeText(CollectionActivity.this,"删除成功",Toast.LENGTH_LONG).show();
+                                Toast.makeText(CollectionActivity.this, R.string.delete_successful,Toast.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onFaild(HttpResult<EmptyData> result) {
                                 super.onFaild(result);
-                                Toast.makeText(CollectionActivity.this,"删除失败",Toast.LENGTH_LONG).show();
+                                Toast.makeText(CollectionActivity.this, R.string.delete_fail,Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -169,9 +172,13 @@ public class CollectionActivity extends BaseActivity{
                 if (TextUtils.isEmpty(item.getIsFrom()))
                     helper.setText(R.id.item_message,item.getCrtTime());
                 else
-                     helper.setText(R.id.item_message,"来自:  "+item.getIsFrom()+"     "+item.getCrtTime());
+                     helper.setText(R.id.item_message,getString(R.string.from_user)+item.getIsFrom()+"     "+item.getCrtTime());
                 ImageView view = (ImageView) helper.getView(R.id.item_image);
-                GlideApp.with(mActivity).load(item.getPicturePath()).placeholder(R.drawable.default_avatar).into(view);
+                if (!TextUtils.isEmpty(item.getPicturePath())) {
+                    RoundedCorners roundedCorners= new RoundedCorners(6);
+                    RequestOptions options= RequestOptions.bitmapTransform(roundedCorners).override(120, 120);
+                    GlideApp.with(mActivity).load(item.getPicturePath()).placeholder(R.drawable.default_avatar).into(view);
+                }
                 if (isEditor){
                     helper.getView(R.id.delete_image).setVisibility(View.VISIBLE);
                 }else {
@@ -225,20 +232,14 @@ public class CollectionActivity extends BaseActivity{
     private void loadData(final boolean loadMore) {
         ApiManger2.getApiService()
                 .collectionList(!loadMore||mDatas.size()==0?1:mDatas.get(mDatas.size()-1).getId(), pageSize)
-           //     .compose(this.<HttpResult<List<CollectionModel>>>bindToLifeCyclerAndApplySchedulers(null))
-               // .compose(this.<HttpResult<List<CollectionItemModel>>>bindToLifeCyclerAndApplySchedulers(null))
-//                .compose(RxUtils.applyRetry(this, new Consumer<Boolean>() {
-//                    @Override
-//                    public void accept(Boolean aBoolean) throws Exception {
-//                        dismissProgress();
-//                    }
-//                }))
                 .compose(this.<HttpResult<CollectionModel>>bindToLifeCyclerAndApplySchedulers(null,false))
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        if(!loadMore)
+                        if(!loadMore) {
+                            Log.e("Tag","走在了。");
                             mSwipeRefreshLayout.setRefreshing(true);
+                        }
                     }
                 })
                 .subscribe(new BaseObserver2<CollectionModel>() {
@@ -284,49 +285,6 @@ public class CollectionActivity extends BaseActivity{
                         }
                     }
                 });
-//                .subscribe(new BaseObserver2<List<CollectionItemModel>>() {
-//                    @Override
-//                    protected void onSuccess(List<CollectionItemModel> collectionItemModels) {
-//                        if(loadMore){
-//                            if(collectionItemModels == null){
-//                                mAdapter.loadMoreEnd();
-//                                return;
-//                            }else if(collectionItemModels.size()<10){
-//                                mAdapter.loadMoreEnd();
-//                            }else {
-//                                mAdapter.loadMoreComplete();
-//                            }
-//                            mDatas.addAll(collectionItemModels);
-//                            mAdapter.notifyDataSetChanged();
-//
-//                        }else {
-//                            mSwipeRefreshLayout.setRefreshing(false);
-//                            mDatas.clear();
-//                            if(collectionItemModels != null) {
-//                                mDatas.addAll(collectionItemModels);
-//
-//                                if(collectionItemModels.size()>=pageSize){
-//                                    mAdapter.loadMoreComplete();
-//                                }else {
-//                                    mAdapter.loadMoreEnd();
-//                                }
-//                            }else {
-//                                mStatusView.showEmpty();
-//                            }
-//                            mAdapter.notifyDataSetChanged();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFaild(HttpResult<List<CollectionItemModel>> result) {
-//                        super.onFaild(result);
-//                        if(loadMore)
-//                            mAdapter.loadMoreFail();
-//                        else {
-//                            mSwipeRefreshLayout.setRefreshing(false);
-//                        }
-//                    }
-//                });
     }
 
 }

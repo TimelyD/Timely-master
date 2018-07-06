@@ -354,6 +354,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                     return;
                 }
                 float alpha = Math.min(1, (float) scrollY / headHeight);
+        //        Log.e("Tag","高度=="+alpha);
                 if(alpha>.4f){
                     StatusBarUtil.darkMode(mActivity);
                     mTitle.setTextColor(Color.BLACK);
@@ -368,6 +369,11 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                     mRightImage.setImageResource(R.drawable.add_moment_white);
                     mTitleBar.setBackgroundColor(Color.TRANSPARENT);
                     mTitleBarDivider.setBackgroundColor(Color.TRANSPARENT);
+                }
+                if (alpha>0.8){
+                    mParallax.setVisibility(View.INVISIBLE);
+                }else {
+                    mParallax.setVisibility(View.VISIBLE);
                 }
 //                mTitleBar.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, Color.WHITE));
 //                mTitleBarDivider.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, dividerColor));
@@ -424,7 +430,6 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         view.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, PhoneUtil.getScreenHeight(mActivity)-getResources().getDimensionPixelSize(R.dimen.head_moment_layout_height)));
         mAdapter.setEmptyView(view);
         mAdapter.setHeaderAndEmpty(true);
-
         mSwipeRefreshLayout.measure(0, 0);
         setRefreshing(true);
         mPresenter.loadData(false);

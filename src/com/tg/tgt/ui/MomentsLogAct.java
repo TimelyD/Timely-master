@@ -91,8 +91,10 @@ public class MomentsLogAct extends BaseActivity {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(@NonNull Disposable disposable) throws Exception {
-                        if(!loadMore)
+                        if(!loadMore) {
                             mSwipeRefreshLayout.setRefreshing(true);
+                            Log.e("Tag","走在了。....");
+                        }
                     }
                 })
                 .subscribe(new BaseObserver2<List<MomentsLogModel>>() {

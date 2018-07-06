@@ -258,4 +258,7 @@
     <string name="dynamic_cancel">取消</string>
     <string name="empty_moments">您暂无来访脚印...</string>
     <string name="collection_empty">您的收藏夹暂时为空</string>
+    <string name="from_user">来自: </string>
+    <string name="delete_successful">删除成功</string>
+    <string name="delete_fail">删除失败</string>
 </resources>

@@ -39,7 +39,7 @@
                         android:orientation="horizontal"
                         android:padding="@dimen/common.12dp">
 
-                        <com.hyphenate.easeui.widget.CircleImageView
+                        <com.tg.tgt.moment.ui.CircularImageView
                             android:id="@+id/iv_head"
                             android:layout_width="@dimen/avatar2_width"
                             android:layout_height="@dimen/avatar2_width"
