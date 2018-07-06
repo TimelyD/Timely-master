@@ -53,6 +53,8 @@ import com.tg.tgt.http.IView;
 import com.tg.tgt.http.RxUtils;
 import com.tg.tgt.http.interceptor.AddTokenInterceptor;
 import com.tg.tgt.moment.ui.CircularImageView;
+import com.tg.tgt.moment.ui.CircularImageView1;
+import com.tg.tgt.moment.ui.ZQImageViewRoundOval1;
 import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.ui.base.BaseFragment;
 import com.tg.tgt.utils.CodeUtils;
@@ -77,7 +79,7 @@ import io.reactivex.functions.Function;
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
     private static final int REQUEST_SCAN = 111;
     private com.hyphenate.easeui.widget.EaseTitleBar titlebar;
-    private CircularImageView ivhead;
+    private ZQImageViewRoundOval1 ivhead;
     private android.widget.TextView tvname;
     private android.widget.ImageView ivsex;
     private android.widget.TextView tvemail;
@@ -108,7 +110,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.ivsex = (ImageView) view.findViewById(R.id.iv_sex);
         this.ivQrCode = (ImageView) view.findViewById(R.id.iv_qr_code);
         this.tvname = (TextView) view.findViewById(R.id.tv_name);
-        this.ivhead = (CircularImageView) view.findViewById(R.id.iv_head);
+        this.ivhead = (ZQImageViewRoundOval1) view.findViewById(R.id.iv_head);
         this.titlebar = (EaseTitleBar) view.findViewById(R.id.title_bar);
         this.friends_me = (LinearLayout) view.findViewById(R.id.friends_me);
         this.iv1=(ZQImageViewRoundOval)view.findViewById(R.id.iv1);

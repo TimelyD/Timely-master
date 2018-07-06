@@ -42,6 +42,10 @@ public class Constant extends EaseConstant {
 	public static final String ADDRESS = "login_address";
 	public static final String SN = "";
 
+
+	public static String User_Phone;
+	public static String User_Nick;
+
 	//是否加密
 	public static final String ISCODE = "isCode";
 	//语言选择

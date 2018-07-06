@@ -145,8 +145,8 @@
 
                     <ImageView
                         android:id="@+id/btn_add_like"
-                        android:layout_width="@dimen/common.22dp"
-                        android:layout_height="@dimen/common.22dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/add_like_selector"/>
 
                     <TextView
@@ -184,9 +184,9 @@
 
                     <ImageView
                         android:id="@+id/btn_add_comment"
-                        android:layout_width="@dimen/common.22dp"
-                        android:layout_height="@dimen/common.22dp"
-                        android:src="@drawable/add_comment_selector" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/add_comment_normal" />
 
                     <TextView
                         android:layout_width="wrap_content"

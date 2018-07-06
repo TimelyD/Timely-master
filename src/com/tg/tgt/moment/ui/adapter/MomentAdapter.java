@@ -137,7 +137,7 @@ public class MomentAdapter extends BaseMomentAdapter {
         helper.addOnClickListener(R.id.btn_add_like);
         helper.addOnClickListener(R.id.btn_add_comment);
         try {
-            helper.setImageResource(R.id.btn_add_like, circleItem.isLike()?R.drawable.add_like_selected:R.drawable.add_like_normal);
+            helper.setImageResource(R.id.btn_add_like, circleItem.isLike()?R.drawable.add_like_selected1:R.drawable.add_like_normal1);
         } catch (Exception e) {
             e.printStackTrace();
         }

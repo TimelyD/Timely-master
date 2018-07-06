@@ -21,8 +21,8 @@
             android:background="#C2C2C2"/>
         <View
             android:id="@+id/circle"
-            android:layout_width="@dimen/common.9dp"
-            android:layout_height="@dimen/common.9dp"
+            android:layout_width="@dimen/common.12dp"
+            android:layout_height="@dimen/common.12dp"
             android:layout_below="@+id/split"
             android:layout_centerHorizontal="true"
             android:background="@drawable/circle_gray_mine" />
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/circle"
             android:layout_centerHorizontal="true"
-            android:background="#C2C2C2" />
+            android:background="#80C2C2C2" />
 
     </RelativeLayout>
 
@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/common.18dp"
             android:background="@color/white"
             android:orientation="vertical"
-            android:padding="@dimen/common.5dp">
+            android:padding="@dimen/common.18dp">
 
 
             <com.tg.tgt.moment.widgets.ExpandTextView
@@ -73,7 +73,7 @@
                 android:id="@+id/viewStub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common.5dp" />
+                android:layout_marginTop="@dimen/common.10dp" />
 
         </LinearLayout>
 

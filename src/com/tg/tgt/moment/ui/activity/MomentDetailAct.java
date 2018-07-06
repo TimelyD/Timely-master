@@ -167,6 +167,7 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
             @Override
             public void onSendMessage(String content) {
                 if (mPresenter != null) {
+                    content = content.trim();
                     if (TextUtils.isEmpty(content)) {
                         Toast.makeText(mContext, R.string.comment_cannot_empty, Toast.LENGTH_SHORT).show();
                         return;

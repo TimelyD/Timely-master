@@ -237,7 +237,6 @@ public class CollectionActivity extends BaseActivity{
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         if(!loadMore) {
-                            Log.e("Tag","走在了。");
                             mSwipeRefreshLayout.setRefreshing(true);
                         }
                     }
@@ -278,9 +277,9 @@ public class CollectionActivity extends BaseActivity{
                     @Override
                     public void onFaild(HttpResult<CollectionModel> result) {
                         super.onFaild(result);
-                        if(loadMore)
+                        if(loadMore) {
                             mAdapter.loadMoreFail();
-                        else {
+                        }else {
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                     }

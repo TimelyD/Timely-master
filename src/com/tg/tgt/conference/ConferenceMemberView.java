@@ -3,6 +3,7 @@ package com.tg.tgt.conference;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -90,7 +91,10 @@ public class ConferenceMemberView extends RelativeLayout {
 //        }
     }
     public void setGroupUser(GroupUserModel user) {
-        GlideApp.with(getContext()).load(user.getPicture()).into(avatarView);
+        if (user == null)
+            Log.e("Tag","fffffffff");
+        if (user!=null && TextUtils.isEmpty(user.getPicture()))
+            GlideApp.with(getContext()).load(user.getPicture()).into(avatarView);
     }
 
     /**

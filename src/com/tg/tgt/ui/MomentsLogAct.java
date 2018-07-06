@@ -93,7 +93,6 @@ public class MomentsLogAct extends BaseActivity {
                     public void accept(@NonNull Disposable disposable) throws Exception {
                         if(!loadMore) {
                             mSwipeRefreshLayout.setRefreshing(true);
-                            Log.e("Tag","走在了。...........");
                         }
                     }
                 })
@@ -134,9 +133,9 @@ public class MomentsLogAct extends BaseActivity {
                     @Override
                     public void onFaild(int code, String message) {
                         super.onFaild(code, message);
-                        if(loadMore)
+                        if(loadMore) {
                             mAdapter.loadMoreFail();
-                        else {
+                        }else {
                             mSwipeRefreshLayout.setRefreshing(false);
                         }
                     }

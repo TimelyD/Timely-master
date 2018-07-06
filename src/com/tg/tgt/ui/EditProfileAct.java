@@ -20,6 +20,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -472,6 +473,8 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
                 DemoHelper.getInstance().getUserProfileManager().setCurrentUserNick(modifiedNick);
 //                SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
 //                        .NICKNAME, modifiedNick);
+                //保存登录时要显示的图片
+            //    SharedPreStorageMgr.getIntance().saveStringValue(LoginActivity.this, currentUsername, loginResult.getPicture()+"-"+loginResult.getNickname());
                 SharedPreStorageMgr.getIntance().saveStringValue(App.applicationContext, DemoHelper.getInstance().getCurrentUsernName(), EaseUserUtils.getUserInfo(EMClient.getInstance().getCurrentUser()).getAvatar()+"-"+ modifiedNick);
                 break;
             case REQ_MOOD:
@@ -494,6 +497,9 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
                 int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                 cursor.moveToFirst();
                 path = cursor.getString(column_index);// 图片在的路径
+                Log.e("Tag","path="+path+"userName="+Constant.User_Phone+"====nick"+Constant.User_Nick);
+                SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant.User_Phone,
+                        path+"-"+Constant.User_Nick);
                 /*Intent intent3 = new Intent(EditProfileAct.this, ClipPicAct.class);
                 intent3.putExtra("path", path);
                 startActivityForResult(intent3, IMAGE_COMPLETE);*/
@@ -505,11 +511,17 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
                 Intent intent2 = new Intent(EditProfileAct.this, ClipPicAct.class);
                 intent2.putExtra("path", path);
                 startActivityForResult(intent2, IMAGE_COMPLETE)*/;
+                Log.e("Tag","path="+path+"userName="+Constant.User_Phone+"====nick"+Constant.User_Nick);
+                SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant.User_Phone,
+                        path+"-"+Constant.User_Nick);
                 updateAvatar(path);
                 break;
             case IMAGE_COMPLETE:
                 String temppath = data.getStringExtra("path");
                 //head.setImageBitmap(getLoacalBitmap(temppath));
+                Log.e("Tag","path="+temppath+"userName="+DemoHelper.getInstance().getCurrentUsernName()+"");
+                SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant.User_Phone,
+                        temppath+"-"+Constant.User_Nick);
                 Glide.with(EditProfileAct.this).load(temppath).into(head);
                 break;
             default:

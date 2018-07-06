@@ -14,6 +14,7 @@
 package com.tg.tgt.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -44,6 +45,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
+import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -149,6 +151,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 String url = str.substring(0, str.lastIndexOf("-"));
                                 String nickname = str.substring(str.lastIndexOf("-")+1);
 //                            Glide.with(LoginActivity.this).load(picture).placeholder(R.drawable.youhead).into(mHeadIv);
+                                Log.e("Tag",url);
                                 ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
                                 mNickNameTv.setText(nickname);
                             } catch (Exception e) {
@@ -305,6 +308,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 .saveStringValueMap(LoginActivity.this, map);
 
                         //保存登录时要显示的图片
+                        Log.e("Tag","userName="+currentUsername+"nick=="+loginResult.getNickname());
+                        Constant.User_Nick = loginResult.getNickname();
+                        Constant.User_Phone = currentUsername;
+                        SharedPreStorageMgr.getIntance().saveStringValue(LoginActivity.this,"user_phone_zww",Constant.User_Phone);
+                        SharedPreStorageMgr.getIntance().saveStringValue(LoginActivity.this,"user_nick_zww",Constant.User_Nick);
                         SharedPreStorageMgr.getIntance().saveStringValue(LoginActivity.this, currentUsername, loginResult.getPicture()+"-"+loginResult.getNickname());
 
                         ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {

@@ -64,6 +64,7 @@ public class App extends EaseApp {
 	public static SharedPreferences sf;
 	public static Boolean zq;
 
+
 	//6.0以下的常驻service
 	private DaemonClient mDaemonClient;
 
