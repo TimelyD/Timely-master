@@ -4,29 +4,39 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingTop="13dp" >
-
     <TextView
         android:id="@+id/timestamp"
         style="@style/chat_text_date_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_chat_activity"
-        android:paddingRight="20dp" >
+        android:layout_marginTop="@dimen/margin_chat_activity">
 
-        <com.hyphenate.easeui.widget.ZQImageViewRoundOval
-            android:id="@+id/iv_userhead"
-            android:layout_width="@dimen/size_avatar"
-            android:layout_height="@dimen/size_avatar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="@dimen/margin_chat_activity"
-             />
-
+        <RelativeLayout
+            android:id="@+id/rr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:focusable="false"
+                android:button="@drawable/round_selector"
+                android:layout_centerVertical="true"/>
+            <com.hyphenate.easeui.widget.ZQImageViewRoundOval
+                android:id="@+id/iv_userhead"
+                android:layout_width="@dimen/size_avatar"
+                android:layout_height="@dimen/size_avatar"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/select"
+                android:layout_marginLeft="@dimen/margin_chat_activity"
+                android:src="@drawable/default_avatar2" />
+        </RelativeLayout>
         <TextView
             android:id="@+id/tv_userid"
             style="@style/chat_text_name_style"
@@ -34,19 +44,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/chat_nick_margin_left"
             android:textSize="@dimen/chat_nick_text_size"
-            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_toRightOf="@id/rr"
             android:visibility="gone" />
-
         <LinearLayout
             android:id="@+id/bubble"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_chat_activity"
             android:layout_toLeftOf="@+id/progress_bar"
-            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_toRightOf="@id/rr"
             android:layout_below="@+id/tv_userid"
             android:background="@drawable/ease_chatfrom_bg" >
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,7 +108,6 @@
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyleSmall"
@@ -109,6 +116,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:visibility="invisible" />
+        <RelativeLayout
+            android:id="@+id/bt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.55dp"/>
     </RelativeLayout>
 
 </LinearLayout>

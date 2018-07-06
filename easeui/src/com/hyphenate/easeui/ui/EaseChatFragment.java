@@ -33,6 +33,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -109,8 +110,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected Bundle fragmentArgs;
     protected int chatType;
     protected String toChatUsername;
+    protected LinearLayout ll_zhuan;
     protected RelativeLayout zhuan;
-    protected ImageView iv_zhuan;
+    protected RelativeLayout del;
+    protected RelativeLayout collect;
     protected EaseChatMessageList messageList;
     protected EaseChatInputMenu inputMenu;
 
@@ -200,10 +203,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
         extendMenuItemClickListener = new MyItemClickListener();
         inputMenu = (EaseChatInputMenu) getView().findViewById(com.hyphenate.easeui.R.id.input_menu);
+        ll_zhuan=(LinearLayout) getView().findViewById(R.id.ll_zhuan);
         zhuan=(RelativeLayout)getView().findViewById(R.id.zhuan);
-        iv_zhuan=(ImageView)getView().findViewById(R.id.iv_zhuan);
+        del=(RelativeLayout)getView().findViewById(R.id.del);
+        collect=(RelativeLayout)getView().findViewById(R.id.collect);
         EaseConstant.MESSAGE_ATTR_SELECT=false;//EaseConstant.list_ms.clear();
-        inputMenu.setVisibility(View.VISIBLE);zhuan.setVisibility(View.GONE);titleBar.setRightLayoutVisibility(View.VISIBLE);
+        inputMenu.setVisibility(View.VISIBLE);ll_zhuan.setVisibility(View.GONE);titleBar.setRightLayoutVisibility(View.VISIBLE);
 
         registerExtendMenuItem();
         // init input menu
@@ -817,7 +822,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             if(EaseConstant.MESSAGE_ATTR_SELECT==true){
                 Log.i("dcz","取消选中");
                 EaseConstant.MESSAGE_ATTR_SELECT=false;
-                inputMenu.setVisibility(View.VISIBLE);zhuan.setVisibility(View.GONE);
+                inputMenu.setVisibility(View.VISIBLE);ll_zhuan.setVisibility(View.GONE);
                 titleBar.setRightLayoutVisibility(View.VISIBLE);
                 EaseConstant.list_ms.clear();
                 ((BaseAdapter) messageList.getListView().getAdapter()).notifyDataSetChanged();

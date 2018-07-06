@@ -20,6 +20,7 @@ import android.view.View;
 
 import com.easemob.redpacketsdk.constant.RPConstant;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 
@@ -29,6 +30,7 @@ public class ContextMenuActivity extends BaseActivity {
     public static final int RESULT_CODE_FORWARD = 3;
 	public static final int RESULT_CODE_DUOFORWARD = 4;
 	public static final int RESULT_CODE_RECALL = 5;
+	public static final int RESULT_CODE_COLLECT = 6;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,9 @@ public class ContextMenuActivity extends BaseActivity {
 				setContentView(R.layout.em_context_menu_for_location);
 		    }else if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
 		        setContentView(R.layout.em_context_menu_for_image);
-		    }else{
+		    }else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+				setContentView(R.layout.em_context_menu_for_location);
+			}else{
 		        setContentView(R.layout.em_context_menu_for_text);
 		    }
 		} else if (type == EMMessage.Type.LOCATION.ordinal()) {
@@ -96,6 +100,10 @@ public class ContextMenuActivity extends BaseActivity {
 	}
 	public void recall(View view){
 		setResult(RESULT_CODE_RECALL);
+		finish();
+	}
+	public void collection(View view){
+		setResult(RESULT_CODE_COLLECT);
 		finish();
 	}
 	

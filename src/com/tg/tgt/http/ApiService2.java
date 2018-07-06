@@ -14,6 +14,8 @@ import com.tg.tgt.http.model2.UserFriendModel;
 import com.tg.tgt.http.model2.UserRelationInfoModel;
 import com.tg.tgt.http.model2.VerModel;
 import com.tg.tgt.moment.bean.CircleItem;
+import com.tg.tgt.moment.bean.CollectBean;
+import com.tg.tgt.moment.bean.CollectItem;
 import com.tg.tgt.moment.bean.CommentItem;
 import com.tg.tgt.moment.bean.FavortItem;
 
@@ -101,6 +103,10 @@ public interface ApiService2 {
     Observable<HttpResult<String>> modifyInfo(@Part MultipartBody.Part avatar, @Part("nickname") RequestBody nickname,
                                                  @Part("sex") RequestBody sex, @Part("age") RequestBody age,
                                                  @Part("address") RequestBody address);
+
+    @FormUrlEncoded
+    @POST("api/user/modify")
+    Observable<HttpResult<CollectBean>>collection(@Field("paramsList") List<CollectItem> list);
 
 
     String CODE_REGIEST = "1";

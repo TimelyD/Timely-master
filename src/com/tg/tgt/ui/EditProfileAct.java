@@ -38,6 +38,7 @@ import com.hyphenate.easeui.utils.PhotoUtils;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.widget.CircleImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.DemoHelper;
@@ -69,7 +70,7 @@ import top.zibin.luban.Luban;
  */
 public class EditProfileAct extends BaseActivity implements View.OnClickListener {
     private ImageView image_sex;
-    private CircleImageView head;
+    private ZQImageViewRoundOval head;
     private TextView name, mood, sex;
     private LinearLayout linear_name, linear_mood, linear_sex;
     private EaseTitleBar mTitleBar;
@@ -90,11 +91,8 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_edit_profile);
-
         initView();
-
         initEvent();
-
         File file = new File(Environment.getExternalStorageDirectory(), "ClipHeadPhoto/cache");
         if (!file.exists())
             file.mkdirs();
@@ -117,7 +115,8 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
-        head = (CircleImageView) findViewById(R.id.head);
+        head = (ZQImageViewRoundOval) findViewById(R.id.head);
+        head.setType(ZQImageViewRoundOval.TYPE_ROUND);head.setRoundRadius(10);
         image_sex = (ImageView) findViewById(R.id.image_sex);
         name = (TextView) findViewById(R.id.edit_profile_name);
         mood = (TextView) findViewById(R.id.edit_profile_mood);

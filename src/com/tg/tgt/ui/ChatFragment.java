@@ -60,10 +60,16 @@ import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
 import com.tg.tgt.conference.ConferenceActivity;
 import com.tg.tgt.conference.ConferenceInviteJoinActivity;
+import com.tg.tgt.db.UserDao;
 import com.tg.tgt.domain.RobotUser;
 import com.tg.tgt.helper.GroupManger;
+import com.tg.tgt.http.ApiManger2;
+import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.EmptyData;
+import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
+import com.tg.tgt.moment.bean.CollectBean;
 import com.tg.tgt.widget.ChatRowVoiceCall;
 
 import java.io.File;
@@ -258,6 +264,18 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 yan();
             }
         });
+        del.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delate();
+            }
+        });
+        collect.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                collect(1);
+            }
+        });
     }
     protected void yan() {
         for(int i=0;i<EaseConstant.list_ms.size();i++){
@@ -281,6 +299,32 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 startActivity(intent);
             }
         }
+    }
+    protected void delate(){
+        showDia(getActivity(),getString(R.string.delete_ti),1);
+    }
+    protected void collect(int state){
+        if(state==1){
+            onBackPressed();
+        }else {
+            set();
+        }
+    }
+    protected void set(){
+        ApiManger2.getApiService()
+                .collection(null)
+                .compose(((BaseActivity)mContext).<HttpResult<CollectBean>>bindToLifeCyclerAndApplySchedulers())
+                .subscribe(new BaseObserver2<CollectBean>() {
+                    @Override
+                    protected void onSuccess(CollectBean emptyData) {
+
+                    }
+
+                    @Override
+                    public void onFaild(int code, String message) {
+                        super.onFaild(code, message);
+                    }
+                });
     }
 
     protected void zheng(String forward_msg_id) {
@@ -353,7 +397,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                             ((EMTextMessageBody) contextMenuMessage.getBody()).getMessage()));
                     break;
                 case ContextMenuActivity.RESULT_CODE_DELETE: // delete
-                    showDia(getActivity(),getString(R.string.delete_ti));
+                    showDia(getActivity(),getString(R.string.delete_ti),0);
                     break;
 
                 case ContextMenuActivity.RESULT_CODE_FORWARD: // forward
@@ -362,7 +406,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     break;
                 case ContextMenuActivity.RESULT_CODE_DUOFORWARD:
                     EaseConstant.MESSAGE_ATTR_SELECT=true;
-                    inputMenu.setVisibility(View.GONE);zhuan.setVisibility(View.VISIBLE);
+                    inputMenu.setVisibility(View.GONE);ll_zhuan.setVisibility(View.VISIBLE);
                     titleBar.setRightLayoutVisibility(View.INVISIBLE);
                     Log.i("dcz","点击了多条转发按钮");
                     EaseConstant.list_ms.clear();
@@ -373,6 +417,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     break;
                 case ContextMenuActivity.RESULT_CODE_RECALL:
                     che(getActivity(),getString(R.string.che_ti));
+                    break;
+                case ContextMenuActivity.RESULT_CODE_COLLECT:
+                    collect(0);
                     break;
                 default:
                     break;
@@ -636,7 +683,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             case R.id.video_chat:
                 startVideoCall();
                 break;
-
             default:
                 break;
         }
@@ -842,7 +888,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             return null;
         }
     }
-    protected void showDia(Activity context,String content) {
+    protected void showDia(Activity context, String content, final int state) {
         View view = context.getLayoutInflater().inflate(com.hyphenate.easeui.R.layout.pup2, null);
         final Dialog dialog = new Dialog(context, com.hyphenate.easeui.R.style.TransparentFrameWindowStyle);
         dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
@@ -872,8 +918,16 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             @Override
             public void onClick(View arg0) {
                 dialog.dismiss();
-                conversation.removeMessage(contextMenuMessage.getMsgId());
+                if(state==0){
+                    conversation.removeMessage(contextMenuMessage.getMsgId());
+                }else {
+                    for(String mes:EaseConstant.list_ms){
+                        conversation.removeMessage(mes);
+                    }
+                    onBackPressed();
+                }
                 messageList.refresh();
+
             }
         });
         cancle.setOnClickListener(new View.OnClickListener() {
