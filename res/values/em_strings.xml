@@ -76,6 +76,7 @@
     <string name="select_contacts">Select the contact</string>
     <string name="confirm_forward_to">Confirm to forward to：%1$s ?</string>
     <string name="send_to">Send the"%1$s"card?</string>
+    <string name="send2_to">Recommend friends to“%1$s”?</string>
     <string name="logout">Logout</string>
     <string name="logout_hint">Logout will never clear the chat history, this account can be used on next login</string>
     <string name="exit_group_hint">The group messages will not be received after exiting the group</string>

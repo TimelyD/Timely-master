@@ -801,7 +801,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
      *   发送名片
      * */
     protected void startBusiness(){
-        startActivityForResult(new Intent(getActivity(),BusinessActivity.class),REQUEST_CODE_SELECT_BUSINESS);
+        startActivityForResult(new Intent(getActivity(),BusinessActivity.class).putExtra("type","1"),REQUEST_CODE_SELECT_BUSINESS);
     }
 
     /**

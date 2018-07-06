@@ -250,14 +250,15 @@
     <string name="ti8">Empty will not recover, are you sure?</string>
     <string name="ti9">Empty will not recover, are you sure?</string>
     <string name="ti10">The selected message contains voice/file, business card and other messages that cannot be forwarded.</string>
-    <string name="selected_all">全选</string>
-    <string name="delete_button">删除</string>
-    <string name="collection_title">收藏</string>
-    <string name="editor">编辑</string>
-    <string name="cancel_collection">取消</string>
-    <string name="thumbs_up">点赞</string>
-    <string name="comment_detail">评论</string>
-    <string name="dynamic_cancel">取消</string>
-    <string name="empty_moments">您暂无来访脚印...</string>
-    <string name="collection_empty">您的收藏夹暂时为空</string>
+    <string name="ti11">Send a success</string>
+    <string name="selected_all">All</string>
+    <string name="delete_button">delete</string>
+    <string name="collection_title">collection</string>
+    <string name="editor">The editor</string>
+    <string name="cancel_collection">cancel</string>
+    <string name="thumbs_up">give a like</string>
+    <string name="comment_detail">comments</string>
+    <string name="dynamic_cancel">cancel</string>
+    <string name="empty_moments">You have no visiting footprints...</string>
+    <string name="collection_empty">Your favorites are temporarily empty</string>
 </resources>

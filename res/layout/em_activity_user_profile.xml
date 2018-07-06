@@ -60,7 +60,6 @@
                         android:text="如果你不会说话那么"/>
                 </LinearLayout>
             </LinearLayout>
-
             <ImageView
                 android:id="@+id/iv_sex"
                 android:visibility="gone"
@@ -69,10 +68,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/woman"/>
-
             <View
                 style="@style/LineHorizontalStyle"/>
-
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/set_beizhu_tv"
@@ -184,7 +181,6 @@
                     android:layout_marginRight="@dimen/common.10dp"
                     android:src="@drawable/arrow"/>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -192,14 +188,9 @@
                 android:visibility="gone"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/common.10dp">
-
-
                 <LinearLayout
                     android:gravity="center_vertical"
-                    style="@style/InfoLayoutStyle"
-                    >
-
-
+                    style="@style/InfoLayoutStyle">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -208,8 +199,6 @@
                         android:text="@string/ti7"
                         android:textColor="@color/tx_black_1"
                         android:textSize="@dimen/tx_3"/>
-
-
                     <TextView
                         android:id="@+id/tv_email"
                         android:layout_width="wrap_content"
@@ -226,10 +215,7 @@
                 <LinearLayout
                     android:visibility="gone"
                     android:gravity="center_vertical"
-                    style="@style/InfoLayoutStyle"
-                    >
-
-
+                    style="@style/InfoLayoutStyle">
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -238,8 +224,6 @@
                         android:text="ID"
                         android:textColor="@color/tx_black_1"
                         android:textSize="@dimen/tx_3"/>
-
-
                     <TextView
                         android:id="@+id/tv_id"
                         android:layout_width="wrap_content"
@@ -253,7 +237,6 @@
             </LinearLayout>
             <View
                 style="@style/LineHorizontalStyle"/>
-
             <LinearLayout
                 android:layout_marginTop="@dimen/common.10dp"
                 android:visibility="gone"
@@ -317,7 +300,6 @@
                 <View
                     style="@style/LineHorizontalStyle"/>
             </LinearLayout>
-
             <Button
                 android:id="@+id/btn_relation"
                 android:layout_marginBottom="@dimen/common.20dp"
@@ -339,7 +321,6 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"

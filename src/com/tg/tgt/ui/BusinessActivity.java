@@ -2,10 +2,13 @@ package com.tg.tgt.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.tg.tgt.Constant;
@@ -16,36 +19,60 @@ import com.tg.tgt.utils.CodeUtils;
 
 public class BusinessActivity extends PickContactNoCheckboxActivity{
     private EaseUser selectUser;
+    private String type="1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        type=getIntent().getStringExtra("type");
     }
 
     @Override
     protected void onListItemClick(int position) {
         selectUser = contactAdapter.getItem(position);
-        new EaseAlertDialog(this, null, getString(R.string.send_to, selectUser.getNick()), null, new EaseAlertDialog.AlertDialogUser() {
-            @Override
-            public void onResult(boolean confirmed, Bundle bundle) {
-                if (confirmed) {
-                    if (selectUser == null)
-                        return;
-                    final IsCodeResult isCodeResult = CodeUtils.getIsCodeResult(BusinessActivity.this, selectUser.getUsername());
+        if(type.equals("1")){
+            new EaseAlertDialog(this, null, getString(R.string.send_to, selectUser.getNick()), null, new EaseAlertDialog.AlertDialogUser() {
+                @Override
+                public void onResult(boolean confirmed, Bundle bundle) {
+                    if (confirmed) {
+                        if (selectUser == null)
+                            return;
+                        final IsCodeResult isCodeResult = CodeUtils.getIsCodeResult(BusinessActivity.this, selectUser.getUsername());
 
-                    if(isCodeResult.getIscode() == 1){
-                        SecurityDialog.show(BusinessActivity.this,mContext.getString(R.string.security_title),new SecurityDialog.OnSecurityListener() {
-                            @Override
-                            public void onPass() {
-                                toChat();
-                            }
-                        });
-                    }else {
-                        toChat();
+                        if(isCodeResult.getIscode() == 1){
+                            SecurityDialog.show(BusinessActivity.this,mContext.getString(R.string.security_title),new SecurityDialog.OnSecurityListener() {
+                                @Override
+                                public void onPass() {
+                                    toChat();
+                                }
+                            });
+                        }else {
+                            toChat();
+                        }
                     }
                 }
-            }
-        }, true).show();
+            }, true).show();
+        }
+        if(type.equals("2")){
+            new EaseAlertDialog(this, null, getString(R.string.send2_to, selectUser.getNick()), null, new EaseAlertDialog.AlertDialogUser() {
+                @Override
+                public void onResult(boolean confirmed, Bundle bundle) {
+                    if (confirmed) {
+                        if (selectUser == null)
+                            return;
+                        EMMessage message = EMMessage.createTxtSendMessage("名片",selectUser.getChatid());
+                        message.setAttribute(Constant.BUSSINES_ID,getIntent().getStringExtra(Constant.BUSSINES_ID));
+                        message.setAttribute(Constant.BUSSINES_NAME,getIntent().getStringExtra(Constant.BUSSINES_NAME));
+                        message.setAttribute(Constant.BUSSINES_NUMBER,getIntent().getStringExtra(Constant.BUSSINES_NUMBER));
+                        message.setAttribute(Constant.BUSSINES_PIC,getIntent().getStringExtra(Constant.BUSSINES_PIC));
+                        message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
+                        EMClient.getInstance().chatManager().sendMessage(message);
+                        Toast.makeText(mContext,mContext.getString(R.string.ti11),Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }
+            }, true).show();
+        }
+
     }
 
     private void toChat() {

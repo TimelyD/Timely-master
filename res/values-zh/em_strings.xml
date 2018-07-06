@@ -71,6 +71,7 @@
     <string name="select_contacts">选择联系人</string>
     <string name="confirm_forward_to">确定转发到：%1$s ?</string>
     <string name="send_to">发送“%1$s”的名片?</string>
+    <string name="send2_to">推荐好友给“%1$s”?</string>
     <string name="logout">退出登录</string>
     <string name="logout_hint">退出后不会删除任何历史数据，下次登录依然可以使用本账号</string>
     <string name="exit_group_hint">退出后，将不再接收此群聊信息</string>
