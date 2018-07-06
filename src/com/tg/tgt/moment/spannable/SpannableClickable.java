@@ -27,7 +27,7 @@ public abstract class SpannableClickable extends ClickableSpan implements View.O
 
     public SpannableClickable(int textColor){
         this.textColor = textColor;
-        this.textSize = App.applicationContext.getResources().getDimension(R.dimen.tx_3);
+        this.textSize = App.applicationContext.getResources().getDimension(R.dimen.common_14sp);
     }
 
     @Override

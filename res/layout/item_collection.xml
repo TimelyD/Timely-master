@@ -27,6 +27,7 @@
         android:layout_toRightOf="@+id/item_image"
         android:layout_alignTop="@+id/item_image"
         android:textSize="@dimen/common.18sp"
+        android:singleLine="true"
         android:textColor="@color/black90"
         android:textStyle="bold"
         android:layout_marginLeft="@dimen/common.25dp"
@@ -42,5 +43,12 @@
         android:textSize="@dimen/common.13sp"
         android:textColor="@color/black"
         android:text="message"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.1dp"
+        android:layout_toRightOf="@id/item_image"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divider_t"/>
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.hyphenate.easeui.utils;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
@@ -76,15 +77,15 @@ public class TimeUtils {
             }else {
                 var1 = "Yesterday";
                 SpannableString spannableString = new SpannableString(var1);
-                spannableString.setSpan(new RelativeSizeSpan(1.5f), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(new AbsoluteSizeSpan(36), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 return spannableString;
             }
         } else{
             if(var3) {
-                var1 = "dM月";
+                var1 = "d/M月";
             }else {
-                var1 = "ddMMM";
+                var1 = "dd/MM/M";
             }
             df.applyPattern(var1);
             var1 = df.format(var0);
@@ -93,8 +94,8 @@ public class TimeUtils {
 //                Locale.ENGLISH)).format(var0);
 
         SpannableString spannableString = new SpannableString(var1);
-        spannableString.setSpan(new RelativeSizeSpan(2.0f), 0, 2, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, 2, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new AbsoluteSizeSpan(36), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
 
