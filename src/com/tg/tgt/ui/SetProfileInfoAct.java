@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -32,19 +35,20 @@ public class SetProfileInfoAct extends BaseActivity {
     /** nixianzzai */
     private TextView mTvHint;
     private EditText mEtInfo;
-
+    private TextView ti;
+    private RelativeLayout rl_foot;
     private void initView() {
         mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
         mTvHint = (TextView) findViewById(R.id.tv_hint);
         mEtInfo = (EditText) findViewById(R.id.et_info);
-        mEtInfo.setFilters(new InputFilter[]{CodeUtils.filter});
+        ti=(TextView)findViewById(R.id.ti);
+        //mEtInfo.setFilters(new InputFilter[]{CodeUtils.filter});
+        rl_foot=(RelativeLayout)findViewById(R.id.rl_foot);
     }
-
     enum InfoType {
         NickName,
         Mood
     }
-
     public static void set(Activity context, InfoType type, int req) {
         context.startActivityForResult(new Intent(context, SetProfileInfoAct.class).putExtra(TYPE, type.ordinal()), req);
     }
@@ -66,9 +70,26 @@ public class SetProfileInfoAct extends BaseActivity {
         if (mType == InfoType.NickName.ordinal()) {
             mTitleBar.setTitle(getString(R.string.popName_title));
             mTvHint.setText(R.string.popName_text);
+            rl_foot.setVisibility(View.GONE);
         } else if (mType == InfoType.Mood.ordinal()) {
             mTitleBar.setTitle(getString(R.string.popMood_title));
+            rl_foot.setVisibility(View.VISIBLE);
             mTvHint.setText(R.string.popMood_text);
+            mEtInfo.setText("");
+            ti.setText(getString(R.string.zi,"40"));
+            mEtInfo.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    int length = 50 - s.length();
+                    ti.setText(getString(R.string.zi,length+""));
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
         }
         String text = getIntent().getStringExtra("text");
         if(!TextUtils.isEmpty(text)){

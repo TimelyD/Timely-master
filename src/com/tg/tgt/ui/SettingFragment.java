@@ -303,8 +303,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 startActivity(new Intent(mContext, MomentAct.class));
                 break;
             case R.id.friends_me:
-                toHomePage(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME),
-                        SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));
+                DBManager.getInstance().saveUnreadMotionActionCount(0);
+                startActivity(new Intent(mContext, MomentAct.class));
+                /*toHomePage(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME),
+                        SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));*/
                 break;
             case R.id.collection:
                 startActivity(new Intent(mContext,CollectionActivity.class));
@@ -336,6 +338,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SCAN && resultCode == Activity.RESULT_OK) {
+            Log.i("dcz","setting");
             String chatId = data.getStringExtra(QrCodeUtils.RESULT_STRING);
             startActivity(new Intent(mContext, AddContactByQrCodeActivity.class).putExtra(Constant.USERNAME, chatId));
         }

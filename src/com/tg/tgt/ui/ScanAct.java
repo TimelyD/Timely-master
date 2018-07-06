@@ -3,6 +3,7 @@ package com.tg.tgt.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiService2;

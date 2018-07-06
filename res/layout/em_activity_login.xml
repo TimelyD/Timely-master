@@ -18,9 +18,7 @@
             android:layout_width="@dimen/common.80dp"
             android:layout_height="@dimen/common.80dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/youhead"
-            />
-
+            android:src="@drawable/youhead" />
         <TextView
             android:layout_marginTop="5dp"
             android:text="@string/login"
@@ -57,6 +55,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:inputType="number"
+                android:maxLength="20"
                 android:hint="@string/login_editusername"
                 android:singleLine="true"
                 android:textColor="#000"
@@ -108,6 +107,7 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:background="@null"
+                android:maxLength="25"
                 android:hint="@string/login_editpassword"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
@@ -141,6 +141,8 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:background="@null"
+                android:inputType="number"
+                android:maxLength="8"
                 android:hint="@string/register_editcode"
                 android:singleLine="true"
                 android:textSize="@dimen/tx_3"/>

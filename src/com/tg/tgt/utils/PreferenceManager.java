@@ -60,6 +60,7 @@ public class PreferenceManager {
 	private static String SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION = "SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION";
 	private static String SHARED_KEY_CALL_FRONT_CAMERA_RESOLUTION = "SHARED_KEY_FRONT_CAMERA_RESOLUTIOIN";
 	private static String SHARED_KEY_CALL_FIX_SAMPLE_RATE = "SHARED_KEY_CALL_FIX_SAMPLE_RATE";
+	private static String SHARED_KEY_SETTING_OFFLINE_LARGE_CONFERENCE_MODE = "shared_key_setting_offline_large_conference_mode";
 
 	@SuppressLint("CommitPrefEdits")
 	private PreferenceManager(Context cxt) {
@@ -376,6 +377,9 @@ public class PreferenceManager {
 	public void setCallFixedVideoResolution(boolean enable) {
 		editor.putBoolean(SHARED_KEY_CALL_FIX_SAMPLE_RATE, enable);
 		editor.apply();
+	}
+	public boolean isLargeConferenceMode() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_OFFLINE_LARGE_CONFERENCE_MODE, true);
 	}
 
 }

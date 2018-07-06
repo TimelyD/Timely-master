@@ -134,8 +134,8 @@ public class ConversationListFragment extends EaseConversationListFragment {
                             if((App.getMyUid()+mNewsModel.getId()).equals(SharedPreStorageMgr.getIntance().getStringValue(getContext(), Constant.NEWS_RECODE))){
                                 mTvNewDot.setVisibility(View.GONE);
                             }else {
-                                mTvNewDot.setVisibility(View.VISIBLE);
-                                mTvNewDot.setText("N");
+                                /*mTvNewDot.setVisibility(View.VISIBLE);
+                                mTvNewDot.setText("N");*/
                             }
                         }
                     }

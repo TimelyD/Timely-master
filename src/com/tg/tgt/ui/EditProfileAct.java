@@ -176,52 +176,10 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.linear_mood:
                 setMood();
-
             default:
                 break;
         }
     }
-
-    private void setMood() {
-        SetProfileInfoAct.set(mActivity, SetProfileInfoAct.InfoType.Mood, REQ_MOOD, SpUtils.get(mContext, Constant.STATE, ""));
-        /*View view = View.inflate(this, R.layout.dialog_mood, null);
-        final EditText et = (EditText) view.findViewById(R.id.mood_et);
-        CommonDialog.show(this, getString(R.string.edit_mood), view, new CommonDialog.OnConfirmListener() {
-            @Override
-            public void onConfirm(AlertDialog dialog) {
-                final String s = et.getText().toString();
-                if (!TextUtils.isEmpty(s)) {
-                    *//*HashMap<String, String> map = new HashMap<>(1);
-                    String type = "state";
-                    map.put(type, s);
-                    ApiManger.getApiService()
-                            .setNickName(App.getMyUid(), type, map)
-                            .compose(RxUtils.<BaseHttpResult>applySchedulers())
-                            .subscribe(new BaseObserver<BaseHttpResult>(EditProfileAct.this) {
-                                @Override
-                                protected void onSuccess(BaseHttpResult result) {
-                                    mood.setText(s);
-                                    SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
-                                            .STATE, s);
-                                }
-                            });*//*
-                    ApiManger2.getApiService()
-                            .addSignature(s)
-                            .compose(EditProfileAct.this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
-                            .subscribe(new BaseObserver2<EmptyData>() {
-                                @Override
-                                protected void onSuccess(EmptyData emptyData) {
-                                    ToastUtils.showToast(getApplicationContext(), R.string.modify_success);
-                                    mood.setText(s);
-                                    SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
-                                            .STATE, s);
-                                }
-                            });
-                }
-            }
-        });*/
-    }
-
     private void setSex() {
         final ArrayList<String> gender = new ArrayList<>();
         gender.add(getString(R.string.men));
@@ -240,7 +198,6 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
                             public void accept(@NonNull HttpResult<String> emptyDataHttpResult) throws Exception {
                                 ToastUtils.showToast(getApplicationContext(), R.string.modify_success);
                                 EditProfileAct.this.sex.setText(finalSexText);
-
                                 SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
                                         .SEX, UserHelper.getGenderChar(App.applicationContext, finalSexText));
                                 int genderDrawableRes = UserHelper.getGenderDrawableRes(mContext);
@@ -266,82 +223,7 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
                 .build();
         agePickerView.setPicker(gender);
         agePickerView.show();
-        /*View view = View.inflate(this, R.layout.dialog_sex, null);
-        final RadioGroup rg = (RadioGroup) view.findViewById(R.id.rg_sex);
-        RadioButton rb1 = (RadioButton) view.findViewById(R.id.rb_women);
-        RadioButton rb2 = (RadioButton) view.findViewById(R.id.rb_men);
-        RadioButton rb3 = (RadioButton) view.findViewById(R.id.rb_secret);
-
-        setSpan(R.drawable.woman, rb1);
-        setSpan(R.drawable.man, rb2);
-
-        CommonDialog.show(this, getString(R.string.popSex_title), view, new CommonDialog.OnConfirmListener() {
-            @Override
-            public void onConfirm(AlertDialog dialog) {
-                String sexText = "";
-                switch (rg.getCheckedRadioButtonId()) {
-                    case R.id.rb_women:
-                        sexText = getString(R.string.women);
-                        break;
-                    case R.id.rb_men:
-                        sexText = getString(R.string.men);
-                        break;
-                    case R.id.rb_secret:
-                        sexText = getString(R.string.popSex_secret);
-                        break;
-                }
-                if (!TextUtils.isEmpty(sexText)) {
-                    *//*HashMap<String, String> map = new HashMap<>(1);
-                    String type = "sex";
-                    map.put(type, sexText);
-                    final String finalSexText = sexText;
-                    ApiManger.getApiService()
-                            .setNickName(App.getMyUid(), type, map)
-                            .compose(RxUtils.<BaseHttpResult>applySchedulers())
-                            .subscribe(new BaseObserver<BaseHttpResult>(EditProfileAct.this) {
-                                @Override
-                                protected void onSuccess(BaseHttpResult result) {
-                                    EditProfileAct.this.sex.setText(finalSexText);
-                                    if (finalSexText.equals("女")) {
-                                        image_sex.setImageResource(R.drawable.woman);
-                                        image_sex.setVisibility(View.VISIBLE);
-                                    } else if (finalSexText.equals("男")) {
-                                        image_sex.setImageResource(R.drawable.man);
-                                        image_sex.setVisibility(View.VISIBLE);
-                                    } else if (finalSexText.equals("保密")) {
-                                        image_sex.setVisibility(View.GONE);
-                                    }
-                                    SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
-                                            .SEX, finalSexText);
-                                }
-                            });*//*
-                    final String finalSexText = sexText;
-                    ApiManger2.getApiService()
-                            .modifyInfo(null, null, HttpHelper.toTextPlain(UserHelper.getGenderChar(App.applicationContext, sexText)),null,null)
-                            .compose(EditProfileAct.this.<HttpResult<String>>bindToLifeCyclerAndApplySchedulers())
-                            .subscribe(new Consumer<HttpResult<String>>() {
-                                @Override
-                                public void accept(@NonNull HttpResult<String> emptyDataHttpResult) throws Exception {
-                                    ToastUtils.showToast(getApplicationContext(), R.string.modify_success);
-                                    EditProfileAct.this.sex.setText(finalSexText);
-
-                                    SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
-                                            .SEX, UserHelper.getGenderChar(App.applicationContext, finalSexText));
-                                    int genderDrawableRes = UserHelper.getGenderDrawableRes(mContext);
-                                    if(genderDrawableRes == -1){
-                                        image_sex.setVisibility(View.GONE);
-                                    }else {
-                                        image_sex.setVisibility(View.VISIBLE);
-                                        image_sex.setImageResource(genderDrawableRes);
-                                    }
-                                }
-                            });
-                }
-
-            }
-        });*/
     }
-
     private void setSpan(@DrawableRes int res, TextView tv) {
         String text = tv.getText().toString();
         SpannableString ss = new SpannableString(text);
@@ -351,49 +233,12 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
         ss.setSpan(span, text.length() - 1, text.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         tv.setText(ss);
     }
-
     private void setNickName() {
         SetProfileInfoAct.set(mActivity, SetProfileInfoAct.InfoType.NickName, REQ_NICK, SpUtils.get(mContext, Constant.NICKNAME, ""), Constant.NICK_MAX_LENGTH);
-        /*View view = View.inflate(this, R.layout.dialog_nickname, null);
-        final EditText nickNameEt = (EditText) view.findViewById(R.id.nickname_et);
-        CommonDialog.show(this, getString(R.string.popName_title), view, new CommonDialog.OnConfirmListener() {
-            @Override
-            public void onConfirm(AlertDialog dialog) {
-                final String s = nickNameEt.getText().toString();
-                if (!TextUtils.isEmpty(s)) {
-                    *//*HashMap<String, String> map = new HashMap<>(1);
-                    String type = "nickname";
-                    map.put(type, s);
-                    ApiManger.getApiService()
-                            .setNickName(App.getMyUid(), type, map)
-                            .compose(RxUtils.<BaseHttpResult>applySchedulers())
-                            .subscribe(new BaseObserver<BaseHttpResult>(EditProfileAct.this) {
-                                @Override
-                                protected void onSuccess(BaseHttpResult result) {
-                                    name.setText(s);
-                                    SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
-                                            .NICKNAME, s);
-                                    SharedPreStorageMgr.getIntance().saveStringValue(App.applicationContext, DemoHelper.getInstance().getCurrentUsernName(),EaseUserUtils.getUserInfo(EMClient.getInstance().getCurrentUser()).getAvatar()+"-"+ s);
-                                }
-                            });*//*
-                    ApiManger2.getApiService()
-                            .modifyInfo(null, HttpHelper.toTextPlain(s), null,null,null)
-                            .compose(EditProfileAct.this.<HttpResult<String>>bindToLifeCyclerAndApplySchedulers())
-                            .subscribe(new Consumer<HttpResult<String>>() {
-                                @Override
-                                public void accept(@NonNull HttpResult<String> emptyDataHttpResult) throws Exception {
-                                    ToastUtils.showToast(getApplicationContext(), R.string.modify_success);
-                                    name.setText(s);
-                                    SharedPreStorageMgr.getIntance().saveStringValue(EditProfileAct.this, Constant
-                                            .NICKNAME, s);
-                                    SharedPreStorageMgr.getIntance().saveStringValue(App.applicationContext, DemoHelper.getInstance().getCurrentUsernName(), EaseUserUtils.getUserInfo(EMClient.getInstance().getCurrentUser()).getAvatar()+"-"+ s);
-                                }
-                            });
-                }
-            }
-        });*/
     }
-
+    private void setMood() {
+        SetProfileInfoAct.set(mActivity, SetProfileInfoAct.InfoType.Mood, REQ_MOOD, SpUtils.get(mContext, Constant.STATE, ""));
+    }
     /**
      * 修改头像
      */

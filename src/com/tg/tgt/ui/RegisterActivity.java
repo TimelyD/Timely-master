@@ -118,9 +118,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 		passwordEditText = (EditText) findViewById(com.tg.tgt.R.id.password);
 		confirmPwdEditText = (EditText) findViewById(com.tg.tgt.R.id.confirm_password);
 
-		userNameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
-		nickNameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
-		codeEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+		//userNameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+		nickNameEditText.setFilters(new InputFilter[]{CodeUtils.fil});
+		//codeEditText.setFilters(new InputFilter[]{CodeUtils.filter});
 		passwordEditText.setFilters(new InputFilter[]{CodeUtils.filter});
 		confirmPwdEditText.setFilters(new InputFilter[]{CodeUtils.filter});
 

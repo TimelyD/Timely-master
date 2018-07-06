@@ -47,11 +47,34 @@
             android:paddingRight="@dimen/common.10dp"
             android:textColorHint="@color/tx_black_2"
             android:minLines="2"
+            android:maxLength="50"
             android:maxLines="5"
             android:textSize="@dimen/tx_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_foot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingTop="@dimen/common.20dp"
+        android:background="@color/white">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:layout_marginRight="@dimen/common.10dp"
+            android:background="#efefef">
+        </View>
+        <TextView
+            android:id="@+id/ti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/tx_black_3"
+            android:gravity="right"
+            android:padding="@dimen/common.10dp"/>
+    </RelativeLayout>
     <TextView
         android:id="@+id/text_logout"
         android:layout_width="match_parent"

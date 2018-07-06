@@ -251,6 +251,7 @@
     <string name="ti9">Empty will not recover, are you sure?</string>
     <string name="ti10">The selected message contains voice/file, business card and other messages that cannot be forwarded.</string>
     <string name="ti11">Send a success</string>
+    <string name="ti12">Send a message</string>
     <string name="selected_all">All</string>
     <string name="delete_button">delete</string>
     <string name="collection_title">collection</string>

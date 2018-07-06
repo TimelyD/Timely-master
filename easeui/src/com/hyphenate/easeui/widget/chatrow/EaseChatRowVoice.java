@@ -52,6 +52,36 @@ public class EaseChatRowVoice extends EaseChatRowFile{
         boolean isFile = message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_FIRE, "").equals("1");
         mFireView.setVisibility(isFile ? VISIBLE : GONE);
         EMVoiceMessageBody voiceBody = (EMVoiceMessageBody) message.getBody();
+        select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
+        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("dcz_id",message.getMsgId()+"q");
+                if(isChecked==true){
+                    if(!EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.add(message.getMsgId());
+                    }
+                }else {
+                    if(EaseConstant.list_ms.contains(message.getMsgId())){
+                        EaseConstant.list_ms.remove(message.getMsgId());
+                    }
+                }
+                Log.i("dcz_check",EaseConstant.list_ms+"");
+            }
+        });
+        if(select.getVisibility()==VISIBLE){
+            select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
+        }
+        bt.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("dcz","点击了");
+                if(select.getVisibility()==VISIBLE){
+                    select.setChecked(select.isChecked()?false:true);
+                }
+            }
+        });
         int len = voiceBody.getLength();
         if(len>0){
             voiceLengthView.setText(voiceBody.getLength() + "\"");
@@ -104,36 +134,6 @@ public class EaseChatRowVoice extends EaseChatRowFile{
             return;
         }
         handleSendMessage();
-        select.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
-        bt.setVisibility(EaseConstant.MESSAGE_ATTR_SELECT==true?VISIBLE:GONE);
-        select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.i("dcz_id",message.getMsgId()+"q");
-                if(isChecked==true){
-                    if(!EaseConstant.list_ms.contains(message.getMsgId())){
-                        EaseConstant.list_ms.add(message.getMsgId());
-                    }
-                }else {
-                    if(EaseConstant.list_ms.contains(message.getMsgId())){
-                        EaseConstant.list_ms.remove(message.getMsgId());
-                    }
-                }
-                Log.i("dcz_check",EaseConstant.list_ms+"");
-            }
-        });
-        if(select.getVisibility()==VISIBLE){
-            select.setChecked(EaseConstant.list_ms.contains(message.getMsgId())?true:false);
-        }
-        bt.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("dcz","点击了");
-                if(select.getVisibility()==VISIBLE){
-                     select.setChecked(select.isChecked()?false:true);
-                }
-            }
-        });
     }
 
     @Override
