@@ -112,6 +112,7 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:background="@null"
+                android:inputType="number"
                 android:hint="@string/register_editusername"
                 android:singleLine="true"
                 android:textColor="#000"
@@ -143,6 +144,8 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:background="@null"
+                android:inputType="number"
+                android:maxLength="8"
                 android:hint="@string/login_editcode"
                 android:singleLine="true"
                 android:textSize="@dimen/tx_3"/>
