@@ -93,7 +93,7 @@ public class MomentsLogAct extends BaseActivity {
                     public void accept(@NonNull Disposable disposable) throws Exception {
                         if(!loadMore) {
                             mSwipeRefreshLayout.setRefreshing(true);
-                            Log.e("Tag","走在了。....");
+                            Log.e("Tag","走在了。...........");
                         }
                     }
                 })
