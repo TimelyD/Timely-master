@@ -73,5 +73,7 @@
         android:layout_height="@dimen/common.28dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/common.10dp"
+        android:layout_marginRight="@dimen/common.10dp"
         android:background="@drawable/close_dialog"/>
 </RelativeLayout>

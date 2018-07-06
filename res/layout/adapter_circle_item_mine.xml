@@ -4,25 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/divider_t">
+    android:background="@color/bg_t">
 
 
     <RelativeLayout
         android:layout_width="@dimen/common.50dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:background="@color/divider_t">
+        android:background="@color/bg_t">
         <View
             android:id="@+id/split"
             android:layout_width="@dimen/common.1dp"
             android:layout_height="@dimen/common.30dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="#808080"/>
+            android:background="#C2C2C2"/>
         <View
             android:id="@+id/circle"
-            android:layout_width="@dimen/common.20dp"
-            android:layout_height="@dimen/common.20dp"
+            android:layout_width="@dimen/common.9dp"
+            android:layout_height="@dimen/common.9dp"
             android:layout_below="@+id/split"
             android:layout_centerHorizontal="true"
             android:background="@drawable/circle_gray_mine" />
@@ -33,14 +33,14 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/circle"
             android:layout_centerHorizontal="true"
-            android:background="#808080" />
+            android:background="#C2C2C2" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/divider_t">
+        android:background="@color/bg_t">
 
         <TextView
             android:id="@+id/timeTv"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/common.20dp"
+            android:layout_marginTop="@dimen/common.25dp"
             android:singleLine="true"
             android:text="今天"
             android:textColor="#333333"

@@ -36,7 +36,8 @@
             android:layout_height="@dimen/common.60dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/common.20dp"/>
+            android:layout_marginLeft="@dimen/common.20dp"
+            android:background="@drawable/collection_image_circle"/>
 
 
         <View
@@ -75,13 +76,49 @@
         <!--android:layout_height="@dimen/common.220dp"-->
         <!--android:layout_marginRight="@dimen/common.20dp"-->
         <!--android:layout_marginLeft="@dimen/common.20dp" />-->
+    
+    <RelativeLayout
+        android:id="@+id/image_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common.20dp"
+        android:layout_marginRight="@dimen/common.20dp"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/common.60dp">
 
+        <ImageView
+            android:id="@+id/image_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/text_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common.20dp"
+        android:layout_marginRight="@dimen/common.20dp"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/common.60dp">
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:textSize="@dimen/common.15sp"
+            android:textColor="@color/black90" />
+
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/play_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/common.20dp"
-        android:layout_marginRight="@dimen/common.20dp">
+        android:layout_marginRight="@dimen/common.20dp"
+        android:layout_marginTop="@dimen/common.60dp">
 
         <VideoView
             android:id="@+id/play_video"

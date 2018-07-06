@@ -52,6 +52,7 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.IView;
 import com.tg.tgt.http.RxUtils;
 import com.tg.tgt.http.interceptor.AddTokenInterceptor;
+import com.tg.tgt.moment.ui.CircularImageView;
 import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.ui.base.BaseFragment;
 import com.tg.tgt.utils.CodeUtils;
@@ -76,7 +77,7 @@ import io.reactivex.functions.Function;
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
     private static final int REQUEST_SCAN = 111;
     private com.hyphenate.easeui.widget.EaseTitleBar titlebar;
-    private com.hyphenate.easeui.widget.CircleImageView ivhead;
+    private CircularImageView ivhead;
     private android.widget.TextView tvname;
     private android.widget.ImageView ivsex;
     private android.widget.TextView tvemail;
@@ -107,7 +108,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.ivsex = (ImageView) view.findViewById(R.id.iv_sex);
         this.ivQrCode = (ImageView) view.findViewById(R.id.iv_qr_code);
         this.tvname = (TextView) view.findViewById(R.id.tv_name);
-        this.ivhead = (CircleImageView) view.findViewById(R.id.iv_head);
+        this.ivhead = (CircularImageView) view.findViewById(R.id.iv_head);
         this.titlebar = (EaseTitleBar) view.findViewById(R.id.title_bar);
         this.friends_me = (LinearLayout) view.findViewById(R.id.friends_me);
         this.iv1=(ZQImageViewRoundOval)view.findViewById(R.id.iv1);
@@ -300,8 +301,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 startActivity(new Intent(mContext, MomentAct.class));
                 break;
             case R.id.friends_me:
-                toHomePage(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME),
-                        SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));
+                DBManager.getInstance().saveUnreadMotionActionCount(0);
+                startActivity(new Intent(mContext, MomentAct.class));
+                /*toHomePage(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME),
+                        SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));*/
                 break;
             case R.id.collection:
                 startActivity(new Intent(mContext,CollectionActivity.class));

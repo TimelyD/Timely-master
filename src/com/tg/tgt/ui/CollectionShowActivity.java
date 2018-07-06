@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiManger2;
@@ -26,6 +28,8 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.CollectionItemModel;
 import com.tg.tgt.utils.Player;
 import com.tg.tgt.utils.PlayerVideo;
+
+import com.hyphenate.easeui.GlideApp;
 
 /**
  * Created by DELL on 2018/7/2.
@@ -48,6 +52,12 @@ public class CollectionShowActivity extends BaseActivity {
     private ImageView userImage;
     private TextView userName;
     private TextView colletionTime;
+
+    private RelativeLayout imageRelative;
+    private ImageView imageView;
+
+    private RelativeLayout textRelative;
+    private TextView textView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -96,6 +106,10 @@ public class CollectionShowActivity extends BaseActivity {
         userImage = (ImageView) findViewById(R.id.image_user);
         userName = (TextView) findViewById(R.id.nick_name);
         colletionTime = (TextView) findViewById(R.id.collection_time);
+        imageRelative = (RelativeLayout)findViewById(R.id.image_relative);
+        imageView = (ImageView) findViewById(R.id.image_show);
+        textRelative = (RelativeLayout)findViewById(R.id.text_relative);
+        textView = (TextView) findViewById(R.id.text_content);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -104,6 +118,10 @@ public class CollectionShowActivity extends BaseActivity {
         Log.e("Tag","type=="+collectionItemModel.getType());
         switch (collectionItemModel.getType()) {//1:图片 2:视频 3:音频 4:文件 5:文本
             case 1:
+                imageRelative.setVisibility(View.VISIBLE);
+                playRelative.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(collectionItemModel.getFilePath()))
+                    GlideApp.with(mActivity).load(collectionItemModel.getFilePath()).placeholder(R.drawable.default_avatar).into(imageView);
                 break;
             case 2:
                 mVideoView.setVisibility(View.VISIBLE);
@@ -119,14 +137,24 @@ public class CollectionShowActivity extends BaseActivity {
                 }
                 break;
             case 4:
+                playRelative.setVisibility(View.GONE);
                 break;
             case 5:
+                playRelative.setVisibility(View.GONE);
+                textRelative.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(collectionItemModel.getContent()))
+                    textView.setText(collectionItemModel.getContent());
                 break;
         }
         if (!TextUtils.isEmpty(collectionItemModel.getIsFrom()))
             userName.setText(collectionItemModel.getIsFrom());
         if (!TextUtils.isEmpty(collectionItemModel.getCrtTime()))
             colletionTime.setText(collectionItemModel.getCrtTime());
+        if (!TextUtils.isEmpty(collectionItemModel.getUserPicture())) {
+            RoundedCorners roundedCorners= new RoundedCorners(6);
+            RequestOptions options=RequestOptions.bitmapTransform(roundedCorners).override(120, 120);
+            GlideApp.with(mActivity).load(collectionItemModel.getUserPicture()).apply(options).placeholder(R.drawable.default_avatar).into(userImage);
+        }
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,4 +184,12 @@ public class CollectionShowActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (musicPlayer != null)
+            musicPlayer.stop();
+        if (videoPlayer != null)
+            videoPlayer.stopVideo();
+    }
 }

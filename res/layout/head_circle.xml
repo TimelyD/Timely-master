@@ -8,42 +8,62 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/head_moment_layout_height">
 
-        <com.hyphenate.easeui.widget.CircleImageView
+        <!--<com.hyphenate.easeui.widget.CircleImageView-->
+            <!--android:id="@+id/iv_avatar"-->
+            <!--android:layout_width="@dimen/common.80dp"-->
+            <!--android:layout_height="@dimen/common.80dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginBottom="@dimen/common.20dp"-->
+            <!--android:layout_marginLeft="@dimen/common.20dp"-->
+            <!--android:src="@drawable/default_avatar"-->
+            <!--/>-->
+        <com.tg.tgt.moment.ui.CircularImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/common.80dp"
             android:layout_height="@dimen/common.80dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/common.20dp"
             android:layout_marginLeft="@dimen/common.20dp"
-            android:src="@drawable/default_avatar"
-            />
+            android:src="@drawable/default_avatar" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/iv_avatar"
-            android:layout_marginLeft="@dimen/common.24dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/common.20dp"
             android:layout_toRightOf="@id/iv_avatar"
-            android:layout_marginTop="@dimen/common.5dp"
-            android:text="自己"
-            android:textColor="@color/white"
-            android:textSize="@dimen/common.23sp"
-            android:textStyle="bold"/>
+            android:layout_marginLeft="@dimen/common.24dp">
 
-        <TextView
-            android:id="@+id/tv_state"
-            android:layout_toRightOf="@id/iv_avatar"
-            android:layout_marginLeft="@dimen/common.24dp"
-            android:layout_marginRight="@dimen/common.10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common.15dp"
-            android:layout_below="@+id/tv_name"
-            android:text="如果你不会说话那么如果你不会说话那么如果你不会说话那么"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:textColor="@color/white"
-            android:textSize="@dimen/common.13sp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="自己"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common.23sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_marginRight="@dimen/common.10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common.8dp"
+                    android:layout_below="@+id/tv_name"
+                    android:text="如果你不会说话那么如果你不会说话那么如果你不会说话那么"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/common.13sp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

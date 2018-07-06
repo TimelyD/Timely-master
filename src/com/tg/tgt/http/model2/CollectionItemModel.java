@@ -20,6 +20,15 @@ public class CollectionItemModel implements Serializable{
     private int userId;//": 0收藏用户ID
 
     private boolean isSelect;//是否被选中删除
+    private String userPicture;//人物头像
+
+    public String getUserPicture() {
+        return userPicture;
+    }
+
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
+    }
 
     public boolean isSelect() {
         return isSelect;

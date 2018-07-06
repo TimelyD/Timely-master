@@ -44,7 +44,7 @@
                 android:id="@+id/fail_image"
                 android:layout_width="50dp"
                 android:layout_height="100dp"
-                android:background="@drawable/load_fail"
+                android:background="@drawable/fail_moment"
                 android:layout_centerHorizontal="true"/>
 
             <TextView
@@ -53,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fail_image"
                 android:layout_centerHorizontal="true"
-                android:text="@string/load_failed"/>
+                android:text="@string/load_failed"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

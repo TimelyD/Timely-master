@@ -99,6 +99,8 @@ public class MomentAdapter extends BaseMomentAdapter {
                 }
             }else {
                 helper.setText(R.id.timeTv, TimeUtils.getMomentDateString(createTime));
+//                if (TextUtils.isEmpty(content))
+//                    helper.getView(R.id.bottom_split).setVisibility(View.VISIBLE);
             }
         } catch (Exception e) {
             helper.setText(R.id.timeTv, "");
