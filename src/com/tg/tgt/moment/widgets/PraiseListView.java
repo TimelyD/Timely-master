@@ -6,13 +6,16 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.DynamicDrawableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tg.tgt.App;
 import com.tg.tgt.R;
 import com.tg.tgt.moment.bean.FavortItem;
 import com.tg.tgt.moment.spannable.CircleMovementMethod;
@@ -81,6 +84,7 @@ public class PraiseListView extends TextView {
         if(datas != null && datas.size() > 0){
             //添加点赞图标
             builder.append(setImageSpan());
+            builder.append("   ");
             FavortItem item = null;
             int size = datas.size();
             for (int i = 0; i< size; i++){
@@ -97,7 +101,9 @@ public class PraiseListView extends TextView {
             else
                 builder.append(getContext().getString(R.string.one_like));
         }
-
+        builder.setSpan(new AbsoluteSizeSpan((int)App.applicationContext.getResources().getDimension(R.dimen.common_14sp)), 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(new ForegroundColorSpan(this.getResources().getColor(R.color.praise_item)), 0, builder.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         setText(builder);
         setMovementMethod(new CircleMovementMethod(itemSelectorColor));
     }
@@ -106,7 +112,7 @@ public class PraiseListView extends TextView {
     private SpannableString setImageSpan(){
         String text = "  ";
         SpannableString imgSpanText = new SpannableString(text);
-        imgSpanText.setSpan(new ImageSpan(getContext(), R.drawable.add_like_selected, DynamicDrawableSpan.ALIGN_BOTTOM),
+        imgSpanText.setSpan(new ImageSpan(getContext(), R.drawable.add_like_selected, DynamicDrawableSpan.ALIGN_BASELINE),
                 0 , 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return imgSpanText;
     }

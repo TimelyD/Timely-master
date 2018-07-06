@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -130,8 +131,9 @@ public class EaseTitleBar extends RelativeLayout{
     }
 
     public void setRightButtonVisibility(int visibility){
-        rightLayout.setVisibility(visibility);
+        rightLayout.setVisibility(VISIBLE);
         rightImage.setVisibility(GONE);
+        Log.e("Tag","在设置叠好");
     }
 
     public void setTitleColor(int resId){

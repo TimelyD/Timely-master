@@ -123,6 +123,7 @@
         android:layout_marginLeft="@dimen/common.20dp"
         android:textSize="@dimen/common.15sp"
         android:textColor="@color/black90"
-        android:singleLine="false"/>
+        android:singleLine="false"
+        android:visibility="gone"/>
 
 </LinearLayout>

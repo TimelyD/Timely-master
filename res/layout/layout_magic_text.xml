@@ -8,8 +8,8 @@
         android:id="@+id/contentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black90"
-        android:textSize="16sp"
+        android:textColor="#333333"
+        android:textSize="@dimen/common.15sp"
         android:text=""
         />
     <TextView
