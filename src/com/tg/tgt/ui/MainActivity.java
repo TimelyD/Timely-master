@@ -171,7 +171,6 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		}
-		pic();
 		Constant.User_Phone = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_phone_zww");
 		Constant.User_Nick = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_nick_zww");
 		// 1. 注册锁屏广播监听器
@@ -1071,21 +1070,5 @@ public class MainActivity extends BaseActivity {
 			}
 		});
 		pup2.startAnimation(a);
-	}
-	protected void pic(){
-		App.pic.clear();
-		ApiManger2.getApiService()
-				.getPic(null)
-				.compose(RxUtils.<HttpResult<List<PicBean>>>applySchedulers())
-				.subscribe(new BaseObserver2<List<PicBean>>() {
-					@Override
-					protected void onSuccess(List<PicBean> bean) {
-						App.pic=bean;
-					}
-					@Override
-					public void onFaild(int code, String message) {
-						super.onFaild(code, message);
-					}
-				});
 	}
 }

@@ -34,6 +34,16 @@ public class ImageUtils {
         });
     }
 
+    public static void show2(Context context, String url, @DrawableRes int holder, final ImageView imageView) {
+        GlideApp.with(context).load(url).placeholder(holder).diskCacheStrategy(DiskCacheStrategy.ALL).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                imageView.setImageDrawable(resource);
+            }
+
+        });
+    }
+
     /**
      * 判断imageview背景与res是否相同
      * @param context

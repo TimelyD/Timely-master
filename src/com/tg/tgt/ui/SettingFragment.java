@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
@@ -131,7 +132,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         iv2.setType(ZQImageViewRoundOval.TYPE_ROUND);iv2.setRoundRadius(10);
         iv3.setType(ZQImageViewRoundOval.TYPE_ROUND);iv3.setRoundRadius(10);
         iv4.setType(ZQImageViewRoundOval.TYPE_ROUND);iv4.setRoundRadius(10);
-        fun(App.pic);
         titlebar.setLeftImageResource(R.drawable.sao);
         titlebar.setBackgroundColor(Color.parseColor("#00000000"));
         titlebar.setLeftLayoutClickListener(new View.OnClickListener() {
@@ -184,6 +184,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
+        pic();
         init();
     }
 
@@ -280,15 +281,19 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             pic.setVisibility(View.GONE);
         }else {
             pic.setVisibility(View.VISIBLE);
-            ImageUtils.show(getContext(),bean.get(0).getPicture(), R.drawable.default_avatar2, iv1);
+            GlideApp.with(mContext).load(bean.get(0).getPicture()).into(iv1);
+           // ImageUtils.show2(getContext(),bean.get(0).getPicture(), R.drawable.default_avatar2, iv1);
             if(bean.size()>1){
-                ImageUtils.show(getContext(),bean.get(1).getPicture(), R.drawable.default_avatar2, iv2);
+                GlideApp.with(mContext).load(bean.get(1).getPicture()).into(iv2);
+               // ImageUtils.show2(getContext(),bean.get(1).getPicture(), R.drawable.default_avatar2, iv2);
             }
             if(bean.size()>2){
-                ImageUtils.show(getContext(),bean.get(2).getPicture(), R.drawable.default_avatar2, iv3);
+                GlideApp.with(mContext).load(bean.get(2).getPicture()).into(iv3);
+                //ImageUtils.show2(getContext(),bean.get(2).getPicture(), R.drawable.default_avatar2, iv3);
             }
             if(bean.size()>3){
-                ImageUtils.show(getContext(),bean.get(3).getPicture(), R.drawable.default_avatar2, iv4);
+                GlideApp.with(mContext).load(bean.get(3).getPicture()).into(iv4);
+                //ImageUtils.show2(getContext(),bean.get(3).getPicture(), R.drawable.default_avatar2, iv4);
             }
         }
     }
