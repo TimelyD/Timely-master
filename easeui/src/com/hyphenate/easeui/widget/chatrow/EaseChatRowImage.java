@@ -190,14 +190,12 @@ public class EaseChatRowImage extends EaseChatRowFile{
         Bitmap bitmap = EaseImageCache.getInstance().get(thumbernailPath);
         Log.i("dcz","显示");
         if (bitmap != null) {
-            // thumbnail image is already loaded, reuse the drawable
             //bitmap=setImgSize(bitmap,500,500);
             iv.setImageBitmap(bitmap);
             /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] bytes=baos.toByteArray();
             GlideApp.with(this).load(bytes).transform(new GlideRoundTransform(context,10)).into(iv);*/
-
             return true;
         } else {
             new AsyncTask<Object, Void, Bitmap>() {
