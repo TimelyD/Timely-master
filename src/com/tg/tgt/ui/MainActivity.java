@@ -82,12 +82,17 @@ import com.tg.tgt.helper.ActionItem;
 import com.tg.tgt.helper.DBManager;
 import com.tg.tgt.helper.MenuPopup;
 import com.tg.tgt.helper.UserHelper;
+import com.tg.tgt.http.ApiManger2;
+import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.http.RxUtils;
 import com.tg.tgt.keepservice.receiver.ScreenReceiverUtil;
 import com.tg.tgt.keepservice.service.DaemonService;
 import com.tg.tgt.keepservice.service.PlayerMusicService;
 import com.tg.tgt.keepservice.utils.JobSchedulerManager;
 import com.tg.tgt.keepservice.utils.ScreenManager;
 import com.tg.tgt.logger.Logger;
+import com.tg.tgt.moment.bean.PicBean;
 import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.parse.ParseManager;
 import com.tg.tgt.runtimepermissions.PermissionsManager;
@@ -166,8 +171,7 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		}
-
-
+		pic();
 		Constant.User_Phone = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_phone_zww");
 		Constant.User_Nick = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_nick_zww");
 		// 1. 注册锁屏广播监听器
@@ -1067,5 +1071,21 @@ public class MainActivity extends BaseActivity {
 			}
 		});
 		pup2.startAnimation(a);
+	}
+	protected void pic(){
+		App.pic.clear();
+		ApiManger2.getApiService()
+				.getPic(null)
+				.compose(RxUtils.<HttpResult<List<PicBean>>>applySchedulers())
+				.subscribe(new BaseObserver2<List<PicBean>>() {
+					@Override
+					protected void onSuccess(List<PicBean> bean) {
+						App.pic=bean;
+					}
+					@Override
+					public void onFaild(int code, String message) {
+						super.onFaild(code, message);
+					}
+				});
 	}
 }

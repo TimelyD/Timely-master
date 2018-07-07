@@ -31,6 +31,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.DeviceUtils;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.NotificationsUtils;
@@ -52,6 +53,9 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.IView;
 import com.tg.tgt.http.RxUtils;
 import com.tg.tgt.http.interceptor.AddTokenInterceptor;
+import com.tg.tgt.http.model2.UserFriendModel;
+import com.tg.tgt.moment.bean.CollectBean;
+import com.tg.tgt.moment.bean.PicBean;
 import com.tg.tgt.moment.ui.CircularImageView;
 import com.tg.tgt.moment.ui.CircularImageView1;
 import com.tg.tgt.moment.ui.ZQImageViewRoundOval1;
@@ -64,11 +68,14 @@ import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
 import com.uuzuche.lib_zxing.activity.QrCodeUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -96,6 +103,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private ZQImageViewRoundOval iv2;
     private ZQImageViewRoundOval iv3;
     private ZQImageViewRoundOval iv4;
+    private LinearLayout pic;
 
     @Override
     protected void initView(View view) {
@@ -117,16 +125,13 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.iv2=(ZQImageViewRoundOval)view.findViewById(R.id.iv2);
         this.iv3=(ZQImageViewRoundOval)view.findViewById(R.id.iv3);
         this.iv4=(ZQImageViewRoundOval)view.findViewById(R.id.iv4);
+        this.pic=(LinearLayout)view.findViewById(R.id.pic);
 
         iv1.setType(ZQImageViewRoundOval.TYPE_ROUND);iv1.setRoundRadius(10);//矩形凹行大小
         iv2.setType(ZQImageViewRoundOval.TYPE_ROUND);iv2.setRoundRadius(10);
         iv3.setType(ZQImageViewRoundOval.TYPE_ROUND);iv3.setRoundRadius(10);
         iv4.setType(ZQImageViewRoundOval.TYPE_ROUND);iv4.setRoundRadius(10);
-        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv1);
-        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv2);
-        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv3);
-        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, iv4);
-
+        fun(App.pic);
         titlebar.setLeftImageResource(R.drawable.sao);
         titlebar.setBackgroundColor(Color.parseColor("#00000000"));
         titlebar.setLeftLayoutClickListener(new View.OnClickListener() {
@@ -245,6 +250,47 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             ivsex.setVisibility(View.INVISIBLE);
         }*/
         refreshMotionUnread();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.i("qqq",hidden+"qqq");
+        if(hidden==false){
+            pic();
+        }
+    }
+    protected void pic(){
+        ApiManger2.getApiService()
+                .getPic(null)
+                .compose(RxUtils.<HttpResult<List<PicBean>>>applySchedulers())
+                .subscribe(new BaseObserver2<List<PicBean>>() {
+                    @Override
+                    protected void onSuccess(List<PicBean> bean) {
+                        fun(bean);
+                    }
+                    @Override
+                    public void onFaild(int code, String message) {
+                        super.onFaild(code, message);
+                    }
+                });
+    }
+    private void fun(List<PicBean>bean){
+        if(bean.size()==0){
+            pic.setVisibility(View.GONE);
+        }else {
+            pic.setVisibility(View.VISIBLE);
+            ImageUtils.show(getContext(),bean.get(0).getPicture(), R.drawable.default_avatar2, iv1);
+            if(bean.size()>1){
+                ImageUtils.show(getContext(),bean.get(1).getPicture(), R.drawable.default_avatar2, iv2);
+            }
+            if(bean.size()>2){
+                ImageUtils.show(getContext(),bean.get(2).getPicture(), R.drawable.default_avatar2, iv3);
+            }
+            if(bean.size()>3){
+                ImageUtils.show(getContext(),bean.get(3).getPicture(), R.drawable.default_avatar2, iv4);
+            }
+        }
     }
 
     @Override

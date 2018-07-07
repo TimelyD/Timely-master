@@ -43,11 +43,16 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.tg.tgt.keepservice.Receiver1;
 import com.tg.tgt.keepservice.Receiver2;
 import com.tg.tgt.keepservice.Service2;
+import com.tg.tgt.moment.bean.PicBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class App extends EaseApp {
 
 	public static String xin="******";
 	private static App instance;
+	public static List<PicBean> pic=new ArrayList<>();
 
 	/**
 	 * 通过这个值来判断是否需要刷新通讯录，如果为空则不刷新

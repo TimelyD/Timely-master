@@ -56,6 +56,10 @@ import com.superrtc.sdk.VideoView;
 import com.tg.tgt.App;
 import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
+import com.tg.tgt.http.ApiManger2;
+import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.moment.bean.CollectBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -540,6 +544,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                             message.setAttribute("VoiceOrVideoText","未接听，点击回拨");
                             message.setAttribute("VoiceOrVideoImage","ease_chat_video_call_receive");
                             EMClient.getInstance().chatManager().sendMessage(message);
+                            sms();
                             return;
                         }
                         runOnUiThread(new Runnable() {
@@ -638,6 +643,22 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
 
     void removeCallStateListener() {
         EMClient.getInstance().callManager().removeCallStateChangeListener(callStateListener);
+    }
+    protected void sms(){
+        ApiManger2.getApiService()
+                .voice_sms(username,"1")
+                .compose(mActivity.<HttpResult<CollectBean>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<CollectBean>() {
+                    @Override
+                    protected void onSuccess(CollectBean emptyData) {
+
+                    }
+
+                    @Override
+                    public void onFaild(int code, String message) {
+                        super.onFaild(code, message);
+                    }
+                });
     }
 
 

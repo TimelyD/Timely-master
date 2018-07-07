@@ -18,6 +18,7 @@ import com.tg.tgt.moment.bean.CollectBean;
 import com.tg.tgt.moment.bean.CollectItem;
 import com.tg.tgt.moment.bean.CommentItem;
 import com.tg.tgt.moment.bean.FavortItem;
+import com.tg.tgt.moment.bean.PicBean;
 
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,7 @@ public interface ApiService2 {
     String BASE_URL = "http://timly2.live2017.biz/timely/";
     String ppk="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCHLe0aLInF//BveiN22YAOLQ8EFdS+qHfuqb8FmO9lIzs/TwG2LNyd7X1KXsP14B6LgsatNzxGvwVwTe2WYHECGm4iWaTB6lUVHnc4MuVb+4gLgCmIH+TP2BfOfNtkjGuKygSaXUMKi/uzngeybqp0dgQ2YDpcExurRax/2+L0jwIDAQAB";*/
     String downUrl="https://www.pgyer.com/NTfV";
-    String BASE_URL = "http://timly.live2017.biz/timly/";//http://192.168.2.82:8050/timely/   http://timly.live2017.biz/timly/
+    String BASE_URL = "http://192.168.2.82:8050/timely/ ";//http://192.168.2.82:8050/timely/   http://timly.live2017.biz/timly/
     String ppk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCQNVqLqr9rwM+flL+U3GWfkirttHWstY7iB2HStfLirVOG/Yg09ABMFtcvWK8+3yx2Z7UZFu16Z56YK+nI3aEzv0rni/3CIJ/ljO9o+j8KAc4Y+9Ql1WQAmDxGzE7GY60rALvzJgT6cdQFwwwI9AdiGdAyswD1R5y7Cu1M+aWUSwIDAQAB";
 
     //String BASE_URL = "http://192.168.2.47:8050/timely/";
@@ -107,6 +108,17 @@ public interface ApiService2 {
     @FormUrlEncoded
     @POST("api/user/modify")
     Observable<HttpResult<CollectBean>>collection(@Field("paramsList") List<CollectItem> list);
+
+
+    @FormUrlEncoded
+    @POST("api/sendOfflineMesgToRec")
+    Observable<HttpResult<CollectBean>>voice_sms(@Field("fromUid")String fromUid,@Field("type")String type);
+
+
+
+    @FormUrlEncoded
+    @POST("api/collection/queryLastFourPicture ")
+    Observable<HttpResult<List<PicBean>>>getPic(@Field("fromUid")String fromUid);
 
 
     String CODE_REGIEST = "1";

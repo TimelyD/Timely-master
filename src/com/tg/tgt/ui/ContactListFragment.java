@@ -271,7 +271,6 @@ public class ContactListFragment extends EaseContactListFragment {
     private void toChatAct(String username, EaseUser result) {
         // demo中直接进入聊天页面，实际一般是进入用户详情页
         Intent intent = new Intent(getActivity(), ChatActivity.class);
-
         intent.putExtra("userId", username);
         startActivity(intent);
     }
