@@ -146,8 +146,8 @@ public class CollectionShowActivity extends BaseActivity {
                     textView.setText(collectionItemModel.getContent());
                 break;
         }
-        if (!TextUtils.isEmpty(collectionItemModel.getIsFrom()))
-            userName.setText(collectionItemModel.getIsFrom());
+        if (!TextUtils.isEmpty(collectionItemModel.getFormUserName()))
+            userName.setText(collectionItemModel.getFormUserName());
         if (!TextUtils.isEmpty(collectionItemModel.getCrtTime()))
             colletionTime.setText(collectionItemModel.getCrtTime());
         if (!TextUtils.isEmpty(collectionItemModel.getUserPicture())) {

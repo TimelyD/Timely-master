@@ -15,11 +15,13 @@ import com.hyphenate.easeui.R;
  */
 public class MenuDialogUtils extends Dialog {
    public ButtonClickListener listener_b;
+   public ButtonClickCollectListener listener_c;
 
-    public MenuDialogUtils(final Context context, int theme, int resource,ButtonClickListener listener) {
+    public MenuDialogUtils(final Context context, int theme, int resource,ButtonClickListener listener,ButtonClickCollectListener listener1) {
         super(context, theme);
         View view = View.inflate(context, resource, null);
         this.listener_b=listener;
+        this.listener_c = listener1;
         setContentView(view);
         setCancelable(true);
 
@@ -44,8 +46,21 @@ public class MenuDialogUtils extends Dialog {
                 MenuDialogUtils.this.dismiss();
             }
         });
+        view.findViewById(R.id.rl_collection).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener_c.onButtonCollectClick();
+                MenuDialogUtils.this.dismiss();
+            }
+        });
+
     }
     public interface ButtonClickListener {
         public void onButtonClick(int i);
     }
+
+    public interface ButtonClickCollectListener{
+        public void onButtonCollectClick();
+    }
+
 }

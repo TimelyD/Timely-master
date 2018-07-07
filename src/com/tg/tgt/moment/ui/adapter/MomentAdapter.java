@@ -3,11 +3,9 @@ package com.tg.tgt.moment.ui.adapter;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.LayoutRes;
-import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -249,6 +247,7 @@ public class MomentAdapter extends BaseMomentAdapter {
                     holder.multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
+                            MomentAct.isFromId = circleItem.getId();
                             List<MediaBean> beans = new ArrayList<MediaBean>();
                             for (int i = 0; i < photos.size(); i++) {
                                 PhotoBean e = new PhotoBean(photos.get(i).picture);

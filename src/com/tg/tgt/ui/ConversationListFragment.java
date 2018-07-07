@@ -1,6 +1,8 @@
 package com.tg.tgt.ui;
 
 import android.content.Intent;
+import android.os.Message;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -42,11 +44,16 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.IView;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.NewsModel;
+import com.tg.tgt.moment.bean.CollectBean;
+import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
 
 import java.util.List;
+import java.util.logging.Handler;
+
+import okhttp3.MultipartBody;
 
 public class ConversationListFragment extends EaseConversationListFragment {
 
@@ -116,6 +123,41 @@ public class ConversationListFragment extends EaseConversationListFragment {
                     }
                 });*/
         loadNews();
+        mCollectEHandler = new android.os.Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1:
+                        Log.e("Tag","用户id=="+MomentAct.isFromId+"图片地址"+msg.obj.toString());
+                        MultipartBody.Builder builder = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM);//表单类型
+                        //    File file=new File(pathFile);
+//        if (type == 2) {
+//            builder.addFormDataPart("image", file.getName(), );
+//        }
+                        builder.addFormDataPart("filePath",msg.obj.toString());
+                        builder.addFormDataPart("fromUid", MomentAct.isFromId);
+                        builder.addFormDataPart("type",String.valueOf(2));
+                        ApiManger2.getApiService()
+                                .collection(builder.build().parts())
+                                .compose(((BaseActivity)mContext).<HttpResult<CollectBean>>bindToLifeCyclerAndApplySchedulers())
+                                .subscribe(new BaseObserver2<CollectBean>() {
+                                    @Override
+                                    protected void onSuccess(CollectBean emptyData) {
+                                        Toast.makeText(mContext,"成功",Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onFaild(int code, String message) {
+                                        super.onFaild(code, message);
+                                        Toast.makeText(mContext,"失败",Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                        break;
+                }
+            }
+        };
     }
 
     private void loadNews() {

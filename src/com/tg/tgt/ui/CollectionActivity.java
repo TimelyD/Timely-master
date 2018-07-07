@@ -169,10 +169,10 @@ public class CollectionActivity extends BaseActivity{
             @Override
             protected void convert(BaseViewHolder helper, final CollectionItemModel item) {
                 helper.setText(R.id.item_title,item.getContent());
-                if (TextUtils.isEmpty(item.getIsFrom()))
+                if (TextUtils.isEmpty(item.getFormUserName()))
                     helper.setText(R.id.item_message,item.getCrtTime());
                 else
-                     helper.setText(R.id.item_message,getString(R.string.from_user)+item.getIsFrom()+"     "+item.getCrtTime());
+                     helper.setText(R.id.item_message,getString(R.string.from_user)+item.getFormUserName()+"     "+item.getCrtTime());
                 ImageView view = (ImageView) helper.getView(R.id.item_image);
                 if (!TextUtils.isEmpty(item.getPicturePath())) {
                     RoundedCorners roundedCorners= new RoundedCorners(6);

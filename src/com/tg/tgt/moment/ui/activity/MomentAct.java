@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.SharedElementCallback;
@@ -107,6 +109,10 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
 
     public static int mineSize;
 
+    public static Handler mCollectHandler;
+
+    public static String isFromId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +131,12 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         }
         initView();
         initEvent();
+        mCollectHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+            }
+        };
     }
 
     @Override
@@ -200,6 +212,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                 updateEditTextBodyVisible(View.GONE, null);
             }
         });*/
+
         mCommentInputMenu.setListener(new CommentInputMenu.CommentInputMenuListener() {
             @Override
             public void onSendMessage(String content) {

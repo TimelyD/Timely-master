@@ -22,6 +22,16 @@ public class CollectionItemModel implements Serializable{
     private boolean isSelect;//是否被选中删除
     private String userPicture;//人物头像
 
+    private String formUserName;
+
+    public String getFormUserName() {
+        return formUserName;
+    }
+
+    public void setFormUserName(String formUserName) {
+        this.formUserName = formUserName;
+    }
+
     public String getUserPicture() {
         return userPicture;
     }

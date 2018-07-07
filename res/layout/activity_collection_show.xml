@@ -48,25 +48,32 @@
             android:layout_marginRight="@dimen/common.20dp"
             android:background="@color/divider_t"/>
 
-        <TextView
-            android:id="@+id/nick_name"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/image_user"
-            android:layout_alignTop="@+id/image_user"
-            android:textSize="@dimen/common.18sp"
-            android:textColor="@color/black90"/>
+            android:layout_marginLeft="@dimen/common.15dp"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/common.18sp"
+                android:textColor="@color/black90"/>
 
 
-        <TextView
-            android:id="@+id/collection_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/nick_name"
-            android:layout_below="@+id/nick_name"
-            android:layout_marginTop="@dimen/common.12dp"
-            android:textSize="@dimen/common.13sp"
-            android:textColor="@color/black50"/>
+            <TextView
+                android:id="@+id/collection_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/nick_name"
+                android:layout_below="@+id/nick_name"
+                android:layout_marginTop="@dimen/common.12dp"
+                android:textSize="@dimen/common.13sp"
+                android:textColor="@color/black50"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

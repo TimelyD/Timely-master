@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -34,6 +38,9 @@ import com.easemob.redpacketsdk.constant.RPConstant;
 import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
+import com.hyphenate.chat.EMFileMessageBody;
+import com.hyphenate.chat.EMGCMListenerService;
+import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.EMVideoMessageBody;
@@ -43,6 +50,7 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
+import com.hyphenate.easeui.ui.EaseShowNormalFileActivity;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.SpUtils;
@@ -74,11 +82,15 @@ import com.tg.tgt.widget.ChatRowVoiceCall;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHelper {
     public static final String TAG = "ChatFragment";
@@ -125,6 +137,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
     private static final int ITEM_RED_PACKET = 16;
 
+    private static final int COLLECT_DOWNLOAD = 99;
+    private static final int COLLECT_SUCCESS = 100;
+    private static final int COLLECT_FAIL = 101;
+
     //end of red packet code
 
     /**
@@ -134,6 +150,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private Map<String, GroupUserModel> mGroupUsers;
 
     private static final int CODE_DETAIL = BusCode.GROUP_DETAIL;
+
+
+    private EMMessage.Type typeSelect;
+    private EMMessage messageDownLoad;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -273,6 +293,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         collect.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 collect(1);
             }
         });
@@ -314,28 +335,94 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         showDia(getActivity(),getString(R.string.delete_ti),1);
     }
     protected void collect(int state){
-        if(state==1){
+        if(state==1){//禁掉多选
             onBackPressed();
         }else {
-            set();
+            downLoadFile();
         }
     }
-    protected void set(){
+
+
+
+private int type ;
+    private void createBody(File file,int type){
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);//表单类型
+    //    File file=new File(pathFile);
+        if (file != null) {
+            RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file);//表单类型
+            builder.addFormDataPart("file", file.getName(), body);
+        }
+//        if (type == 2) {
+//            builder.addFormDataPart("image", file.getName(), );
+//        }
+        builder.addFormDataPart("fromUid", contextMenuMessage.getFrom());
+        builder.addFormDataPart("type",String.valueOf(type));
+        if (type == 5){
+            builder.addFormDataPart("content",((EMTextMessageBody) contextMenuMessage.getBody()).getMessage());
+        }
         ApiManger2.getApiService()
-                .collection(null)
+                .collection(builder.build().parts())
                 .compose(((BaseActivity)mContext).<HttpResult<CollectBean>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<CollectBean>() {
                     @Override
                     protected void onSuccess(CollectBean emptyData) {
-
+                        Toast.makeText(mContext,"成功",Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFaild(int code, String message) {
                         super.onFaild(code, message);
+                        Toast.makeText(mContext,"失败",Toast.LENGTH_LONG).show();
                     }
                 });
+        EaseConstant.isCollection = false;
     }
+
+    private void openMyFile(int type){
+        File file = null;
+        if (type != 5) {
+            if ((new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl())).exists()){
+                Log.e("Tag","存在");
+                file = new File(((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl());
+                createBody(file,type);
+            }else {
+                EaseConstant.isCollection = true;
+                Intent mIntent = new Intent(mContext, EaseShowNormalFileActivity.class);
+                mIntent.putExtra("msg",messageDownLoad);
+                startActivityForResult(mIntent,COLLECT_DOWNLOAD);
+                Log.e("Tag","不存在"+EaseConstant.isCollection);
+            }
+        }
+    }
+
+    private void downLoadFile(){
+        switch (typeSelect){
+            case TXT:
+                createBody(null,5);
+                type = 5;
+                break;
+            case FILE:
+                openMyFile(4);
+                type =4;
+                break;
+            case IMAGE:
+                type = 1;
+                openMyFile(1);
+                break;
+            case VIDEO:
+                type=2;
+                openMyFile(2);
+                break;
+            case VOICE:
+                type = 3;
+                openMyFile(3);
+                break;
+            case LOCATION:
+                break;
+        }
+    }
+
 
     protected void zheng(String forward_msg_id) {
         final EMMessage forward_msg = EMClient.getInstance().chatManager().getMessage(forward_msg_id);
@@ -445,6 +532,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         }else if(requestCode == REQUEST_CODE_GROUP_DETAIL){
             if(resultCode == Activity.RESULT_OK)
                 titleBar.setTitle(GroupManger.getGroup(toChatUsername).getGroupName());
+        }else if (requestCode == COLLECT_DOWNLOAD){//收藏时没下载的情况
+            if (resultCode == COLLECT_SUCCESS){
+                Log.e("Tag","下载后路径"+((EMFileMessageBody)((EMMessage)data.getParcelableExtra("msg")).getBody()).getLocalUrl());
+                createBody(new File(((EMFileMessageBody)((EMMessage)data.getParcelableExtra("msg")).getBody()).getLocalUrl()),type);
+            }
+            if (resultCode == COLLECT_FAIL){
+               // Toast.makeText(mContext,"失败",Toast.LENGTH_LONG).show();
+            }
         }
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
@@ -658,6 +753,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     public void onMessageBubbleLongClick(EMMessage message) {
         // no message forward when in chat room
         Log.i("dcz","onMessageBubbleLongClick"+message.ext());
+        typeSelect = message.getType();
+        messageDownLoad = message;
         if(EaseConstant.MESSAGE_ATTR_SELECT==false){
             startActivityForResult((new Intent(getActivity(), ContextMenuActivity.class)).putExtra("message", message)
                             .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),

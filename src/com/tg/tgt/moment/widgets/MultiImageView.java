@@ -44,8 +44,13 @@ public class MultiImageView extends LinearLayout {
 	private LayoutParams rowPara;
 
 	private OnItemClickListener mOnItemClickListener;
+	private OnItemLongClickListener mOnItemLongClickListener;
 	public void setOnItemClickListener(OnItemClickListener onItemClickListener){
 		mOnItemClickListener = onItemClickListener;
+	}
+
+	public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener){
+		mOnItemLongClickListener = onItemLongClickListener;
 	}
 
 	public MultiImageView(Context context) {
@@ -240,7 +245,28 @@ public class MultiImageView extends LinearLayout {
 		}
 	}
 
+	private class ImageOnLongClickListeber implements View.OnLongClickListener{
+
+		private int position;
+		public ImageOnLongClickListeber(int position){
+			this.position = position;
+		}
+
+		@Override
+		public boolean onLongClick(View v) {
+			if(mOnItemLongClickListener != null){
+				mOnItemLongClickListener.onItemLongClick(v, position);
+			}
+			return false;
+		}
+	}
+
 	public interface OnItemClickListener{
 		public void onItemClick(View view, int position);
 	}
+
+	public interface OnItemLongClickListener{
+		public void onItemLongClick(View view, int position);
+	}
+
 }
