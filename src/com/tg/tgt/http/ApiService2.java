@@ -105,9 +105,9 @@ public interface ApiService2 {
                                                  @Part("sex") RequestBody sex, @Part("age") RequestBody age,
                                                  @Part("address") RequestBody address);
 
-    @FormUrlEncoded
-    @POST("api/user/modify")
-    Observable<HttpResult<CollectBean>>collection(@Field("paramsList") List<CollectItem> list);
+    @Multipart
+    @POST("api/collection/addCollectionMessage")
+    Observable<HttpResult<CollectBean>>collection(@Part List<MultipartBody.Part> part);
 
 
     @FormUrlEncoded

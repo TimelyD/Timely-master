@@ -59,7 +59,9 @@ public class EaseConversationListFragment extends EaseBaseFragment{
 		}
     	
     };
-    
+
+    public static Handler mCollectEHandler;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(com.hyphenate.easeui.R.layout.ease_fragment_conversation_list, container, false);

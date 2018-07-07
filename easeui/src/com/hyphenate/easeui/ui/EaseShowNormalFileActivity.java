@@ -1,6 +1,9 @@
 package com.hyphenate.easeui.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -8,6 +11,7 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.util.FileUtils;
 
 import java.io.File;
@@ -27,6 +31,7 @@ public class EaseShowNormalFileActivity extends EaseBaseActivity {
             finish();
             return;
         }
+        Log.e("Tag","路劲eeeeeeeeee"+((EMFileMessageBody)message.getBody()).getLocalUrl()+"Easycooo"+EaseConstant.isCollection);
         final File file = new File(((EMFileMessageBody)message.getBody()).getLocalUrl());
 
         message.setMessageStatusCallback(new EMCallBack() {
@@ -34,7 +39,14 @@ public class EaseShowNormalFileActivity extends EaseBaseActivity {
             public void onSuccess() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        FileUtils.openFile(file, EaseShowNormalFileActivity.this);
+                        Log.e("Tag","路劲eeeeeeeeee成功");
+                        if (EaseConstant.isCollection) {
+                            Intent mItent = new Intent();
+                            mItent.putExtra("msg",message);
+                            setResult(100, mItent);
+                        }else {
+                            FileUtils.openFile(file, EaseShowNormalFileActivity.this);
+                        }
                         finish();
                     }
                 });
@@ -49,6 +61,12 @@ public class EaseShowNormalFileActivity extends EaseBaseActivity {
                             file.delete();
                         String str4 = getResources().getString(com.hyphenate.easeui.R.string.Failed_to_download_file);
                         Toast.makeText(EaseShowNormalFileActivity.this, str4+message, Toast.LENGTH_SHORT).show();
+                        if (EaseConstant.isCollection) {
+                            Intent mItent = new Intent();
+                            mItent.putExtra("msg",message);
+                            setResult(101, mItent);
+                        }
+                        Log.e("Tag","路劲eeeeeeeeeefffffff");
                         finish();
                     }
                 });
@@ -65,4 +83,6 @@ public class EaseShowNormalFileActivity extends EaseBaseActivity {
         });
         EMClient.getInstance().chatManager().downloadAttachment(message);
 	}
+
+
 }

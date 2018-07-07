@@ -21,7 +21,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -32,7 +31,6 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.utils.EaseLoadLocalBigImgTask;
-import com.hyphenate.easeui.utils.SavePicUtil;
 import com.hyphenate.easeui.widget.photoview.EasePhotoView;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.ImageUtils;
@@ -83,10 +81,10 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 				} else {
 					task.execute();
 				}
-				SavePicUtil.saveUrl(image,EaseShowBigImageActivity.this,uri.getPath());
+			//	SavePicUtil.saveUrl(image,EaseShowBigImageActivity.this,uri.getPath());
 			} else {
 				image.setImageBitmap(bitmap);
-				SavePicUtil.save(image,EaseShowBigImageActivity.this,bitmap);
+				//SavePicUtil.save(image,EaseShowBigImageActivity.this,bitmap);
 			}
 		} else if(msgId != null) {
 		    downloadImage(msgId);
