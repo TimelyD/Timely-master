@@ -29,6 +29,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -54,6 +55,8 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 	public static boolean isPlaying = false;
 	public static EaseChatRowVoicePlayClickListener currentPlayListener = null;
 	public static String playMsgId;
+
+	private int voiceModel;
 
 	public EaseChatRowVoicePlayClickListener(EMMessage message, ImageView v, ImageView iv_read_status, BaseAdapter adapter, Activity context) {
 		this.message = message;
@@ -84,6 +87,28 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		adapter.notifyDataSetChanged();
 	}
 
+	public void setModelVoice(int flag){
+		voiceModel = flag;
+		AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+		switch (flag){
+			case 0://默认扬声器
+				audioManager.setMode(AudioManager.MODE_NORMAL);
+				audioManager.setSpeakerphoneOn(true);
+				break;
+			case 1://听筒模式
+				audioManager.setSpeakerphoneOn(false);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+					audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+				} else {
+					audioManager.setMode(AudioManager.MODE_IN_CALL);
+				}
+				break;
+			case 2://耳机模式
+				audioManager.setSpeakerphoneOn(false);
+				break;
+		}
+	}
+
 	public void playVoice(String filePath) {
 		if (!(new File(filePath).exists())) {
 			return;
@@ -92,16 +117,33 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
 
 		mediaPlayer = new MediaPlayer();
-		if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
-			audioManager.setMode(AudioManager.MODE_NORMAL);
-			audioManager.setSpeakerphoneOn(true);
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
-		} else {
-			audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-			// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-			audioManager.setMode(AudioManager.MODE_IN_CALL);
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+		//if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
+		switch (voiceModel){
+			case 0:
+				audioManager.setMode(AudioManager.MODE_NORMAL);
+				audioManager.setSpeakerphoneOn(true);
+				break;
+			case 1:
+				audioManager.setSpeakerphoneOn(false);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+					audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+				} else {
+					audioManager.setMode(AudioManager.MODE_IN_CALL);
+				}
+				break;
+			case 2:
+				audioManager.setSpeakerphoneOn(false);
+				break;
 		}
+//			audioManager.setMode(AudioManager.MODE_NORMAL);
+//			audioManager.setSpeakerphoneOn(true);
+//			mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+//		//} else {
+//			audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+//			// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+//			audioManager.setMode(AudioManager.MODE_IN_CALL);
+//			mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+	//	}
 		try {
 			mediaPlayer.setDataSource(filePath);
 			mediaPlayer.prepare();
