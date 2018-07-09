@@ -42,6 +42,7 @@ import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.PhoneUtil;
 import com.hyphenate.easeui.utils.SpUtils;
@@ -64,6 +65,7 @@ import com.tg.tgt.moment.widgets.CommentInputMenu;
 import com.tg.tgt.moment.widgets.CommentListView;
 import com.tg.tgt.ui.BaseActivity;
 import com.tg.tgt.ui.NewDynamicAct;
+import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.StatusBarUtil;
 import com.tg.tgt.utils.TakePhotoUtils;
 import com.tg.tgt.utils.ToastUtils;
@@ -432,7 +434,9 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         TextView nameTv = (TextView) header.findViewById(R.id.tv_name);
         nameTv.setText(mUserInfo.safeGetRemark());
         ImageView avatarIv = (ImageView) header.findViewById(R.id.iv_avatar);
-        GlideApp.with(mActivity).load(mUserInfo.getAvatar()).placeholder(R.drawable.default_avatar).into(avatarIv);
+ //       GlideApp.with(mActivity).load(mUserInfo.getAvatar()).placeholder(R.drawable.default_avatar).into(avatarIv);
+        ImageUtils.show(MomentAct.this, SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext,
+                Constant.HEADIMAGE), R.drawable.photo1, avatarIv);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter.setPresenter(mPresenter);

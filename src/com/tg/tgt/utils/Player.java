@@ -32,6 +32,7 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
     private ImageButton playBt;
 
     private boolean isPlaying;
+    private boolean isOut;
 
     public Player(String videoUrl, SeekBar skbProgress, TextView textView, ImageButton playBt) {
         this.skbProgress = skbProgress;
@@ -39,11 +40,21 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
         this.videoUrl = videoUrl;
         this.playBt = playBt;
         isPlaying = false;
+        isOut = false;
         try {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setOnBufferingUpdateListener(this);
             mediaPlayer.setOnPreparedListener(this);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    Log.e("mediaPlayer", "onCompletion播放完了");
+                    isPlaying = false;
+                    isOut = true;
+                    handleProgress.sendEmptyMessage(1);
+                }
+            });
         } catch (Exception e) {
             Log.e("mediaPlayer", "error", e);
         }
@@ -67,15 +78,33 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
 
     Handler handleProgress = new Handler() {
         public void handleMessage(Message msg) {
-            int position = mediaPlayer.getCurrentPosition();
-            int duration = mediaPlayer.getDuration();
-            if (duration > 0) {
-                long pos = skbProgress.getMax() * position / duration;
-                skbProgress.setProgress((int) pos);
-                timeText.setText(longToString((long) position));
+            switch (msg.what) {
+                case 0:
+                int position = mediaPlayer.getCurrentPosition();
+                int duration = mediaPlayer.getDuration();
+                if (duration > 0) {
+                    long pos = skbProgress.getMax() * position / duration;
+                    skbProgress.setProgress((int) pos);
+                    timeText.setText(longToString((long) position));
+                }
+                break;
+                case 1:
+                    int position1 = mediaPlayer.getCurrentPosition();
+                    int duration1 = mediaPlayer.getDuration();
+                    if (duration1 > 0) {
+                        long pos = skbProgress.getMax() * position1 / duration1;
+                        skbProgress.setProgress((int) pos);
+                        timeText.setText(longToString((long) position1));
+                    }
+                    playBt.setBackgroundResource(R.drawable.pauseing);
+                    break;
             }
         };
     };
+
+    public boolean isOut() {
+        return isOut;
+    }
 
     /**
      * 来电话了
@@ -86,6 +115,7 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
             mediaPlayer.stop();
         }
     }
+
 
     /**
      * 通话结束
@@ -101,6 +131,7 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
      * 播放
      */
     public void play() {
+        isPlaying = true;
         playNet(0);
         playBt.setBackgroundResource(R.drawable.playing);
     }
@@ -109,6 +140,8 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
      * 重播
      */
     public void replay() {
+        isPlaying = true;
+        isOut = false;
         playBt.setBackgroundResource(R.drawable.playing);
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.seekTo(0);// 从开始位置开始播放音乐
@@ -170,9 +203,7 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
 
     @Override
     public void onCompletion(MediaPlayer arg0) {
-        Log.e("mediaPlayer", "onCompletion");
-        isPlaying = false;
-        playBt.setBackgroundResource(R.drawable.pauseing);
+
     }
 
     @Override
@@ -200,6 +231,7 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
         }
     }
 
+
     private final class MyPreparedListener implements
             android.media.MediaPlayer.OnPreparedListener {
         private int playPosition;
@@ -215,6 +247,7 @@ public class Player implements MediaPlayer.OnBufferingUpdateListener, MediaPlaye
                 mediaPlayer.seekTo(playPosition);
             }
         }
+
     }
 
     public static String longToString(Long time){

@@ -358,6 +358,7 @@ private int type ;
 //        }
         builder.addFormDataPart("fromUid", contextMenuMessage.getFrom());
         builder.addFormDataPart("type",String.valueOf(type));
+        builder.addFormDataPart("isFrom","1");
         if (type == 5){
             builder.addFormDataPart("content",((EMTextMessageBody) contextMenuMessage.getBody()).getMessage());
         }

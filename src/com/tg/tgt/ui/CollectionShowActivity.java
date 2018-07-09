@@ -170,13 +170,16 @@ public class CollectionShowActivity extends BaseActivity {
                     }
                 }
                 if (collectionItemModel.getType() == 3){
-                    if (musicPlayer != null) {
-                        if (musicPlayer.getPlaying()) {
-                            // player.setPlaying(false);
-                            musicPlayer.pause();
-                        } else {
-                            musicPlayer.setPlaying(true);
-                            musicPlayer.play();
+                    if (musicPlayer.isOut()){
+                        musicPlayer.replay();
+                    }else {
+                        if (musicPlayer != null) {
+                            if (musicPlayer.getPlaying()) {
+                                musicPlayer.pause();
+                            } else {
+                                musicPlayer.setPlaying(true);
+                                musicPlayer.play();
+                            }
                         }
                     }
                 }

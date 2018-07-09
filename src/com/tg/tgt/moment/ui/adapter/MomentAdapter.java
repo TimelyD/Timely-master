@@ -262,7 +262,6 @@ public class MomentAdapter extends BaseMomentAdapter {
                 } else {
                     holder.multiImageView.setVisibility(View.GONE);
                 }
-
                 break;
             case CircleItem.TYPE_AD:
                 AdHolder adHolder = (AdHolder) helper;
