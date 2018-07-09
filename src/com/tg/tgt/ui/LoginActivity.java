@@ -12,15 +12,11 @@
  * limitations under the License.
  */
 package com.tg.tgt.ui;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Selection;
 import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -36,20 +32,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
-import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.SpUtils;
-import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.tg.tgt.App;
@@ -59,7 +49,6 @@ import com.tg.tgt.R;
 import com.tg.tgt.db.DemoDBManager;
 import com.tg.tgt.helper.DBManager;
 import com.tg.tgt.http.ApiManger2;
-import com.tg.tgt.http.ApiService2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
@@ -72,13 +61,11 @@ import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -86,7 +73,6 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import com.hyphenate.easeui.GlideApp;
 /**
  * Login screen
  *
@@ -391,10 +377,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(@NonNull Object o) throws Exception {
-                        Intent intent = new Intent(LoginActivity.this,
-                                MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
-
+                        App.sf.edit().putBoolean("first",false).commit();
                         finish();
                     }
                 }, new Consumer<Throwable>() {

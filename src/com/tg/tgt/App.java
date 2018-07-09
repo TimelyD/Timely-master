@@ -53,6 +53,7 @@ public class App extends EaseApp {
 	public static String xin="******";
 	private static App instance;
 	public static List<PicBean> pic=new ArrayList<>();
+	public static boolean first=true;//是否为第一次登录
 
 	/**
 	 * 通过这个值来判断是否需要刷新通讯录，如果为空则不刷新

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
+import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.DemoHelper;
 import com.hyphenate.easeui.utils.PhoneUtil;
@@ -24,19 +25,15 @@ import java.util.Locale;
  *
  */
 public class SplashActivity extends BaseActivity {
-
 	private static final int sleepTime = 2000;
-
 	@Override
 	protected void onCreate(Bundle arg0) {
 		changeLan();
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(com.tg.tgt.R.layout.em_activity_splash);
 		super.onCreate(arg0);
-
 		RelativeLayout rootLayout = (RelativeLayout) findViewById(com.tg.tgt.R.id.splash_root);
 		TextView versionText = (TextView) findViewById(com.tg.tgt.R.id.tv_version);
-
 		versionText.setText(getVersion());
 		AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
 		animation.setDuration(1500);
@@ -46,43 +43,43 @@ public class SplashActivity extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-
-		new Thread(new Runnable() {
-			public void run() {
-				if (DemoHelper.getInstance().isLoggedIn()) {
-					// auto login mode, make sure all group and conversation is loaed before enter the main screen
-					long start = System.currentTimeMillis();
-					EMClient.getInstance().chatManager().loadAllConversations();
-					EMClient.getInstance().groupManager().loadAllGroups();
-					long costTime = System.currentTimeMillis() - start;
-					//wait
-					if (sleepTime - costTime > 0) {
-						try {
-							Thread.sleep(sleepTime - costTime);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+		/*if(App.sf.getBoolean("first",true)){
+			Intent intent = new Intent(SplashActivity.this, WelcomeActivity.class);
+			startActivity(intent);
+		}else */{
+			new Thread(new Runnable() {
+				public void run() {
+					if (DemoHelper.getInstance().isLoggedIn()) {
+						// 自动登录模式，确保所有组和对话在进入主屏幕前都被删除。
+						long start = System.currentTimeMillis();
+						EMClient.getInstance().chatManager().loadAllConversations();
+						EMClient.getInstance().groupManager().loadAllGroups();
+						long costTime = System.currentTimeMillis() - start;
+						//等待
+						if (sleepTime - costTime > 0) {
+							try {
+								Thread.sleep(sleepTime - costTime);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
+						String topActivityName = EasyUtils.getTopActivityName(EMClient.getInstance().getContext());
+						if (topActivityName != null && (topActivityName.equals(VideoCallActivity.class.getName()) || topActivityName.equals(VoiceCallActivity.class.getName()))) {
+						} else {
+							startActivity(new Intent(SplashActivity.this, MainActivity.class));
+						}
+						finish();
+					}else {
+						try {
+							Thread.sleep(sleepTime);
+						} catch (InterruptedException e) {
+						}
+						startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+						finish();
 					}
-					String topActivityName = EasyUtils.getTopActivityName(EMClient.getInstance().getContext());
-					if (topActivityName != null && (topActivityName.equals(VideoCallActivity.class.getName()) || topActivityName.equals(VoiceCallActivity.class.getName()))) {
-						// nop
-						// avoid main screen overlap Calling Activity
-					} else {
-						//enter main screen
-						startActivity(new Intent(SplashActivity.this, MainActivity.class));
-					}
-					finish();
-				}else {
-					try {
-						Thread.sleep(sleepTime);
-					} catch (InterruptedException e) {
-					}
-					startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-					finish();
 				}
-			}
-		}).start();
-
+			}).start();
+		}
 	}
 	
 	/**

@@ -159,6 +159,7 @@ dependencies {
 
 //    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
 //    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile project(path: ':ShortcutBadger')
     compile 'com.android.support:multidex:1.0.1'
     compile 'me.tangke.slidemenu:slidemenu:1.1.0'
     compile 'org.greenrobot:greendao:3.2.2'
@@ -171,5 +172,4 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
-    compile project(path: ':ShortcutBadger')
 }

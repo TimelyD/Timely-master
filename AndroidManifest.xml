@@ -735,7 +735,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
         <activity android:name=".ui.MoveActivity" />
-        <activity android:name=".ui.GroupPickContacts2Activity"></activity>
+        <activity android:name=".ui.GroupPickContacts2Activity" />
+        <activity android:name=".ui.WelcomeActivity"></activity>
     </application>
 
 </manifest>
