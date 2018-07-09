@@ -90,4 +90,7 @@ public class Constant extends EaseConstant {
 	public static final String MEMBERS = "members";
 	public static final String EXTRA_CONFERENCE_IS_VIDEO = "extra_conference_is_video";
 	public static final int MEMBERS_SIZE = 7;
+
+	public static  boolean insetMusic = false;
+
 }
