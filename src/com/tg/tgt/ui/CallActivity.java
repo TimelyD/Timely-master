@@ -376,15 +376,18 @@ public class CallActivity extends BaseActivity {
             return -1;
         }
     }
-
     protected void openSpeakerOn() {
-        try {
-            if (!audioManager.isSpeakerphoneOn())
-                audioManager.setSpeakerphoneOn(true);
-            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        boolean state = audioManager.isWiredHeadsetOn();
+       /* if(state==true){
+        }else{*/
+            try {
+                if (!audioManager.isSpeakerphoneOn())
+                    audioManager.setSpeakerphoneOn(true);
+                audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+       // }
     }
 
     protected void closeSpeakerOn() {

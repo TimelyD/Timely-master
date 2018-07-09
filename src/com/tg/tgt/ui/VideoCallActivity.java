@@ -747,7 +747,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
 ////        valueAnimator.setDuration(2000);
 ////        valueAnimator.start();
 //    }
-
+    private boolean state;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -757,7 +757,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 EMLog.d(TAG, "btn_answer_call clicked");
                 mVibrator.cancel();
                 answerBtn.setEnabled(false);
-                openSpeakerOn();
+                //openSpeakerOn();
                 if (ringtone != null)
                     ringtone.stop();
 
@@ -771,6 +771,15 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 voiceContronlLayout.setVisibility(View.VISIBLE);
                 localSurface.setVisibility(View.VISIBLE);
                 findViewById(R.id.call_control_layout).setVisibility(View.VISIBLE);
+                state = audoManager.isWiredHeadsetOn();
+               /* if(state==true){
+                    handsFreeImage.setImageResource(R.drawable.t_speaker);
+                    mTvHandsFree.setTextColor(ContextCompat.getColor(App.applicationContext, R.color.half_white));
+                    closeSpeakerOn();
+                    isHandsfreeState = false;
+                }else {
+                    openSpeakerOn();
+                }*/
                 break;
             case R.id.refuse_call_layout: // decline the call
                 mVibrator.cancel();
@@ -823,9 +832,9 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 }
                 break;
             case R.id.btn_handsfree: // handsfree
-                boolean state = audoManager.isWiredHeadsetOn();
+                state = audoManager.isWiredHeadsetOn();
                 Log.i("ddd",state+"");
-               /* if(state==true){
+                /*if(state==true){
                 }else{*/
                     if (isHandsfreeState) {
 //                    if (isHasVideo) {

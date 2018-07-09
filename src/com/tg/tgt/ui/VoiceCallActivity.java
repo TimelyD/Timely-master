@@ -472,7 +472,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
 		case R.id.iv_handsfree:
             boolean state = audoManager.isWiredHeadsetOn();
             Log.i("ddd",state+"");
-            /*if(state==true){
+           /* if(state==true){
             }else {*/
                 if (isHandsfreeState) {
                     handsFreeImage.setImageResource(R.drawable.t_speaker);
@@ -485,7 +485,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                     openSpeakerOn();
                     isHandsfreeState = true;
                 }
-           // }
+            //}
 			break;
 		default:
 			break;
