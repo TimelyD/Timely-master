@@ -125,6 +125,7 @@ public class MomentAdapter extends BaseMomentAdapter {
                     String username = circleItem.getUsername();
                     String userId = circleItem.getUserId();
     //                Toast.makeText(mContext, userName + " &id = " + userId, Toast.LENGTH_SHORT).show();
+                    Log.e("Tag","11");
                     if (R.layout.adapter_circle_item == res)
                         toHomePage(username, userId);
                 }
@@ -262,7 +263,6 @@ public class MomentAdapter extends BaseMomentAdapter {
                 } else {
                     holder.multiImageView.setVisibility(View.GONE);
                 }
-
                 break;
             case CircleItem.TYPE_AD:
                 AdHolder adHolder = (AdHolder) helper;

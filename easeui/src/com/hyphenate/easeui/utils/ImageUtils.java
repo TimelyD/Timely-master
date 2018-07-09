@@ -25,7 +25,7 @@ public class ImageUtils {
      * @param imageView
      */
     public static void show(Context context, String url, @DrawableRes int holder, final ImageView imageView) {
-        GlideApp.with(context).load(url).placeholder(holder).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(new SimpleTarget<Drawable>() {
+        GlideApp.with(context).load(url).placeholder(holder).diskCacheStrategy(DiskCacheStrategy.ALL).into(new SimpleTarget<Drawable>() {
             @Override
             public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
                 imageView.setImageDrawable(resource);

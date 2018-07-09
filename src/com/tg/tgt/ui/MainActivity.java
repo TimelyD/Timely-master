@@ -106,6 +106,7 @@ import com.uuzuche.lib_zxing.activity.QrCodeUtils;
 import java.util.List;
 import java.util.Map;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import me.tangke.slidemenu.SlideMenu;
 
 @SuppressLint("NewApi")
@@ -631,6 +632,7 @@ public class MainActivity extends BaseActivity {
             unregisterReceiver(internalDebugReceiver);
         } catch (Exception e) {
         }
+		ShortcutBadger.removeCount(MainActivity.this);
 		mScreenListener.stopScreenReceiverListener();
         //如有错误删除掉，环信本身没有添加，自己添加以免内存泄漏的
         if(mMyContactListener != null)
@@ -645,7 +647,9 @@ public class MainActivity extends BaseActivity {
 		if (count > 0) {
 			unreadLabel.setText(CodeUtils.getUnreadCount(count));
 			unreadLabel.setVisibility(View.VISIBLE);
+			ShortcutBadger.applyCount(MainActivity.this,Integer.valueOf(CodeUtils.getUnreadCount(count)));
 		} else {
+			ShortcutBadger.removeCount(MainActivity.this);
 			unreadLabel.setVisibility(View.INVISIBLE);
 		}
 	}

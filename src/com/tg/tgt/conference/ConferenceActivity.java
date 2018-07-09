@@ -471,7 +471,8 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
         memberView.setLayoutParams(params);
         callConferenceViewGroup.addView(memberView);
 //        memberView.setUser(stream.getUsername());
-        memberView.setGroupUser(GroupManger.getGroupUsers(groupId).get(stream.getUsername()));
+        if (GroupManger.getGroupUsers(groupId) != null)
+            memberView.setGroupUser(GroupManger.getGroupUsers(groupId).get(stream.getUsername()));
         memberView.setPubOrSub(false);
         //设置 view 点击监听
         /*memberView.setOnClickListener(new View.OnClickListener() {
@@ -910,10 +911,14 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
             public void run() {
                 allUsers.remove(from);
                 if (mComingCallLayout.getVisibility() == View.VISIBLE) {
-                    //对方取消来电，来电状态下挂断
-                    Toast.makeText(mContext, String.format("%s已取消通话", GroupManger.getGroupUsers(groupId).get(from)
-                                    .getNickname()),
-                            Toast.LENGTH_SHORT).show();
+                    if (GroupManger.getGroupUsers(groupId) == null) {
+                        //对方取消来电，来电状态下挂断
+                        Toast.makeText(mContext, "已取消通话", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(mContext, String.format("%s已取消通话", GroupManger.getGroupUsers(groupId).get(from)
+                                        .getNickname()),
+                                Toast.LENGTH_SHORT).show();
+                    }
                     if (allUsers.size() < 1)
                         onBackPressed();
                 }

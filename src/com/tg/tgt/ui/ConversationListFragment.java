@@ -138,6 +138,7 @@ public class ConversationListFragment extends EaseConversationListFragment {
 //        }
                         builder.addFormDataPart("filePath",msg.obj.toString());
                         builder.addFormDataPart("fromUid", MomentAct.isFromId);
+                        builder.addFormDataPart("isFrom","2");
                         builder.addFormDataPart("type",String.valueOf(2));
                         ApiManger2.getApiService()
                                 .collection(builder.build().parts())

@@ -38,7 +38,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.gyf.barlibrary.ImmersionBar;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
@@ -84,7 +86,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-
+import com.hyphenate.easeui.GlideApp;
 /**
  * Login screen
  *
@@ -152,10 +154,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 String nickname = str.substring(str.lastIndexOf("-")+1);
 //                            Glide.with(LoginActivity.this).load(picture).placeholder(R.drawable.youhead).into(mHeadIv);
                                 Log.e("Tag",url);
-                                ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
+                                ImageUtils.show(LoginActivity.this, SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext,
+                                        Constant.HEADIMAGE), R.drawable.photo1, mHeadIv);
+                              //  ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
                                 mNickNameTv.setText(nickname);
                             } catch (Exception e) {
                                 e.printStackTrace();
+                         //       ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
                                 Glide.with(LoginActivity.this).load(R.drawable.youhead).into(mHeadIv);
                                 mNickNameTv.setText(R.string.login);
                             }
