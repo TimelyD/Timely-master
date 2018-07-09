@@ -13,6 +13,7 @@
  */
 package com.tg.tgt.ui;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.hardware.Camera;
 import android.media.AudioManager;
@@ -117,7 +118,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
     private ImageView mIvInvite;
     private EMCallSurfaceView localSurface;
     private EMCallSurfaceView oppositeSurface;
-
+    private AudioManager audoManager;
     // dynamic adjust brightness
     class BrightnessDataProcess implements EMCameraDataProcessor {
         byte yDelta = 0;
@@ -151,7 +152,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
             return;
         }
         setContentView(R.layout.em_activity_video_call);
-
+        audoManager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         DemoHelper.getInstance().isVideoCalling = true;
         callType = 1;
 
@@ -425,7 +426,6 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                     case ACCEPTED: // call is accepted
                         handler.removeCallbacks(timeoutHangup);
                         runOnUiThread(new Runnable() {
-
                             @Override
                             public void run() {
                                 try {
@@ -823,8 +823,11 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 }
                 break;
             case R.id.btn_handsfree: // handsfree
-                if (isHandsfreeState) {
-                    // turn off speaker
+                boolean state = audoManager.isWiredHeadsetOn();
+                Log.i("ddd",state+"");
+               /* if(state==true){
+                }else{*/
+                    if (isHandsfreeState) {
 //                    if (isHasVideo) {
                         handsFreeImage.setImageResource(R.drawable.t_speaker);
                         mTvHandsFree.setTextColor(ContextCompat.getColor(App.applicationContext, R.color.half_white));
@@ -832,14 +835,15 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
 //                        handsFreeImage.setImageResource(R.drawable.speaker_gray);
 //                        mTvHandsFree.setTextColor(noVideoColor);
 //                    }
-                    closeSpeakerOn();
-                    isHandsfreeState = false;
-                } else {
-                    handsFreeImage.setImageResource(R.drawable.t_speaker_white);
-                    mTvHandsFree.setTextColor(ContextCompat.getColor(App.applicationContext, R.color.white));
-                    openSpeakerOn();
-                    isHandsfreeState = true;
-                }
+                        closeSpeakerOn();
+                        isHandsfreeState = false;
+                    } else {
+                        handsFreeImage.setImageResource(R.drawable.t_speaker_white);
+                        mTvHandsFree.setTextColor(ContextCompat.getColor(App.applicationContext, R.color.white));
+                        openSpeakerOn();
+                        isHandsfreeState = true;
+                    }
+               // }
                 break;
         /*
         case R.id.btn_record_video: //record the video

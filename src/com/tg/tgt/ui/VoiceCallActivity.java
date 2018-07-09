@@ -14,6 +14,7 @@
 
 package com.tg.tgt.ui;
 
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.media.SoundPool;
@@ -90,10 +91,9 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
         	return;
         }
 		setContentView(R.layout.em_activity_voice_call);
-		
 		DemoHelper.getInstance().isVoiceCalling = true;
 		callType = 0;
-
+        audoManager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         comingBtnContainer = (LinearLayout) findViewById(R.id.ll_coming_call);
 		refuseBtn =  findViewById(R.id.btn_refuse_call);
 		answerBtn =  findViewById(R.id.btn_answer_call);
@@ -415,12 +415,13 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                         super.onFaild(code, message);
                     }
                 });
-    }
+        }
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btn_refuse_call:
+        private AudioManager audoManager;
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_refuse_call:
 		    if(isInComingCall) {
                 isRefused = true;
                 refuseBtn.setEnabled(false);
@@ -469,17 +470,22 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
 			}
 			break;
 		case R.id.iv_handsfree:
-			if (isHandsfreeState) {
-				handsFreeImage.setImageResource(R.drawable.t_speaker);
-                mTvHandsFree.setTextColor(ContextCompat.getColor(mContext, R.color.half_white));
-				closeSpeakerOn();
-				isHandsfreeState = false;
-			} else {
-				handsFreeImage.setImageResource(R.drawable.t_speaker_white);
-                mTvHandsFree.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-				openSpeakerOn();
-				isHandsfreeState = true;
-			}
+            boolean state = audoManager.isWiredHeadsetOn();
+            Log.i("ddd",state+"");
+            /*if(state==true){
+            }else {*/
+                if (isHandsfreeState) {
+                    handsFreeImage.setImageResource(R.drawable.t_speaker);
+                    mTvHandsFree.setTextColor(ContextCompat.getColor(mContext, R.color.half_white));
+                    closeSpeakerOn();
+                    isHandsfreeState = false;
+                } else {
+                    handsFreeImage.setImageResource(R.drawable.t_speaker_white);
+                    mTvHandsFree.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+                    openSpeakerOn();
+                    isHandsfreeState = true;
+                }
+           // }
 			break;
 		default:
 			break;

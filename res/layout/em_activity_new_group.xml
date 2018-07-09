@@ -39,14 +39,13 @@
             android:paddingBottom="@dimen/common.10dp"
             android:textColorHint="@color/tx_black_1"
             android:minLines="2"
+            android:maxLength="10"
             android:maxLines="5"
             android:gravity="top"
             android:textSize="@dimen/tx_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_group_name"
-            />
-
+            android:id="@+id/edit_group_name" />
         <EditText
             android:id="@+id/edit_group_introduction"
             android:layout_width="match_parent"
