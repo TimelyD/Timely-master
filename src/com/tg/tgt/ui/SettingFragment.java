@@ -210,8 +210,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void init() {
-        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext,
-                Constant.HEADIMAGE), R.drawable.photo1, ivhead);
+        ImageUtils.show(getContext(), SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.HEADIMAGE), R.drawable.photo1, ivhead);
 //        Glide.with(this).load(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant
 // .HEADIMAGE))/*.diskCacheStrategy(DiskCacheStrategy.RESULT)*/.into(mHeadIv);
         tvname.setText(SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
