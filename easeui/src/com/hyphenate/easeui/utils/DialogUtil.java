@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.easeui.R;
@@ -39,8 +40,8 @@ public class DialogUtil {
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
 
-        TextView video = (TextView) view.findViewById(R.id.tv1);
-        TextView voice = (TextView) view.findViewById(R.id.tv2);
+        RelativeLayout video = (RelativeLayout) view.findViewById(R.id.rl1);
+        RelativeLayout voice = (RelativeLayout) view.findViewById(R.id.rl2);
         TextView cancle = (TextView) view.findViewById(R.id.cancle);
 
         video.setOnClickListener(new View.OnClickListener() {

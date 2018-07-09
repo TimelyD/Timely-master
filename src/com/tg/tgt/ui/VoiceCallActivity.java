@@ -421,7 +421,6 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_refuse_call:
-            mVibrator.cancel();
 		    if(isInComingCall) {
                 isRefused = true;
                 refuseBtn.setEnabled(false);
@@ -437,7 +436,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
             handler.sendEmptyMessage(MSG_CALL_END);
 			break;
 		case R.id.btn_answer_call:
-
+            mVibrator.cancel();
 		    answerBtn.setEnabled(false);
 		    closeSpeakerOn();
 //            callStateTextView.setText("正在接听...");

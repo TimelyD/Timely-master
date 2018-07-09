@@ -11,6 +11,7 @@
         android:background="@color/bg_t"
         android:orientation="vertical">
         <RelativeLayout
+            android:id="@+id/rl1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common.50dp"
             android:background="@color/white"
@@ -26,7 +27,6 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/voice3"/>
                 <TextView
-                    android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -43,6 +43,7 @@
             android:background="@color/divider_t">
         </View>
         <RelativeLayout
+            android:id="@+id/rl2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common.50dp"
             android:background="@color/white"
@@ -61,7 +62,6 @@
                     android:src="@drawable/voice4" />
 
                 <TextView
-                    android:id="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
