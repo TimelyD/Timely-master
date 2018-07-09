@@ -1123,6 +1123,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected void sendImageMessage(String imagePath) {
         try {
             File file = Luban.with(getActivity()).load(imagePath).setTargetDir(com.hyphenate.easeui.utils.PhotoUtils.getTempDirPath(getActivity())).get(imagePath);
+            Log.i("xxx",file.getPath()+"z");
             EMMessage message = EMMessage.createImageSendMessage(file.getPath(), false, toChatUsername);
             sendMessage(message);
         } catch (IOException e) {
@@ -1381,6 +1382,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             case IMAGE:
                 // send image
                 String filePath = ((EMImageMessageBody) forward_msg.getBody()).getLocalUrl();
+                Log.i("xxx",filePath+"1");
                 if (filePath != null) {
                     File file = new File(filePath);
                     if (!file.exists()) {

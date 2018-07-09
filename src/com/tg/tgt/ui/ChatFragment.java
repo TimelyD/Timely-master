@@ -4,12 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -663,7 +659,6 @@ private int type ;
         if(TextUtils.isEmpty(username)/* || username.equals(EMClient.getInstance().getCurrentUser())*/){
             return;
         }
-
         final Intent intent = new Intent(getActivity(), UserProfileActivity.class);
 
         if(chatType != EaseConstant.CHATTYPE_SINGLE){
@@ -674,8 +669,8 @@ private int type ;
                 return;
             }*/
             //TODO 群组点击头像都无效
-            if(true)
-                return;
+         /*   if(true)
+                return;*/
             try {
             String userId = GroupManger.getGroupUsers(toChatUsername).get(username).getUserId().toString();
             intent.putExtra("userId", userId);

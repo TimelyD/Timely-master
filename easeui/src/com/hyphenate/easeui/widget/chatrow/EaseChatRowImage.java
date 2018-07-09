@@ -116,6 +116,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
         
         String filePath = imgBody.getLocalUrl();
         String thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
+        Log.i("xxx2",filePath+"+"+thumbPath);
         showImageView(thumbPath, imageView, filePath, message);
         handleSendMessage();
     }
