@@ -121,8 +121,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 		//userNameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
 		nickNameEditText.setFilters(new InputFilter[]{CodeUtils.fil});
 		//codeEditText.setFilters(new InputFilter[]{CodeUtils.filter});
-		passwordEditText.setFilters(new InputFilter[]{CodeUtils.filter});
-		confirmPwdEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+		passwordEditText.setFilters(new InputFilter[]{CodeUtils.fil});
+		confirmPwdEditText.setFilters(new InputFilter[]{CodeUtils.fil});
 
 
 		setFocus(userNameEditText);

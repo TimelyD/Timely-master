@@ -201,7 +201,8 @@ public class CodeUtils {
     public static InputFilter fil=new InputFilter() {
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            if(source.equals(" ")||source.length()>20||source.equals("-")||source.toString().contentEquals("\n"))return "";
+            Log.i("zzz",source+"+"+start+"+"+end+"+"+dest+"+"+dstart+"+"+dend);
+            if(source.equals(" ")||dstart>19||source.equals("-")||source.toString().contentEquals("\n"))return "";
             else return null;
         }
     };

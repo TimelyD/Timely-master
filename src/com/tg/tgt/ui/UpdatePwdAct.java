@@ -60,7 +60,7 @@ public class UpdatePwdAct extends BaseActivity{
 
         etrepwd.setFilters(new InputFilter[]{CodeUtils.filter});
         etnewpwd.setFilters(new InputFilter[]{CodeUtils.filter});
-        etoldpwd.setFilters(new InputFilter[]{CodeUtils.filter});
+        etoldpwd.setFilters(new InputFilter[]{CodeUtils.fil});
 
 
 

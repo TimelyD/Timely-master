@@ -62,8 +62,8 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
         this.titlebar = (EaseTitleBar) findViewById(R.id.title_bar);
         this.nextbtn = (Button) findViewById(R.id.next_btn);
 
-        codeet.setFilters(new InputFilter[]{CodeUtils.filter});
-        emailet.setFilters(new InputFilter[]{CodeUtils.filter});
+        //codeet.setFilters(new InputFilter[]{CodeUtils.filter});
+        emailet.setFilters(new InputFilter[]{CodeUtils.fil});
 
         initSpinner();
 

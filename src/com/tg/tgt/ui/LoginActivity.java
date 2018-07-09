@@ -124,7 +124,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         passwordEditText = (EditText) findViewById(R.id.password);
         codeEditText = (EditText) findViewById(R.id.code_et);
         //usernameEditText.setFilters(new InputFilter[]{CodeUtils.filter});
-        passwordEditText.setFilters(new InputFilter[]{CodeUtils.filter});
+        passwordEditText.setFilters(new InputFilter[]{CodeUtils.fil});
         //codeEditText.setFilters(new InputFilter[]{CodeUtils.filter});
         mGetCodeBtn = (Button) findViewById(R.id.get_code_btn);
         mPwdTypeIv = (ImageView) findViewById(R.id.password_type_iv);
