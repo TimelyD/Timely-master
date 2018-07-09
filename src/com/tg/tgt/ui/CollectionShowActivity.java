@@ -1,10 +1,13 @@
 package com.tg.tgt.ui;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.text.Html;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiManger2;
@@ -142,19 +146,21 @@ public class CollectionShowActivity extends BaseActivity {
             case 5:
                 playRelative.setVisibility(View.GONE);
                 textRelative.setVisibility(View.VISIBLE);
-                if (!TextUtils.isEmpty(collectionItemModel.getContent()))
-                    textView.setText(collectionItemModel.getContent());
+                if (!TextUtils.isEmpty(collectionItemModel.getContent())) {
+                    Spannable span = EaseSmileUtils.getSmiledText(CollectionShowActivity.this, collectionItemModel.getContent());
+                    textView.setText(span, TextView.BufferType.SPANNABLE);
+                }
                 break;
         }
         if (!TextUtils.isEmpty(collectionItemModel.getFormUserName()))
             userName.setText(collectionItemModel.getFormUserName());
         if (!TextUtils.isEmpty(collectionItemModel.getCrtTime()))
             colletionTime.setText(collectionItemModel.getCrtTime());
-        if (!TextUtils.isEmpty(collectionItemModel.getUserPicture())) {
+     //   if (!TextUtils.isEmpty(collectionItemModel.getUserPicture())) {
             RoundedCorners roundedCorners= new RoundedCorners(6);
             RequestOptions options=RequestOptions.bitmapTransform(roundedCorners).override(120, 120);
             GlideApp.with(mActivity).load(collectionItemModel.getUserPicture()).apply(options).placeholder(R.drawable.default_avatar).into(userImage);
-        }
+    //    }
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -83,12 +83,6 @@
                 android:text="@string/delete_button"/>
 
         </RelativeLayout>
-        <com.classic.common.MultipleStatusView
-            android:id="@+id/status_layout"
-            app:emptyView="@layout/empty_collection"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/layout_bottom">
         <View
             android:id="@+id/line"
             android:layout_marginTop="@dimen/common.10dp"
@@ -96,7 +90,8 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/collection_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layout_bottom">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/collection_list"
@@ -104,6 +99,5 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white" />
         </android.support.v4.widget.SwipeRefreshLayout>
-        </com.classic.common.MultipleStatusView>
     </RelativeLayout>
 </LinearLayout>
