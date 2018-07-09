@@ -39,8 +39,6 @@ import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMFileMessageBody;
-import com.hyphenate.chat.EMGCMListenerService;
-import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.EMVideoMessageBody;
@@ -68,12 +66,10 @@ import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
 import com.tg.tgt.conference.ConferenceActivity;
 import com.tg.tgt.conference.ConferenceInviteJoinActivity;
-import com.tg.tgt.db.UserDao;
 import com.tg.tgt.domain.RobotUser;
 import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
-import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
@@ -82,7 +78,6 @@ import com.tg.tgt.widget.ChatRowVoiceCall;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -319,7 +314,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 return;
             }
             if(type==EMMessage.Type.TXT){
-                if(forward_msg.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+                if(forward_msg.getBooleanAttribute(EaseConstant.BUSSINES_ID, false)){
                     Toast.makeText(getActivity(),getActivity().getString(R.string.ti10),Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -598,7 +593,7 @@ private int type ;
                     message.setAttribute(Constant.BUSSINES_NAME,data.getStringExtra(Constant.BUSSINES_NAME));
                     message.setAttribute(Constant.BUSSINES_NUMBER,data.getStringExtra(Constant.BUSSINES_NUMBER));
                     message.setAttribute(Constant.BUSSINES_PIC,data.getStringExtra(Constant.BUSSINES_PIC));
-                    message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
+                    //message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
                     EMClient.getInstance().chatManager().sendMessage(message);
                     break;
                 default:
@@ -718,7 +713,7 @@ private int type ;
             startVideoCall();
             return true;
         }
-        if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES,false)==true){
+        if(message.getBooleanAttribute(Constant.BUSSINES_ID,false)==true){
             String id = message.getStringAttribute(Constant.BUSSINES_ID, null);
             String name=message.getStringAttribute(Constant.BUSSINES_NAME,null);
             Log.i("ddd",id+"+"+name);
@@ -924,7 +919,7 @@ private int type ;
                     //video call
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO_CALL :
                             MESSAGE_TYPE_SENT_VIDEO_CALL;
-                }else  if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+                }else  if(message.getBooleanAttribute(EaseConstant.BUSSINES_ID, false)){
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_RECV_BUSSINES :
                             MESSAGE_SENT_BUSSINES;
                 }

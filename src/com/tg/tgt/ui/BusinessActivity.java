@@ -64,7 +64,7 @@ public class BusinessActivity extends PickContactNoCheckboxActivity{
                         message.setAttribute(Constant.BUSSINES_NAME,getIntent().getStringExtra(Constant.BUSSINES_NAME));
                         message.setAttribute(Constant.BUSSINES_NUMBER,getIntent().getStringExtra(Constant.BUSSINES_NUMBER));
                         message.setAttribute(Constant.BUSSINES_PIC,getIntent().getStringExtra(Constant.BUSSINES_PIC));
-                        message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
+                        //message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
                         EMClient.getInstance().chatManager().sendMessage(message);
                         Toast.makeText(mContext,mContext.getString(R.string.ti11),Toast.LENGTH_LONG).show();
                         finish();

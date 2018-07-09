@@ -227,7 +227,7 @@ public class EaseMessageAdapter extends BaseAdapter {
             if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)) {
                 return MESSAGE_TYPE_INVITE_INTO_GROUP;
             }
-            if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+            if(message.getBooleanAttribute(EaseConstant.BUSSINES_ID, false)){
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_RECV_BUSSINES :
                         MESSAGE_SENT_BUSSINES;
             }
@@ -263,7 +263,7 @@ public class EaseMessageAdapter extends BaseAdapter {
             case TXT:
                 if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)) {
                     chatRow = new EaseChatRowBigExpression(context, message, position, this);
-                } else if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BUSSINES, false)){
+                } else if(message.getBooleanAttribute(EaseConstant.BUSSINES_ID, false)){
                     chatRow = new ChatRowBussines(context, message, position, this);
                 } else {
                     chatRow = new EaseChatRowText(context, message, position, this);
