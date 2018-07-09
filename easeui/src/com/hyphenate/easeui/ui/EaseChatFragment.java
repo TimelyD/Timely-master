@@ -1121,13 +1121,14 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
 
     protected void sendImageMessage(String imagePath) {
-        try {
-            File file = Luban.with(getActivity()).load(imagePath).setTargetDir(com.hyphenate.easeui.utils.PhotoUtils.getTempDirPath(getActivity())).get(imagePath);
+      //  try {
+            File file = new File(imagePath);
+       //     File file = Luban.with(getActivity()).load(imagePath).setTargetDir(com.hyphenate.easeui.utils.PhotoUtils.getTempDirPath(getActivity())).get(imagePath);
             EMMessage message = EMMessage.createImageSendMessage(file.getPath(), false, toChatUsername);
             sendMessage(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //} catch (IOException e) {
+         //   e.printStackTrace();
+       // }
     }
 
     protected void sendLocationMessage(double latitude, double longitude, String locationAddress) {

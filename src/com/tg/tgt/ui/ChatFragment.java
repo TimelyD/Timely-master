@@ -530,7 +530,7 @@ private int type ;
                 titleBar.setTitle(GroupManger.getGroup(toChatUsername).getGroupName());
         }else if (requestCode == COLLECT_DOWNLOAD){//收藏时没下载的情况
             if (resultCode == COLLECT_SUCCESS){
-                Log.e("Tag","下载后路径"+((EMFileMessageBody)((EMMessage)data.getParcelableExtra("msg")).getBody()).getLocalUrl());
+   //             Log.e("Tag","下载后路径"+((EMFileMessageBody)((EMMessage)data.getParcelableExtra("msg")).getBody()).getLocalUrl());
                 createBody(new File(((EMFileMessageBody)((EMMessage)data.getParcelableExtra("msg")).getBody()).getLocalUrl()),type);
             }
             if (resultCode == COLLECT_FAIL){

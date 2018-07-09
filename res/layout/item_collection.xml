@@ -18,7 +18,9 @@
         android:layout_height="@dimen/common.60dp"
         android:layout_toRightOf="@+id/delete_image"
         android:layout_marginLeft="@dimen/common.30dp"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:background="@drawable/collection_image_circle"/>
 
     <TextView
         android:id="@+id/item_title"

@@ -11,7 +11,8 @@
         android:layout_marginTop="5dip"
         android:background="@color/bg_t"
         android:orientation="horizontal"
-        android:padding="5dip" >
+        android:paddingRight="5dip"
+        android:paddingLeft="5dip">
 
         <ImageView
             android:id="@+id/urlImageIv"
