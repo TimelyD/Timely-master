@@ -49,9 +49,7 @@
                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ease_chat_video_call_receive" 
-                 />
-
+                android:src="@drawable/voice3" />
             <TextView
                 android:layout_toRightOf="@id/iv_call_icon"
                 android:id="@+id/tv_chatcontent"
