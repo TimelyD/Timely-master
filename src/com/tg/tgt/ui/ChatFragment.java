@@ -284,7 +284,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         collect.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 collect(1);
             }
         });
@@ -806,6 +805,7 @@ private int type ;
                 startVideoCall();
                 break;
             case ITEM_COLLECTION:
+                Toast.makeText(getActivity(),"开发中。。。",Toast.LENGTH_LONG).show();
                 break;
             case ITEM_BUSINESS:
                 startBusiness();
