@@ -18,6 +18,7 @@
             android:onClick="save"
             android:minWidth="@dimen/common.50dp"
             android:layout_alignParentRight="true"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
     </com.hyphenate.easeui.widget.EaseTitleBar>

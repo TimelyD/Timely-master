@@ -56,7 +56,7 @@
             android:background="@drawable/ease_common_tab_bg"
             android:onClick="sendLocation"
             android:text="@string/button_send"
-            android:textColor="@color/tx_black_1"
+            android:textColor="@color/white"
             android:textSize="@dimen/tx_3" />
     </com.hyphenate.easeui.widget.EaseTitleBar>
     

@@ -113,7 +113,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
     private String operationUserId = "";
 
-    private List<GroupUserModel> memberList = Collections.synchronizedList(new ArrayList<GroupUserModel>());
+    public static List<GroupUserModel> memberList = Collections.synchronizedList(new ArrayList<GroupUserModel>());
 
     GroupChangeListener groupChangeListener;
     private TextView mTvMemberCountTv;
@@ -1199,6 +1199,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                 button.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(true){
+                            return;
+                        }
                         //不是群主或管理员，无效
                         if (!isCurrentOwner(group) && !isCurrentAdmin(group)) {
                             return;

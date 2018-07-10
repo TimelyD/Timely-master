@@ -434,7 +434,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         View view = View.inflate(this, R.layout.dialog_beizhu, null);
         final EditText edittext = (EditText) view.findViewById(R.id.beizhu_et);
         edittext.setText(mEaseUser.safeGetRemark());
-        edittext.setFilters(new InputFilter[]{CodeUtils.filter});
+        edittext.setFilters(new InputFilter[]{CodeUtils.fter});
         CommonDialog.show(this, getString(R.string.set_beizhu), view, new CommonDialog.OnConfirmListener() {
             @Override
             public void onConfirm(AlertDialog dialog) {

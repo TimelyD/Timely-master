@@ -62,6 +62,7 @@ public class GroupPickContacts2Activity extends BaseActivity {
             existMembers = new ArrayList<String>();
         // get contact list
         final List<EaseUser> alluserList = new ArrayList<EaseUser>();
+       // List<GroupUserModel> list = GroupDetailsActivity2.memberList;
         for (EaseUser user : DemoHelper.getInstance().getContactList().values()) {
             if (!user.getUsername().equals(Constant.NEW_FRIENDS_USERNAME)
                     & !user.getUsername().equals(Constant.GROUP_USERNAME)
@@ -69,7 +70,7 @@ public class GroupPickContacts2Activity extends BaseActivity {
                     & !user.getUsername().equals(Constant.CHAT_ROBOT)
                     &existMembers.contains(user.getUsername())
                 //添加判断，如果这个用户已存在则不显示
-					/*& !existMembers.contains(user.getUsername())*/)
+					& !existMembers.contains(user.getUsername()))
                 alluserList.add(user);
         }
         Collections.sort(alluserList, new Comparator<EaseUser>() {
