@@ -1,6 +1,7 @@
 package com.tg.tgt.ui;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -13,12 +14,16 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.easeui.utils.PhoneUtil;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.tg.tgt.ActMgrs;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
+import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
 import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
@@ -150,38 +155,56 @@ public class UpdatePwdAct extends BaseActivity{
                     }
                 });
     }
+    private void layout(){
+        DemoHelper.getInstance().logout(false,new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ActMgrs.getActManager().popAllActivity();
+                        Intent intent = new Intent(mActivity, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+            @Override
+            public void onProgress(int progress, String status) {
+            }
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
 
+                    @Override
+                    public void run() {
+                        dismissProgress();
+                        Toast.makeText(App.applicationContext, "unbind devicetokens failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
     private void rePwdSuccess() {
         View successView = LayoutInflater.from(this).inflate(R.layout.dialog_update_pwd_success, null);
         final Dialog dialog = new Dialog(this, R.style.DialogTranslucentStyle);
         dialog.setContentView(successView, new ViewGroup.LayoutParams(/*(int) (PhoneUtil.getScreenWidth(this) * 0.82)*/ViewGroup.LayoutParams.WRAP_CONTENT, (int) (PhoneUtil.getScreenHeight(this) * 0.58)));
         dialog.setCancelable(false);
-
         //设置dialog位置
         Window window = dialog.getWindow();
         window.setGravity(Gravity.TOP);
-//        WindowManager.LayoutParams attributes = window.getAttributes();
-////        attributes.x = attributes.x + PhoneUtil.dp2px(this, 200);
-//        attributes.x = 300;
-//        window.setAttributes(attributes);
-
         dialog.show();
-
         final TextView backTimeTv = (TextView) successView.findViewById(R.id.back_time);
-
         successView.findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                finish();
+                layout();
             }
         });
-
         final int s = 3;
         Observable.interval(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .take(s)
                 .subscribe(new Observer<Long>() {
-
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 //                        clearDisposabl();
@@ -205,7 +228,7 @@ public class UpdatePwdAct extends BaseActivity{
                     @Override
                     public void onComplete() {
                         dialog.dismiss();
-                        finish();
+                        layout();
                     }
                 });
 //        addRxDestroy(Observable.interval(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())

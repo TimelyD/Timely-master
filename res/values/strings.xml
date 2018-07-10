@@ -73,9 +73,9 @@
     <string name="setpsw_confirm">Ensure</string>
 
     <string name="confirmsetpsw_text">Congratulations，change password successfully!</string>
-    <string name="confirmsetpsw_timetext">after,return personal Center for you</string>
+    <string name="confirmsetpsw_timetext">after,Return to the login</string>
     <string name="confirmsetpsw_back">Immediate return</string>
-
+    <string name="reture_login">To log in</string>
     <string name="setlang_title">Language settings</string>
     <string name="setlang_system">Following system</string>
     <string name="setlang_chinese">Chinese</string>

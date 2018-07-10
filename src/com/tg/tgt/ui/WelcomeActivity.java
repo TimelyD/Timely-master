@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,13 +22,15 @@ import android.widget.RelativeLayout;
 import com.tg.tgt.R;
 import com.tg.tgt.adapter.ViewPagerApdater;
 import com.tg.tgt.utils.DisplayUtil;
+import com.tg.tgt.utils.Status2BarUtil;
+import com.tg.tgt.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeListener{
     //引导图片资源
-    private static final int[] pics = {R.drawable.em_splash, R.drawable.em_splash,R.drawable.em_splash, R.drawable.em_splash,};
+    private static final int[] pics = {R.mipmap.w1, R.mipmap.w2,R.mipmap.w3};
     //底部小点图片
     private ImageView[] dots;
     //记录当前选中位置
@@ -42,6 +46,7 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        Status2BarUtil.setImgTransparent(this);      //这行是让标题沉浸
         setViews();
         setListeners();
     }
@@ -86,7 +91,7 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
         viewPager.setOnPageChangeListener(this);    //给ViewPage设置页面更改监听
     }
     private void setListeners() {
-        views.get(3).setOnDragListener(new View.OnDragListener() {//给第四个图片设置拖拽监听
+        views.get(2).setOnDragListener(new View.OnDragListener() {//给第四个图片设置拖拽监听
             @Override
             public boolean onDrag(View view, DragEvent dragEvent) {//（控件和拖拽事件）
                 if (dragEvent.getAction() == DragEvent.ACTION_DRAG_ENDED && dragEvent.getY() < -20) {//如果拖拽事件的动作是拖拽结束并且y比例小于20

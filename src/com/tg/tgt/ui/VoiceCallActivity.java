@@ -20,6 +20,8 @@ import android.media.RingtoneManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -74,7 +76,6 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
     private TextView mTvHandsFree;
 	private boolean isMuteState;
 	private boolean isHandsfreeState;
-	
 	private TextView callStateTextView;
 	private boolean endCallTriggerByMe = false;
 	private Chronometer chronometer;
@@ -82,7 +83,6 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
 	private LinearLayout voiceContronlLayout;
     private TextView netwrokStatusVeiw;
     private boolean monitor = false;
-
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -109,7 +109,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
 		netwrokStatusVeiw = (TextView) findViewById(R.id.tv_network_status);
         mTvMute = (TextView) findViewById(tv_mute);
         mTvHandsFree = (TextView) findViewById(R.id.tv_handsfree);
-
+        handler();
 		refuseBtn.setOnClickListener(this);
 		answerBtn.setOnClickListener(this);
 		hangupBtn.setOnClickListener(this);
@@ -184,10 +184,28 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
         handler.removeCallbacks(timeoutHangup);
         handler.postDelayed(timeoutHangup, MAKE_CALL_TIMEOUT);
 	}
-
+    public static Handler Handler ;
+    private void handler(){
+        Handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 2://语音
+                        hangupBtn.setEnabled(false);
+                        chronometer.stop();
+                        endCallTriggerByMe = true;
+                        callStateTextView.setText(getResources().getString(R.string.hanging_up));
+                        handler.sendEmptyMessage(MSG_CALL_END);
+                        break;
+                }
+            }
+        };
+    }
 	/**
 	 * set call state listener
 	 */
+
 	void addCallStateListener() {
 	    callStateListener = new EMCallStateChangeListener() {
             
@@ -196,10 +214,12 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                 // Message msg = handler.obtainMessage();
                 EMLog.d("EMCallManager", "onCallStateChanged:" + callState);
                 switch (callState) {
-                
+                case NETWORK_DISCONNECTED:
+                    Handler.sendEmptyMessage(2);
+                    break;
                 case CONNECTING:
                     runOnUiThread(new Runnable() {
-                        
+
                         @Override
                         public void run() {
                             callStateTextView.setText(st1);

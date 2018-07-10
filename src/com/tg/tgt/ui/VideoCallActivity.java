@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
@@ -119,6 +120,28 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
     private EMCallSurfaceView localSurface;
     private EMCallSurfaceView oppositeSurface;
     private AudioManager audoManager;
+    public static Handler Handler ;
+    private void handler(){
+        Handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 2://语音
+                        hangupBtn.setEnabled(false);
+                        chronometer.stop();
+                        endCallTriggerByMe = true;
+                        callStateTextView.setText(getResources().getString(R.string.hanging_up));
+                        if (isRecording) {
+                            callHelper.stopVideoRecord();
+                        }
+                        EMLog.d(TAG, "btn_hangup_call");
+                        handler.sendEmptyMessage(MSG_CALL_END);
+                        break;
+                }
+            }
+        };
+    }
     // dynamic adjust brightness
     class BrightnessDataProcess implements EMCameraDataProcessor {
         byte yDelta = 0;
@@ -155,7 +178,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
         audoManager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         DemoHelper.getInstance().isVideoCalling = true;
         callType = 1;
-
+        handler();
         getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -464,12 +487,13 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                         });
                         break;
                     case NETWORK_DISCONNECTED:
-                        runOnUiThread(new Runnable() {
+                        Handler.sendEmptyMessage(2);
+                        /*runOnUiThread(new Runnable() {
                             public void run() {
                                 netwrokStatusVeiw.setVisibility(View.VISIBLE);
                                 netwrokStatusVeiw.setText(R.string.network_unavailable);
                             }
-                        });
+                        });*/
                         break;
                     case NETWORK_UNSTABLE:
                         runOnUiThread(new Runnable() {

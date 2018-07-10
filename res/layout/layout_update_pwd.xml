@@ -116,6 +116,5 @@
         android:layout_marginRight="@dimen/common.10dp"
         android:id="@+id/confirm"
         style="@style/BtnPrimaryStyle"
-        android:text="@string/setpsw_confirm"
-        />
+        android:text="@string/setpsw_confirm"/>
 </LinearLayout>

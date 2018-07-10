@@ -71,8 +71,9 @@
     <string name="setpsw_confirm">确认修改</string>
     
     <string name="confirmsetpsw_text">恭喜您，修改密码成功</string>
-    <string name="confirmsetpsw_timetext">后，为您返回个人中心</string>
+    <string name="confirmsetpsw_timetext">后，为您重新登陆</string>
     <string name="confirmsetpsw_back">立即返回</string>
+    <string name="reture_login">重新登陆</string>
     
     <string name="setlang_title">语言设置</string>
     <string name="setlang_system">跟随系统</string>

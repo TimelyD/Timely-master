@@ -545,7 +545,7 @@ public class DemoHelper {
                 EMLog.d("global listener", "onDisconnect" + error);
                 if (error == EMError.USER_REMOVED) {
                     onUserException(Constant.ACCOUNT_REMOVED);
-                } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {//下线通知走这个
                     onUserException(Constant.ACCOUNT_CONFLICT);
                 } else if (error == EMError.SERVER_SERVICE_RESTRICTED) {
                     onUserException(Constant.ACCOUNT_FORBIDDEN);
