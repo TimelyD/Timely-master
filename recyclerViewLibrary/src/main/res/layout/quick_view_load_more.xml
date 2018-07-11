@@ -64,6 +64,7 @@
         android:id="@+id/load_more_load_end_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#f5f5f5"
         android:visibility="gone">
 
         <TextView

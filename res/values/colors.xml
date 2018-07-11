@@ -6,10 +6,11 @@
     <color name="black50">#80000000</color>
     <color name="black20">#33000000</color>
     <color name="blue">#0B86F2</color>
+    <color name="gray50">#80333333</color>
     <color name="gray_bg">#F5F5F5</color>
     <color name="header_color">#E0E0E0</color>
     <color name="ccc">#ccc</color>
-    <color name="im_font_color_text_hint">#abb1b6</color>
+    <color name="im_font_color_text_hint">#cccccc</color>
 
     <color name="praise_item_default">#333333</color>
     <color name="praise_item_selector_default">#cccccc</color>

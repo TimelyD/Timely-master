@@ -111,6 +111,7 @@
             android:orientation="horizontal" >
 
             <RelativeLayout
+                android:id="@+id/like_out_relative"
                 android:layout_width="@dimen/common.0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -150,11 +151,12 @@
                         android:src="@drawable/add_like_selector"/>
 
                     <TextView
+                        android:id="@+id/like_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/btn_add_like"
                         android:textColor="#80333333"
-                        android:layout_marginLeft="@dimen/common.18dp"
+                        android:layout_marginLeft="@dimen/common.12dp"
                         android:layout_alignBottom="@id/btn_add_like"
                         android:textSize="@dimen/common.15sp"
                         android:text="@string/thumbs_up"/>
@@ -172,6 +174,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/comment_out_relative"
                 android:layout_width="@dimen/common.0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -193,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/btn_add_comment"
                         android:textColor="#80333333"
-                        android:layout_marginLeft="@dimen/common.18dp"
+                        android:layout_marginLeft="@dimen/common.12dp"
                         android:layout_alignBottom="@id/btn_add_comment"
                         android:textSize="@dimen/common.15sp"
                         android:text="@string/comment_detail"/>

@@ -20,7 +20,6 @@ public class HeadsetReceiver extends BroadcastReceiver {
         // 耳机插入状态 0 拔出，1 插入
         //AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         boolean state = intent.getIntExtra("state", 0) == 0 ? false : true;
-        Constant.insetMusic = state;
         if (EaseChatRowVoicePlayClickListener.currentPlayListener != null){
             if (state)
                 EaseChatRowVoicePlayClickListener.currentPlayListener.setModelVoice(2);

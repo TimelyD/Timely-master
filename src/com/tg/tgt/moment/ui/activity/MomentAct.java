@@ -418,8 +418,12 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             rightLayout.setVisibility(View.INVISIBLE);
             rightLayout.setClickable(false);
             rightLayout.setEnabled(false);
+         //   recyclerView.setBackgroundColor(mContext.getResources().getColor(R.color.bg_t));
+         //   mAdapter.getFooterLayout().setBackgroundColor(mContext.getResources().getColor(R.color.bg_t));
             mTitle.setText(R.string.home_page);
             //recyclerView.setBackgroundColor(Color.rgb(128,128,128));
+          //  mAdapter.getFooterLayout()
+          //  mSwipeRefreshLayout.get
 //            header = LayoutInflater.from(mContext).inflate(R.layout.head_circle_mine, null);
         }else {
          //   recyclerView.addItemDecoration(new SimpleDividerDecoration(mContext, true));
@@ -428,9 +432,9 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             mAdapter = new MomentAdapter(mData,R.layout.adapter_circle_item);
             header.findViewById(R.id.iv_avatar).setOnClickListener(this);
         }
-            mAdapter.addHeaderView(header);
+        mAdapter.addHeaderView(header);
         TextView stateTv = (TextView) header.findViewById(R.id.tv_state);
-        stateTv.setText(mUserInfo.getChatidstate()==null?this.getString(R.string.nox):mUserInfo.getChatidstate());
+        stateTv.setText(TextUtils.isEmpty(mUserInfo.getChatidstate())?this.getString(R.string.nox):mUserInfo.getChatidstate());
         TextView nameTv = (TextView) header.findViewById(R.id.tv_name);
         nameTv.setText(mUserInfo.safeGetRemark());
         ImageView avatarIv = (ImageView) header.findViewById(R.id.iv_avatar);
@@ -463,10 +467,10 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-                    case R.id.btn_add_like:
-                        mPresenter.addFavort(position);
-                        break;
-                    case R.id.btn_add_comment:
+//                    case R.id.like_relative:
+//                        mPresenter.addFavort(position);
+//                        break;
+                    case R.id.comment_out_relative:
                         CommentConfig config = new CommentConfig();
                         config.circlePosition = position;
                         config.commentType = CommentConfig.Type.PUBLIC;

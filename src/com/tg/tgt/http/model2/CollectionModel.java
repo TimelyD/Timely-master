@@ -18,6 +18,15 @@ public class CollectionModel {
     private int nextPage;//": 0,
     private int pageNum;//": 0,
     private int total;//": 0
+    private int pages;//总页数
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
 
     public List<CollectionItemModel> getList() {
         return list;

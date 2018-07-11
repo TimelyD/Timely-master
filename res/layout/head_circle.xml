@@ -57,8 +57,7 @@
                     android:layout_marginTop="@dimen/common.5dp"
                     android:layout_below="@+id/tv_name"
                     android:text="如果你不会说话那么如果你不会说话那么如果你不会说话那么"
-                    android:singleLine="true"
-                    android:ellipsize="end"
+                    android:singleLine="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common.13sp"/>
 

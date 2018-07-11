@@ -66,7 +66,6 @@ public class EaseShowNormalFileActivity extends EaseBaseActivity {
                             mItent.putExtra("msg",message);
                             setResult(101, mItent);
                         }
-                        Log.e("Tag","路劲eeeeeeeeeefffffff");
                         finish();
                     }
                 });

@@ -28,6 +28,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -140,6 +142,8 @@ public class MainActivity extends BaseActivity {
 	private LinearLayout ll1;
 	private LinearLayout ll2;
 	private LinearLayout ll3;
+
+	public static Handler messageCountHandler;
 
 	/**
 	 * check if current user account was remove
@@ -266,6 +270,17 @@ public class MainActivity extends BaseActivity {
 				shou();
 			}
 		});
+		messageCountHandler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				int count = getUnreadMsgCountTotal();
+				if (count>0)
+					ShortcutBadger.applyCount(MainActivity.this,Integer.valueOf(CodeUtils.getUnreadCount(count)));
+				else
+					ShortcutBadger.removeCount(MainActivity.this);
+			}
+		};
 	}
 
 	private ScreenReceiverUtil.SreenStateListener mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
