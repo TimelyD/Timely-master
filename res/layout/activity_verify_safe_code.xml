@@ -25,7 +25,7 @@
             android:layout_alignParentRight="true"
             android:text="@string/next"
             android:textSize="@dimen/tx_3"
-            android:textColor="@color/tx_black_1"/>
+            android:textColor="@color/white"/>
     </com.hyphenate.easeui.widget.EaseTitleBar>
 
     <TextView
