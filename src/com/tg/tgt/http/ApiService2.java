@@ -74,8 +74,11 @@ public interface ApiService2 {
 
     @FormUrlEncoded
     @POST("api/login")
-    Observable<HttpResult<LoginModel>> login(@Field("username") String username, @Field("password") String password, @Field("code") String code, @Field
-                                                     ("nonce") String nonce);
+    Observable<HttpResult<LoginModel>> login(@Field("username") String username,
+                                             @Field("password") String password,
+                                             @Field("code") String code,
+                                             @Field("mobilePrefix") String mobilePrefix,
+                                             @Field("nonce") String nonce);
 
     /**
      * 查看登陆用户信息

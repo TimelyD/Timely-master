@@ -269,7 +269,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void Login(final String currentUsername, String currentPassword, String code,String nonce){
-        ApiManger2.getApiService().login(currentUsername, currentPassword, code,nonce)
+        ApiManger2.getApiService().login(currentUsername, currentPassword, code,mEmailLast.trim(),nonce)
                 .compose(this.<HttpResult<LoginModel>>bindToLifeCyclerAndApplySchedulers(null,false))
                 .subscribe(new BaseObserver2<LoginModel>() {
                     @Override
