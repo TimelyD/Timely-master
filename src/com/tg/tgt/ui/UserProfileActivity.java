@@ -275,6 +275,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         layoutcode.setVisibility(isFriend?View.VISIBLE:View.GONE);
         setbeizhutv.setVisibility(isFriend?View.VISIBLE:View.GONE);
         btnRelation.setText(isFriend?R.string.delete_friend:R.string.add_friend);
+        btnRelation.setBackgroundResource(isFriend?R.drawable.big_delete_btn_selector:R.drawable.btn_selector);
         Log.i("dcz1",EMClient.getInstance().getCurrentUser()+"");
         Log.i("dcz2",mUsername+"");
         btnRelation.setVisibility(mUsername.equals(EMClient.getInstance().getCurrentUser())?View.GONE:View.VISIBLE);

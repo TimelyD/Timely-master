@@ -644,14 +644,14 @@ private int type ;
                             .putExtra(Constant.EXTRA_CONFERENCE_IS_CREATOR, true));
                     break;
                 case REQUEST_CODE_SELECT_BUSINESS:
-                    Log.i("dcz","发送名片");
+                    Log.i("dcz","发送名片"+toChatUsername);
                     EMMessage message = EMMessage.createTxtSendMessage("名片",toChatUsername);
                     message.setAttribute(Constant.BUSSINES_ID,data.getStringExtra(Constant.BUSSINES_ID));
                     message.setAttribute(Constant.BUSSINES_NAME,data.getStringExtra(Constant.BUSSINES_NAME));
                     message.setAttribute(Constant.BUSSINES_NUMBER,data.getStringExtra(Constant.BUSSINES_NUMBER));
                     message.setAttribute(Constant.BUSSINES_PIC,data.getStringExtra(Constant.BUSSINES_PIC));
-                    //message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
-                    EMClient.getInstance().chatManager().sendMessage(message);
+                    sendMessage(message);
+                    //EMClient.getInstance().chatManager().sendMessage(message);
                     break;
                 default:
                     break;
