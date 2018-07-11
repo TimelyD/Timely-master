@@ -18,9 +18,11 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tg.tgt.R;
 import com.tg.tgt.adapter.ViewPagerApdater;
+import com.tg.tgt.utils.BarUtil;
 import com.tg.tgt.utils.DisplayUtil;
 import com.tg.tgt.utils.Status2BarUtil;
 import com.tg.tgt.utils.StatusBarUtil;
@@ -41,7 +43,9 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
 
     private RelativeLayout zong;
     private LinearLayout pointContainer;
-    private ImageView tv;
+    private LinearLayout tv;
+    private TextView login;
+    private TextView regist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +57,12 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
 
     private void setViews() {
         views = new ArrayList<>();
-        tv = (ImageView) findViewById(R.id.welcome_tv);//得到图片控件
+        tv = (LinearLayout) findViewById(R.id.welcome_tv);//得到图片控件
         zong = (RelativeLayout) findViewById(R.id.welcome_Rl);
         pointContainer = (LinearLayout) findViewById(R.id.ll_viewpage_image);
         viewPager = (ViewPager) findViewById(R.id.welcome_viewpager);//初始化ViewPager对象
+        login=(TextView)findViewById(R.id.login);
+        regist=(TextView)findViewById(R.id.regist);
         /**
          * 下面是添加欢迎页面的图片对象部分
          * */
@@ -110,6 +116,22 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
                 finish();
             }
         });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this,LoginActivity.class);
+                startActivity(intent);//跳转到登录页面
+                finish();
+            }
+        });
+        regist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this,RegisterActivity.class);
+                startActivity(intent);//跳转到登录页面
+                finish();
+            }
+        });
     }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -130,12 +152,11 @@ public class WelcomeActivity extends Activity implements ViewPager.OnPageChangeL
                 break;
             case 2:
                 zong.setBackgroundColor(getResources().getColor(R.color.white));
-                break;
-            case 3:
-                zong.setBackgroundColor(getResources().getColor(R.color.blue));
+                //StatusBarUtil.darkMode(WelcomeActivity.this,false);
+                //BarUtil.StatusBarLightMode(this);
                 break;
         }
-        if (position < 3) {
+        if (position < 2) {
             tv.setVisibility(View.GONE);//将图片控件设置为隐藏不显示
             pointContainer.setVisibility(View.VISIBLE);
         } else {

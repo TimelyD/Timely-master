@@ -100,7 +100,7 @@ public class DisplayUtil {
 
     public static int getPointRadius(Context context) {
         if (PointD == 0) {
-            PointD = getDisplayWidthPixels(context) / 65;
+            PointD = getDisplayWidthPixels(context) / 45;
         }
         return PointD;
     }

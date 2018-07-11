@@ -123,7 +123,7 @@
     <string name="confirm">Confirm</string>
     <string name="retry_pwd">Incorrect password，please try again</string>
     <string name="verify_account">Verify account</string>
-    <string name="input_email">Please enter the bound E-mail</string>
+    <string name="input_email">Please enter mobile phone</string>
     <string name="next">Next</string>
     <string name="input_code">Please enter correct verify code</string>
     <string name="get_code">Get code</string>

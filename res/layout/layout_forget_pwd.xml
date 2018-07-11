@@ -31,7 +31,15 @@
             android:background="@drawable/et_bg_selector"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common.40dp">
-
+            <Spinner
+                android:id="@+id/email_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/down_arrow"
+                android:overlapAnchor="false"
+                android:paddingRight="5dp"
+                android:spinnerMode="dropdown"/>
             <EditText
                 android:padding="5dp"
                 android:layout_weight="1"
@@ -56,16 +64,6 @@
                 android:visibility="gone"
                 android:background="#CFCFCF"
                 android:layout_width="0.5dp"
-                android:layout_height="match_parent"/>
-            <Spinner
-                android:visibility="gone"
-                android:overlapAnchor="false"
-                android:background="@drawable/down_arrow"
-                android:paddingRight="5dp"
-                android:layout_marginRight="5dp"
-                android:spinnerMode="dropdown"
-                android:id="@+id/email_spinner"
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         </LinearLayout>
 

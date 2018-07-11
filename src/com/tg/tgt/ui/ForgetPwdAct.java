@@ -47,7 +47,7 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
     private android.widget.Button getcodebtn;
     private Button nextbtn;
 
-    private String mEmailLast = "@qeveworld.com";
+    private String mEmailLast = "+86";
     private Disposable d;
 
     @Override
@@ -143,7 +143,7 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
         }
 
         ApiManger2.getApiService()
-                .verifyRestPwd(code,email)
+                .verifyRestPwd(mEmailLast,code,email)
                 .compose(this.<HttpResult<String>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<String>() {
                     @Override
@@ -211,7 +211,7 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
                 });*/
 
         ApiManger2.getApiService()
-                .sendRestPwdSms(email)
+                .sendRestPwdSms(mEmailLast,email)
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override

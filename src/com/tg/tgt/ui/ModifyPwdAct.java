@@ -32,7 +32,7 @@ public class ModifyPwdAct extends BaseActivity implements View.OnClickListener {
     private android.widget.EditText newpwdet;
     private android.widget.EditText repwdet;
     private android.widget.Button confirmbtn;
-    private String mEmailLast;
+    private String mEmailLast="+86";
     private String mEmail;
     private String mCode;
 
@@ -104,7 +104,7 @@ public class ModifyPwdAct extends BaseActivity implements View.OnClickListener {
     }
     private void getdata(NonceBean emptyData,String rePwd){
         ApiManger2.getApiService()
-                .resetPassword(mEmail, mCode,emptyData.getKey(),RSAHandlePwdUtil.jia(rePwd+"#"+emptyData.getValue()))
+                .resetPassword(mEmailLast,mEmail, mCode,emptyData.getKey(),RSAHandlePwdUtil.jia(rePwd+"#"+emptyData.getValue()))
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override

@@ -140,7 +140,7 @@ public interface ApiService2 {
      * */
     @FormUrlEncoded
     @POST("api/sendLoginSMS")
-    Observable<HttpResult<EmptyData>>sendLoginSms(@Field("username") String username, @Field("password") String password,@Field("nonce") String nonce);
+    Observable<HttpResult<EmptyData>>sendLoginSms(@Field("mobilePrefix") String mobilePrefix,@Field("username") String username, @Field("password") String password,@Field("nonce") String nonce);
 
     /**
      *  发送注册短信验证码
@@ -154,7 +154,7 @@ public interface ApiService2 {
      * */
     @FormUrlEncoded
     @POST("api/sendRestPwdSMSCode")
-    Observable<HttpResult<EmptyData>>sendRestPwdSms(@Field("username") String username);
+    Observable<HttpResult<EmptyData>>sendRestPwdSms(@Field("mobilePrefix") String mobilePrefix,@Field("username") String username);
 
     /**
      *  重置用户安全密码短信验证码
@@ -168,7 +168,7 @@ public interface ApiService2 {
      * */
     @FormUrlEncoded
     @POST("api/verifyRestPwdSmsCode")
-    Observable<HttpResult<String>>verifyRestPwd(@Field("code") String code,@Field("username") String username);
+    Observable<HttpResult<String>>verifyRestPwd(@Field("mobilePrefix") String mobilePrefix,@Field("code") String code,@Field("username") String username);
 
     /**
      *  检查重置安全密码短信验证码
@@ -197,7 +197,7 @@ public interface ApiService2 {
 
     @FormUrlEncoded
     @POST("api/user/safe/resetPassword")
-    Observable<HttpResult<EmptyData>> resetPassword(@Field("username") String username, @Field("code") String code, @Field
+    Observable<HttpResult<EmptyData>> resetPassword(@Field("mobilePrefix") String mobilePrefix,@Field("username") String username, @Field("code") String code, @Field
             ("nonce") String nonce, @Field("password") String password);
    @FormUrlEncoded
     @POST("api/user/safe/resetSafePassword")

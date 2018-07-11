@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:id="@+id/welcome_Rl"
     tools:context="com.tg.tgt.ui.WelcomeActivity">
     <android.support.v4.view.ViewPager
@@ -12,17 +11,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
-    <ImageView
+    <LinearLayout
         android:id="@+id/welcome_tv"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:scaleType="fitCenter"
         android:visibility="gone"
-        android:src="@drawable/collection_delete_selected"/>
-
+        android:layout_marginLeft="@dimen/common.30dp"
+        android:layout_marginRight="@dimen/common.30dp"
+        android:layout_marginBottom="@dimen/common.90dp">
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_round1"
+            android:gravity="center"
+            android:paddingTop="@dimen/common.10dp"
+            android:textSize="@dimen/common.18sp"
+            android:paddingBottom="@dimen/common.10dp"
+            android:textColor="@color/white"
+            android:text="@string/login"/>
+        <View
+            android:layout_width="@dimen/common.20dp"
+            android:layout_height="1dp">
+        </View>
+        <TextView
+            android:id="@+id/regist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_round2"
+            android:gravity="center"
+            android:paddingTop="@dimen/common.10dp"
+            android:textSize="@dimen/common.18sp"
+            android:paddingBottom="@dimen/common.10dp"
+            android:textColor="@color/tx_black_3"
+            android:text="@string/register"/>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_viewpage_image"
         android:layout_width="wrap_content"
@@ -30,7 +56,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="30dp"
         android:visibility="visible">
     </LinearLayout>
 </RelativeLayout>

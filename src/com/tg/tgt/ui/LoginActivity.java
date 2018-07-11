@@ -147,8 +147,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             } catch (Exception e) {
                                 e.printStackTrace();
                          //       ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
-                                Glide.with(LoginActivity.this).load(R.drawable.youhead).into(mHeadIv);
-                                mNickNameTv.setText(R.string.login);
+                                /*Glide.with(LoginActivity.this).load(R.drawable.youhead).into(mHeadIv);
+                                mNickNameTv.setText(R.string.login);*/
                             }
                         }else {
 //                            boolean drawableEqauls = ImageUtils.isDrawableEqauls(LoginActivity.this, mHeadIv, R
@@ -501,7 +501,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                 });*/
         ApiManger2.getApiService()
-                .sendLoginSms(usernameEditText.getText().toString(),mima,emptyData.getKey())
+                .sendLoginSms(mEmailLast,usernameEditText.getText().toString(),mima,emptyData.getKey())
                 .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override

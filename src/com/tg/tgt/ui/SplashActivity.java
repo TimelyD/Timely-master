@@ -43,13 +43,16 @@ public class SplashActivity extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		/*if(App.sf.getBoolean("first",true)){
-			Intent intent = new Intent(SplashActivity.this, WelcomeActivity.class);
-			startActivity(intent);
-		}else */{
 			new Thread(new Runnable() {
 				public void run() {
-					if (DemoHelper.getInstance().isLoggedIn()) {
+					if(App.sf.getBoolean("first",true)){
+						try {
+							Thread.sleep(sleepTime);
+						} catch (InterruptedException e) {
+						}
+						startActivity(new Intent(SplashActivity.this,WelcomeActivity.class));
+						finish();
+					}else if (DemoHelper.getInstance().isLoggedIn()) {
 						// 自动登录模式，确保所有组和对话在进入主屏幕前都被删除。
 						long start = System.currentTimeMillis();
 						EMClient.getInstance().chatManager().loadAllConversations();
@@ -80,7 +83,6 @@ public class SplashActivity extends BaseActivity {
 				}
 			}).start();
 		}
-	}
 	
 	/**
 	 * get sdk version
