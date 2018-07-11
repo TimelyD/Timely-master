@@ -967,7 +967,8 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
 
             // if the message is for current conversation
             if (username.equals(toChatUsername) || message.getTo().equals(toChatUsername)) {
-                messageList.refreshSelectLast();
+                //messageList.refreshSelectLast();
+                messageList.refresh();
                 //TODO 在当前界面不需要声音以及震动
 //                EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
                 conversation.markMessageAsRead(message.getMsgId());
