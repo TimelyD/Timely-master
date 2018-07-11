@@ -11,23 +11,21 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
-import com.hyphenate.easeui.adapter.EaseContactAdapter;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ToastUtils;
 import com.hyphenate.easeui.widget.EaseSidebar;
-import com.tg.tgt.Constant;
-import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
+import com.tg.tgt.adapter.EaseContact2Adapter;
 import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class GroupPickContacts2Activity extends BaseActivity {
@@ -43,7 +41,6 @@ public class GroupPickContacts2Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_pick_contacts2);
         setTitleBarLeftBack();
-        Log.i("dcz","aaaa");
         groupId = getIntent().getStringExtra("groupId");
         if (groupId == null) {// create new group
             isCreatingNewGroup = true;
@@ -51,6 +48,7 @@ public class GroupPickContacts2Activity extends BaseActivity {
             EMGroup group = EMClient.getInstance().groupManager().getGroup(groupId);
             GroupModel group1 = GroupManger.getGroup(groupId);
             List<GroupUserModel> groupUserModels = group1.getGroupUserModels();
+            Log.i("dcz",groupUserModels.size()+"");
             if(groupUserModels != null){
                 existMembers = new ArrayList<>();
                 for (GroupUserModel model : groupUserModels) {
@@ -60,17 +58,30 @@ public class GroupPickContacts2Activity extends BaseActivity {
         }
         if(existMembers == null)
             existMembers = new ArrayList<String>();
-        // get contact list
-        final List<EaseUser> alluserList = new ArrayList<EaseUser>();
-       // List<GroupUserModel> list = GroupDetailsActivity2.memberList;
-        for (EaseUser user : DemoHelper.getInstance().getContactList().values()) {
+        List<GroupUserModel> list = GroupDetailsActivity2.memberList2;
+        if(list.get(0).getGroupOwner()){
+            list.remove(list.get(0));
+        }
+       /* List<GroupUserModel> list = GroupDetailsActivity2.memberList;
+        for(int i=0;i<list.size();i++){
+            if(i!=0){
+                EaseUser a=new EaseUser(list.get(i).getUsername());
+                a.setNickname(list.get(i).getNickname());
+                a.setChatid(list.get(i).getUserId()+"");
+                a.setAvatar(list.get(i).getPicture());
+                alluserList.add(a);
+                Log.i("zzz2",toJson(list.get(i),1));
+                Log.i("zzz",toJson(a,1));
+            }
+        }*/
+       /* for (EaseUser user : DemoHelper.getInstance().getContactList().values()) {
             if (!user.getUsername().equals(Constant.NEW_FRIENDS_USERNAME)
                     & !user.getUsername().equals(Constant.GROUP_USERNAME)
                     & !user.getUsername().equals(Constant.CHAT_ROOM)
                     & !user.getUsername().equals(Constant.CHAT_ROBOT)
                     &existMembers.contains(user.getUsername())
                 //添加判断，如果这个用户已存在则不显示
-					& !existMembers.contains(user.getUsername()))
+					*//*& !existMembers.contains(user.getUsername())*//*)
                 alluserList.add(user);
         }
         Collections.sort(alluserList, new Comparator<EaseUser>() {
@@ -89,9 +100,10 @@ public class GroupPickContacts2Activity extends BaseActivity {
                 }
 
             }
-        });
+        });*/
+
         ListView listView = (ListView) findViewById(R.id.list);
-        contactAdapter = new PickContactAdapter(this, R.layout.em_row_contact_with_checkbox, alluserList);
+        contactAdapter = new PickContactAdapter(this, R.layout.em_row_contact_with_checkbox,list);
         listView.setAdapter(contactAdapter);
         ((EaseSidebar) findViewById(R.id.sidebar)).setListView(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,7 +115,6 @@ public class GroupPickContacts2Activity extends BaseActivity {
             }
         });
     }
-
     /**
      * save selected members
      *
@@ -140,9 +151,9 @@ public class GroupPickContacts2Activity extends BaseActivity {
     /**
      * adapter
      */
-    private class PickContactAdapter extends EaseContactAdapter {
+    private class PickContactAdapter extends EaseContact2Adapter {
         private boolean[] isCheckedArray;
-        public PickContactAdapter(Context context, int resource, List<EaseUser> users) {
+        public PickContactAdapter(Context context, int resource, List<GroupUserModel> users) {
             super(context, resource, users);
             isCheckedArray = new boolean[users.size()];
         }

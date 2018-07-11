@@ -37,6 +37,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
@@ -113,8 +116,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
     private String operationUserId = "";
 
-    public static List<GroupUserModel> memberList = Collections.synchronizedList(new ArrayList<GroupUserModel>());
-
+    private List<GroupUserModel> memberList = Collections.synchronizedList(new ArrayList<GroupUserModel>());
+    public static List<GroupUserModel> memberList2=new ArrayList<>();
     GroupChangeListener groupChangeListener;
     private TextView mTvMemberCountTv;
     private GroupModel mGroup;
@@ -182,7 +185,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         }else {
             more.setVisibility(View.GONE);
         }
-        membersAdapter = new GridAdapter(this, R.layout.em_grid_owner, memberList);
+        memberList2.clear();
+        memberList2=memberList;
+        membersAdapter = new GridAdapter(this, R.layout.em_grid_owner,memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
         userGridview.setAdapter(membersAdapter);
 
@@ -1077,7 +1082,22 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             R.id.menu_item_unmute
     };
 
-
+    private String toJson(Object obj,int method) {
+        // TODO Auto-generated method stub
+        if (method==1) {
+            //字段是首字母小写，其余单词首字母大写
+            Gson gson = new Gson();
+            String obj2 = gson.toJson(obj);
+            return obj2;
+        }else if(method==2){
+            // FieldNamingPolicy.LOWER_CASE_WITH_DASHES    全部转换为小写，并用空格或者下划线分隔
+            //FieldNamingPolicy.UPPER_CAMEL_CASE    所以单词首字母大写
+            Gson gson2=new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+            String obj2=gson2.toJson(obj);
+            return obj2;
+        }
+        return "";
+    }
     /**
      * 群组成员gridadapter
      *
@@ -1114,7 +1134,6 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             final View button =  convertView.findViewById(R.id.button_avatar);
 
             // add button
-            Log.i("qqq",position+"+"+getCount()+"+"+getHeadCount());
             int num=0;
             if(getHeadCount()==0){
                 num=0;
@@ -1171,6 +1190,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             }else {
                 // members
                 final GroupUserModel groupUserModel = getItem(position);
+                Log.i("qqq",toJson(groupUserModel,1));
                 final String username = String.valueOf(groupUserModel.getUserId());
 //				EaseUserUtils.setUserNick(username, holder.textView);
 //				EaseUserUtils.setUserAvatar(getContext(), username, holder.imageView);
@@ -1289,13 +1309,14 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
         @Override
         public int getCount() {
-            return memberList.size() + getHeadCount();
+            return memberList.size()>8?8+getHeadCount():memberList.size() + getHeadCount();
         }
 
         public void setData(List<GroupUserModel> groupModels) {
             sortGroup(groupModels);
             memberList.clear();
             memberList.addAll(groupModels);
+            memberList2=memberList;
             membersAdapter.notifyDataSetChanged();
         }
     }
