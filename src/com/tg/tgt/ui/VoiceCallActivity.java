@@ -255,7 +255,6 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                                     ? R.string.direct_call : R.string.relay_call);
                             chronometer.setVisibility(View.VISIBLE);
                             chronometer.setBase(SystemClock.elapsedRealtime());
-                            // duration start
                             chronometer.start();
                             String str4 = getResources().getString(R.string.In_the_call);
                             callStateTextView.setText(str4);
@@ -422,6 +421,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
     }
 
     protected void sms(){
+        //Log.i("dcx",username);
         ApiManger2.getApiService()
                 .voice_sms(username,"2")
                 .compose(mActivity.<HttpResult<CollectBean>>bindToLifeCyclerAndApplySchedulers(null))

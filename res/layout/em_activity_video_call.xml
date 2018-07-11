@@ -69,13 +69,11 @@
                 android:id="@+id/chronometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:text="Chronometer"
                 android:layout_marginTop="12dp"
-                android:textColor="@color/white"
+                android:text="Chronometer"
                 android:textSize="14sp"
-                android:visibility="visible"
-                tools:ignore="HardcodedText"/>
+                android:textColor="#fff"
+                android:visibility="visible"/>
 
         </LinearLayout>
         <!-- 演示视频录制功能 -->

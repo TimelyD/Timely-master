@@ -466,11 +466,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                                 isHandsfreeState = true;
                                 isInCalling = true;
                                 chronometer.setVisibility(View.VISIBLE);
-//                                Drawable drawable = ContextCompat.getDrawable(App.applicationContext, R.drawable.chronometer_left);
-//                                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-//                                chronometer.setCompoundDrawables(drawable, null,null,null);
                                 chronometer.setBase(SystemClock.elapsedRealtime());
-                                // call durations start
                                 chronometer.start();
 //                            nickTextView.setVisibility(View.INVISIBLE);
                                 callStateTextView.setText(R.string.In_the_call);
@@ -480,7 +476,8 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                                 findViewById(R.id.call_control_layout).setVisibility(View.VISIBLE);
                                 hangupBtn.setVisibility(View.VISIBLE);
                                 refuseBtn.setVisibility(View.GONE);
-                                topContainer.setVisibility(View.GONE);
+                                //topContainer.setVisibility(View.GONE);
+                                mIvAvatar.setVisibility(View.INVISIBLE);
                                 localSurface.setVisibility(View.VISIBLE);
                             }
 

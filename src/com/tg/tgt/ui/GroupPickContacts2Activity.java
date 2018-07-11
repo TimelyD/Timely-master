@@ -127,6 +127,7 @@ public class GroupPickContacts2Activity extends BaseActivity {
             return;
         }
         setResult(RESULT_OK, new Intent().putExtra("newmembers", var.toArray(new String[var.size()])));
+        Log.i("sss",var.toString());
         finish();
     }
 
@@ -137,13 +138,16 @@ public class GroupPickContacts2Activity extends BaseActivity {
      */
     private List<String> getToBeAddMembers() {
         List<String> members = new ArrayList<String>();
-        Log.i("size",contactAdapter.isCheckedArray.length+"");
         int length = contactAdapter.isCheckedArray.length;
         for (int i = 0; i < length; i++) {
-            String username = contactAdapter.getItem(i).getUsername();
+            /*String username = contactAdapter.getItem(i).getUsername();
             if (contactAdapter.isCheckedArray[i]) {
                 // 这里不适用环信id
                 members.add(EaseUserUtils.getUserInfo(username).getChatid());
+            }*/
+            if (contactAdapter.isCheckedArray[i]) {
+                // 这里不适用环信id
+                members.add(contactAdapter.getItem(i).getUserId()+"");
             }
         }
         return members;

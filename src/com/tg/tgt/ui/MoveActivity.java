@@ -487,6 +487,9 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(true){
+                            return;
+                        }
                         //不是群主或管理员，无效
                         if (!isCurrentOwner(group) && !isCurrentAdmin(group)) {
                             return;
