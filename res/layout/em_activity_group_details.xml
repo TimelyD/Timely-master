@@ -248,6 +248,7 @@
                 <RelativeLayout
                     android:gravity="top"
                     android:paddingLeft="@dimen/common.10dp"
+                    android:visibility="gone"
                     android:id="@+id/rl_switch_block_groupmsg"
                     style="@style/InfoLayoutStyle"
                     >
