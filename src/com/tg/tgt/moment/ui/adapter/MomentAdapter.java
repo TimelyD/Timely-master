@@ -97,6 +97,15 @@ public class MomentAdapter extends BaseMomentAdapter {
                 }
             }else {
                 helper.setText(R.id.timeTv, TimeUtils.getMomentDateString(createTime));
+                (helper.getView(R.id.like_out_relative)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        helper.setImageResource(R.id.btn_add_like, !circleItem.isLike()?R.drawable.add_like_selected1:R.drawable.add_like_normal1);
+                        helper.setTextColor(R.id.like_text,!circleItem.isLike()?mContext.getResources().getColor(R.color.blue):
+                                mContext.getResources().getColor(R.color.gray50));
+                        mPresenter.addFavort(position);
+                    }
+                });
 //                if (TextUtils.isEmpty(content))
 //                    helper.getView(R.id.bottom_split).setVisibility(View.VISIBLE);
             }
@@ -133,10 +142,12 @@ public class MomentAdapter extends BaseMomentAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        helper.addOnClickListener(R.id.btn_add_like);
-        helper.addOnClickListener(R.id.btn_add_comment);
+      //  helper.addOnClickListener(R.id.like_relative);
+        helper.addOnClickListener(R.id.comment_out_relative);
         try {
             helper.setImageResource(R.id.btn_add_like, circleItem.isLike()?R.drawable.add_like_selected1:R.drawable.add_like_normal1);
+            helper.setTextColor(R.id.like_text,circleItem.isLike()?mContext.getResources().getColor(R.color.blue):
+                    mContext.getResources().getColor(R.color.gray50));
         } catch (Exception e) {
             e.printStackTrace();
         }

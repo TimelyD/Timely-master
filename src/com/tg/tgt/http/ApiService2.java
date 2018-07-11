@@ -416,7 +416,7 @@ public interface ApiService2 {
 
     @FormUrlEncoded
     @POST("api/collection/queryCollectionPageInfo")
-    Observable<HttpResult<CollectionModel>> collectionList(@Field("pageNum")int pageNum, @Field("pageSize")int pageSize);
+    Observable<HttpResult<CollectionModel>> collectionList(@Field("pageNum")String pageNum, @Field("pageSize")int pageSize);
 
     @FormUrlEncoded
     @POST("api/collection/deleteCollectionById")

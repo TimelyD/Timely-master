@@ -54,6 +54,7 @@ import com.hyphenate.easeui.utils.rxbus2.RxBus;
 import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
+import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoice;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
@@ -70,9 +71,14 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
 import com.tg.tgt.moment.bean.CollectBean;
+import com.tg.tgt.utils.AMRToWAV;
 import com.tg.tgt.widget.ChatRowVoiceCall;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -374,8 +380,30 @@ private int type ;
         File file = null;
         if (type != 5) {
             if ((new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl())).exists()){
-                Log.e("Tag","存在");
-                file = new File(((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl());
+                Log.e("Tag","存在:"+((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl());
+                if (type == 1 && !((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().endsWith(".jpg")) {
+                    copyFile(((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl(),((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl()+"add.jpg");
+                    file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.jpg");
+                }else if (type == 3) {
+                    if (!((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().endsWith(".amr")){
+                        copyFile(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl(),((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.amr");
+                        file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.amr");
+                    }
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            String cmd = "-y -i " + bean.getPath() + " -vcodec libx264 -preset ultrafast -vf scale=iw/" + s + ":ih/"
+//                                    + s + " -flags +loop -cmp chroma -crf 24 -bt 256k -refs 1 -coder " +
+//                                    "0 -me_range 16 -subq 5 -partitions parti4x4+parti8x8+partp8x8 -g" +
+//                                    " 250 -keyint_min 25 -level 30 -qmin 10 -qmax 51 -trellis 2 " +
+//                                    "-sc_threshold 40 -i_qfactor 0.71 -acodec copy " + mVideoCachePath;
+//                            startCompress(cmd, PhotoUtils.getVideoThumbPath(bean.getPath()), (int) ((VideoBean)
+//                                    bean).getLength());
+//                        }
+//                    }).start();
+                }else {
+                    file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl());
+                }
                 createBody(file,type);
             }else {
                 EaseConstant.isCollection = true;
@@ -386,6 +414,34 @@ private int type ;
             }
         }
     }
+    public void copyFile(String oldPath, String newPath) {
+        try {
+            int bytesum = 0;
+            int byteread = 0;
+            File oldfile = new File(oldPath);
+            File newFile = new File(newPath);
+            if (!newFile.exists()){
+                newFile.createNewFile();
+            }
+            if (oldfile.exists()) { //文件存在时
+                InputStream inStream = new FileInputStream(oldPath); //读入原文件
+                FileOutputStream fs = new FileOutputStream(newPath);
+                byte[] buffer = new byte[1444];
+                int length;
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread; //字节数 文件大小
+                    System.out.println(bytesum);
+                    fs.write(buffer, 0, byteread);
+                }
+                inStream.close();
+            }
+        }
+        catch (Exception e) {
+            Log.e("Tag","复制单个文件操作出错");
+            e.printStackTrace();
+        }
+    }
+
 
     private void downLoadFile(){
         switch (typeSelect){
@@ -525,8 +581,13 @@ private int type ;
                 titleBar.setTitle(GroupManger.getGroup(toChatUsername).getGroupName());
         }else if (requestCode == COLLECT_DOWNLOAD){//收藏时没下载的情况
             if (resultCode == COLLECT_SUCCESS){
-   //             Log.e("Tag","下载后路径"+((EMFileMessageBody)((EMMessage)data.getParcelableExtra("msg")).getBody()).getLocalUrl());
-                createBody(new File(((EMFileMessageBody)((EMMessage)data.getParcelableExtra("msg")).getBody()).getLocalUrl()),type);
+                if (type == 1 && !((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl().endsWith(".jpg")) {
+                    copyFile(((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl(),((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl()+"add.jpg");
+                    createBody(new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.jpg"),type);
+                }else {
+                    Log.e("Tag", "下载后路径" + ((EMFileMessageBody) ((EMMessage) data.getParcelableExtra("msg")).getBody()).getLocalUrl());
+                    createBody(new File(((EMFileMessageBody) ((EMMessage) data.getParcelableExtra("msg")).getBody()).getLocalUrl()), type);
+                }
             }
             if (resultCode == COLLECT_FAIL){
                // Toast.makeText(mContext,"失败",Toast.LENGTH_LONG).show();

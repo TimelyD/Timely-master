@@ -496,11 +496,12 @@ ActivityCompat.postponeEnterTransition(this);
                         onBackPressed();
                         return;
                     }*/
-                    if (isHeadViewShow) {
-                        hideControls();
-                    } else {
-                        showControls();
-                    }
+                    onBackPressed();
+//                    if (isHeadViewShow) {
+//                        hideControls();
+//                    } else {
+//                        showControls();
+//                    }
                 }
             });
             bigPhotoIv.setOnLongClickListener(new View.OnLongClickListener() {

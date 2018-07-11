@@ -1,16 +1,22 @@
 package com.tg.tgt.ui;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -29,6 +35,7 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.utils.TakePhotoUtils;
 import com.tg.tgt.utils.ToastUtils;
 
 import java.io.File;
@@ -93,7 +100,15 @@ public class NewDynamicAct extends BaseActivity{
 //                Log.i("photoFolders", photoFolders.toString());
                 if(mAdapter.isAdd(position)){
 //                    ToastUtils.showToast(getApplicationContext(), "add");
-                    startActivityForResult(new Intent(NewDynamicAct.this, AlbumsAct.class),REQUEST_SELETE_PHOTO);
+//                    TakePhotoUtils.showDialog(mActivity, new TakePhotoUtils.CallBack() {
+//                        @Override
+//                        public void onActivityResult(String path) {
+////                        Toast.makeText(mActivity, path, Toast.LENGTH_SHORT).show();
+//                            //startActivityForResult(new Intent(mActivity, NewDynamicAct.class).putExtra("path", path), REQ_NEW);
+//                        }
+//                    });
+                    camerDialog();
+                   // startActivityForResult(new Intent(NewDynamicAct.this, AlbumsAct.class),REQUEST_SELETE_PHOTO);
                 }else {
 //                    ToastUtils.showToast(getApplicationContext(), "preview");
 //                    SelectObserable.getInstance().setFolderAllImages(mPhotos);
@@ -105,13 +120,82 @@ public class NewDynamicAct extends BaseActivity{
 
     }
 
+    private String imgPath;
+    private void camerDialog(){
+        View view = getLayoutInflater().inflate(R.layout.dialog_photo_choose, null);
+        final Dialog dialog = new Dialog(this, R.style.TransparentFrameWindowStyle);
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        // 设置显示动画
+        window.setWindowAnimations(R.style.main_menu_animstyle);
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        // 以下这两句是为了保证按钮可以水平满屏
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        // 设置显示位置
+        dialog.onWindowAttributesChanged(wl);
+        // 设置点击外围解散
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+
+        Button photograph = (Button) view.findViewById(R.id.photograph);
+        Button albums = (Button) view.findViewById(R.id.albums);
+        Button cancel = (Button) view.findViewById(R.id.photo_cancel);
+
+        photograph.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                String tempImgPath = PhotoUtils.getTempImgPath(getApplicationContext());
+                imgPath = tempImgPath;
+                Uri imageUri = Uri.fromFile(new File(tempImgPath));
+                openCameraIntent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+                openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(openCameraIntent,REQUEST_CAMER_PHOTO);
+//                newInstance(activity,tempImgPath).startActivityForResult(openCameraIntent, REQUEST_CAPTURE, callBack);
+
+            }
+        });
+
+        albums.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+                startActivityForResult(new Intent(NewDynamicAct.this, AlbumsAct.class),REQUEST_SELETE_PHOTO);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                dialog.dismiss();
+            }
+        });
+    }
+
     private  final int REQUEST_SELETE_PHOTO = 1;
     private  final int REQUEST_PREVIEW_PHOTO = 2;
+    private  final int REQUEST_CAMER_PHOTO = 3;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(REQUEST_PREVIEW_PHOTO == requestCode){
             mAdapter.notifyDataSetChanged();
+        }
+        if (REQUEST_CAMER_PHOTO == requestCode){
+            if(imgPath != null && new File(imgPath).exists()){
+                MediaBean e = new MediaBean(imgPath);
+                e.selectPosition= mPhotos.size()+1;
+                mPhotos.add(e);
+                mAdapter.notifyDataSetChanged();
+            }
         }
         if(resultCode!= RESULT_OK){
             return;
@@ -188,7 +272,8 @@ public class NewDynamicAct extends BaseActivity{
                 finish();
                 break;
             case R.id.send_button:
-                if(TextUtils.isEmpty(etdynamic.getText().toString())){
+                String content = etdynamic.getText().toString().trim();
+                if(TextUtils.isEmpty(content)){
                     ToastUtils.showToast(getApplicationContext(), getString(R.string.dynamic_cannot_empty));
                     return;
                 }
@@ -227,7 +312,7 @@ public class NewDynamicAct extends BaseActivity{
                                     outWidth = options.outWidth;
                                 }
                                 return ApiManger2.getApiService()
-                                        .applyMoments(HttpHelper.getMomentPicMap(files), HttpHelper.toTextPlain(etdynamic.getText().toString()),
+                                        .applyMoments(HttpHelper.getMomentPicMap(files), HttpHelper.toTextPlain(etdynamic.getText().toString().trim()),
                                                 HttpHelper.toTextPlain(""+outWidth),HttpHelper.toTextPlain(""+outHeight));
                             }
                         })
