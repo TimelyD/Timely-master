@@ -191,7 +191,6 @@ public class CollectionActivity extends BaseActivity{
         deleteBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkBoxAll.setChecked(false);
                 if (mDatas!=null && mDatas.size()>0){
                     for (int i=0;i<mDatas.size();i++){
                         if (mDatas.get(i).isSelect()) {
@@ -211,13 +210,24 @@ public class CollectionActivity extends BaseActivity{
                                     @Override
                                     protected void onSuccess(EmptyData emptyData) {
                                         checkBoxAll.setChecked(false);
-                                        for (int i=0;i<deletePos.size();i++) {
-                                            mDatas.remove(deletePos.get(i));
-                                            mAdapter.remove(deletePos.get(i));
-                                        }
-                                        for (int i=0;i<mDatas.size();i++)
-                                            isSelect.put(i,false);
-                                        mAdapter.notifyDataSetChanged();
+                                        deleteIds = "";
+                                        if (hasSelect != null)
+                                            hasSelect.clear();
+                                        loadData(false);
+//                                        for (int i=0;i<deletePos.size();i++) {
+//                                            for (int j=0;j<mDatas.size();j++){
+//                                                if (mDatas.get(j).getId() == deletePos.get(i)) {
+//                                                    mDatas.remove(j);
+//                                                    mAdapter.remove(j);
+//                                                    j=mDatas.size();
+//                                                }
+//                                            }
+//                                        }
+//                               // mDatas.remove(deletePos.get(i));
+//                                //mAdapter.remove(deletePos.get(i));
+//                                        for (int i=0;i<mDatas.size();i++)
+//                                            isSelect.put(i,false);
+//                                        mAdapter.notifyDataSetChanged();
                                         Toast.makeText(CollectionActivity.this, R.string.delete_successful,Toast.LENGTH_LONG).show();
                                     }
 
@@ -252,8 +262,8 @@ public class CollectionActivity extends BaseActivity{
             @Override
             protected void convert(final BaseViewHolder helper, final CollectionItemModel item) {
                 //if (!TextUtils.isEmpty(item.getContent())) {
-                    Spannable span = EaseSmileUtils.getSmiledText(CollectionActivity.this, TextUtils.isEmpty(item.getContent())?" ":item.getContent());
-                    ((TextView)helper.getView(R.id.item_title)).setText(span, TextView.BufferType.SPANNABLE);
+                Spannable span = EaseSmileUtils.getSmiledText(CollectionActivity.this, TextUtils.isEmpty(item.getContent())?" ":item.getContent());
+                ((TextView)helper.getView(R.id.item_title)).setText(span, TextView.BufferType.SPANNABLE);
 
                 if (TextUtils.isEmpty(item.getFormUserName()))
                     helper.setText(R.id.item_message,item.getCrtTime());
@@ -326,7 +336,7 @@ public class CollectionActivity extends BaseActivity{
                                 }
                                 mAdapter.loadMoreEnd();
                                 return;
-                            }else if(collectionModel.getList().size()<10){
+                            }else if(collectionModel.getList().size()<10 || collectionModel.getTotal()<=mDatas.size()+10){
                                 mAdapter.loadMoreEnd();
                             }else {
                                 mAdapter.loadMoreComplete();
@@ -369,12 +379,17 @@ public class CollectionActivity extends BaseActivity{
                                         }
                                     }
                                 }
-
-                                if(collectionModel.getList().size()>=pageSize){
+                                if(collectionModel.getTotal()> mDatas.size()){
                                     mAdapter.loadMoreComplete();
                                 }else {
                                     mAdapter.loadMoreEnd();
                                 }
+
+//                                if(collectionModel.getList().size()>=pageSize){
+//                                    mAdapter.loadMoreComplete();
+//                                }else {
+//                                    mAdapter.loadMoreEnd();
+//                                }
 
                             }else {
                                 mStatusView.showEmpty();

@@ -6,6 +6,8 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -48,11 +50,14 @@ import com.hyphenate.easeui.ui.EaseShowNormalFileActivity;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.SpUtils;
+import com.hyphenate.easeui.utils.photo.PhotoUtils;
 import com.hyphenate.easeui.utils.photo.VideoBean;
 import com.hyphenate.easeui.utils.rxbus2.BusCode;
 import com.hyphenate.easeui.utils.rxbus2.RxBus;
 import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
+import com.hyphenate.easeui.utils.videocompress.Compressor;
+import com.hyphenate.easeui.utils.videocompress.InitListener;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoice;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
@@ -83,6 +88,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.dxjia.ffmpeg.library.FFmpegNativeHelper;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
@@ -160,6 +166,18 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
+        voiceToWavHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1000:
+                        Log.e("Tag","转换wanbi2222222222222");
+                        createBody(new File(msg.obj.toString()),type);
+                        break;
+                }
+            }
+        };
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -340,7 +358,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
 
 
-private int type ;
+    private int type ;
     private void createBody(File file,int type){
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);//表单类型
@@ -376,6 +394,32 @@ private int type ;
         EaseConstant.isCollection = false;
     }
 
+    public static android.os.Handler voiceToWavHandler;
+
+    private void ffmpegCommandAmr2Wav(String source, final String target) {
+        final String command = "ffmpeg -i " + source + " -vn -acodec pcm_s16le -ab 256k -ac 1 -ar 16000 -f wav -y " + target;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FFmpegNativeHelper.runCommand(command);
+                //音频转换结束，开始语音识别
+                Log.e("Tag","转换wanbi");
+                Message msg = new Message();
+                msg.what = 1000;
+                msg.obj = target;
+                voiceToWavHandler.sendMessage(msg);
+            }
+        }).start();
+//        Runnable compoundRun = new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                //......
+//            }
+//        };
+        //将runnable放在异步线程执行
+    }
+
     private void openMyFile(int type){
         File file = null;
         if (type != 5) {
@@ -384,27 +428,21 @@ private int type ;
                 if (type == 1 && !((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().endsWith(".jpg")) {
                     copyFile(((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl(),((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl()+"add.jpg");
                     file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.jpg");
+                    createBody(file,type);
                 }else if (type == 3) {
+                    String fileString;
                     if (!((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().endsWith(".amr")){
                         copyFile(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl(),((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.amr");
-                        file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.amr");
+                        fileString = ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add";
+//                        file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.amr");
+                    }else {
+                        fileString = ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl();
                     }
-//                    new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            String cmd = "-y -i " + bean.getPath() + " -vcodec libx264 -preset ultrafast -vf scale=iw/" + s + ":ih/"
-//                                    + s + " -flags +loop -cmp chroma -crf 24 -bt 256k -refs 1 -coder " +
-//                                    "0 -me_range 16 -subq 5 -partitions parti4x4+parti8x8+partp8x8 -g" +
-//                                    " 250 -keyint_min 25 -level 30 -qmin 10 -qmax 51 -trellis 2 " +
-//                                    "-sc_threshold 40 -i_qfactor 0.71 -acodec copy " + mVideoCachePath;
-//                            startCompress(cmd, PhotoUtils.getVideoThumbPath(bean.getPath()), (int) ((VideoBean)
-//                                    bean).getLength());
-//                        }
-//                    }).start();
+                    ffmpegCommandAmr2Wav(fileString,((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"towav");
                 }else {
                     file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl());
+                    createBody(file,type);
                 }
-                createBody(file,type);
             }else {
                 EaseConstant.isCollection = true;
                 Intent mIntent = new Intent(mContext, EaseShowNormalFileActivity.class);
@@ -463,7 +501,8 @@ private int type ;
                 break;
             case VOICE:
                 type = 3;
-                openMyFile(3);
+              //  Toast.makeText(mContext,"暂时无法收藏语音",Toast.LENGTH_LONG).show();
+           //     openMyFile(3);
                 break;
             case LOCATION:
                 break;
