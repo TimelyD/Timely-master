@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/back"
-        app:titleBarTitle="@string/notify_set"></com.hyphenate.easeui.widget.EaseTitleBar>
+        app:titleBarTitle="@string/notify_set">
+    </com.hyphenate.easeui.widget.EaseTitleBar>
 
     <View style="@style/LineHorizontalStyle"
           android:layout_marginTop="@dimen/common.10dp"/>

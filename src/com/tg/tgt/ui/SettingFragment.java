@@ -198,7 +198,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         int motionUnread = getMotionUnread();
         if(motionUnread>0){
             //tvUnreadMoment.setVisibility(View.VISIBLE);
-            tvUnreadMoment.setVisibility(View.GONE);
+            tvUnreadMoment.setVisibility(View.VISIBLE);
             tvUnreadMoment.setText(""+motionUnread);
         }else {
             tvUnreadMoment.setVisibility(View.GONE);

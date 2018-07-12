@@ -28,8 +28,13 @@ import com.hyphenate.EMConversationListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
+import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.utils.GroupHelper;
 import com.hyphenate.easeui.widget.EaseConversationList;
 
 import java.util.ArrayList;
@@ -89,6 +94,19 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     protected void setUpView() {
         conversationList.addAll(loadConversationList());
         conversationListView.init(conversationList);
+        for(int i=0;i<conversationList.size();i++){
+            if(conversationList.get(i).getAllMessages().size()>0){
+                EMMessage lastMessage = conversationList.get(i).getLastMessage();
+                if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)){
+                    Log.i("xxx", GroupHelper.parseInviteMsg(lastMessage));
+                }else {
+                    Log.i("xxx", EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext())))+"");
+                }
+
+            }else {
+                Log.i("xxx","没有消息");
+            }
+        }
         
         if(listItemClickListener != null){
             conversationListView.setOnItemClickListener(new OnItemClickListener() {

@@ -117,33 +117,46 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
 
 		mediaPlayer = new MediaPlayer();
-		//if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
-		switch (voiceModel){
-			case 0:
-				audioManager.setMode(AudioManager.MODE_NORMAL);
-				audioManager.setSpeakerphoneOn(true);
-				break;
-			case 1:
-				audioManager.setSpeakerphoneOn(false);
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-					audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-				} else {
-					audioManager.setMode(AudioManager.MODE_IN_CALL);
-				}
-				break;
-			case 2:
-				audioManager.setSpeakerphoneOn(false);
-				break;
+		if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
+			audioManager.setMode(AudioManager.MODE_NORMAL);
+			audioManager.setSpeakerphoneOn(true);
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+		} else {
+			audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+			// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+			audioManager.setMode(AudioManager.MODE_IN_CALL);
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
 		}
-//			audioManager.setMode(AudioManager.MODE_NORMAL);
-//			audioManager.setSpeakerphoneOn(true);
-//			mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
-//		//} else {
-//			audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-//			// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-//			audioManager.setMode(AudioManager.MODE_IN_CALL);
-//			mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-	//	}
+		/*if (voiceModel == 0){
+			if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
+			audioManager.setMode(AudioManager.MODE_NORMAL);
+			audioManager.setSpeakerphoneOn(true);
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+		} else {
+			audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+			// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+			audioManager.setMode(AudioManager.MODE_IN_CALL);
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+				}
+		}else {
+			switch (voiceModel){
+				case 0:
+					audioManager.setMode(AudioManager.MODE_NORMAL);
+					audioManager.setSpeakerphoneOn(true);
+					break;
+				case 1:
+					audioManager.setSpeakerphoneOn(false);
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+						audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+					} else {
+						audioManager.setMode(AudioManager.MODE_IN_CALL);
+					}
+					break;
+				case 2:
+					audioManager.setSpeakerphoneOn(false);
+					break;
+			}
+		}*/
 		try {
 			mediaPlayer.setDataSource(filePath);
 			mediaPlayer.prepare();
