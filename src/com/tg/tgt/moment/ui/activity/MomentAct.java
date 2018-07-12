@@ -434,13 +434,16 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         }
         mAdapter.addHeaderView(header);
         TextView stateTv = (TextView) header.findViewById(R.id.tv_state);
+//        if (!TextUtils.isEmpty(mUserInfo.getChatidstate()) && mUserInfo.getChatidstate().length()>28) {
+//            stateTv.setTextSize(13);
+//            stateTv.setText(TextUtils.isEmpty(mUserInfo.getChatidstate())?this.getString(R.string.nox):mUserInfo.getChatidstate());
+//        }else
         stateTv.setText(TextUtils.isEmpty(mUserInfo.getChatidstate())?this.getString(R.string.nox):mUserInfo.getChatidstate());
         TextView nameTv = (TextView) header.findViewById(R.id.tv_name);
         nameTv.setText(mUserInfo.safeGetRemark());
         ImageView avatarIv = (ImageView) header.findViewById(R.id.iv_avatar);
  //       GlideApp.with(mActivity).load(mUserInfo.getAvatar()).placeholder(R.drawable.default_avatar).into(avatarIv);
-        ImageUtils.show(MomentAct.this, SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext,
-                Constant.HEADIMAGE), R.drawable.photo1, avatarIv);
+        ImageUtils.show(MomentAct.this, mUserInfo.getAvatar(), R.drawable.photo1, avatarIv);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter.setPresenter(mPresenter);

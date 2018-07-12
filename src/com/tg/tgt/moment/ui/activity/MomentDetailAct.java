@@ -3,8 +3,10 @@ package com.tg.tgt.moment.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hyphenate.easeui.domain.EaseEmojicon;
+import com.hyphenate.easeui.utils.KeybordUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.tg.tgt.App;
@@ -287,12 +290,14 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
     @Override
     public void updateEditTextBodyVisible(int visibility, CommentConfig commentConfig) {
         this.commentConfig = commentConfig;
-            if(commentConfig!=null && null != commentConfig.hint){
-                mCommentInputMenu.setHint(commentConfig.hint);
-            }else {
-//                mCommentInputMenu.setHint("");
-            }
+        if(commentConfig!=null && null != commentConfig.hint){
+            mCommentInputMenu.setHint(commentConfig.hint);
+        }else {
+           // mCommentInputMenu.setHint("");
+        }
         measureCircleItemHighAndCommentItemOffset(commentConfig);
+        mCommentInputMenu.updateKeyBoard(View.VISIBLE);
+ //       mCommentInputMenu.setKeyBoardShow(true);
         mCommentInputMenu.updateKeyBoard(visibility);
     }
 

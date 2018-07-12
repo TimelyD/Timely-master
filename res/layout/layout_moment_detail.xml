@@ -25,11 +25,18 @@
         />
 
     <!--<include layout="@layout/layout_edit"/>-->
-    <com.tg.tgt.moment.widgets.CommentInputMenu
-        android:layout_alignParentBottom="true"
-        android:id="@+id/conmment_input_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.tg.tgt.moment.widgets.CommentInputMenu>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <com.tg.tgt.moment.widgets.CommentInputMenu
+                android:layout_alignParentBottom="true"
+                android:id="@+id/conmment_input_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.tg.tgt.moment.widgets.CommentInputMenu>
+
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

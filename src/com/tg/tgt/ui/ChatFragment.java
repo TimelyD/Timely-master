@@ -88,7 +88,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import cn.dxjia.ffmpeg.library.FFmpegNativeHelper;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
@@ -166,18 +165,18 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
-        voiceToWavHandler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what){
-                    case 1000:
-                        Log.e("Tag","转换wanbi2222222222222");
-                        createBody(new File(msg.obj.toString()),type);
-                        break;
-                }
-            }
-        };
+//        voiceToWavHandler = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg) {
+//                super.handleMessage(msg);
+//                switch (msg.what){
+//                    case 1000:
+//                        Log.e("Tag","转换wanbi2222222222222");
+//                        createBody(new File(msg.obj.toString()),type);
+//                        break;
+//                }
+//            }
+//        };
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -397,19 +396,19 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     public static android.os.Handler voiceToWavHandler;
 
     private void ffmpegCommandAmr2Wav(String source, final String target) {
-        final String command = "ffmpeg -i " + source + " -vn -acodec pcm_s16le -ab 256k -ac 1 -ar 16000 -f wav -y " + target;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                FFmpegNativeHelper.runCommand(command);
-                //音频转换结束，开始语音识别
-                Log.e("Tag","转换wanbi");
-                Message msg = new Message();
-                msg.what = 1000;
-                msg.obj = target;
-                voiceToWavHandler.sendMessage(msg);
-            }
-        }).start();
+//        final String command = "ffmpeg -i " + source + " -vn -acodec pcm_s16le -ab 256k -ac 1 -ar 16000 -f wav -y " + target;
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                FFmpegNativeHelper.runCommand(command);
+//                //音频转换结束，开始语音识别
+//                Log.e("Tag","转换wanbi");
+//                Message msg = new Message();
+//                msg.what = 1000;
+//                msg.obj = target;
+//                voiceToWavHandler.sendMessage(msg);
+//            }
+//        }).start();
 //        Runnable compoundRun = new Runnable() {
 //            @Override
 //            public void run() {

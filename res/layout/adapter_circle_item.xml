@@ -61,6 +61,20 @@
 
             </RelativeLayout>
 
+            <Button
+                android:id="@+id/delete_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/transparent"
+                android:gravity="right|center_vertical"
+                android:paddingRight="@dimen/common.11dp"
+                android:textSize="@dimen/common.12sp"
+                android:textColor="@color/rp_msg_red"
+                android:text="删除"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
         <View
