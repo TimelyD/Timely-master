@@ -175,7 +175,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         idText.setText(mGroup.getGroupSn());
 //        mTvMemberCountTv.setText(String.format(getString(R.string.number_of_group_member), mGroup.getAffiliationsCont
 //                ()));
-        mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + st);
+        //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + st);
 
         mGroupUsers = GroupManger.getGroupUsers(groupId);
         memberList.addAll(mGroupUsers.values());
@@ -187,6 +187,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         }
         memberList2.clear();
         memberList2=memberList;
+        mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner,memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
         userGridview.setAdapter(membersAdapter);
@@ -264,10 +265,13 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 //                                                            .number_of_group_member), mGroup.getAffiliationsCont()));
                                                         membersAdapter.notifyDataSetChanged();
 
-                                                        mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup
-                                                                .getAffiliationsCont()
-
-                                                                + ")");
+                                                        //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
+                                                        mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
+                                                        if(memberList.size()>8){
+                                                            more.setVisibility(View.VISIBLE);
+                                                        }else {
+                                                            more.setVisibility(View.GONE);
+                                                        }
                                                         loadingPB.setVisibility(View.INVISIBLE);
 
                                                         // update block
@@ -492,6 +496,11 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 GroupManger.saveGroup(mGroup);
                                 membersAdapter.setData(emptyData);
                                 mTitleBar.setTitle(mGroup.getGroupName() + "(" + emptyData.size() + ")");
+                                if(emptyData.size()>8){
+                                    more.setVisibility(View.VISIBLE);
+                                }else {
+                                    more.setVisibility(View.GONE);
+                                }
                             }
                         });
 
@@ -514,6 +523,11 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                     GroupManger.saveGroup(mGroup);
                                     membersAdapter.setData(groupModels);
                                     mTitleBar.setTitle(mGroup.getGroupName() + "(" + groupModels.size() + ")");
+                                    if(groupModels.size()>8){
+                                        more.setVisibility(View.VISIBLE);
+                                    }else {
+                                        more.setVisibility(View.GONE);
+                                    }
 //                                    mTvMemberCountTv.setText(String.format(getString(R.string
 //                                            .number_of_group_member), groupModels.size()));
                                 }
@@ -541,8 +555,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                         Toast.makeText(getApplicationContext(), st6, Toast.LENGTH_SHORT).show();
                                         mGroup.setGroupName(returnData);
                                         GroupManger.saveGroup(mGroup);
-                                        mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont
-                                                () + ")");
+                                        //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
+                                        mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
                                     }
                                 });
                     }
@@ -737,9 +751,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 //					refreshMembersAdapter();
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            mTitleBar.setTitle(group.getGroupName() + "(" + group
-                                    .getMemberCount()
-                                    + st);
+                            mTitleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + st);
                             //发送邀请信息
                             GroupHelper.sendInviteMsg(group, newmembers);
                             progressDialog.dismiss();

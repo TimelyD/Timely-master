@@ -199,7 +199,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 holder.msgState.setVisibility(View.GONE);
             }
         }else {
-            holder.message.setText("");
+            //holder.message.setText("");
         }
 
         if(position  == getCount() - 1){

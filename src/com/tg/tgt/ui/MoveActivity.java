@@ -98,10 +98,11 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
         EMClient.getInstance().groupManager().addGroupChangeListener(groupChangeListener);
         mGroup = GroupManger.getGroup(groupId);
 
-        mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + st);
+        //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + st);
         mGroupUsers = GroupManger.getGroupUsers(groupId);
         memberList.addAll(mGroupUsers.values());
         sortGroup(memberList);
+        mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner, memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
         userGridview.setAdapter(membersAdapter);
@@ -152,7 +153,8 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
                                                 Exception {
                                             mGroupUsers = GroupManger.getGroupUsers(groupId);
                                             membersAdapter.notifyDataSetChanged();
-                                            mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
+                                            //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
+                                            mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
                                         }
                                     }, new Consumer<Throwable>() {
                                         @Override
