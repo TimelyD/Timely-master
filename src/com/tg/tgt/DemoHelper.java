@@ -375,16 +375,19 @@ public class DemoHelper {
 
             @Override
             public boolean isMsgVibrateAllowed(EMMessage message) {
+                Log.e("Tag","震动"+demoModel.getSettingMsgVibrate());
                 return demoModel.getSettingMsgVibrate();
             }
 
             @Override
             public boolean isMsgSoundAllowed(EMMessage message) {
+                Log.e("Tag","声音"+demoModel.getSettingMsgSound());
                 return demoModel.getSettingMsgSound();
             }
 
             @Override
             public boolean isMsgNotifyAllowed(EMMessage message) {
+                Log.e("Tag","是否通知"+demoModel.getSettingMsgNotification());
                 if (message == null) {
                     return demoModel.getSettingMsgNotification();
                 }
@@ -1174,7 +1177,7 @@ public class DemoHelper {
                 for (EMMessage message : messages) {
                     EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
                     // in background, do not refresh UI, notify it in notification bar
-             //       EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
+        //            EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
                     if (!easeUI.hasForegroundActivies()) {
                         if (MainActivity.messageCountHandler != null)
                             MainActivity.messageCountHandler.sendEmptyMessage(1);

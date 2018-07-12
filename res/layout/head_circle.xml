@@ -66,6 +66,7 @@
                     android:text="如果你不会说话那么如果你不会说话那么如果你不会说话那么"
                     android:singleLine="false"
                     android:lines="2"
+                    android:ellipsize="end"
                     android:textColor="@color/white"
                     android:textSize="@dimen/common.13sp"/>
 

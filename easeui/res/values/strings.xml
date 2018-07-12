@@ -18,4 +18,5 @@
     <string name="digest_location">[Location]</string>
     <string name="confirm">Confirm</string>
     <string name="title_activity_move">MoveActivity</string>
+    <string name="long_collection">Collection</string>
 </resources>

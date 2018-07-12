@@ -178,6 +178,7 @@ public class MainActivity extends BaseActivity {
 		}
 		Constant.User_Phone = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_phone_zww");
 		Constant.User_Nick = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_nick_zww");
+		Constant.myUserIdZww = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"my_userId");
 		// 1. 注册锁屏广播监听器
         mScreenListener = new ScreenReceiverUtil(this);
         mScreenManager = ScreenManager.getScreenManagerInstance(this);

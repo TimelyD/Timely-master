@@ -137,6 +137,25 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
+                switch (msg.what){
+                    case 1001:
+                        CircleItem item=null;
+                        int posinn = 0;
+                        for (int i=0;i<mData.size();i++){
+                            if (mData.get(i).getId().equals(msg.obj.toString())){
+                                item = mData.get(i);
+                                posinn = i;
+                                i = mData.size();
+                            }
+                        }
+                        Log.e("Tag","posin="+posinn+"item=="+item.getId());
+                        if (item != null) {
+                            mData.remove(item);
+                            mAdapter.remove(posinn);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        break;
+                }
             }
         };
     }
@@ -481,7 +500,6 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                         config.hint = "";
                         updateEditTextBodyVisible(View.VISIBLE, config);
                         break;
-
                     default:
                         break;
                 }
@@ -588,6 +606,11 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         }
         //清空评论文本
 //        editText.setText("");
+    }
+
+    @Override
+    public void update2DeleteMoment(CircleItem circleItem) {
+
     }
 
     @Override
@@ -813,5 +836,10 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     public void onActivityReenter(int resultCode, Intent data) {
         super.onActivityReenter(resultCode, data);
         mCurrentItem = data.getExtras().getInt("currentItem");
+    }
+
+    @Override
+    public void setDelete(boolean isSuccess, String toast) {
+
     }
 }

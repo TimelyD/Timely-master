@@ -262,4 +262,5 @@
     <string name="dynamic_cancel">cancel</string>
     <string name="empty_moments">You have no visiting footprints...</string>
     <string name="collection_empty">Your favorites are temporarily empty</string>
+    <string name="delete_moment_successful">successful</string>
 </resources>

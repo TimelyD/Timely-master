@@ -93,4 +93,6 @@ public class Constant extends EaseConstant {
 
 	public static  boolean insetMusic = false;
 
+	public static String myUserIdZww;
+
 }

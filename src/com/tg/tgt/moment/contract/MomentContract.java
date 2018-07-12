@@ -21,8 +21,10 @@ public interface MomentContract {
         void update2DeleteFavort(int circlePosition);
         void update2AddComment(int circlePosition, CommentItem addItem);
         void update2DeleteComment(int circlePosition, List<CommentItem> commentId);
+        void update2DeleteMoment(CircleItem circleItem);
         void updateEditTextBodyVisible(int visibility, CommentConfig commentConfig);
         void setData(boolean isSuccess, boolean loadMore, boolean hasMore, List<CircleItem> datas);
+        void setDelete(boolean isSuccess,String toast);
     }
     interface Presenter extends IPresenter {
         void loadData(boolean loadMore);

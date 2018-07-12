@@ -2,9 +2,11 @@ package com.tg.tgt.moment.presenter;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.moment.BasePresenter;
 import com.tg.tgt.moment.IModel;
@@ -102,8 +104,22 @@ public class MomentPresenter extends BasePresenter<IModel, MomentContract.View> 
     }
 
     @Override
-    public void deleteCircle(String circleId) {
+    public void deleteCircle(final String circleId) {
+        ApiManger2.getApiService().deleteMomentMine(circleId)
+                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+                .subscribe(new BaseObserver2<EmptyData>() {
+                    @Override
+                    protected void onSuccess(EmptyData emptyData) {
+                        mView.setDelete(true,"");
+                        mView.update2DeleteCircle(circleId);
+                    }
 
+                    @Override
+                    public void onFaild(HttpResult<EmptyData> result) {
+                        super.onFaild(result);
+                        mView.setDelete(false,result.getMsg());
+                    }
+                });
     }
 
     @Override

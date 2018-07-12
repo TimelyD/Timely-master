@@ -1,5 +1,6 @@
 package com.hyphenate.easeui.widget.photoselect;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -57,6 +59,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import me.jessyan.progressmanager.ProgressListener;
 import me.jessyan.progressmanager.ProgressManager;
@@ -516,6 +519,7 @@ ActivityCompat.postponeEnterTransition(this);
                                     // ToastUtils.showToast(this,"图片保存成功");
                                     Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                                     mediaScanIntent.setData(Uri.fromFile(new File(mAllImage.get(mCurrentPosition).getPath())));
+                                    Toast.makeText(PreviewImageActivity.this,"保存成功",Toast.LENGTH_LONG).show();
                                     //  this.sendBroadcast(mediaScanIntent);
                                 }else {
                                     Toast.makeText(PreviewImageActivity.this, "图片加载中，无法保存", Toast.LENGTH_LONG).show();
@@ -597,6 +601,78 @@ ActivityCompat.postponeEnterTransition(this);
 //            mCurIv = ((View) object).findViewById(R.id.iv_image_item);
         }
     }
+
+    private String[] perimissionCheck = new String[]{
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE,
+    };
+
+    /**
+     * @param bmp 获取的bitmap数据
+     * @param picName 自定义的图片名
+     */
+    private void saveBmp2Gallery(Bitmap bmp, String picName) {
+
+        String fileName = null;
+        //系统相册目录
+        String galleryPath = Environment.getExternalStorageDirectory()
+                + File.separator + Environment.DIRECTORY_DCIM
+                + File.separator + "Camera" + File.separator;
+
+
+        // 声明文件对象
+        File file = null;
+        // 声明输出流
+        FileOutputStream outStream = null;
+        try {
+            // 如果有目标文件，直接获得文件对象，否则创建一个以filename为名称的文件
+            file = new File(galleryPath, picName + ".png");
+            // 获得文件相对路径
+            fileName = file.toString();
+            // 获得输出流，如果文件中有内容，追加内容
+            outStream = new FileOutputStream(fileName);
+            if (null != outStream) {
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        } finally {
+            try {
+                if (outStream != null) {
+                    outStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        //通知相册更新
+        MediaStore.Images.Media.insertImage(PreviewImageActivity.this.getContentResolver(),bmp, fileName, null);
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(file);
+        intent.setData(uri);
+        PreviewImageActivity.this.sendBroadcast(intent);
+        Toast.makeText(PreviewImageActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+       // ToastUtils.s(getString(R.string.toast_save_successful));
+    }
+
+//    private void savePic(){
+//        new RxPermissions(PreviewImageActivity.this)
+//                .request(perimissionCheck)
+//                .subscribe(new Consumer<Boolean>() {
+//                    @Override
+//                    public void accept(Boolean aBoolean) throws Exception {
+//                        if (aBoolean) {
+//                           // codeImg.setDrawingCacheEnabled(true);
+//                            saveBmp2Gallery(codeImg.getDrawingCache(), Contants.USER_ID+"Code");
+//                            //codeImg.setDrawingCacheEnabled(false);
+//                        } else {
+//                            Toast.makeText(PreviewImageActivity.this,"请打开权限",Toast.LENGTH_LONG).show();
+//                           // ToastUtils.s(getString(R.string.toast_open_permissions));
+//                        }
+//                    }
+//                });
+//    }
 
 
     @Override

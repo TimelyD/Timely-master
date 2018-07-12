@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -131,7 +132,9 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
                         config.hint = "";
                         updateEditTextBodyVisible(View.VISIBLE, config);
                         break;
-
+                    case R.id.delete_item:
+                        mPresenter.deleteCircle(circleItem.getId());
+                        break;
                     default:
                         break;
                 }
@@ -230,6 +233,10 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
 
     @Override
     public void update2DeleteCircle(String circleId) {
+        Message msg = new Message();
+        msg.what = 1001;
+        msg.obj = circleId;
+        MomentAct.mCollectHandler.sendMessage(msg);
         ToastUtils.showToast(getApplicationContext(), circleId);
     }
 
@@ -447,6 +454,21 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
 
     @Override
     public void setData(boolean isSuccess, boolean loadMore, boolean hasMore, List<CircleItem> datas) {
+
+    }
+
+    @Override
+    public void setDelete(boolean isSuccess,String toast) {
+        if (isSuccess){
+            Toast.makeText(MomentDetailAct.this, R.string.delete_moment_successful,Toast.LENGTH_LONG).show();
+            finish();
+        }else {
+            Toast.makeText(MomentDetailAct.this,toast,Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void update2DeleteMoment(CircleItem circleItem) {
 
     }
 }

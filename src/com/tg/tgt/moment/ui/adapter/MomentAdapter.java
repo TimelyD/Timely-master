@@ -91,12 +91,12 @@ public class MomentAdapter extends BaseMomentAdapter {
             if(res == R.layout.adapter_circle_item_mine){
                 helper.setText(R.id.timeTv, TimeUtils.getMomentDateShortString(createTime));
                 Log.e("Tag","标号:"+helper.getPosition()+"id:"+helper.getItemId()+"列表大小："+MomentAct.mineSize);
-                if (helper.getPosition() == 1) {
-                    helper.getView(R.id.split).setVisibility(View.INVISIBLE);
-                }
-                if (helper.getPosition() == MomentAct.mineSize){
-                    helper.getView(R.id.line_circle).setVisibility(View.GONE);
-                }
+//                if (helper.getPosition() == 1) {
+//                    helper.getView(R.id.split).setVisibility(View.INVISIBLE);
+//                }
+//                if (helper.getPosition() == MomentAct.mineSize){
+//                    helper.getView(R.id.line_circle).setVisibility(View.GONE);
+//                }
             }else {
                 helper.setText(R.id.timeTv, TimeUtils.getMomentDateString(createTime));
                 (helper.getView(R.id.like_out_relative)).setOnClickListener(new View.OnClickListener() {
@@ -108,8 +108,12 @@ public class MomentAdapter extends BaseMomentAdapter {
                         mPresenter.addFavort(position);
                     }
                 });
-                if (ActMgrs.getActManager().currentActivity() instanceof MomentDetailAct)
+              //  Log.e("Tag","circleId"+circleItem.getUserId()+"")
+                if (ActMgrs.getActManager().currentActivity() instanceof MomentDetailAct
+                        && circleItem.getUserId().equals(Constant.myUserIdZww)) {
                     helper.getView(R.id.delete_item).setVisibility(View.VISIBLE);
+                    helper.addOnClickListener(R.id.delete_item);
+                }
 //                if (TextUtils.isEmpty(content))
 //                    helper.getView(R.id.bottom_split).setVisibility(View.VISIBLE);
             }

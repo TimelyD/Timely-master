@@ -282,7 +282,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         SpUtils.put(mContext, AddTokenInterceptor.REFRESH_TOKEN, loginResult.getRefreshToken());
 
                         Map<String, String> map = new HashMap<String, String>();
-
+                        SharedPreStorageMgr.getIntance().saveStringValue(LoginActivity.this,"my_userId",loginResult.getUserId());
                         map.put(Constant.MYUID, String.valueOf(loginResult.getUserId()));
                         map.put(Constant.SEX, loginResult.getSex());
                         map.put(Constant.NICKNAME, loginResult.getNickname());
