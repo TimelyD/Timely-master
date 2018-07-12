@@ -21,6 +21,7 @@
       <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+          android:visibility="gone"
         android:background="@android:color/darker_gray" />
     <TextView
         android:id="@+id/recall"
@@ -29,6 +30,7 @@
         android:background="@drawable/em_context_menu_item_bg"
         android:clickable="true"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:onClick="recall"
         android:padding="10dp"
         android:text="@string/recall"

@@ -29,6 +29,7 @@ import android.widget.ProgressBar;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.utils.EaseLoadLocalBigImgTask;
 import com.hyphenate.easeui.widget.photoview.EasePhotoView;
@@ -45,6 +46,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 	private static final String TAG = "ShowBigImage"; 
 	private ProgressDialog pd;
 	private EasePhotoView image;
+	private View rl;
 	private int default_res = com.hyphenate.easeui.R.drawable.ease_default_image;
 	private String localFilePath;
 	private Bitmap bitmap;
@@ -61,6 +63,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
 		image = (EasePhotoView) findViewById(com.hyphenate.easeui.R.id.image);
+		rl =findViewById(R.id.rl);
 		ProgressBar loadLocalPb = (ProgressBar) findViewById(com.hyphenate.easeui.R.id.pb_load_local);
 		default_res = getIntent().getIntExtra("default_image", com.hyphenate.easeui.R.drawable.ease_default_avatar);
 		Uri uri = getIntent().getParcelableExtra("uri");
@@ -93,6 +96,12 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 		}
 
 		image.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+		rl.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();

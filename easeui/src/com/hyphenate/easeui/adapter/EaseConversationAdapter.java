@@ -176,6 +176,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 Log.i("zzz1",GroupHelper.parseInviteMsg(lastMessage));
                 holder.message.setText(GroupHelper.parseInviteMsg(lastMessage));
             }else {
+                Log.i("zzz3",EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext())))+"");
                 if(EaseUserUtils.getUserInfo(username).getIsLock() == 1){
                     holder.message.setText("******");
                 }else {
@@ -193,6 +194,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             } else {
                 holder.msgState.setVisibility(View.GONE);
             }
+        }else {
+            holder.message.setText("");
         }
 
         if(position  == getCount() - 1){

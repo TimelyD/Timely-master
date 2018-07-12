@@ -88,6 +88,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:visibility="gone"
         android:background="@android:color/darker_gray" />
     <TextView
         android:id="@+id/recall"
@@ -97,6 +98,7 @@
         android:clickable="true"
         android:gravity="center_vertical"
         android:onClick="recall"
+        android:visibility="gone"
         android:padding="10dp"
         android:text="@string/recall"
         android:textColor="@android:color/black"

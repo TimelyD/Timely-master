@@ -27,6 +27,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:visibility="gone"
         android:background="@android:color/darker_gray" />
     <TextView
         android:id="@+id/collection"
@@ -44,6 +45,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:visibility="gone"
         android:background="@android:color/darker_gray" />
 
     <TextView
@@ -55,6 +57,7 @@
         android:gravity="center_vertical"
         android:onClick="recall"
         android:padding="10dp"
+        android:visibility="gone"
         android:text="@string/recall"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
