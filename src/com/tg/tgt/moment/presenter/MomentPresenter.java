@@ -110,8 +110,8 @@ public class MomentPresenter extends BasePresenter<IModel, MomentContract.View> 
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override
                     protected void onSuccess(EmptyData emptyData) {
-                        mView.setDelete(true,"");
                         mView.update2DeleteCircle(circleId);
+                        mView.setDelete(true,"");
                     }
 
                     @Override

@@ -238,6 +238,7 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
         msg.obj = circleId;
         MomentAct.mCollectHandler.sendMessage(msg);
         ToastUtils.showToast(getApplicationContext(), circleId);
+        finish();
     }
 
     @Override
@@ -461,7 +462,6 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
     public void setDelete(boolean isSuccess,String toast) {
         if (isSuccess){
             Toast.makeText(MomentDetailAct.this, R.string.delete_moment_successful,Toast.LENGTH_LONG).show();
-            finish();
         }else {
             Toast.makeText(MomentDetailAct.this,toast,Toast.LENGTH_LONG).show();
         }
