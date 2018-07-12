@@ -97,7 +97,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.shortDivider = convertView.findViewById(R.id.divider_short);
             holder.list_itease_layout = (RelativeLayout) convertView.findViewById(com.hyphenate.easeui.R.id.list_itease_layout);
             holder.motioned = (TextView) convertView.findViewById(com.hyphenate.easeui.R.id.mentioned);
-
+            holder.block = convertView.findViewById(R.id.block);
             holder.msgLock = (ImageView) convertView.findViewById(com.hyphenate.easeui.R.id.iv_msg_lock);
 
             convertView.setTag(holder);
@@ -112,6 +112,11 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         
         if (conversation.getType() == EMConversationType.GroupChat) {
             String groupId = conversation.conversationId();
+            if(EMClient.getInstance().groupManager().getGroup(groupId).isMsgBlocked()){
+                holder.block.setVisibility(View.VISIBLE);
+            }else {
+                holder.block.setVisibility(View.GONE);
+            }
             if(EaseAtMessageHelper.get().hasAtMeMsg(groupId)){
                 holder.motioned.setVisibility(View.VISIBLE);
             }else{
@@ -359,7 +364,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         /** layout */
         RelativeLayout list_itease_layout;
         TextView motioned;
-
+        View block;
         /**消息是否加锁*/
         ImageView msgLock;
         View longDivider;

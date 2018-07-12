@@ -80,6 +80,13 @@
             android:visibility="gone"
             android:id="@+id/unread_msg_number"
             style="@style/NotifyDotTvStyle"/>
+        <ImageView
+            android:id="@+id/block"
+            android:layout_width="@dimen/common.17sp"
+            android:layout_height="@dimen/common.17sp"
+            android:layout_gravity="right"
+            android:visibility="gone"
+            android:src="@drawable/sss"/>
     </LinearLayout>
 
 

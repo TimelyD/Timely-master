@@ -181,6 +181,7 @@ public class EaseAtMessageHelper {
         return atMeGroupList.contains(groupId);
     }
     
+    
     public boolean isAtMeMsg(EMMessage message){
         EaseUser user = EaseUserUtils.getUserInfo(message.getFrom());
         if(user != null){
