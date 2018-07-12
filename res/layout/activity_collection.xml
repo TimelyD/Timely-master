@@ -21,10 +21,11 @@
             android:background="@color/transparent"
             android:textColor="@color/white"
             android:textSize="@dimen/common.15sp"
-            android:padding="@dimen/common.5dp"
             android:text="@string/editor"/>
 
     </com.hyphenate.easeui.widget.EaseTitleBar>
+    <!--
+            android:padding="@dimen/common.5dp"-->
 
     <View
         android:layout_width="match_parent"

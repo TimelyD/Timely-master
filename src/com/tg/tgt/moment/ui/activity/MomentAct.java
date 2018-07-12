@@ -148,11 +148,8 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                                 i = mData.size();
                             }
                         }
-                        Log.e("Tag","posin="+posinn+"item=="+item.getId());
                         if (item != null) {
-                            mData.remove(item);
-                            mAdapter.remove(posinn);
-                            mAdapter.notifyDataSetChanged();
+                            mPresenter.loadData(false);
                         }
                         break;
                 }
