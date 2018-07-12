@@ -18,12 +18,14 @@
             android:layout_height="@dimen/common.30dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="#80C2C2C2"/>
+            android:background="#80C2C2C2"
+            android:visibility="gone"/>
         <View
             android:id="@+id/circle"
-            android:layout_width="@dimen/common.12dp"
-            android:layout_height="@dimen/common.12dp"
+            android:layout_width="@dimen/common.14dp"
+            android:layout_height="@dimen/common.14dp"
             android:layout_below="@+id/split"
+            android:layout_marginTop="@dimen/common.30dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/circle_gray_mine" />
 
@@ -33,7 +35,8 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/circle"
             android:layout_centerHorizontal="true"
-            android:background="#80C2C2C2" />
+            android:background="#80C2C2C2"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

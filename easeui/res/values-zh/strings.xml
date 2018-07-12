@@ -17,4 +17,5 @@
     <string name="cancel_compress">取消压缩</string>
     <string name="digest_location">[位置]</string>
     <string name="confirm">确认</string>
+    <string name="long_collection">收藏</string>
 </resources>

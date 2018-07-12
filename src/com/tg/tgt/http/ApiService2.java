@@ -425,4 +425,8 @@ public interface ApiService2 {
     @POST("api/collection/deleteCollectionById")
     Observable<HttpResult<EmptyData>> deleteCollection(@Field("ids")String id);
 
+    @FormUrlEncoded
+    @POST("api/user/moments/deleteMoments")
+    Observable<HttpResult<EmptyData>> deleteMomentMine(@Field("id")String id);
+
 }

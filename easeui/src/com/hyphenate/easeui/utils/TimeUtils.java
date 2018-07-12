@@ -77,13 +77,13 @@ public class TimeUtils {
             }else {
                 var1 = "Yesterday";
                 SpannableString spannableString = new SpannableString(var1);
-                spannableString.setSpan(new AbsoluteSizeSpan(36), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                spannableString.setSpan(new AbsoluteSizeSpan(52), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 return spannableString;
             }
         } else{
             if(var3) {
-                var1 = "d/M月";
+                var1 = "M月d日";
             }else {
                 var1 = "dd/MM/M";
             }
@@ -94,7 +94,7 @@ public class TimeUtils {
 //                Locale.ENGLISH)).format(var0);
 
         SpannableString spannableString = new SpannableString(var1);
-        spannableString.setSpan(new AbsoluteSizeSpan(36), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new AbsoluteSizeSpan(52), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, var1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         return spannableString;
     }

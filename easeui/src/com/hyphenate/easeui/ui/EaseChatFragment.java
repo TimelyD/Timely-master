@@ -969,7 +969,6 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
               //  messageList.refreshSelectLast();
                 messageList.refresh();
                 //TODO 在当前界面不需要声音以及震动
-     //           EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
                 conversation.markMessageAsRead(message.getMsgId());
                 //这里收到信息，如果是阅后即焚，那么在n秒后删除
 //                if ("1".equals(message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_FIRE, "0"))) {
