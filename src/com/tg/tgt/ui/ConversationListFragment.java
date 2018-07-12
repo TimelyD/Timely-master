@@ -178,7 +178,7 @@ public class ConversationListFragment extends EaseConversationListFragment {
                             mNewsModel = newsModels.get(0);
                             mTvNewsTitle.setText(mNewsModel.getTitle());
                             mTvNewsText.setText(mNewsModel.getBrief());
-                            mTvNewsTime.setText(mNewsModel.getCreateTime());
+                            //mTvNewsTime.setText(mNewsModel.getCreateTime());
                             //该状态用来判断小红点是否显示
                             if((App.getMyUid()+mNewsModel.getId()).equals(SharedPreStorageMgr.getIntance().getStringValue(getContext(), Constant.NEWS_RECODE))){
                                 mTvNewDot.setVisibility(View.GONE);

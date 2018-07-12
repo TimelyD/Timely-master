@@ -798,7 +798,6 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             default:
                 break;
         }
-
     }
 
     private void toggleBlockOfflineMsg() {

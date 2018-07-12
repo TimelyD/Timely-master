@@ -248,7 +248,6 @@
                 <RelativeLayout
                     android:gravity="top"
                     android:paddingLeft="@dimen/common.10dp"
-                    android:visibility="gone"
                     android:id="@+id/rl_switch_block_groupmsg"
                     style="@style/InfoLayoutStyle"
                     >
@@ -276,6 +275,7 @@
                 <RelativeLayout
                     android:id="@+id/rl_switch_block_offline_message"
                     style="@style/InfoLayoutStyle"
+                    android:visibility="gone"
                     android:paddingLeft="@dimen/common.10dp"
                     android:gravity="top"
                     >
