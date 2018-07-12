@@ -237,7 +237,7 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
         msg.what = 1001;
         msg.obj = circleId;
         MomentAct.mCollectHandler.sendMessage(msg);
-        ToastUtils.showToast(getApplicationContext(), circleId);
+      //  ToastUtils.showToast(getApplicationContext(), circleId);
         finish();
     }
 
