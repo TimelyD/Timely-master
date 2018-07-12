@@ -71,15 +71,16 @@ public class VerUtils {
                             }
                             return;
                         }
-                        new AlertDialog.Builder(mActivity)
+                        if (model.getIsUpdate() == 0) {
+                            new AlertDialog.Builder(mActivity)
                                     .setTitle(R.string.need_to_update)
-                                .setMessage(mActivity.getResources().getConfiguration().locale.getLanguage().contains("zh")?model.getContent()+"\n大小:"+model.getSize():model.getContentEn()+"\nsize:"+model.getSize())
-                                .setCancelable(false)
+                                    .setMessage(mActivity.getResources().getConfiguration().locale.getLanguage().contains("zh") ? model.getContent() + "\n大小:" + model.getSize() : model.getContentEn() + "\nsize:" + model.getSize())
+                                    .setCancelable(false)
                                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             //update(mActivity, model.getUrl(), model.getVersion());
-                                            Intent intent= new Intent();
+                                            Intent intent = new Intent();
                                             intent.setAction("android.intent.action.VIEW");
                                             Uri content_url = Uri.parse(ApiService2.downUrl);
                                             intent.setData(content_url);
@@ -93,6 +94,24 @@ public class VerUtils {
                                         }
                                     })
                                     .show();
+                        }else {
+                            new AlertDialog.Builder(mActivity)
+                                    .setTitle(R.string.need_to_update)
+                                    .setMessage(mActivity.getResources().getConfiguration().locale.getLanguage().contains("zh") ? model.getContent() + "\n大小:" + model.getSize() : model.getContentEn() + "\nsize:" + model.getSize())
+                                    .setCancelable(true)
+                                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //update(mActivity, model.getUrl(), model.getVersion());
+                                            Intent intent = new Intent();
+                                            intent.setAction("android.intent.action.VIEW");
+                                            Uri content_url = Uri.parse(ApiService2.downUrl);
+                                            intent.setData(content_url);
+                                            mActivity.startActivity(intent);
+                                        }
+                                    })
+                                    .show();
+                        }
                     }
                 });
     }

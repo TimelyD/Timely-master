@@ -29,6 +29,15 @@ public class VerModel {
     private String updateTime;
     private String url;
     private String version;
+    private int isUpdate;//0不强制，1强制
+
+    public int getIsUpdate() {
+        return isUpdate;
+    }
+
+    public void setIsUpdate(int isUpdate) {
+        this.isUpdate = isUpdate;
+    }
 
     public String getContent() {
         return content;
