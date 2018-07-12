@@ -201,10 +201,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void initSpinner() {
         this.emailspinner = (Spinner) findViewById(R.id.email_spinner);
         final String[] strings = getResources().getStringArray(R.array.emails);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.emails, R
-                .layout.spinner_item);
-
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.emails, R.layout.spinner_item);
         emailspinner.setAdapter(adapter);
         emailspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

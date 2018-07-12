@@ -6,6 +6,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:ellipsize="marquee"
-          android:textSize="12sp"
+          android:textSize="@dimen/tx_3"
           android:padding="10dp"
           android:textAlignment="inherit"/>

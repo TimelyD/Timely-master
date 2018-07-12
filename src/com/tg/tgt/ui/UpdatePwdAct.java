@@ -63,9 +63,9 @@ public class UpdatePwdAct extends BaseActivity{
         this.etnewpwd = (EditText) findViewById(R.id.et_new_pwd);
         this.etoldpwd = (EditText) findViewById(R.id.et_old_pwd);
 
-        etrepwd.setFilters(new InputFilter[]{CodeUtils.filter});
-        etnewpwd.setFilters(new InputFilter[]{CodeUtils.filter});
-        etoldpwd.setFilters(new InputFilter[]{CodeUtils.fil});
+        etrepwd.setFilters(new InputFilter[]{CodeUtils.fil});
+        etnewpwd.setFilters(new InputFilter[]{CodeUtils.fil});
+        etoldpwd.setFilters(new InputFilter[]{CodeUtils.filter});
 
 
 

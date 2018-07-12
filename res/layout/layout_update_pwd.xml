@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"/>
 
         <EditText
-            android:maxLength="24"
+            android:maxLength="20"
             android:id="@+id/et_new_pwd"
             android:inputType="textPassword"
             android:hint="@string/setpsw_newpswEdit"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"/>
 
         <EditText
-            android:maxLength="24"
+            android:maxLength="20"
             android:id="@+id/et_re_pwd"
             android:hint="@string/setpsw_aginnewpswEdit"
             android:inputType="textPassword"
