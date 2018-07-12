@@ -92,7 +92,7 @@
     
     <string name="register_editusername">请输入手机号</string>
     <string name="register_editcode">获取验证码</string>
-    <string name="register_editpassword">请输入6—24位密码</string>
+    <string name="register_editpassword">请输入6—20位密码</string>
     <string name="register_editpswagin">请重复输入密码</string>
     <string name="register_remailbox">注册安全邮箱</string>
     <string name="register_registerbutton">立即注册</string>

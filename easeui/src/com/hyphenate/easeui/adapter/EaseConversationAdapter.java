@@ -2,6 +2,7 @@ package com.hyphenate.easeui.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,6 +173,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             }
             //如果是进群邀请则显示邀请信息，如果不是则按原来
             if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)){
+                Log.i("zzz1",GroupHelper.parseInviteMsg(lastMessage));
                 holder.message.setText(GroupHelper.parseInviteMsg(lastMessage));
             }else {
                 if(EaseUserUtils.getUserInfo(username).getIsLock() == 1){
@@ -181,6 +183,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
             }
             if(content != null){
+                Log.i("zzz2",content);
                 holder.message.setText(content);
             }
             //holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));

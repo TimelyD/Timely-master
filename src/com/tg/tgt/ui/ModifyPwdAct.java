@@ -2,6 +2,7 @@ package com.tg.tgt.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.ResponseCode;
 import com.tg.tgt.http.model2.NonceBean;
+import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.ToastUtils;
 
@@ -45,7 +47,8 @@ public class ModifyPwdAct extends BaseActivity implements View.OnClickListener {
         this.newpwdet = (EditText) findViewById(R.id.new_pwd_et);
         this.emailtv = (TextView) findViewById(R.id.email_tv);
         this.titlebar = (EaseTitleBar) findViewById(R.id.title_bar);
-
+        newpwdet.setFilters(new InputFilter[]{CodeUtils.fil});
+        repwdet.setFilters(new InputFilter[]{CodeUtils.fil});
         titlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -167,6 +168,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
             
             case MSG_REFRESH:
 	            {
+                    Log.i("zzz","刷新");
 	            	conversationList.clear();
 	                conversationList.addAll(loadConversationList());
 	                conversationListView.refresh();
@@ -201,7 +203,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     		handler.sendEmptyMessage(MSG_REFRESH);
     	}
     }
-    
+
     /**
      * load conversation list
      * 

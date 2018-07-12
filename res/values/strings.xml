@@ -93,7 +93,7 @@
 
     <string name="register_editusername">Please enter your cell phone number</string>
     <string name="register_editcode">Please enter the verification code</string>
-    <string name="register_editpassword">Please enter 6——24 bit password</string>
+    <string name="register_editpassword">Please enter 6——20 bit password</string>
     <string name="register_editpswagin">Please enter the password again</string>
     <string name="register_remailbox">Registered secure mailbox</string>
     <string name="register_registerbutton">Register now</string>

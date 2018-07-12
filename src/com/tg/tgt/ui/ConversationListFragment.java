@@ -66,6 +66,12 @@ public class ConversationListFragment extends EaseConversationListFragment {
     private NewsModel mNewsModel;
 
     @Override
+    public void refresh() {
+        super.refresh();
+        conversationListView.refresh();
+    }
+
+    @Override
     protected void initView() {
         super.initView();
         View errorView = (LinearLayout) View.inflate(getActivity(), com.tg.tgt.R.layout.em_chat_neterror_item, null);
