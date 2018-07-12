@@ -605,7 +605,7 @@
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="1128170406115269#timly-test" />
+            android:value="1128170406115269#timely-release"/>
         <!-- android:value="1128170406115269#timly-test"/> -->
         <!-- android:value="1128170406115269#timely-release"/> -->
         <!-- 声明sdk所需的service -->
