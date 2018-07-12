@@ -267,7 +267,7 @@ public class MomentAdapter extends BaseMomentAdapter {
                     holder.multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            MomentAct.isFromId = circleItem.getId();
+                            MomentAct.isFromId = circleItem.getUserId();
                             List<MediaBean> beans = new ArrayList<MediaBean>();
                             for (int i = 0; i < photos.size(); i++) {
                                 PhotoBean e = new PhotoBean(photos.get(i).picture);

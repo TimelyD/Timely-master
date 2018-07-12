@@ -201,6 +201,7 @@ public class CollectionActivity extends BaseActivity{
                                 deleteIds = deleteIds + "," + mDatas.get(i).getId();
                         }
                     }
+                    Log.e("Tag",deleteIds);
                     if (!TextUtils.isEmpty(deleteIds)){
                         ApiManger2.getApiService()
                                 .deleteCollection(deleteIds)

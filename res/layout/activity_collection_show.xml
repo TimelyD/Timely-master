@@ -19,9 +19,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@color/transparent"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/common.8dp"
+            android:paddingBottom="@dimen/common.8dp"
             android:textColor="@color/white"
             android:textSize="@dimen/common.15sp"
-            android:padding="@dimen/common.5dp"
             android:text="@string/delete_button"/>
 
     </com.hyphenate.easeui.widget.EaseTitleBar>
