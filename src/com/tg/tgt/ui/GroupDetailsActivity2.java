@@ -228,73 +228,73 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                             .subscribe(new Consumer<List<GroupUserModel>>() {
                                 @Override
                                 public void accept(@NonNull List<GroupUserModel> models) throws Exception {
-                                    Observable.just(memberList)
-                                            .map(new Function<List<GroupUserModel>, List<GroupUserModel>>() {
-                                                @Override
-                                                public List<GroupUserModel> apply(@NonNull List<GroupUserModel> strings)
-                                                        throws Exception {
+                                        Observable.just(memberList)
+                                                .map(new Function<List<GroupUserModel>, List<GroupUserModel>>() {
+                                                    @Override
+                                                    public List<GroupUserModel> apply(@NonNull List<GroupUserModel> strings)
+                                                            throws Exception {
 
-                                                    if (pushConfigs == null) {
-                                                        EMClient.getInstance().pushManager().getPushConfigsFromServer();
+                                                        if (pushConfigs == null) {
+                                                            EMClient.getInstance().pushManager().getPushConfigsFromServer();
+                                                        }
+                                                        group = EMClient.getInstance().groupManager().getGroupFromServer
+                                                                (groupId);
+                                                        mGroup = GroupManger.fetchGroup(groupId);
+                                                        List<GroupUserModel> groupUserModels = mGroup.getGroupUserModels();
+                                                        strings.clear();
+                                                        strings.addAll(groupUserModels);
+                                                        sortGroup(strings);
+                                                        return strings;
                                                     }
-                                                    group = EMClient.getInstance().groupManager().getGroupFromServer
-                                                            (groupId);
-                                                    mGroup = GroupManger.fetchGroup(groupId);
-                                                    List<GroupUserModel> groupUserModels = mGroup.getGroupUserModels();
-                                                    strings.clear();
-                                                    strings.addAll(groupUserModels);
-                                                    sortGroup(strings);
-                                                    return strings;
-                                                }
-                                            })
-                                            .compose(mActivity.<List<GroupUserModel>>bindToLifeCyclerAndApplySchedulers
-                                                    (null))
-                                            .doOnSubscribe(new Consumer<Disposable>() {
-                                                @Override
-                                                public void accept(@NonNull Disposable disposable) throws Exception {
-                                                    loadingPB.setVisibility(View.VISIBLE);
-                                                }
-                                            })
-                                            .subscribe(new Consumer<List<GroupUserModel>>() {
-                                                @Override
-                                                public void accept(@NonNull List<GroupUserModel> strings) throws
-                                                        Exception {
-                                                    mGroupUsers = GroupManger.getGroupUsers(groupId);
+                                                })
+                                                .compose(mActivity.<List<GroupUserModel>>bindToLifeCyclerAndApplySchedulers
+                                                        (null))
+                                                .doOnSubscribe(new Consumer<Disposable>() {
+                                                    @Override
+                                                    public void accept(@NonNull Disposable disposable) throws Exception {
+                                                        loadingPB.setVisibility(View.VISIBLE);
+                                                    }
+                                                })
+                                                .subscribe(new Consumer<List<GroupUserModel>>() {
+                                                    @Override
+                                                    public void accept(@NonNull List<GroupUserModel> strings) throws
+                                                            Exception {
+                                                        mGroupUsers = GroupManger.getGroupUsers(groupId);
 //                                                    mTvMemberCountTv.setText(String.format(getString(R.string
 //                                                            .number_of_group_member), mGroup.getAffiliationsCont()));
-                                                    membersAdapter.notifyDataSetChanged();
+                                                        membersAdapter.notifyDataSetChanged();
 
-                                                    mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup
-                                                            .getAffiliationsCont()
+                                                        mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup
+                                                                .getAffiliationsCont()
 
-                                                            + ")");
-                                                    loadingPB.setVisibility(View.INVISIBLE);
+                                                                + ")");
+                                                        loadingPB.setVisibility(View.INVISIBLE);
 
-                                                    // update block
-                                                    refreshUi();
-                                                }
-                                            }, new Consumer<Throwable>() {
-                                                @Override
-                                                public void accept(@NonNull Throwable throwable) throws Exception {
-                                                    throwable.printStackTrace();
-                                                    loadingPB.setVisibility(View.INVISIBLE);
-                                                    EaseAlertDialog dialog = new EaseAlertDialog(mActivity,
-                                                            HttpHelper.handleException
-                                                                    (throwable), getString(R.string.give_up), getString(R
-                                                            .string.retry), new EaseAlertDialog.AlertDialogUser() {
-                                                        @Override
-                                                        public void onResult(boolean confirmed, Bundle bundle) {
-                                                            if (confirmed) {
-                                                                updateGroup();
-                                                            } else {
-                                                                onBackPressed();
+                                                        // update block
+                                                        refreshUi();
+                                                    }
+                                                }, new Consumer<Throwable>() {
+                                                    @Override
+                                                    public void accept(@NonNull Throwable throwable) throws Exception {
+                                                        throwable.printStackTrace();
+                                                        loadingPB.setVisibility(View.INVISIBLE);
+                                                        EaseAlertDialog dialog = new EaseAlertDialog(mActivity,
+                                                                HttpHelper.handleException
+                                                                        (throwable), getString(R.string.give_up), getString(R
+                                                                .string.retry), new EaseAlertDialog.AlertDialogUser() {
+                                                            @Override
+                                                            public void onResult(boolean confirmed, Bundle bundle) {
+                                                                if (confirmed) {
+                                                                    updateGroup();
+                                                                } else {
+                                                                    onBackPressed();
+                                                                }
                                                             }
-                                                        }
-                                                    });
-                                                    dialog.show();
-                                                }
-                                            });
-                                }
+                                                        });
+                                                        dialog.show();
+                                                    }
+                                                });
+                                    }
                             });
                 }
             }
@@ -1336,9 +1336,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     protected void onDestroy() {
         EMClient.getInstance().groupManager().removeGroupChangeListener(groupChangeListener);
         super.onDestroy();
-        instance = null;
         if (disposable != null)
             disposable.dispose();
+        instance = null;
     }
 
     private static class ViewHolder {

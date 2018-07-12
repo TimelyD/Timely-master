@@ -140,9 +140,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                 String nickname = str.substring(str.lastIndexOf("-")+1);
 //                            Glide.with(LoginActivity.this).load(picture).placeholder(R.drawable.youhead).into(mHeadIv);
                                 Log.e("Tag",url);
-                                ImageUtils.show(LoginActivity.this, SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext,
-                                        Constant.HEADIMAGE), R.drawable.photo1, mHeadIv);
-                              //  ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
+//                                ImageUtils.show(LoginActivity.this, SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext,
+//                                        Constant.HEADIMAGE), R.drawable.photo1, mHeadIv);
+                                ImageUtils.show(LoginActivity.this, url, R.drawable.youhead, mHeadIv);
                                 mNickNameTv.setText(nickname);
                             } catch (Exception e) {
                                 e.printStackTrace();

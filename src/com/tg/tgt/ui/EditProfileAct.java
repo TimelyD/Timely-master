@@ -49,6 +49,7 @@ import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.keepservice.utils.Contants;
 import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
@@ -131,6 +132,9 @@ public class EditProfileAct extends BaseActivity implements View.OnClickListener
         linear_name = (LinearLayout) findViewById(R.id.linear_name);
         linear_mood = (LinearLayout) findViewById(R.id.linear_mood);
         linear_sex = (LinearLayout) findViewById(R.id.linear_sex);
+        Constant.User_Phone = SharedPreStorageMgr.getIntance().getStringValue(EditProfileAct.this,"user_phone_zww");
+        Constant.User_Nick = SharedPreStorageMgr.getIntance().getStringValue(EditProfileAct.this,"user_nick_zww");
+
         refreshUi();
 
     }

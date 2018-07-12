@@ -10,7 +10,7 @@
     <color name="gray_bg">#F5F5F5</color>
     <color name="header_color">#E0E0E0</color>
     <color name="ccc">#ccc</color>
-    <color name="im_font_color_text_hint">#cccccc</color>
+    <color name="im_font_color_text_hint">#F1F1F1</color>
 
     <color name="praise_item_default">#333333</color>
     <color name="praise_item_selector_default">#cccccc</color>

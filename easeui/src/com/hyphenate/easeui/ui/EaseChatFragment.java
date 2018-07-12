@@ -964,13 +964,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 // single chat message
                 username = message.getFrom();
             }
-
             // if the message is for current conversation
             if (username.equals(toChatUsername) || message.getTo().equals(toChatUsername)) {
-                //messageList.refreshSelectLast();
+              //  messageList.refreshSelectLast();
                 messageList.refresh();
                 //TODO 在当前界面不需要声音以及震动
-//                EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
+     //           EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
                 conversation.markMessageAsRead(message.getMsgId());
                 //这里收到信息，如果是阅后即焚，那么在n秒后删除
 //                if ("1".equals(message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_FIRE, "0"))) {

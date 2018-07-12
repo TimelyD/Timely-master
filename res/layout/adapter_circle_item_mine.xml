@@ -18,7 +18,7 @@
             android:layout_height="@dimen/common.30dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="#C2C2C2"/>
+            android:background="#80C2C2C2"/>
         <View
             android:id="@+id/circle"
             android:layout_width="@dimen/common.12dp"

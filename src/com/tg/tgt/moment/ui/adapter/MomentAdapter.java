@@ -19,6 +19,7 @@ import com.hyphenate.easeui.utils.photo.MediaBean;
 import com.hyphenate.easeui.utils.photo.PhotoBean;
 import com.hyphenate.easeui.widget.photoselect.PreviewImageActivity;
 import com.hyphenate.easeui.widget.photoselect.SelectObserable;
+import com.tg.tgt.ActMgrs;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
@@ -33,6 +34,7 @@ import com.tg.tgt.moment.bean.PhotoInfo;
 import com.tg.tgt.moment.holder.AdHolder;
 import com.tg.tgt.moment.holder.ImageViewHolder;
 import com.tg.tgt.moment.ui.activity.MomentAct;
+import com.tg.tgt.moment.ui.activity.MomentDetailAct;
 import com.tg.tgt.moment.utils.UrlUtils;
 import com.tg.tgt.moment.widgets.CommentListView;
 import com.tg.tgt.moment.widgets.ExpandTextView;
@@ -106,6 +108,8 @@ public class MomentAdapter extends BaseMomentAdapter {
                         mPresenter.addFavort(position);
                     }
                 });
+                if (ActMgrs.getActManager().currentActivity() instanceof MomentDetailAct)
+                    helper.getView(R.id.delete_item).setVisibility(View.VISIBLE);
 //                if (TextUtils.isEmpty(content))
 //                    helper.getView(R.id.bottom_split).setVisibility(View.VISIBLE);
             }

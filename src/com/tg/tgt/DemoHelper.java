@@ -1174,6 +1174,7 @@ public class DemoHelper {
                 for (EMMessage message : messages) {
                     EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
                     // in background, do not refresh UI, notify it in notification bar
+             //       EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
                     if (!easeUI.hasForegroundActivies()) {
                         if (MainActivity.messageCountHandler != null)
                             MainActivity.messageCountHandler.sendEmptyMessage(1);
