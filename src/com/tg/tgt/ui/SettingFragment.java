@@ -87,7 +87,7 @@ import io.reactivex.functions.Function;
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
     private static final int REQUEST_SCAN = 111;
     private com.hyphenate.easeui.widget.EaseTitleBar titlebar;
-    private ZQImageViewRoundOval1 ivhead;
+    private CircleImageView ivhead;
     private android.widget.TextView tvname;
     private android.widget.ImageView ivsex;
     private android.widget.TextView tvemail;
@@ -119,7 +119,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         this.ivsex = (ImageView) view.findViewById(R.id.iv_sex);
         this.ivQrCode = (ImageView) view.findViewById(R.id.iv_qr_code);
         this.tvname = (TextView) view.findViewById(R.id.tv_name);
-        this.ivhead = (ZQImageViewRoundOval1) view.findViewById(R.id.iv_head);
+        this.ivhead = (CircleImageView) view.findViewById(R.id.iv_head);
         this.titlebar = (EaseTitleBar) view.findViewById(R.id.title_bar);
         this.friends_me = (LinearLayout) view.findViewById(R.id.friends_me);
         this.iv1=(ZQImageViewRoundOval)view.findViewById(R.id.iv1);

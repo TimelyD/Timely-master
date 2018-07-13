@@ -277,6 +277,10 @@ public class NewDynamicAct extends BaseActivity{
                     ToastUtils.showToast(getApplicationContext(), getString(R.string.dynamic_cannot_empty));
                     return;
                 }
+                if(content.length()>=1000){
+                    ToastUtils.showToast(getApplicationContext(), getString(R.string.new_dynamic_size_more));
+                    return;
+                }
                 Observable.just(mPhotos)
                         .map(new Function<List<MediaBean>, List<File>>() {
                             @Override

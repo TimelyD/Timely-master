@@ -139,18 +139,16 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                 super.handleMessage(msg);
                 switch (msg.what){
                     case 1001:
-                        CircleItem item=null;
-                        int posinn = 0;
-                        for (int i=0;i<mData.size();i++){
-                            if (mData.get(i).getId().equals(msg.obj.toString())){
-                                item = mData.get(i);
-                                posinn = i;
-                                i = mData.size();
-                            }
-                        }
-                        if (item != null) {
-                            mPresenter.loadData(false);
-                        }
+                        mPresenter.loadData(false);
+                        if (mIsHomePage)
+                            Constant.isMineHome = true;
+                        else
+                            Constant.isMineHome = false;
+//                        }
+                        Log.e("Tag2222222",">>>>>>>>1002");
+                        break;
+                    case 1002:
+                        mPresenter.loadData(false);
                         break;
                 }
             }
@@ -161,6 +159,12 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     protected void onResume() {
         super.onResume();
         mCommentInputMenu.onRegister();
+        if (!mIsHomePage){
+            if (Constant.isMineHome){
+                mPresenter.loadData(false);
+                Constant.isMineHome = false;
+            }
+        }
         if(mAdapter!=null)
             mAdapter.notifyDataSetChanged();
     }
@@ -238,6 +242,10 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                     content = content.trim();
                     if (TextUtils.isEmpty(content)) {
                         Toast.makeText(mContext, R.string.comment_cannot_empty, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (content.length()>=1000) {
+                        Toast.makeText(mContext, R.string.comment_size_more, Toast.LENGTH_LONG).show();
                         return;
                     }
                     mPresenter.addComment(content, commentConfig);
@@ -354,6 +362,17 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     }
 
     private void toBack() {
+//        if (mIsHomePage) {
+//            Log.e("Tag---","开始返回回调");
+//            if (isDeleteInHome) {
+//                isDeleteInHome = false;
+//                Log.e("Tag---","返回true");
+//                setResult(DELETECIRCLESUCCESS);
+//            }else {
+//                Log.e("Tag---","返回false");
+//                setResult(DELETECIRCLEFAIL);
+//            }
+//        }
 //        startActivity(new Intent(mActivity, MainActivity.class));
         finish();
 //        moveTaskToBack(true);
@@ -510,6 +529,14 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == DELETECIRCLE){
+            Log.e("Tag---","回调");
+            if (resultCode == DELETECIRCLESUCCESS){
+                Log.e("Tag",">>>>>>>>1002");
+                mPresenter.loadData(false);
+                Log.e("Tag---","回调删除");
+            }
+        }
         if(requestCode == REQ_DETAIL){
             int intExtra = data.getIntExtra(Constant.CIRCLE_ITEM_POS, -1);
             if(intExtra != -1) {
@@ -522,6 +549,12 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             if(resultCode == RESULT_OK) {
                 layoutManager.scrollToPosition(0);
                 mPresenter.loadData(false);
+            }
+        }else {
+            if (resultCode == DELETECIRCLESUCCESS){
+                Log.e("Tag",">>>>>>>>1002");
+                mPresenter.loadData(false);
+                Log.e("Tag---","回调删除");
             }
         }
     }
@@ -623,6 +656,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                 return;
             }
         }*/
+        Toast.makeText(mContext, getString(R.string.delete_comment_fail),Toast.LENGTH_LONG).show();
         items.clear();
         if(null != commentId)
         items.addAll(commentId);
@@ -821,13 +855,20 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                 });
                 break;
             case R.id.iv_avatar:
-                startActivity(new Intent(mActivity, MomentAct.class).putExtra(Constant.USERNAME, EMClient.getInstance().getCurrentUser()).putExtra(Constant.USER_ID, App.getMyUid()).putExtra(Constant.IS_MINE_HOME_PAGE, true));
+                Log.e("Tag---","设置回调方法");
+                startActivity(new Intent(mActivity, MomentAct.class).putExtra(Constant.USERNAME, EMClient.getInstance().getCurrentUser())
+                        .putExtra(Constant.USER_ID, App.getMyUid()).putExtra(Constant.IS_MINE_HOME_PAGE, true));
                 break;
 
             default:
                 break;
         }
     }
+
+    private final int DELETECIRCLE = 666;
+    private final int DELETECIRCLESUCCESS = 668;
+    private final int DELETECIRCLEFAIL = 688;
+    private boolean isDeleteInHome = false;
 
     @Override
     public void onActivityReenter(int resultCode, Intent data) {

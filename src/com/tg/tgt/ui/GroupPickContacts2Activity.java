@@ -110,8 +110,10 @@ public class GroupPickContacts2Activity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
-                checkBox.toggle();
+//                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
+//                checkBox.toggle();
+                contactAdapter.isCheckedArray[position] = !contactAdapter.isCheckedArray[position];
+              //  Log.e("Tag","Item_Click_position="+position+"size="+contactAdapter.isCheckedArray.length);
             }
         });
     }
@@ -147,6 +149,7 @@ public class GroupPickContacts2Activity extends BaseActivity {
             }*/
             if (contactAdapter.isCheckedArray[i]) {
                 // 这里不适用环信id
+                Log.e("Tag","id="+contactAdapter.getItem(i).getUserId()+"size="+contactAdapter.isCheckedArray.length);
                 members.add(contactAdapter.getItem(i).getUserId()+"");
             }
         }
@@ -165,11 +168,13 @@ public class GroupPickContacts2Activity extends BaseActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
             final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
+            checkBox.setChecked(isCheckedArray[position]);
             if (checkBox != null) {
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         isCheckedArray[position] = isChecked;
+                        Log.e("Tag","position="+position+"size="+contactAdapter.isCheckedArray.length);
                     }
                 });
             }

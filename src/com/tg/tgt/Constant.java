@@ -95,4 +95,6 @@ public class Constant extends EaseConstant {
 
 	public static String myUserIdZww;
 
+	public static boolean isMineHome;
+
 }

@@ -41,11 +41,18 @@
                         android:orientation="horizontal"
                         android:padding="@dimen/common.12dp">
 
-                        <com.tg.tgt.moment.ui.ZQImageViewRoundOval1
-                            android:id="@+id/iv_head"
-                            android:layout_width="@dimen/avatar2_width"
-                            android:layout_height="@dimen/avatar2_width"
-                            android:src="@drawable/default_avatar"/>
+                        <RelativeLayout
+                            android:id="@+id/avatar_relative"
+                            android:layout_width="@dimen/common.82dp"
+                            android:layout_height="@dimen/common.82dp"
+                            android:layout_marginBottom="@dimen/common.10dp"
+                            android:background="@drawable/circle_caver">
+                            <com.hyphenate.easeui.widget.CircleImageView
+                                android:id="@+id/iv_head"
+                                android:layout_width="@dimen/common.80dp"
+                                android:layout_height="@dimen/common.80dp"
+                                android:src="@drawable/default_avatar"/>
+                        </RelativeLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
