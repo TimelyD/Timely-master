@@ -1,6 +1,8 @@
 package com.tg.tgt.moment.ui.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
@@ -133,7 +135,24 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
                         updateEditTextBodyVisible(View.VISIBLE, config);
                         break;
                     case R.id.delete_item:
-                        mPresenter.deleteCircle(circleItem.getId());
+                        new AlertDialog.Builder(mActivity)
+                                .setTitle(R.string.delete_comment_title)
+                                .setMessage(getString(R.string.delete_moment_promit_message))
+                                .setCancelable(false)
+                                .setPositiveButton(getString(R.string.delete_moment_sure), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //update(mActivity, model.getUrl(), model.getVersion());
+                                        mPresenter.deleteCircle(circleItem.getId());
+                                    }
+                                })
+                                .setNegativeButton(getString(R.string.delete_moment_cancle), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
                         break;
                     default:
                         break;
@@ -176,6 +195,10 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
                     content = content.trim();
                     if (TextUtils.isEmpty(content)) {
                         Toast.makeText(mContext, R.string.comment_cannot_empty, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (content.length()>=1000) {
+                        Toast.makeText(mContext, R.string.comment_size_more, Toast.LENGTH_LONG).show();
                         return;
                     }
                     mPresenter.addComment(content, commentConfig);
@@ -234,9 +257,7 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
     @Override
     public void update2DeleteCircle(String circleId) {
         Message msg = new Message();
-        msg.what = 1001;
-        msg.obj = circleId;
-        MomentAct.mCollectHandler.sendMessage(msg);
+        MomentAct.mCollectHandler.sendEmptyMessage(1001);
       //  ToastUtils.showToast(getApplicationContext(), circleId);
         finish();
     }

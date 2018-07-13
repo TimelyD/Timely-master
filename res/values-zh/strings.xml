@@ -266,4 +266,11 @@
     <string name="delete_successful">删除成功</string>
     <string name="delete_fail">删除失败</string>
     <string name="delete_moment_successful">删除成功</string>
+    <string name="comment_size_more">评论不能超过1000个字</string>
+    <string name="new_dynamic_size_more">动态不能超过1000个字</string>
+    <string name="delete_comment_fail">删除成功</string>
+    <string name="delete_comment_title">删除动态</string>
+    <string name="delete_moment_promit_message">是否要删除本条动态</string>
+    <string name="delete_moment_sure">确定</string>
+    <string name="delete_moment_cancle">取消</string>
 </resources>

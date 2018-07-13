@@ -25,7 +25,7 @@
             android:layout_marginLeft="@dimen/common.20dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/circle_caver">
-            <com.hyphenate.easeui.widget.ZQImageViewRoundOval
+            <com.hyphenate.easeui.widget.CircleImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/common.80dp"
                 android:layout_height="@dimen/common.80dp"
