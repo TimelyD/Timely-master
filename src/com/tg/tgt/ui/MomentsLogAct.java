@@ -21,6 +21,7 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.MomentsLogModel;
 import com.tg.tgt.moment.ui.activity.MomentAct;
+import com.tg.tgt.utils.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,15 +70,20 @@ public class MomentsLogAct extends BaseActivity {
                 /*Intent intent = new Intent(mContext,.class);
                 intent.putExtra("userId",mDatas.get(position).getId());intent.putExtra("username",mDatas.get(position).getNickname());
                 startActivity(intent);*/
-                try {
-                    mActivity.startActivity(new Intent(mActivity, MomentAct.class)
-                            .putExtra(Constant.USERNAME,mDatas.get(position).getFromName())
-                            .putExtra(Constant.USER_ID,mDatas.get(position).getFromId())
-                            .putExtra(Constant.IS_MINE_HOME_PAGE, true));
-                }catch (Exception e){
-                    Log.i("异常",e.getMessage());
-
+                if(mDatas.get(position).getRelationStatus().equals("1")){
+                    try {
+                        mActivity.startActivity(new Intent(mActivity, MomentAct.class)
+                                .putExtra(Constant.USERNAME,mDatas.get(position).getFromName())
+                                .putExtra(Constant.USER_ID,mDatas.get(position).getFromId())
+                                .putExtra(Constant.IS_MINE_HOME_PAGE, true));
+                    }catch (Exception e){
+                        Log.i("异常",e.getMessage());
+                    }
+                }else {
+                    //CodeUtils.addContact(mActivity,mDatas.get(position).getFromId(),mDatas.get(position).getFromName());
                 }
+
+
               /*  mContext.startActivity(new Intent(mContext, MomentAct.class).putExtra(Constant.USERNAME,mDatas.get(position).getNickname()).putExtra
                         (Constant.USER_ID,mDatas.get(position).getFromId()).putExtra(Constant.IS_MINE_HOME_PAGE, true));*/
             }
@@ -157,7 +163,7 @@ public class MomentsLogAct extends BaseActivity {
         mAdapter = new BaseQuickAdapter<MomentsLogModel, BaseViewHolder>(R.layout
                 .item_moments_log, mDatas) {
             @Override
-            protected void convert(BaseViewHolder helper, MomentsLogModel item) {
+            protected void convert(BaseViewHolder helper, final MomentsLogModel item) {
                 helper.setText(R.id.tv_time, item.getCreateTime());
                 helper.setText(R.id.tv_name, item.safeGetRemark());
                 ImageView view = (ImageView) helper.getView(R.id.iv_avatar);
@@ -169,6 +175,12 @@ public class MomentsLogAct extends BaseActivity {
                     btn.setBackgroundResource(R.drawable.btn_agree_selector);
                     btn.setTextColor(color);
                     btn.setText(R.string.button_add);
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            CodeUtils.addContact(mActivity,item.getFromId(),item.getFromName());
+                        }
+                    });
                 }else if("1".equals(relationStatus)){
                     btn.setBackgroundDrawable(null);
                     btn.setTextColor(color1);
