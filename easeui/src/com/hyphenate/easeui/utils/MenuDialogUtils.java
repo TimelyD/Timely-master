@@ -35,7 +35,7 @@ public class MenuDialogUtils extends Dialog {
    public ButtonClickCollectListener listener_c;
    public Context context;
 
-    public MenuDialogUtils(final Context context, int theme, int resource,ButtonClickListener listener,ButtonClickCollectListener listener1) {
+    public MenuDialogUtils(final Context context, int theme, int type,int resource,ButtonClickListener listener,ButtonClickCollectListener listener1) {
         super(context, theme);
         View view = View.inflate(context, resource, null);
         this.listener_b=listener;
@@ -52,6 +52,11 @@ public class MenuDialogUtils extends Dialog {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
+        if(type==1){
+            view.findViewById(R.id.rl_collection).setVisibility(View.GONE);
+        }else {
+            view.findViewById(R.id.rl_collection).setVisibility(View.VISIBLE);
+        }
         view.findViewById(R.id.rl_phone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -42,7 +42,7 @@ public class MsgEditText extends AppCompatEditText {
         builder = new StringBuilder();
         if (!TextUtils.isEmpty(maskText)) {
             //已经添加了@
-            builder.append(maskText).append(showText).append(" ");
+            builder.append(showText).append(" ");
         } else {
             builder.append(showText).append(" ");
         }

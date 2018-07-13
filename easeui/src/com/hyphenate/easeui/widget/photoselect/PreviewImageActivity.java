@@ -553,7 +553,7 @@ ActivityCompat.postponeEnterTransition(this);
             bigPhotoIv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    new MenuDialogUtils(PreviewImageActivity.this, R.style.registDialog, R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
+                    new MenuDialogUtils(PreviewImageActivity.this, R.style.registDialog,0, R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
                         @Override
                         public void onButtonClick(int i) {
                             if (i == 0) {
@@ -562,8 +562,10 @@ ActivityCompat.postponeEnterTransition(this);
 //                                    // ToastUtils.showToast(this,"图片保存成功");
 //                                    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 //                                    mediaScanIntent.setData(Uri.fromFile(new File(mAllImage.get(mCurrentPosition).getPath())));
-                                    saveImage(mAllImage.get(mCurrentPosition).getPath());
-                                    Toast.makeText(PreviewImageActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+                                 //   saveImage(mAllImage.get(mCurrentPosition).getPath());
+                                    bigPhotoIv.setDrawingCacheEnabled(true);
+                                    saveBmp2Gallery(bigPhotoIv.getDrawingCache(), System.currentTimeMillis()+"APP");
+                                    bigPhotoIv.setDrawingCacheEnabled(false);
                                     //  this.sendBroadcast(mediaScanIntent);
                                 }else {
                                     Toast.makeText(PreviewImageActivity.this, "图片加载中，无法保存", Toast.LENGTH_LONG).show();

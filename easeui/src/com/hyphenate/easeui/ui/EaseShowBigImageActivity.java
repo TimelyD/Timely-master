@@ -15,12 +15,16 @@ package com.hyphenate.easeui.ui;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -43,6 +47,14 @@ import com.hyphenate.util.EMLog;
 import com.hyphenate.util.ImageUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * download and show original image
@@ -107,47 +119,190 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 				finish();
 			}
 		});
-		/*image.setOnLongClickListener(new View.OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				new MenuDialogUtils(EaseShowBigImageActivity.this, R.style.registDialog, R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
-					@Override
-					public void onButtonClick(int i) {
-						if (i == 0) {
-							if (!TextUtils.isEmpty()) {
-								MenuDialogUtils.saveImage(mAllImage.get(mCurrentPosition).getPath());
-								Toast.makeText(EaseShowBigImageActivity.this,"保存成功",Toast.LENGTH_LONG).show();
-							}else {
-								Toast.makeText(EaseShowBigImageActivity.this, "图片加载中，无法保存", Toast.LENGTH_LONG).show();
-							}
-						}
-					}
-				}, new MenuDialogUtils.ButtonClickCollectListener() {
-					@Override
-					public void onButtonCollectClick() {
-						if (EaseConversationListFragment.mCollectEHandler != null) {
-							Log.e("Tag", "不为空发送");
-							Message msg = new Message();
-							msg.what = 1;
-							msg.obj = mAllImage.get(mCurrentPosition).getPath();
-							EaseConversationListFragment.mCollectEHandler.sendMessage(msg);
-						}
-					}
-				}).show();
-				return false;
-			}
-		});*/
 		rl.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
+		rl.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				new MenuDialogUtils(EaseShowBigImageActivity.this, R.style.registDialog, 1,R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
+					@Override
+					public void onButtonClick(int i) {
+						if (i == 0) {
+							saveBmp2Gallery(bitmap, System.currentTimeMillis()+"APP");
+						}
+					}
+				}, new MenuDialogUtils.ButtonClickCollectListener() {
+					@Override
+					public void onButtonCollectClick() {
+					}
+				}).show();
+				return false;
+			}
+		});
 	}
+	/**
+	 * @param bmp 获取的bitmap数据
+	 * @param picName 自定义的图片名
+	 */
+	private void saveBmp2Gallery(Bitmap bmp, String picName) {
 
+		String fileName = null;
+		//系统相册目录
+		String galleryPath = Environment.getExternalStorageDirectory()
+				+ File.separator + Environment.DIRECTORY_DCIM
+				+ File.separator + "Camera" + File.separator;
+
+
+		// 声明文件对象
+		File file = null;
+		// 声明输出流
+		FileOutputStream outStream = null;
+		try {
+			// 如果有目标文件，直接获得文件对象，否则创建一个以filename为名称的文件
+			file = new File(galleryPath, picName + ".png");
+			// 获得文件相对路径
+			fileName = file.toString();
+			// 获得输出流，如果文件中有内容，追加内容
+			outStream = new FileOutputStream(fileName);
+			if (null != outStream) {
+				bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+			}
+		} catch (Exception e) {
+			e.getStackTrace();
+		} finally {
+			try {
+				if (outStream != null) {
+					outStream.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		//通知相册更新
+		MediaStore.Images.Media.insertImage(EaseShowBigImageActivity.this.getContentResolver(),bmp, fileName, null);
+		Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		Uri uri = Uri.fromFile(file);
+		intent.setData(uri);
+		EaseShowBigImageActivity.this.sendBroadcast(intent);
+		Toast.makeText(EaseShowBigImageActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+		// ToastUtils.s(getString(R.string.toast_save_successful));
+	}
 	@Override
 	protected boolean isTran() {
 		return true;
+	}
+	public static void savePicture(Bitmap bitmap) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			try {
+//                File sdcardDir = Environment
+//                        .getExternalStorageDirectory();
+//                String filename = sdcardDir.getCanonicalPath() + System.currentTimeMillis() + ".jpg";
+				File files=new File("/storage/emulated/legacy/RedStar");
+				if(!files.exists()){
+					files.mkdirs();
+				}
+				File file=new File(files,System.currentTimeMillis()+".jpg");
+				FileOutputStream out = new FileOutputStream(file);
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+				out.flush();
+				out.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				// Log.i("yc", "FileNotFoundException保存失败");
+			} catch (IOException e) {
+				// Log.i("yc", "IOException保存失败");
+				e.printStackTrace();
+			}
+		}
+	}
+	//保存图片
+	public void saveImage(final String url_){
+		//开启子线程
+		new Thread(){
+			public void run() {
+				try {
+					URL url = new URL(url_);
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					conn.setConnectTimeout(6 * 1000);  // 注意要设置超时，设置时间不要超过10秒，避免被android系统回收
+					if (conn.getResponseCode() != 200) throw new RuntimeException("请求url失败");
+					InputStream inSream = conn.getInputStream();
+					//把图片保存到项目的根目录
+					readAsFile(inSream, new File(Environment.getExternalStorageDirectory()+"/"+ getTempFileName()+".jpg"));
+
+
+					String fileName = null;
+					//系统相册目录
+					String galleryPath = Environment.getExternalStorageDirectory()
+							+ File.separator + Environment.DIRECTORY_DCIM
+							+ File.separator + "Camera" + File.separator;
+
+					Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+"/"+ getTempFileName()+".jpg");
+					// 声明文件对象
+					File file = null;
+					// 声明输出流
+					FileOutputStream outStream = null;
+					try {
+						// 如果有目标文件，直接获得文件对象，否则创建一个以filename为名称的文件
+						file = new File(galleryPath, System.currentTimeMillis() + "circle.png");
+						// 获得文件相对路径
+						fileName = file.toString();
+						// 获得输出流，如果文件中有内容，追加内容
+						outStream = new FileOutputStream(fileName);
+						if (null != outStream) {
+							bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+						}
+					} catch (Exception e) {
+						e.getStackTrace();
+					} finally {
+						try {
+							if (outStream != null) {
+								outStream.close();
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					//通知相册更新
+					MediaStore.Images.Media.insertImage(getContentResolver(),bitmap, fileName, null);
+					Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+					Uri uri = Uri.fromFile(file);
+					intent.setData(uri);
+					EaseShowBigImageActivity.this.sendBroadcast(intent);
+					Toast.makeText(EaseShowBigImageActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			};
+		}.start();
+	}
+
+	public static void readAsFile(InputStream inSream, File file) throws Exception{
+		FileOutputStream outStream = new FileOutputStream(file);
+		byte[] buffer = new byte[1024];
+		int len = -1;
+		while( (len = inSream.read(buffer)) != -1 ){
+			outStream.write(buffer, 0, len);
+		}
+		outStream.close();
+		inSream.close();
+	}
+	/**
+	 * 使用当前时间戳拼接一个唯一的文件名
+	 *
+	 * // format
+	 * @return
+	 */
+	public static String getTempFileName() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss_SS");
+		String fileName = format.format(new Timestamp(System
+				.currentTimeMillis()));
+		return fileName;
 	}
 
 	/**

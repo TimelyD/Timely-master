@@ -276,8 +276,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (count == 1 && "@".equals(String.valueOf(s.charAt(start)))) {
                         //TODO 暂时屏蔽@功能
-//                        startActivityForResult(new Intent(getActivity(), PickAtUserActivity.class).
-//                                putExtra("groupId", toChatUsername), REQUEST_CODE_SELECT_AT_USER);
+                        startActivityForResult(new Intent(getActivity(), PickAtUserActivity.class).
+                                putExtra("groupId", toChatUsername), REQUEST_CODE_SELECT_AT_USER);
                     }
                 }
 
@@ -665,7 +665,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 case REQUEST_CODE_SELECT_AT_USER:
                     if (data != null) {
                         String username = data.getStringExtra("username");
-                        inputAtUsername(username, false, GroupManger.getGroupUsers(toChatUsername).get(username).getNickname());
+                        inputAtUsername(username, true, GroupManger.getGroupUsers(toChatUsername).get(username).getNickname());
                     }
                     break;
                 case REQUEST_CODE_SELECT_CONFERENCE:
