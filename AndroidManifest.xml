@@ -605,7 +605,7 @@
         <!-- 设置环信应用的appkey -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="1128170406115269#timly-test"/>
+            android:value="1128170406115269#timely-release"/>
         <!-- android:value="1128170406115269#timly-test"/> -->
         <!-- android:value="1128170406115269#timely-release"/> -->
         <!-- 声明sdk所需的service -->
@@ -735,9 +735,12 @@
             android:name=".ui.CollectionShowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
-        <activity android:name=".ui.MoveActivity" />
-        <activity android:name=".ui.GroupPickContacts2Activity" />
-        <activity android:name=".ui.WelcomeActivity"></activity>
+        <activity android:name=".ui.MoveActivity"
+            android:theme="@style/horizontal_slide"/>
+        <activity android:name=".ui.GroupPickContacts2Activity"
+            android:theme="@style/horizontal_slide"/>
+        <activity android:name=".ui.WelcomeActivity"
+            android:theme="@style/horizontal_slide"></activity>
     </application>
 
 </manifest>

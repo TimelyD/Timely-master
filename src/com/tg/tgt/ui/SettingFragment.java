@@ -284,14 +284,17 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 GlideApp.with(mContext).load(bean.get(0).getPicture()).into(iv1);
                 // ImageUtils.show2(getContext(),bean.get(0).getPicture(), R.drawable.default_avatar2, iv1);
                 if(bean.size()>1){
+                    iv2.setVisibility(View.VISIBLE);
                     GlideApp.with(mContext).load(bean.get(1).getPicture()).into(iv2);
                     // ImageUtils.show2(getContext(),bean.get(1).getPicture(), R.drawable.default_avatar2, iv2);
                 }
                 if(bean.size()>2){
+                    iv3.setVisibility(View.VISIBLE);
                     GlideApp.with(mContext).load(bean.get(2).getPicture()).into(iv3);
                     //ImageUtils.show2(getContext(),bean.get(2).getPicture(), R.drawable.default_avatar2, iv3);
                 }
                 if(bean.size()>3){
+                    iv4.setVisibility(View.VISIBLE);
                     GlideApp.with(mContext).load(bean.get(3).getPicture()).into(iv4);
                     //ImageUtils.show2(getContext(),bean.get(3).getPicture(), R.drawable.default_avatar2, iv4);
                 }

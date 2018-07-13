@@ -3,7 +3,7 @@
     <!--<item android:drawable="@drawable/button_bg" android:state_pressed="false"/>-->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/common.10dp"/>
+            <corners android:radius="@dimen/common.5dp"/>
             <solid android:color="@color/tx_black_3"/>
         </shape>
     </item>

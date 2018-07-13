@@ -192,6 +192,7 @@
                             android:id="@+id/iv2"
                             android:background="@drawable/zhan"
                             android:layout_width="@dimen/common.60dp"
+                            android:visibility="gone"
                             android:layout_height="@dimen/common.60dp"
                             android:layout_marginLeft="@dimen/common.10dp"/>
                         <com.hyphenate.easeui.widget.ZQImageViewRoundOval
@@ -199,12 +200,14 @@
                             android:background="@drawable/zhan"
                             android:layout_width="@dimen/common.60dp"
                             android:layout_height="@dimen/common.60dp"
+                            android:visibility="gone"
                             android:layout_marginLeft="@dimen/common.10dp"/>
                         <com.hyphenate.easeui.widget.ZQImageViewRoundOval
                             android:id="@+id/iv4"
                             android:background="@drawable/zhan"
                             android:layout_width="@dimen/common.60dp"
                             android:layout_height="@dimen/common.60dp"
+                            android:visibility="gone"
                             android:layout_marginLeft="@dimen/common.10dp"/>
                     </LinearLayout>
                     <ImageView
