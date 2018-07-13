@@ -140,6 +140,15 @@
                 android:textColor="@color/em_main_botton_text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+            <com.hyphenate.easeui.widget.NotifyDotTextView
+                android:id="@+id/unread_fund_number"
+                android:layout_toRightOf="@id/iv_mine"
+                android:layout_marginLeft="@dimen/negative.7dp"
+                android:layout_marginTop="@dimen/negative.3dp"
+                android:layout_height="15dp"
+                android:visibility="gone"
+                android:textSize="10sp"
+                style="@style/NotifyDotTvStyle"/>
         </RelativeLayout>
     </LinearLayout>
 

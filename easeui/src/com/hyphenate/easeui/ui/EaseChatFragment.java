@@ -1047,7 +1047,6 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     break;
             }
         }
-
     }
 
     /**

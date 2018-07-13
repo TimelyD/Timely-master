@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity {
 	private TextView unreadLabel;
 	// textview for unread event message
 	private TextView unreadAddressLable;
-
+	private TextView unreadFundnumber;
 	private View[] mTabs;
 	private ContactListFragment contactListFragment;
 	private Fragment[] fragments;
@@ -144,6 +144,16 @@ public class MainActivity extends BaseActivity {
 	private LinearLayout ll3;
 
 	public static Handler messageCountHandler;
+	public static Handler Handler ;
+	private void handler(){
+		Handler = new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				updateFund(msg.what);
+			}
+		};
+	}
 
 	/**
 	 * check if current user account was remove
@@ -190,7 +200,6 @@ public class MainActivity extends BaseActivity {
 		startDaemonService();
 		// 4. 启动播放音乐Service
 		startPlayMusicService();
-
 		//make sure activity will not in background if user is logged into another device or removed
 		if (savedInstanceState != null && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) {
 		    DemoHelper.getInstance().logout(false,null);
@@ -414,7 +423,8 @@ public class MainActivity extends BaseActivity {
 		//SharedPreStorageMgr.getIntance().getStringValue(this, Constant.MYUID);
 		unreadLabel = (TextView) findViewById(R.id.unread_msg_number);
 		unreadAddressLable = (TextView) findViewById(R.id.unread_address_number);
-
+		unreadFundnumber = (TextView) findViewById(R.id.unread_fund_number);
+		handler();updateFund(getMotionUnread());
 		//Menu
 		mSlideMenu = (SlideMenu) findViewById(R.id.slideMenu);
 		mMenuHead = (ImageView) findViewById(R.id.menu_head);
@@ -668,6 +678,18 @@ public class MainActivity extends BaseActivity {
 			ShortcutBadger.removeCount(MainActivity.this);
 			unreadLabel.setVisibility(View.INVISIBLE);
 		}
+	}
+
+	public void updateFund(int count) {
+		if(count>0){
+			unreadFundnumber.setVisibility(View.VISIBLE);
+			unreadFundnumber.setText(count+"");
+		}else {
+			unreadFundnumber.setVisibility(View.INVISIBLE);
+		}
+	}
+	private int getMotionUnread(){
+		return DBManager.getInstance().getUnreadMotionActionCount();
 	}
 
 	/**

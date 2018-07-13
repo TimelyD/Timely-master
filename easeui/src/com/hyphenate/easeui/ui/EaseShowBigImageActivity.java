@@ -20,11 +20,15 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -32,6 +36,8 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
 import com.hyphenate.easeui.utils.EaseLoadLocalBigImgTask;
+import com.hyphenate.easeui.utils.MenuDialogUtils;
+import com.hyphenate.easeui.widget.photoselect.PreviewImageActivity;
 import com.hyphenate.easeui.widget.photoview.EasePhotoView;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.ImageUtils;
@@ -101,6 +107,36 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 				finish();
 			}
 		});
+		/*image.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				new MenuDialogUtils(EaseShowBigImageActivity.this, R.style.registDialog, R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
+					@Override
+					public void onButtonClick(int i) {
+						if (i == 0) {
+							if (!TextUtils.isEmpty()) {
+								MenuDialogUtils.saveImage(mAllImage.get(mCurrentPosition).getPath());
+								Toast.makeText(EaseShowBigImageActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+							}else {
+								Toast.makeText(EaseShowBigImageActivity.this, "图片加载中，无法保存", Toast.LENGTH_LONG).show();
+							}
+						}
+					}
+				}, new MenuDialogUtils.ButtonClickCollectListener() {
+					@Override
+					public void onButtonCollectClick() {
+						if (EaseConversationListFragment.mCollectEHandler != null) {
+							Log.e("Tag", "不为空发送");
+							Message msg = new Message();
+							msg.what = 1;
+							msg.obj = mAllImage.get(mCurrentPosition).getPath();
+							EaseConversationListFragment.mCollectEHandler.sendMessage(msg);
+						}
+					}
+				}).show();
+				return false;
+			}
+		});*/
 		rl.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -19,18 +19,18 @@
         android:visibility="gone"
         android:layout_marginLeft="@dimen/common.30dp"
         android:layout_marginRight="@dimen/common.30dp"
-        android:layout_marginBottom="@dimen/common.90dp">
+        android:layout_marginBottom="@dimen/common.60dp">
         <TextView
             android:id="@+id/login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_round1"
+            android:background="@drawable/selector_round2"
             android:gravity="center"
             android:paddingTop="@dimen/common.10dp"
             android:textSize="@dimen/common.18sp"
             android:paddingBottom="@dimen/common.10dp"
-            android:textColor="@color/white"
+            android:textColor="@color/tx_black_1"
             android:text="@string/login"/>
         <View
             android:layout_width="@dimen/common.20dp"
@@ -41,12 +41,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_round2"
+            android:background="@drawable/selector_round1"
             android:gravity="center"
             android:paddingTop="@dimen/common.10dp"
             android:textSize="@dimen/common.18sp"
             android:paddingBottom="@dimen/common.10dp"
-            android:textColor="@color/tx_black_3"
+            android:textColor="@color/white"
             android:text="@string/register"/>
     </LinearLayout>
     <LinearLayout

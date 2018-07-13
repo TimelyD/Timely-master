@@ -191,7 +191,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     @Subscribe(code = BusCode.MOMENT_ACTION, threadMode = ThreadMode.MAIN)
     public void onMomentAction(){
         refreshMotionUnread();
-
     }
 
     private void refreshMotionUnread() {
@@ -200,7 +199,9 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             //tvUnreadMoment.setVisibility(View.VISIBLE);
             tvUnreadMoment.setVisibility(View.VISIBLE);
             tvUnreadMoment.setText(""+motionUnread);
+            MainActivity.Handler.sendEmptyMessage(motionUnread);
         }else {
+            MainActivity.Handler.sendEmptyMessage(0);
             tvUnreadMoment.setVisibility(View.GONE);
         }
     }
