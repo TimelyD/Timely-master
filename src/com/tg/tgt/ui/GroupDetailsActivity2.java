@@ -1220,14 +1220,17 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                     button.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (!isClickDelete) {
+                            startActivityForResult((new Intent(GroupDetailsActivity2.this, GroupPickContacts2Activity.class).putExtra
+                                            ("groupId", groupId)),
+                                    REQUEST_CODE_ADD_USER2);
+                            /*if (!isClickDelete) {
                                 isClickDelete = true;
                                 final String st11 = getResources().getString(R.string.Add_a_button_was_clicked);
                                 EMLog.d(TAG, st11);
                                 // 进入踢人页面
                             //    if (isLoading)
                                 mHandlerLoading.sendEmptyMessage(100001);
-                            }
+                            }*/
                         }
                     });
                 } else {
