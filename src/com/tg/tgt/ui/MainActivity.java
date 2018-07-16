@@ -286,7 +286,7 @@ public class MainActivity extends BaseActivity {
 				super.handleMessage(msg);
 				int count = getUnreadMsgCountTotal();
 				if (count>0)
-					ShortcutBadger.applyCount(MainActivity.this,Integer.valueOf(CodeUtils.getUnreadCount(count)));
+					ShortcutBadger.applyCount(MainActivity.this,count);
 				else
 					ShortcutBadger.removeCount(MainActivity.this);
 			}
@@ -673,7 +673,7 @@ public class MainActivity extends BaseActivity {
 		if (count > 0) {
 			unreadLabel.setText(CodeUtils.getUnreadCount(count));
 			unreadLabel.setVisibility(View.VISIBLE);
-			ShortcutBadger.applyCount(MainActivity.this,Integer.valueOf(CodeUtils.getUnreadCount(count)));
+			ShortcutBadger.applyCount(MainActivity.this,count);
 		} else {
 			ShortcutBadger.removeCount(MainActivity.this);
 			unreadLabel.setVisibility(View.INVISIBLE);

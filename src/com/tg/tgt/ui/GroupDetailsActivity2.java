@@ -19,6 +19,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -128,6 +130,10 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private View more;
     private int n=0;
 
+    private boolean isLoading = false;
+    private boolean isClickDelete = false;
+    private Handler mHandlerLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +147,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             return;
         }
 
+        isLoading = true;
+        isClickDelete = false;
 
         setContentView(R.layout.em_activity_group_details);
         setTitleBarLeftBack();
@@ -215,6 +223,25 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         rl_switch_block_groupmsg.setOnClickListener(this);
         searchLayout.setOnClickListener(this);
         blockOfflineLayout.setOnClickListener(this);
+
+        mHandlerLoading = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 100001:
+                        if (isClickDelete && isLoading){
+                            Log.e("Tag","isClickDelete="+isClickDelete+"-----isLoading="+isLoading);
+                            isClickDelete = false;
+                            isLoading = false;
+                            startActivityForResult((new Intent(GroupDetailsActivity2.this, GroupPickContacts2Activity.class).putExtra
+                                            ("groupId", groupId)),
+                                    REQUEST_CODE_ADD_USER2);
+                        }
+                        break;
+                }
+            }
+        };
     }
 
     private void updateGroup() {
@@ -505,6 +532,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 }else {
                                     more.setVisibility(View.GONE);
                                 }
+                                isLoading = true;
+                                //if (isClickDelete)
+                                mHandlerLoading.sendEmptyMessage(100001);
                             }
                         });
 
@@ -1190,12 +1220,14 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                     button.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            final String st11 = getResources().getString(R.string.Add_a_button_was_clicked);
-                            EMLog.d(TAG, st11);
-                            // 进入踢人页面
-                            startActivityForResult((new Intent(GroupDetailsActivity2.this, GroupPickContacts2Activity.class).putExtra
-                                            ("groupId", groupId)),
-                                    REQUEST_CODE_ADD_USER2);
+                            if (!isClickDelete) {
+                                isClickDelete = true;
+                                final String st11 = getResources().getString(R.string.Add_a_button_was_clicked);
+                                EMLog.d(TAG, st11);
+                                // 进入踢人页面
+                            //    if (isLoading)
+                                mHandlerLoading.sendEmptyMessage(100001);
+                            }
                         }
                     });
                 } else {
