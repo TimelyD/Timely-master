@@ -255,7 +255,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         super.setUpView();
         // set click listener
 //        titleBar.setTitle(mIsCodeResult.safeGetRemark());
-        titleBar.setLeftLayoutClickListener(new OnClickListener() {
+        /*titleBar.setLeftLayoutClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -265,7 +265,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 }
                 onBackPressed();
             }
-        });
+        });*/
         titleBar.setBackgroundColor(getResources().getColor(com.hyphenate.easeui.R.color.white));
         //TODO 在这里添加表情
 //        ((EaseEmojiconMenu) inputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());

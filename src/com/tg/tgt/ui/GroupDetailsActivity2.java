@@ -126,6 +126,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private Disposable disposable;
     private EaseTitleBar mTitleBar;
     private View more;
+    private int n=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +181,10 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         mGroupUsers = GroupManger.getGroupUsers(groupId);
         memberList.addAll(mGroupUsers.values());
         sortGroup(memberList);
-        if(memberList.size()>8){
+        n = isCurrentOwner() || mGroup.getAllowInvites() ? 2 : 0;
+        //int size = memberList.size() + n > 10 ? 10 : memberList.size() + n;
+        Log.i("zzz",n+"+"+memberList.size());
+        if(memberList.size() + n > 10){
             more.setVisibility(View.VISIBLE);
         }else {
             more.setVisibility(View.GONE);
@@ -267,7 +271,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
                                                         //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
                                                         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
-                                                        if(memberList.size()>8){
+                                                        if(memberList.size() + n > 10){
                                                             more.setVisibility(View.VISIBLE);
                                                         }else {
                                                             more.setVisibility(View.GONE);
@@ -496,7 +500,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 GroupManger.saveGroup(mGroup);
                                 membersAdapter.setData(emptyData);
                                 mTitleBar.setTitle(mGroup.getGroupName() + "(" + emptyData.size() + ")");
-                                if(emptyData.size()>8){
+                                if(memberList.size() + n > 10){
                                     more.setVisibility(View.VISIBLE);
                                 }else {
                                     more.setVisibility(View.GONE);
@@ -523,7 +527,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                     GroupManger.saveGroup(mGroup);
                                     membersAdapter.setData(groupModels);
                                     mTitleBar.setTitle(mGroup.getGroupName() + "(" + groupModels.size() + ")");
-                                    if(groupModels.size()>8){
+                                    if(memberList.size() + n > 10){
                                         more.setVisibility(View.VISIBLE);
                                     }else {
                                         more.setVisibility(View.GONE);
@@ -1320,7 +1324,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
         @Override
         public int getCount() {
-            return memberList.size()>8?8+getHeadCount():memberList.size() + getHeadCount();
+            /*int a = memberList.size() > 8 ? 8 + getHeadCount() : memberList.size() + getHeadCount();
+            int b = isCurrentOwner() || mGroup.getAllowInvites() ? 2 : 0;*/
+            return memberList.size() + getHeadCount()>10?10:memberList.size() + getHeadCount();
         }
 
         public void setData(List<GroupUserModel> groupModels) {

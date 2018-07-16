@@ -818,6 +818,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
 
     public void onBackPressed() {
+        hideKeyboard();
         if (inputMenu.onBackPressed()) {
             if(EaseConstant.MESSAGE_ATTR_SELECT==true){
                 Log.i("dcz","取消选中");
