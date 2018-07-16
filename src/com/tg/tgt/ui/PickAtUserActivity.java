@@ -17,11 +17,15 @@ import com.hyphenate.easeui.adapter.EaseContactAdapter;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseSidebar;
+import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
+import com.tg.tgt.helper.GroupManger;
+import com.tg.tgt.http.model2.GroupUserModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class PickAtUserActivity extends BaseActivity{
     ListView listView;
@@ -34,7 +38,11 @@ public class PickAtUserActivity extends BaseActivity{
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         setContentView(com.tg.tgt.R.layout.activity_pick_at_user);
-        
+        mImmersionBar
+                .fitsSystemWindows(true)
+                .statusBarColor(com.hyphenate.easeui.R.color.white)
+                .statusBarDarkFont(true, 0.5f)//设置状态栏字体颜色
+                .init();
         groupId = getIntent().getStringExtra("groupId");
         group = EMClient.getInstance().groupManager().getGroup(groupId);
 
@@ -71,11 +79,29 @@ public class PickAtUserActivity extends BaseActivity{
         List<EaseUser> userList = new ArrayList<EaseUser>();
         members.addAll(group.getAdminList());
         members.add(group.getOwner());
-        for(String username : members){
+        /*for(String username : members){
             EaseUser user = EaseUserUtils.getUserInfo(username);
             userList.add(user);
+        }*/
+        List<GroupUserModel> memberList = Collections.synchronizedList(new ArrayList<GroupUserModel>());
+        Map<String, GroupUserModel> mGroupUsers = GroupManger.getGroupUsers(groupId);
+        memberList.addAll(mGroupUsers.values());
+        for(String username : members){
+            EaseUser user = EaseUserUtils.getUserInfo(username);
+            if(user.getAvatar()==null){
+                for(GroupUserModel a:memberList){
+                    if(user.getUsername().equals(a.getUserId().toString())){
+                        EaseUser user2=new EaseUser(a.getNickname());
+                        user2.setAvatar(a.getPicture());
+                        user2.setNickname(a.getNickname());
+                        user2.setNick(a.getNickname());
+                        userList.add(user2);
+                    }
+                }
+            }else {
+                userList.add(user);
+            }
         }
-
 //        Collections.sort(userList, new Comparator<EaseUser>() {
 //
 //            @Override
@@ -131,10 +157,11 @@ public class PickAtUserActivity extends BaseActivity{
     private void addHeadView(){
         if (listView.getHeaderViewsCount() == 0) {
             View view = LayoutInflater.from(this).inflate(com.tg.tgt.R.layout.ease_row_contact, listView, false);
-            ImageView avatarView = (ImageView) view.findViewById(com.tg.tgt.R.id.avatar);
+            ZQImageViewRoundOval avatarView = (ZQImageViewRoundOval) view.findViewById(com.tg.tgt.R.id.avatar);
+            avatarView.setType(ZQImageViewRoundOval.TYPE_ROUND);avatarView.setRoundRadius(10);
             TextView textView = (TextView) view.findViewById(com.tg.tgt.R.id.name);
             textView.setText(getString(com.tg.tgt.R.string.all_members));
-            avatarView.setImageResource(com.tg.tgt.R.drawable.ease_groups_icon);
+            avatarView.setImageResource(com.tg.tgt.R.drawable.group);//ease_groups_icon
             listView.addHeaderView(view);
             headerView = view;
         }

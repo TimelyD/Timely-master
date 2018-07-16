@@ -107,7 +107,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         }
 
         EaseUserUtils.setUserNick(username, holder.nameView);
-        EaseUserUtils.setUserAvatar2(getContext(), username, holder.avatar);
+        EaseUserUtils.setUserAvatar2(getContext(), username, user.getAvatar(),holder.avatar);
         EaseUserUtils.setIsLock(username, holder.lockImg);
        
         if(primaryColor != 0)

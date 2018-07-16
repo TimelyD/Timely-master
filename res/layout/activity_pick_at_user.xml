@@ -10,23 +10,20 @@
         android:layout_height="@dimen/height_top_bar"
        android:background="@color/top_bar_normal_bg"
         android:gravity="center_vertical" >
-
          <LinearLayout
             android:layout_width="45dp"
             android:layout_height="match_parent"
             android:background="@drawable/ease_common_tab_bg"
+             android:gravity="center"
             android:onClick="back" >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp"
-                android:layout_marginStart="9dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/em_mm_title_back" />
+                android:src="@drawable/back_black" />
         </LinearLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +33,11 @@
             android:textSize="20sp" />
 
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/bg_t">
+    </View>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >

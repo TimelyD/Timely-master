@@ -55,7 +55,7 @@ public class EaseUserUtils {
     /**
      *  正方形头像
      * */
-    public static void setUserAvatar2(Context context, String username, final ImageView imageView){
+    public static void setUserAvatar2(Context context, String username,String avater ,final ImageView imageView){
         EaseUser user = getUserInfo(username);
         if(user != null && user.getAvatar() != null){
             try {
@@ -68,7 +68,11 @@ public class EaseUserUtils {
 //                ImageUtils.show(context, user.getAvatar(), R.drawable.default_avatar, imageView);
             }
         }else{
-            Glide.with(context).load(com.hyphenate.easeui.R.drawable.default_avatar2).into(imageView);
+            if(avater!=null){
+                Glide.with(context).load(avater).into(imageView);
+            }else {
+                Glide.with(context).load(com.hyphenate.easeui.R.drawable.default_avatar2).into(imageView);
+            }
         }
     }
 

@@ -76,7 +76,7 @@ public class BusinessActivity extends PickContactNoCheckboxActivity{
     }
 
     private void toChat() {
-        Log.i("参数",toJson(selectUser,1));
+        //Log.i("参数",CodeUtils.toJson(selectUser,1));
         setResult(RESULT_OK, new Intent().putExtra(Constant.BUSSINES_ID,selectUser.getUsername())
                 .putExtra(Constant.BUSSINES_NAME,selectUser.getNick())
                 .putExtra(Constant.BUSSINES_NUMBER,selectUser.getSn())

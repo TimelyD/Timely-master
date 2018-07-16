@@ -230,7 +230,7 @@ public class CodeUtils {
     /**
      *  实体类转json字符串
      * */
-    private String toJson(Object obj,int method) {
+    public static String toJson(Object obj,int method) {
         // TODO Auto-generated method stub
         if (method==1) {
             //字段是首字母小写，其余单词首字母大写
