@@ -26,7 +26,9 @@ import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class GroupPickContacts2Activity extends BaseActivity {
     /** if this is a new group */
@@ -58,7 +60,9 @@ public class GroupPickContacts2Activity extends BaseActivity {
         }
         if(existMembers == null)
             existMembers = new ArrayList<String>();
-        List<GroupUserModel> list = GroupDetailsActivity2.memberList2;
+        List<GroupUserModel> list = Collections.synchronizedList(new ArrayList<GroupUserModel>());
+        Map<String, GroupUserModel> mGroupUsers = GroupManger.getGroupUsers(groupId);
+        list.addAll(mGroupUsers.values());
         if(list.get(0).getGroupOwner()){
             list.remove(list.get(0));
         }

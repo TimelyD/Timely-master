@@ -117,7 +117,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private String operationUserId = "";
 
     private List<GroupUserModel> memberList = Collections.synchronizedList(new ArrayList<GroupUserModel>());
-    public static List<GroupUserModel> memberList2=new ArrayList<>();
+    //public static List<GroupUserModel> memberList2=new ArrayList<>();
     GroupChangeListener groupChangeListener;
     private TextView mTvMemberCountTv;
     private GroupModel mGroup;
@@ -189,8 +189,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         }else {
             more.setVisibility(View.GONE);
         }
-        memberList2.clear();
-        memberList2=memberList;
+      /*  memberList2.clear();
+        memberList2=memberList;*/
         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner,memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
@@ -1333,7 +1333,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             sortGroup(groupModels);
             memberList.clear();
             memberList.addAll(groupModels);
-            memberList2=memberList;
+           // memberList2=memberList;
             membersAdapter.notifyDataSetChanged();
         }
     }
