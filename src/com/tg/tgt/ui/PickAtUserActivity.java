@@ -148,7 +148,6 @@ public class PickAtUserActivity extends BaseActivity{
                         return;
                     setResult(RESULT_OK, new Intent().putExtra("username", user.getUsername()));
                 }
-
                 finish();
             }
         });
