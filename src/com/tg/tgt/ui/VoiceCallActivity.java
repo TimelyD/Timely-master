@@ -336,7 +336,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                                         }
                                     });
                                 }
-                            }, 200);
+                            }, 5000);
                         }
 
                         @Override

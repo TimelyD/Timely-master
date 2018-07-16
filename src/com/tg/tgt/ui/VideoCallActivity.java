@@ -566,7 +566,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                             message.setAttribute("VoiceOrVideoImage","ease_chat_video_call_receive");
                             EMClient.getInstance().chatManager().sendMessage(message);
                             sms();
-                            return;
+                            //return;
                         }
                         runOnUiThread(new Runnable() {
                             private void postDelayedCloseMsg() {
@@ -582,7 +582,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                                         finish();
                                     }
 
-                                }, 200);
+                                }, 5000);
                             }
 
                             @Override
