@@ -153,6 +153,7 @@ public class GroupPickContacts2Activity extends BaseActivity {
                 members.add(contactAdapter.getItem(i).getUserId()+"");
             }
         }
+        contactAdapter.notifyDataSetChanged();
         return members;
     }
     /**
