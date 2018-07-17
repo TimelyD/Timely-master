@@ -105,7 +105,7 @@ public class AddContactActivity extends BaseActivity implements TextView.OnEdito
         x.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                editText.setText("");
             }
         });
     }
