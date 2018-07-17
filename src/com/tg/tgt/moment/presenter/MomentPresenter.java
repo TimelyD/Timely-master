@@ -1,6 +1,7 @@
 package com.tg.tgt.moment.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -90,7 +91,8 @@ public class MomentPresenter extends BasePresenter<IModel, MomentContract.View> 
                             hasMore = true;
                         }
 //                        List<CircleItem> datas = DatasUtil.createCircleDatas();
-                        mView.setData(true, loadMore, hasMore, mData);
+                        if (mView != null)
+                            mView.setData(true, loadMore, hasMore, mData);
                         MomentAct.mineSize = mData.size();
                     }
 
