@@ -665,7 +665,15 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 case REQUEST_CODE_SELECT_AT_USER:
                     if (data != null) {
                         String username = data.getStringExtra("username");
-                        inputAtUsername(username,true, GroupManger.getGroupUsers(toChatUsername).get(username).getNickname());
+                        if(GroupManger.getGroupUsers(toChatUsername).get(username)==null){
+                            inputAtUsername(username,false,username);
+                        }else {
+                            if(GroupManger.getGroupUsers(toChatUsername).get(username).getNickname()==null){
+                                inputAtUsername(username,false,username);
+                            }else {
+                                inputAtUsername(username,false, GroupManger.getGroupUsers(toChatUsername).get(username).getNickname());
+                            }
+                        }
                     }
                     break;
                 case REQUEST_CODE_SELECT_CONFERENCE:
