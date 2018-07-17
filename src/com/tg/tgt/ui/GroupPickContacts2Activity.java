@@ -63,9 +63,13 @@ public class GroupPickContacts2Activity extends BaseActivity {
         List<GroupUserModel> list = Collections.synchronizedList(new ArrayList<GroupUserModel>());
         Map<String, GroupUserModel> mGroupUsers = GroupManger.getGroupUsers(groupId);
         list.addAll(mGroupUsers.values());
-        if(list.get(0).getGroupOwner()){
-            list.remove(list.get(0));
+        int j=0;
+        for (int i=0;i<list.size();i++){
+            if(list.get(i).getGroupOwner()){
+                j=i;
+            }
         }
+        list.remove(j);
        /* List<GroupUserModel> list = GroupDetailsActivity2.memberList;
         for(int i=0;i<list.size();i++){
             if(i!=0){
