@@ -118,9 +118,9 @@ public class GroupPickContacts2Activity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
-//                checkBox.toggle();
-                contactAdapter.isCheckedArray[position] = !contactAdapter.isCheckedArray[position];
+                CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
+                checkBox.toggle();
+             //   contactAdapter.isCheckedArray[position] = !contactAdapter.isCheckedArray[position];
               //  Log.e("Tag","Item_Click_position="+position+"size="+contactAdapter.isCheckedArray.length);
             }
         });
@@ -177,15 +177,16 @@ public class GroupPickContacts2Activity extends BaseActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
             final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
-            checkBox.setChecked(isCheckedArray[position]);
             if (checkBox != null) {
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         isCheckedArray[position] = isChecked;
+                        checkBox.setChecked(isCheckedArray[position]);
                         Log.e("Tag","position="+position+"size="+contactAdapter.isCheckedArray.length);
                     }
                 });
+                checkBox.setChecked(isCheckedArray[position]);
             }
             return view;
         }

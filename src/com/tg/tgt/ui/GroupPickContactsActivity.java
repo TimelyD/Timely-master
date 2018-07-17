@@ -121,7 +121,6 @@ public class GroupPickContactsActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
 				checkBox.toggle();
-
 			}
 		});
 	}
@@ -180,7 +179,6 @@ public class GroupPickContactsActivity extends BaseActivity {
 			final String username = getItem(position).getUsername();
 
 			final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
-			checkBox.setChecked(isCheckedArray[position]);
 			ImageView avatarView = (ImageView) view.findViewById(R.id.avatar);
 			TextView nameView = (TextView) view.findViewById(R.id.name);
 			
