@@ -34,6 +34,7 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.hyphenate.chat.EMCallStateChangeListener;
@@ -315,7 +316,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                         message.setAttribute("VoiceOrVideoImage","ease_chat_voice_call_receive");
                         EMClient.getInstance().chatManager().sendMessage(message);
                         sms();
-                        return;
+                        //return;
                     }
                     runOnUiThread(new Runnable() {
                         private void postDelayedCloseMsg() {
@@ -400,6 +401,8 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                                     }
                                 }
                             }
+                            Toast.makeText(VoiceCallActivity.this, callStateTextView.getText(), Toast
+                                    .LENGTH_SHORT).show();
                             postDelayedCloseMsg();
                         }
 
