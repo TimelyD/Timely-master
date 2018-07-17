@@ -323,13 +323,13 @@ public class ContactListFragment extends EaseContactListFragment {
 	}
 	
 
-	@Override
+	/*@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 	    toBeProcessUser = (EaseUser) listView.getItemAtPosition(((AdapterContextMenuInfo) menuInfo).position);
 	    toBeProcessUsername = toBeProcessUser.getUsername();
 		getActivity().getMenuInflater().inflate(R.menu.em_context_contact_list, menu);
-	}
+	}*/
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {

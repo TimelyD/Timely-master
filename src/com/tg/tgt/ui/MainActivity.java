@@ -103,6 +103,7 @@ import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.MobileInfoUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
+import com.tg.tgt.utils.VerUtils;
 import com.uuzuche.lib_zxing.activity.QrCodeUtils;
 
 import java.util.List;
@@ -214,7 +215,7 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.em_activity_main);
 		// runtime permission for android 6.0, just require all permissions here for simple
 		requestPermissions();
-
+		VerUtils.check(this,false);
 		initView();
 
 		//umeng api
