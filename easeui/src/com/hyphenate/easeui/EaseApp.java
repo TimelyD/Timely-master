@@ -16,6 +16,7 @@ public class EaseApp extends Application {
      */
     protected static String myUid;
     public static Context applicationContext;
+    public static Boolean ontype=true;//图片放大页的点击事件
 
     public static String getMyUid() {
         if(TextUtils.isEmpty(myUid)){

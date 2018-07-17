@@ -43,9 +43,12 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+
+import com.hyphenate.easeui.EaseApp;
 
 class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, VersionedGestureDetector.OnGestureListener,
 		GestureDetector.OnDoubleTapListener, ViewTreeObserver.OnGlobalLayoutListener {
@@ -150,7 +153,7 @@ class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, VersionedGe
 	private OnPhotoTapListener mPhotoTapListener;
 	private OnViewTapListener mViewTapListener;
 	private OnLongClickListener mLongClickListener;
-
+	private OnClickListener mClickListener;
 	private int mIvTop, mIvRight, mIvBottom, mIvLeft;
 	private FlingRunnable mCurrentFlingRunnable;
 	private int mScrollEdge = EDGE_BOTH;
@@ -468,11 +471,15 @@ class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, VersionedGe
 
 			// Finally, try the Scale/Drag detector
 			if (null != mScaleDragDetector && mScaleDragDetector.onTouchEvent(ev)) {
+				//Log.i("ddd",getScale()+"+"+ mMinScale);
+				if(getScale() > mMinScale){
+					EaseApp.ontype=false;
+				}
 				handled = true;
 			}
 		}
 
-		return handled;
+		return false;
 	}
 
 	@Override
@@ -504,6 +511,10 @@ class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, VersionedGe
 	public final void setOnLongClickListener(OnLongClickListener listener) {
 		mLongClickListener = listener;
 	}
+	/*@Override
+	public final void setOnClickListener(OnClickListener listener) {
+		mClickListener = listener;
+	}*/
 
 	@Override
 	public final void setOnMatrixChangeListener(OnMatrixChangedListener listener) {
@@ -785,6 +796,8 @@ class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, VersionedGe
 
 		resetMatrix();
 	}
+
+
 
 	/**
 	 * Interface definition for a callback to be invoked when the internal

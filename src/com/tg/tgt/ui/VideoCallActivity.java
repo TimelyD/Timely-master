@@ -582,7 +582,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                                         finish();
                                     }
 
-                                }, 5000);
+                                }, 1000);
                             }
 
                             @Override
