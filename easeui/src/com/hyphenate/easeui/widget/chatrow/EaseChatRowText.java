@@ -4,10 +4,12 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
+import com.hyphenate.easeui.utils.RSAUtil;
 import com.hyphenate.exceptions.HyphenateException;
 
 import android.content.Context;
@@ -52,6 +54,14 @@ public class EaseChatRowText extends EaseChatRow{
     public void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
+        String pri = EaseApp.sf.getString("pri_key",null);
+        if(pri!=null){
+            try {
+                RSAUtil.decryptBase64ByPrivateKey(txtBody.getMessage(),pri);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);
         //写这个方法为了防止长按和点击的冲突

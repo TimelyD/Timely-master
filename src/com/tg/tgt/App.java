@@ -68,7 +68,7 @@ public class App extends EaseApp {
 	 */
 	public static String currentUserNick = "";
 	private  static RefWatcher mRefWatcher;
-	public static SharedPreferences sf;
+	//public static SharedPreferences sf;
 	public static Boolean zq;
 
 

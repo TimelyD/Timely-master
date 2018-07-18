@@ -2,6 +2,7 @@ package com.hyphenate.easeui;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.hyphenate.easeui.utils.SpUtils;
@@ -17,6 +18,9 @@ public class EaseApp extends Application {
     protected static String myUid;
     public static Context applicationContext;
     public static Boolean ontype=true;//图片放大页的点击事件
+    public static String pri_key;
+    public static String pub_key;
+    public static SharedPreferences sf;
 
     public static String getMyUid() {
         if(TextUtils.isEmpty(myUid)){

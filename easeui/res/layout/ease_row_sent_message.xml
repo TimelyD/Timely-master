@@ -61,7 +61,6 @@
                 android:paddingRight="6dp"
                 android:paddingLeft="1dp"
                 android:minHeight="35dp"
-                android:text="avasb"
                 android:lineSpacingExtra="2dp"
               	android:textColor="#fff"
                 android:maxWidth="225.0dip"

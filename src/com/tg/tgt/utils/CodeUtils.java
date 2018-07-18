@@ -20,8 +20,10 @@ import android.widget.Toast;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
@@ -42,6 +44,9 @@ import com.tg.tgt.http.model.IsCodeResult;
 import com.tg.tgt.http.model2.UserFriendModel;
 import com.tg.tgt.ui.BaseActivity;
 import com.tg.tgt.widget.dialog.CommonDialog;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import io.reactivex.functions.Consumer;
 
@@ -245,6 +250,14 @@ public class CodeUtils {
             return obj2;
         }
         return "";
+    }
+    /**
+     *  json字符串转数组
+     * */
+    public static List<KeyBean> toArray(String string){
+        Type type = new TypeToken<List<KeyBean>>(){}.getType();
+        List<KeyBean> b = new Gson().fromJson(string,type);
+        return b;
     }
 
     public static void fetchUser(IView react, String userName, boolean showLoading, final Consumer<EaseUser> consumer) {

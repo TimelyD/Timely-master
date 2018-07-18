@@ -1,5 +1,6 @@
 package com.tg.tgt.http;
 
+import com.hyphenate.easeui.model.KeyBean;
 import com.tg.tgt.http.model2.CollectionItemModel;
 import com.tg.tgt.http.model2.CollectionModel;
 import com.tg.tgt.http.model2.GroupEntity;
@@ -54,7 +55,7 @@ public interface ApiService2 {
     String BASE_URL = "http://timly2.live2017.biz/timely/";
     String ppk="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCHLe0aLInF//BveiN22YAOLQ8EFdS+qHfuqb8FmO9lIzs/TwG2LNyd7X1KXsP14B6LgsatNzxGvwVwTe2WYHECGm4iWaTB6lUVHnc4MuVb+4gLgCmIH+TP2BfOfNtkjGuKygSaXUMKi/uzngeybqp0dgQ2YDpcExurRax/2+L0jwIDAQAB";*/
     String downUrl="https://www.pgyer.com/NTfV";
-    String BASE_URL = "http://timly.live2017.biz/timly/";//http://192.168.2.82:8050/timely/   http://timly.live2017.biz/timly/
+    String BASE_URL = "http://192.168.2.166:8050/timely/";//http://192.168.2.166:8050/timely/   http://timly.live2017.biz/timly/
     String ppk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCQNVqLqr9rwM+flL+U3GWfkirttHWstY7iB2HStfLirVOG/Yg09ABMFtcvWK8+3yx2Z7UZFu16Z56YK+nI3aEzv0rni/3CIJ/ljO9o+j8KAc4Y+9Ql1WQAmDxGzE7GY60rALvzJgT6cdQFwwwI9AdiGdAyswD1R5y7Cu1M+aWUSwIDAQAB";
 
     //String BASE_URL = "http://192.168.2.47:8050/timely/";
@@ -78,7 +79,8 @@ public interface ApiService2 {
                                              @Field("password") String password,
                                              @Field("code") String code,
                                              @Field("mobilePrefix") String mobilePrefix,
-                                             @Field("nonce") String nonce);
+                                             @Field("nonce") String nonce,
+                                             @Field("secretkey") String secretkey);
 
     /**
      * 查看登陆用户信息
@@ -428,5 +430,12 @@ public interface ApiService2 {
     @FormUrlEncoded
     @POST("api/user/moments/deleteMoments")
     Observable<HttpResult<EmptyData>> deleteMomentMine(@Field("id")String id);
+
+    /**
+     *  获得我的所有聊天私钥
+     * */
+    @FormUrlEncoded
+    @POST("api/secretKey/getMyChatKeys")
+    Observable<HttpResult<List<KeyBean>>>getMyChatKeys(@Field("id")String id);
 
 }

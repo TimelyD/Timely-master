@@ -33,15 +33,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
+import com.tg.tgt.ActionBean;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.DemoHelper;
@@ -61,6 +66,8 @@ import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.RSAHandlePwdUtil;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
+
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -251,22 +258,36 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mProgressDialog.setCancelable(false);
 
         progressShow = true;
-
+        getKey();
         ApiManger2.getApiService()
                 .servernonce(Constant.MYUID)
                 .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
                 .subscribe(new BaseObserver2<NonceBean>() {
                     @Override
                     protected void onSuccess(NonceBean emptyData) {
-                        Log.i("dcz",emptyData.getValue());
+                        Log.i("dcz",emptyData.getValue()+"");
+                        RSAHandlePwdUtil.getKey();
                         Login(currentUsername,RSAHandlePwdUtil.jia(currentPassword+"#"+emptyData.getValue()),code,emptyData.getKey());
                     }
                 });
 
     }
+    private void getKey(){
+        ApiManger2.getApiService()
+                .getMyChatKeys(Constant.MYUID)
+                .compose(this.<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<List<KeyBean>>() {
+                    @Override
+                    protected void onSuccess(List<KeyBean> list) {
+                        String a = CodeUtils.toJson(list, 1);
+                        EaseApp.sf.edit().putString("key_list",a).commit();
+                        //EaseApp.sf.getString("key_list","");
+                    }
+                });
+    }
 
     private void Login(final String currentUsername, String currentPassword, String code,String nonce){
-        ApiManger2.getApiService().login(currentUsername, currentPassword, code,mEmailLast.trim(),nonce)
+        ApiManger2.getApiService().login(currentUsername, currentPassword, code,mEmailLast.trim(),nonce,EaseApp.pub_key)
                 .compose(this.<HttpResult<LoginModel>>bindToLifeCyclerAndApplySchedulers(null,false))
                 .subscribe(new BaseObserver2<LoginModel>() {
                     @Override

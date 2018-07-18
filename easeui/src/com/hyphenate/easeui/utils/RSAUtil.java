@@ -1,10 +1,10 @@
-package com.tg.tgt.utils;
+package com.hyphenate.easeui.utils;
 
 import android.util.Log;
 
 import com.hyphenate.easeui.EaseApp;
-import com.tg.tgt.App;
-import com.tg.tgt.http.ApiService2;
+
+import org.apache.commons.codec.binary.Base64;
 
 import java.security.Key;
 import java.security.KeyFactory;
@@ -20,14 +20,12 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
-import org.apache.commons.codec.binary.Base64;
-
 /**
  * 密码加密解密处理 帮助类
  * @author DELL
  *
  */
-public class RSAHandlePwdUtil {
+public class RSAUtil {
     public static final String KEY_ALGORITHM = "RSA";
     private static KeyPair initKey(){
         try {
@@ -48,9 +46,9 @@ public class RSAHandlePwdUtil {
             keyPairGen.initialize(1024);
             KeyPair keyPair = keyPairGen.generateKeyPair();
             EaseApp.pub_key=getPublicKey(keyPair);
-            App.sf.edit().putString("pub_key",EaseApp.pub_key).commit();
+            EaseApp.sf.edit().putString("pub_key",EaseApp.pub_key).commit();
             EaseApp.pri_key=getPrivateKey(keyPair);
-            App.sf.edit().putString("pri_key",EaseApp.pri_key).commit();
+            EaseApp.sf.edit().putString("pri_key",EaseApp.pri_key).commit();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -161,7 +159,7 @@ public class RSAHandlePwdUtil {
         System.out.println("加密后："+jmh);
         System.out.println("解密后："+decryptBase64ByPrivateKey(jmh,pvk));
     }
-    public static String jia(String str){
+  /*  public static String jia(String str){
         String jmh = null;
         try {
             jmh = encryptByPublicKey(str,ApiService2.ppk);
@@ -170,5 +168,5 @@ public class RSAHandlePwdUtil {
         }
         Log.i("dcz_加密后",jmh);
         return jmh;
-    }
+    }*/
 }

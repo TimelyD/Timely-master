@@ -33,7 +33,8 @@ public class EaseConstant {
     
     public static final String MESSAGE_ATTR_AT_MSG = "em_at_list";
     public static final String MESSAGE_ATTR_VALUE_AT_MSG_ALL = "ALL";
-
+    public static final String MI="Encrypted";//是否加密类型
+    public static final String VERSION="Version";//加密的当前最新版本
     /**
      * 名片的参数
      * */
