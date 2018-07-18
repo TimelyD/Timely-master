@@ -600,6 +600,7 @@ public class DemoHelper {
                 EMLog.i(TAG, String.format("Conference stream subscribable: %d, subscribed: %d",
                         EMClient.getInstance().conferenceManager().getAvailableStreamMap().size(),
                         EMClient.getInstance().conferenceManager().getSubscribedStreamMap().size()));
+
             }
 
             @Override public void onStreamRemoved(EMConferenceStream stream) {
