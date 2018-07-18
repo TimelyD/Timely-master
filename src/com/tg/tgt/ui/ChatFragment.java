@@ -34,6 +34,7 @@ import com.easemob.redpacketsdk.RPSendPacketCallback;
 import com.easemob.redpacketsdk.bean.RedPacketInfo;
 import com.easemob.redpacketsdk.constant.RPConstant;
 import com.easemob.redpacketui.utils.RPRedPacketUtil;
+import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMFileMessageBody;
@@ -76,6 +77,7 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.model2.GroupModel;
 import com.tg.tgt.http.model2.GroupUserModel;
 import com.tg.tgt.moment.bean.CollectBean;
+import com.tg.tgt.moment.bean.User;
 import com.tg.tgt.utils.AMRToWAV;
 import com.tg.tgt.widget.ChatRowVoiceCall;
 
