@@ -119,13 +119,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 				finish();
 			}
 		});
-		rl.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		rl.setOnLongClickListener(new View.OnLongClickListener() {
+		image.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
 				new MenuDialogUtils(EaseShowBigImageActivity.this, R.style.registDialog, 1,R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
@@ -143,6 +137,30 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 				return false;
 			}
 		});
+//		rl.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				finish();
+//			}
+//		});
+//		rl.setOnLongClickListener(new View.OnLongClickListener() {
+//			@Override
+//			public boolean onLongClick(View v) {
+//				new MenuDialogUtils(EaseShowBigImageActivity.this, R.style.registDialog, 1,R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
+//					@Override
+//					public void onButtonClick(int i) {
+//						if (i == 0) {
+//							saveBmp2Gallery(bitmap, System.currentTimeMillis()+"APP");
+//						}
+//					}
+//				}, new MenuDialogUtils.ButtonClickCollectListener() {
+//					@Override
+//					public void onButtonCollectClick() {
+//					}
+//				}).show();
+//				return false;
+//			}
+//		});
 	}
 	/**
 	 * @param bmp 获取的bitmap数据

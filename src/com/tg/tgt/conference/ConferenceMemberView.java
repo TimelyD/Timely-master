@@ -92,9 +92,9 @@ public class ConferenceMemberView extends RelativeLayout {
     }
     public void setGroupUser(GroupUserModel user) {
         if (user == null)
-            Log.e("Tag","fffffffff");
-        if (user!=null && TextUtils.isEmpty(user.getPicture()))
-            GlideApp.with(getContext()).load(user.getPicture()).into(avatarView);
+            return;
+      //  if (user!=null && TextUtils.isEmpty(user.getPicture()))
+        GlideApp.with(getContext()).load(user.getPicture()).into(avatarView);
     }
 
     /**

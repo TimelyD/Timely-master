@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -393,6 +394,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                 }
             }
             object.put("pics", sb.toString());
+            Log.e("ZWW","members.length"+members.length);
             for (int i = 0; i < members.length; i++) {
                 final int finalI = i;
                 allUsers.add(members[i]);
@@ -404,6 +406,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                                     public void onSuccess(Object value) {
                                         EMLog.e(TAG, "invite join conference success");
                                         ToastUtils.safeShowToast(mContext, String.format("邀请%s成功", members[finalI]));
+                                        Log.e("ZWW","members邀请成功"+members[finalI]);
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -420,6 +423,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                                                             public void accept(@NonNull Long aLong) throws Exception {
                                                                 for (EMConferenceStream s : streamList) {
                                                                     //超时后如果已经加入了绘画，则不做判断
+                                                                    Log.e("ZWW","members加入了绘画");
                                                                 	if(s.getUsername().equals(members[finalI]))
                                                                 	    return;
                                                                 }
@@ -473,7 +477,10 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
 //        memberView.setUser(stream.getUsername());
         if (GroupManger.getGroupUsers(groupId) != null)
             memberView.setGroupUser(GroupManger.getGroupUsers(groupId).get(stream.getUsername()));
+        else
+            Log.e("ZWW","添加窗口成功失败");
         memberView.setPubOrSub(false);
+        Log.e("ZWW","添加窗口成功");
         //设置 view 点击监听
         /*memberView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -805,6 +812,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
             //最多加入9个steam
             return;
         }
+        Log.e("ZWW","添加窗口");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
