@@ -279,9 +279,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 .subscribe(new BaseObserver2<List<KeyBean>>() {
                     @Override
                     protected void onSuccess(List<KeyBean> list) {
+                        for(KeyBean bean:list){
+                            if(bean.isNewest()){
+                                String a = CodeUtils.toJson(bean, 1);
+                                EaseApp.sf.edit().putString("keyBean",a).commit();//当前最新版本
+                            }
+                        }
                         String a = CodeUtils.toJson(list, 1);
                         EaseApp.sf.edit().putString("key_list",a).commit();
-                        //EaseApp.sf.getString("key_list","");
+                        /*String b = EaseApp.sf.getString("key_list", "");
+                        List<KeyBean> lis = CodeUtils.toArray(b);*/
                     }
                 });
     }

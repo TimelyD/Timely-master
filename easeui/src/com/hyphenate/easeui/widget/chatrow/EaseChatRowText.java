@@ -1,5 +1,7 @@
 package com.hyphenate.easeui.widget.chatrow;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
@@ -7,7 +9,9 @@ import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.ui.EaseChatFragment;
+import com.hyphenate.easeui.utils.AESCodeer;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.RSAUtil;
 import com.hyphenate.exceptions.HyphenateException;
@@ -24,6 +28,9 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class EaseChatRowText extends EaseChatRow{
 
@@ -42,6 +49,12 @@ public class EaseChatRowText extends EaseChatRow{
 				com.hyphenate.easeui.R.layout.ease_row_received_message : com.hyphenate.easeui.R.layout.ease_row_sent_message, this);
 	}
 
+    protected List<KeyBean> toArray(String string){
+        Type type = new TypeToken<List<KeyBean>>(){}.getType();
+        List<KeyBean> b = new Gson().fromJson(string,type);
+        return b;
+    }
+
 	@Override
 	protected void onFindViewById() {
 		contentView = (TextView) findViewById(com.hyphenate.easeui.R.id.tv_chatcontent);
@@ -53,15 +66,36 @@ public class EaseChatRowText extends EaseChatRow{
     @Override
     public void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
-        Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
-        String pri = EaseApp.sf.getString("pri_key",null);
-        if(pri!=null){
+        String text = txtBody.getMessage();
+        String version = message.getStringAttribute(EaseConstant.VERSION, null);
+        String mi = message.getStringAttribute(EaseConstant.MI, null);       //获得用对方的公钥RSA加密后的random
+        String send_msg= message.getStringAttribute(EaseConstant.SEND, null);//获得用我的公钥RSA加密后的random
+        String pri = EaseApp.sf.getString("pri_key", "");//获得私钥（可解密aesKey）
+        String s = EaseApp.sf.getString("keyBean", ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
+        KeyBean bean = new Gson().fromJson(s, KeyBean.class);//我的聊天私钥的实体类
+       /* String a = EaseApp.sf.getString("key_list", "");//得到登录时获取的我的所有版本聊天私钥
+        List<KeyBean> list = toArray(a);
+        for(KeyBean be:list){
+            if(EaseApp.receiver_pub.getVersion()==bean.getVersion()){
+                bean=be;
+                break;
+            }
+        }*/
+        if(version!=null){
             try {
-                RSAUtil.decryptBase64ByPrivateKey(txtBody.getMessage(),pri);
+                if(message.direct() == EMMessage.Direct.RECEIVE){
+                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);//用我的RSA私钥对我aes解密
+                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                    String random = RSAUtil.decryptBase64ByPrivateKey(mi,prikey);
+                    text = AESCodeer.AESDncode(s,random);
+                }else {
+                   // random = RSAUtil.decryptBase64ByPrivateKey(send_msg,pri);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        Spannable span = EaseSmileUtils.getSmiledText(context,text);
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);
         //写这个方法为了防止长按和点击的冲突

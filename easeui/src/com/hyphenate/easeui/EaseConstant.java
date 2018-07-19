@@ -35,6 +35,7 @@ public class EaseConstant {
     public static final String MESSAGE_ATTR_VALUE_AT_MSG_ALL = "ALL";
     public static final String MI="Encrypted";//是否加密类型
     public static final String VERSION="Version";//加密的当前最新版本
+    public static final String SEND="send";//判断是否是发送方需要显示的文本
     /**
      * 名片的参数
      * */

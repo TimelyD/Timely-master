@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.utils.SpUtils;
+
+import java.util.List;
 
 /**
  *
@@ -22,6 +25,8 @@ public class EaseApp extends Application {
     public static String pub_key;
     public static SharedPreferences sf;
     public static String groupId;   //当前对话页面的ID
+    public static KeyBean receiver_pub; //接受者的bean
+    public static List<KeyBean> group_pub;
 
     public static String getMyUid() {
         if(TextUtils.isEmpty(myUid)){

@@ -172,7 +172,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 .subscribe(new BaseObserver2<KeyBean>() {
                     @Override
                     protected void onSuccess(KeyBean bean) {
-
+                        EaseApp.receiver_pub=bean;
                     }
                 });
     }
@@ -183,7 +183,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 .subscribe(new BaseObserver2<List<KeyBean>>() {
                     @Override
                     protected void onSuccess(List<KeyBean> list) {
-
+                        EaseApp.group_pub=list;
                     }
                 });
     }

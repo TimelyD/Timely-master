@@ -48,9 +48,9 @@ public class RSAHandlePwdUtil {
             keyPairGen.initialize(1024);
             KeyPair keyPair = keyPairGen.generateKeyPair();
             EaseApp.pub_key=getPublicKey(keyPair);
-            App.sf.edit().putString("pub_key",EaseApp.pub_key).commit();
+            EaseApp.sf.edit().putString("pub_key",EaseApp.pub_key).commit();
             EaseApp.pri_key=getPrivateKey(keyPair);
-            App.sf.edit().putString("pri_key",EaseApp.pri_key).commit();
+            EaseApp.sf.edit().putString("pri_key",EaseApp.pri_key).commit();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

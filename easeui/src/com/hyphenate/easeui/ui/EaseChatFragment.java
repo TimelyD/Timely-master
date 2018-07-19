@@ -38,6 +38,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.EMValueCallBack;
@@ -59,8 +61,12 @@ import com.hyphenate.easeui.controller.EaseUI;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.model.KeyBean;
+import com.hyphenate.easeui.utils.AESCodeer;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.utils.RSAUtil;
+import com.hyphenate.easeui.utils.RandomUtil;
 import com.hyphenate.easeui.utils.ToastUtils;
 import com.hyphenate.easeui.utils.photo.MediaBean;
 import com.hyphenate.easeui.utils.photo.PhotoUtils;
@@ -82,6 +88,7 @@ import com.hyphenate.util.PathUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -1082,10 +1089,24 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             sendAtMessage(content);
         } else {
             Log.i("dcz","发送文本2");
-            EMMessage message = EMMessage.createTxtSendMessage(content, toChatUsername);
-            message.setAttribute(EaseConstant.MI,"");
-            message.setAttribute(EaseConstant.VERSION,"");
-            sendMessage(message);
+            String random = RandomUtil.generateString(16);
+            String sign = AESCodeer.AESEncode(random,content);
+            EMMessage message = EMMessage.createTxtSendMessage(sign, toChatUsername);       //发送的文本已经过random加密
+            String pri = EaseApp.sf.getString("pri_key", "");//得到登录时生成的私钥
+            try {
+                String aeskey = RSAUtil.decryptBase64ByPrivateKey(EaseApp.receiver_pub.getAesKey(), pri);//用我的RSA私钥对接收方的aes解密
+                String pubkey = AESCodeer.AESDncode(aeskey,EaseApp.receiver_pub.getChatPubKey());       //对接收方的公钥进行解密
+                String s = EaseApp.sf.getString("keyBean", ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
+                KeyBean bean = new Gson().fromJson(s, KeyBean.class);//我的聊天私钥的实体类
+                String jmh = RSAUtil.encryptByPublicKey(random,pubkey);//用接收方的公钥对我方的random进行加密
+                String jmh2 = RSAUtil.encryptByPublicKey(random,bean.getChatPubKey());//用自己的公钥对我方的random进行加密
+                message.setAttribute(EaseConstant.VERSION,bean.getVersion());
+                message.setAttribute(EaseConstant.MI,jmh);
+                message.setAttribute(EaseConstant.SEND,jmh2);
+                sendMessage(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
