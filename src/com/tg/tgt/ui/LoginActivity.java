@@ -286,30 +286,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 });
     }
 
-    private void getKey2(){
-        ApiManger2.getApiService()
-                .getRecvChatKey(Constant.MYUID)
-                .compose(this.<HttpResult<KeyBean>>bindToLifeCyclerAndApplySchedulers(null))
-                .subscribe(new BaseObserver2<KeyBean>() {
-                    @Override
-                    protected void onSuccess(KeyBean bean) {
-
-                    }
-                });
-    }
-
-    private void getKey3(){
-        ApiManger2.getApiService()
-                .getGroupChatKey(Constant.MYUID)
-                .compose(this.<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
-                .subscribe(new BaseObserver2<List<KeyBean>>() {
-                    @Override
-                    protected void onSuccess(List<KeyBean> list) {
-
-                    }
-                });
-    }
-
     private void Login(final String currentUsername, String currentPassword, String code,String nonce){
         ApiManger2.getApiService().login(currentUsername, currentPassword, code,mEmailLast.trim(),nonce,EaseApp.pub_key)
                 .compose(this.<HttpResult<LoginModel>>bindToLifeCyclerAndApplySchedulers(null,false))

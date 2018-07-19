@@ -1078,9 +1078,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     //send message
     protected void sendTextMessage(String content) {
         if (inputMenu.getPrimaryMenu().getEditText().hasAt()) {
+            Log.i("dcz","发送@文本");
             sendAtMessage(content);
         } else {
+            Log.i("dcz","发送文本2");
             EMMessage message = EMMessage.createTxtSendMessage(content, toChatUsername);
+            message.setAttribute(EaseConstant.MI,"");
+            message.setAttribute(EaseConstant.VERSION,"");
             sendMessage(message);
         }
     }

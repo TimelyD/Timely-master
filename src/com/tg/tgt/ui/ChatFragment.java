@@ -242,7 +242,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 isRobot = true;
             }
         }
-        Log.i("zzz",chatType+"");
         if(chatType == Constant.CHATTYPE_GROUP){
             getApiService();
         }else {
