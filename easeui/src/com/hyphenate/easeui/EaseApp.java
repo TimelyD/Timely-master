@@ -21,6 +21,7 @@ public class EaseApp extends Application {
     public static String pri_key;
     public static String pub_key;
     public static SharedPreferences sf;
+    public static String groupId;   //当前对话页面的ID
 
     public static String getMyUid() {
         if(TextUtils.isEmpty(myUid)){

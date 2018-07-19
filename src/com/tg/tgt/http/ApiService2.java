@@ -438,4 +438,16 @@ public interface ApiService2 {
     @POST("api/secretKey/getMyChatKeys")
     Observable<HttpResult<List<KeyBean>>>getMyChatKeys(@Field("id")String id);
 
+    /**
+     *  获得消息接受者聊天公钥
+     * */
+    @GET("api/secretKey/getRecvChatKey/{uid}")
+    Observable<HttpResult<KeyBean>>getRecvChatKey(@Path("uid")String uid);
+
+    /**
+     *  查看消息接受者的共同秘钥
+     * */
+    @GET("api/secretKey/getGroupChatKey/{groupId}")
+    Observable<HttpResult<List<KeyBean>>>getGroupChatKey(@Path("groupId")String groupId);
+
 }

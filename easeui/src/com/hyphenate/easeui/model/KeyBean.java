@@ -1,134 +1,62 @@
 package com.hyphenate.easeui.model;
 
+import java.util.List;
+
 /**
  * Created by DELL on 2018/7/18.
  */
 
 public class KeyBean {
-    private String address;
-    private int age;
-    private String easemob;
-    private String nickname;
-    private String picture;
-    private String qrCode;
-    private String refreshToken;
-    private String safePassword;
-    private String sex;
-    private String signature;
-    private int signatureId;
-    private String sn;
-    private String token;
-    private int userId;
+    /**
+     * aesKey : string
+     * chatSKey : string
+     * newest : true
+     * version : 0
+     */
 
-    public String getAddress() {
-        return address;
+    private String aesKey;
+    private String chatSKey;
+    private boolean newest;
+    private int version;
+    private String chatPubKey;
+
+    public String getChatPubKey() {
+        return chatPubKey;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setChatPubKey(String chatPubKey) {
+        this.chatPubKey = chatPubKey;
     }
 
-    public int getAge() {
-        return age;
+    public String getAesKey() {
+        return aesKey;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAesKey(String aesKey) {
+        this.aesKey = aesKey;
     }
 
-    public String getEasemob() {
-        return easemob;
+    public String getChatSKey() {
+        return chatSKey;
     }
 
-    public void setEasemob(String easemob) {
-        this.easemob = easemob;
+    public void setChatSKey(String chatSKey) {
+        this.chatSKey = chatSKey;
     }
 
-    public String getNickname() {
-        return nickname;
+    public boolean isNewest() {
+        return newest;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setNewest(boolean newest) {
+        this.newest = newest;
     }
 
-    public String getPicture() {
-        return picture;
+    public int getVersion() {
+        return version;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public String getQrCode() {
-        return qrCode;
-    }
-
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public String getSafePassword() {
-        return safePassword;
-    }
-
-    public void setSafePassword(String safePassword) {
-        this.safePassword = safePassword;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
-
-    public int getSignatureId() {
-        return signatureId;
-    }
-
-    public void setSignatureId(int signatureId) {
-        this.signatureId = signatureId;
-    }
-
-    public String getSn() {
-        return sn;
-    }
-
-    public void setSn(String sn) {
-        this.sn = sn;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.util.HanziToPinyin;
 import com.tg.tgt.App;
@@ -96,6 +97,7 @@ public class GroupManger {
                     .blockingFirst();
             if (HttpHelper.isHttpSuccess(httpResult)) {
                 GroupModel data = httpResult.getData();
+                EaseApp.groupId=data.getId().toString();
                 return saveGroup(data);
             }else {
                 mHandler.post(new Runnable() {

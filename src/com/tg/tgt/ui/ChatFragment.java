@@ -41,10 +41,12 @@ import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.EMVideoMessageBody;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseDingMessageHelper;
+import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
 import com.hyphenate.easeui.ui.EaseShowNormalFileActivity;
@@ -163,7 +165,28 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+    private void getRecvChatKey(){
+        ApiManger2.getApiService()
+                .getRecvChatKey(toChatUsername)
+                .compose(((BaseActivity)mContext).<HttpResult<KeyBean>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<KeyBean>() {
+                    @Override
+                    protected void onSuccess(KeyBean bean) {
 
+                    }
+                });
+    }
+    private void getApiService(){
+        ApiManger2.getApiService()
+                .getGroupChatKey(EaseApp.groupId)
+                .compose(((BaseActivity)mContext).<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<List<KeyBean>>() {
+                    @Override
+                    protected void onSuccess(List<KeyBean> list) {
+
+                    }
+                });
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
@@ -218,6 +241,12 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             if (robotMap != null && robotMap.containsKey(toChatUsername)) {
                 isRobot = true;
             }
+        }
+        Log.i("zzz",chatType+"");
+        if(chatType == Constant.CHATTYPE_GROUP){
+            getApiService();
+        }else {
+            getRecvChatKey();
         }
         messageList.setInfoListener(new EaseChatRow.IInfoListener() {
             @Override
