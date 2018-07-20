@@ -1102,10 +1102,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 //发送给自己显示
                 String aeskey2 = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);   //用我的私钥对我自己的aeskey解密
                 String pubkey2= AESCodeer.AESDncode(aeskey2,bean.getChatPubKey());             //用我的aeskey解密我的公钥
-                //String jmh2 = RSAUtil.encryptByPublicKey(random,bean.getChatPubKey());//用自己的公钥对我方的random进行加密
+                String jmh2 = RSAUtil.encryptByPublicKey(random,pubkey2);//用自己的公钥对我方的random进行加密
                 message.setAttribute(EaseConstant.VERSION,bean.getVersion());
                 message.setAttribute(EaseConstant.MI,jmh);
-                message.setAttribute(EaseConstant.SEND,pubkey2);
+                message.setAttribute(EaseConstant.SEND,jmh2);Log.i("zzzzz2","SEND"+jmh2);
                 sendMessage(message);
             } catch (Exception e) {
                 e.printStackTrace();
