@@ -13,24 +13,32 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.model.KeyBean;
+import com.hyphenate.easeui.utils.AESCodeer;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.GroupHelper;
+import com.hyphenate.easeui.utils.RSAUtil;
 import com.hyphenate.easeui.widget.EaseConversationList.EaseConversationListHelper;
 import com.hyphenate.easeui.widget.chatrow.timeUtil;
 import com.hyphenate.util.DateUtils;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -177,10 +185,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             }
             //如果是进群邀请则显示邀请信息，如果不是则按原来
             if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)){
-                Log.i("zzz1",GroupHelper.parseInviteMsg(lastMessage));
                 holder.message.setText(GroupHelper.parseInviteMsg(lastMessage));
             }else {
-                Log.i("zzz3",EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext())))+"");
                 if(EaseUserUtils.getUserInfo(username).getIsLock() == 1){
                     holder.message.setText("******");
                 }else {
@@ -188,7 +194,6 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
             }
             if(content != null){
-                Log.i("zzz2",content);
                 holder.message.setText(content);
             }
             //holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));

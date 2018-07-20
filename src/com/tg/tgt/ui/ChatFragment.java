@@ -35,6 +35,7 @@ import com.easemob.redpacketsdk.bean.RedPacketInfo;
 import com.easemob.redpacketsdk.constant.RPConstant;
 import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMFileMessageBody;
@@ -50,8 +51,10 @@ import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseChatFragment.EaseChatFragmentHelper;
 import com.hyphenate.easeui.ui.EaseShowNormalFileActivity;
+import com.hyphenate.easeui.utils.AESCodeer;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.L;
+import com.hyphenate.easeui.utils.RSAUtil;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.utils.photo.PhotoUtils;
 import com.hyphenate.easeui.utils.photo.VideoBean;
@@ -88,6 +91,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -605,8 +609,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         if (requestCode == REQUEST_CODE_CONTEXT_MENU) {
             switch (resultCode) {
                 case ContextMenuActivity.RESULT_CODE_COPY: // copy
-                    clipboard.setPrimaryClip(ClipData.newPlainText(null,
-                            ((EMTextMessageBody) contextMenuMessage.getBody()).getMessage()));
+                    String message = mi(contextMenuMessage);
+                    clipboard.setPrimaryClip(ClipData.newPlainText(null,message));
                     break;
                 case ContextMenuActivity.RESULT_CODE_DELETE: // delete
                     showDia(getActivity(),getString(R.string.delete_ti),0);

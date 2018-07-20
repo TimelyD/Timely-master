@@ -1088,7 +1088,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             Log.i("dcz","发送@文本");
             sendAtMessage(content);
         } else {
-            Log.i("dcz","发送文本2");
+            Log.i("dcz","发送文本2"+content);
             String random = RandomUtil.generateString(16);
             String sign = AESCodeer.AESEncode(random,content);
             EMMessage message = EMMessage.createTxtSendMessage(sign, toChatUsername);       //发送的文本已经过random加密
@@ -1384,7 +1384,50 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                         InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-
+    protected List<KeyBean> toArray(String string){
+        Type type = new TypeToken<List<KeyBean>>(){}.getType();
+        List<KeyBean> b = new Gson().fromJson(string,type);
+        return b;
+    }
+    protected String mi(EMMessage message){
+        EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
+        String text = txtBody.getMessage();
+        String version = message.getStringAttribute(EaseConstant.VERSION, null);
+        String mi = message.getStringAttribute(EaseConstant.MI, null);       //获得用对方的公钥RSA加密后的random
+        String send_msg= message.getStringAttribute(EaseConstant.SEND, null);//获得用我的公钥RSA加密后的random
+        String pri = EaseApp.sf.getString("pri_key", "");//获得私钥（可解密aesKey）
+        String s = EaseApp.sf.getString("keyBean", ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
+        KeyBean bean = new Gson().fromJson(s, KeyBean.class);//我的聊天私钥的实体类
+        String a = EaseApp.sf.getString("key_list", "");//得到登录时获取的我的所有版本聊天私钥
+        if(mi!=null){
+            try {
+                if(message.direct() == EMMessage.Direct.RECEIVE){
+                    List<KeyBean> list = toArray(a);
+                    for(KeyBean be:list){
+                        if(version.equals(be.getVersion())){//获得对方发送消息的对应版本
+                            bean=be;
+                            break;
+                        }
+                    }
+                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
+                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                    String random = RSAUtil.decryptBase64ByPrivateKey(mi,prikey);
+                    text = AESCodeer.AESDncode(random,text);
+                }else {
+                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);//用我的RSA私钥对我aes解密
+                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                    String random = RSAUtil.decryptBase64ByPrivateKey(send_msg,prikey);
+                    text = AESCodeer.AESDncode(random,text);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if(text==null){
+            text="";
+        }
+        return text;
+    }
     /**
      * forward message
      *
@@ -1401,8 +1444,15 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                             forward_msg.getStringAttribute(EaseConstant.MESSAGE_ATTR_EXPRESSION_ID, null));
                 } else {
                     // get the content and send it
-                    String content = ((EMTextMessageBody) forward_msg.getBody()).getMessage();
-                    sendTextMessage(content);
+                    String mi = forward_msg.getStringAttribute(EaseConstant.MI, null);
+                    if(mi!=null){
+                        String content = mi(forward_msg);
+                        sendTextMessage(content);
+                    }else {
+                        String content = ((EMTextMessageBody) forward_msg.getBody()).getMessage();
+                        sendTextMessage(content);
+                    }
+
                 }
                 break;
             case IMAGE:
