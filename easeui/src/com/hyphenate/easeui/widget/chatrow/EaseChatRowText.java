@@ -73,27 +73,36 @@ public class EaseChatRowText extends EaseChatRow{
         String pri = EaseApp.sf.getString("pri_key", "");//获得私钥（可解密aesKey）
         String s = EaseApp.sf.getString("keyBean", ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
         KeyBean bean = new Gson().fromJson(s, KeyBean.class);//我的聊天私钥的实体类
-       /* String a = EaseApp.sf.getString("key_list", "");//得到登录时获取的我的所有版本聊天私钥
-        List<KeyBean> list = toArray(a);
-        for(KeyBean be:list){
-            if(EaseApp.receiver_pub.getVersion()==bean.getVersion()){
-                bean=be;
-                break;
-            }
-        }*/
-        if(version!=null){
+        String a = EaseApp.sf.getString("key_list", "");//得到登录时获取的我的所有版本聊天私钥
+        if(mi!=null){
             try {
                 if(message.direct() == EMMessage.Direct.RECEIVE){
-                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);//用我的RSA私钥对我aes解密
+                    List<KeyBean> list = toArray(a);
+                    for(KeyBean be:list){
+                        if(version.equals(be.getVersion())){//获得对方发送消息的对应版本
+                            bean=be;
+                            break;
+                        }
+                    }
+                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
                     String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
                     String random = RSAUtil.decryptBase64ByPrivateKey(mi,prikey);
-                    text = AESCodeer.AESDncode(s,random);
+                    text = AESCodeer.AESDncode(random,text);
                 }else {
+                    Log.i("zzzzz","SEND");
                    // random = RSAUtil.decryptBase64ByPrivateKey(send_msg,pri);
+                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);//用我的RSA私钥对我aes解密
+                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                    String random = RSAUtil.decryptBase64ByPrivateKey(send_msg,prikey);
+                    Log.i("zzz",aeskey+"加"+prikey+"加"+random);
+                    text = AESCodeer.AESDncode(s,random);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        if(text==null){
+            text="";
         }
         Spannable span = EaseSmileUtils.getSmiledText(context,text);
         // 设置内容

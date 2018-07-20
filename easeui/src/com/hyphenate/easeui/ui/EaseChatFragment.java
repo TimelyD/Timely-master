@@ -1099,10 +1099,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 String s = EaseApp.sf.getString("keyBean", ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
                 KeyBean bean = new Gson().fromJson(s, KeyBean.class);//我的聊天私钥的实体类
                 String jmh = RSAUtil.encryptByPublicKey(random,pubkey);//用接收方的公钥对我方的random进行加密
-                String jmh2 = RSAUtil.encryptByPublicKey(random,bean.getChatPubKey());//用自己的公钥对我方的random进行加密
+                //发送给自己显示
+                String aeskey2 = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);   //用我的私钥对我自己的aeskey解密
+                String pubkey2= AESCodeer.AESDncode(aeskey2,bean.getChatPubKey());             //用我的aeskey解密我的公钥
+                //String jmh2 = RSAUtil.encryptByPublicKey(random,bean.getChatPubKey());//用自己的公钥对我方的random进行加密
                 message.setAttribute(EaseConstant.VERSION,bean.getVersion());
                 message.setAttribute(EaseConstant.MI,jmh);
-                message.setAttribute(EaseConstant.SEND,jmh2);
+                message.setAttribute(EaseConstant.SEND,pubkey2);
                 sendMessage(message);
             } catch (Exception e) {
                 e.printStackTrace();

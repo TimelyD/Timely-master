@@ -258,7 +258,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mProgressDialog.setCancelable(false);
 
         progressShow = true;
-        getKey();
         ApiManger2.getApiService()
                 .servernonce(Constant.MYUID)
                 .compose(this.<HttpResult<NonceBean>>bindToLifeCyclerAndApplySchedulers(null))
@@ -335,6 +334,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         ParseManager.getInstance().getContactInfos(null, new EMValueCallBack<List<EaseUser>>() {
                             @Override
                             public void onSuccess(List<EaseUser> easeUsers) {
+                                getKey();
                                 DemoHelper.getInstance().setCurrentUserName(currentUsername);
                                 DemoHelper.getInstance().updateContactList(easeUsers);
                                 loginHX(loginResult.getUserId(), password);
