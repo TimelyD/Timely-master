@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -45,8 +46,15 @@ import com.tg.tgt.http.model2.UserFriendModel;
 import com.tg.tgt.ui.BaseActivity;
 import com.tg.tgt.widget.dialog.CommonDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -258,6 +266,59 @@ public class CodeUtils {
         Type type = new TypeToken<List<KeyBean>>(){}.getType();
         List<KeyBean> b = new Gson().fromJson(string,type);
         return b;
+    }
+
+    /**
+     *  json字符串转map
+     * */
+    public static HashMap<String,KeyBean> toMap(String string){
+        Type type = new TypeToken<HashMap<String,KeyBean>>(){}.getType();
+        HashMap<String,KeyBean> b = new Gson().fromJson(string,type);
+        return b;
+    }
+
+    /**
+     *  保存map
+     * */
+    public static void putHashMapData(Context context, String key, Map<String, String> datas) {
+        JSONArray mJsonArray = new JSONArray();
+        Iterator<Map.Entry<String, String>> iterator = datas.entrySet().iterator();
+        JSONObject object = new JSONObject();
+        while (iterator.hasNext()) {
+            Map.Entry<String, String> entry = iterator.next();
+            try {
+                object.put(entry.getKey(), entry.getValue());
+            } catch (JSONException e) {
+
+            }
+        }
+        mJsonArray.put(object);
+        SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(key, mJsonArray.toString());
+        editor.commit();
+    }
+
+    public static Map<String, String> getHashMapData(Context context, String key) {
+        Map<String, String> datas = new HashMap<>();
+        SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
+        String result = sp.getString(key, "");
+        try {
+            JSONArray array = new JSONArray(result);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject itemObject = array.getJSONObject(i);
+                JSONArray names = itemObject.names();
+                if (names != null) {
+                    for (int j = 0; j < names.length(); j++) {
+                        String name = names.getString(j);
+                        String value = itemObject.getString(name);
+                        datas.put(name, value);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+        }
+        return datas;
     }
 
     public static void fetchUser(IView react, String userName, boolean showLoading, final Consumer<EaseUser> consumer) {

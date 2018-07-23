@@ -1408,24 +1408,34 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         String a = EaseApp.sf.getString("key_list", "");//得到登录时获取的我的所有版本聊天私钥
         if(mi!=null){
             try {
-                if(message.direct() == EMMessage.Direct.RECEIVE){
-                    List<KeyBean> list = toArray(a);
-                    for(KeyBean be:list){
-                        if(version.equals(be.getVersion())){//获得对方发送消息的对应版本
-                            bean=be;
-                            break;
+                if(message.getChatType()==ChatType.Chat){
+                    Log.i("对话","单聊");
+                    if(message.direct() == EMMessage.Direct.RECEIVE){
+                        List<KeyBean> list = toArray(a);
+                        for(KeyBean be:list){
+                            if(version.equals(be.getVersion())){//获得对方发送消息的对应版本
+                                bean=be;
+                                break;
+                            }
                         }
                     }
-                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
-                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
-                    String random = RSAUtil.decryptBase64ByPrivateKey(mi,prikey);
-                    text = AESCodeer.AESDncode(random,text);
-                }else {
-                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);//用我的RSA私钥对我aes解密
-                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
-                    String random = RSAUtil.decryptBase64ByPrivateKey(send_msg,prikey);
-                    text = AESCodeer.AESDncode(random,text);
                 }
+                if(message.getChatType()==ChatType.GroupChat){
+                    Log.i("对话","群聊");
+                    if(message.direct() == EMMessage.Direct.RECEIVE){
+                        for(KeyBean be:EaseApp.group_pub){
+                            if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
+                                bean=be;
+                                break;
+                            }
+                        }
+                    }
+                }
+                String Key=message.direct() == EMMessage.Direct.RECEIVE?mi:send_msg;
+                String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
+                String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                String random = RSAUtil.decryptBase64ByPrivateKey(Key,prikey);
+                text = AESCodeer.AESDncode(random,text);
             } catch (Exception e) {
                 e.printStackTrace();
             }

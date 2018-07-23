@@ -93,7 +93,7 @@ public class EaseChatRowText extends EaseChatRow{
                     Log.i("对话","群聊");
                     if(message.direct() == EMMessage.Direct.RECEIVE){
                         for(KeyBean be:EaseApp.group_pub){
-                            if(version.equals(be.getVersion())){//获得对方发送消息的对应版本
+                            if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;
                                 break;
                             }

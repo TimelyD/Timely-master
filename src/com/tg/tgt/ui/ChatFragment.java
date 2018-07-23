@@ -84,6 +84,7 @@ import com.tg.tgt.http.model2.GroupUserModel;
 import com.tg.tgt.moment.bean.CollectBean;
 import com.tg.tgt.moment.bean.User;
 import com.tg.tgt.utils.AMRToWAV;
+import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.widget.ChatRowVoiceCall;
 
 import java.io.File;
@@ -93,6 +94,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -177,6 +179,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     @Override
                     protected void onSuccess(KeyBean bean) {
                         EaseApp.receiver_pub=bean;
+                       // CodeUtils.getHashMapData(mContext,toChatUsername).put(toChatUsername,toChatUsername);
+                     /*   HashMap map=new HashMap();map.put(toChatUsername,bean);
+                        String a = CodeUtils.toJson(map, 1);
+                        HashMap<String, KeyBean> b = CodeUtils.toMap(a);
+                        Log.i("www",a+"加"+ b.size());*/
                     }
                 });
     }

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.utils.SpUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,6 +22,9 @@ public class EaseApp extends Application {
     protected static String myUid;
     public static Context applicationContext;
     public static Boolean ontype=true;//图片放大页的点击事件
+    public static String map_me;
+    public static String map_receiver;  //Keybean实体类
+    public static String map_group;     //Keybean
     public static String pri_key;
     public static String pub_key;
     public static SharedPreferences sf;
