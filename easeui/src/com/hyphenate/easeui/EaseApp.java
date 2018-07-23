@@ -22,9 +22,11 @@ public class EaseApp extends Application {
     protected static String myUid;
     public static Context applicationContext;
     public static Boolean ontype=true;//图片放大页的点击事件
-    public static String map_me;
-    public static String map_receiver;  //Keybean实体类
-    public static String map_group;     //Keybean
+    public static String map_me="map_me";
+    public static String map_receiver="map_receiver";  //Keybean单聊
+    public static String map_group="map_group";     //Keybean群聊
+    public static String keyBean="keyBean";     //我的当前最新版本的keybean
+    public static String keylist="keylist";     //我的keybean列表
     public static String pri_key;
     public static String pub_key;
     public static SharedPreferences sf;

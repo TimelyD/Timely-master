@@ -171,7 +171,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-    private void getRecvChatKey(){
+    private void getRecvChatKey(){//单聊
         ApiManger2.getApiService()
                 .getRecvChatKey(toChatUsername)
                 .compose(((BaseActivity)mContext).<HttpResult<KeyBean>>bindToLifeCyclerAndApplySchedulers(null))
@@ -179,15 +179,17 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     @Override
                     protected void onSuccess(KeyBean bean) {
                         EaseApp.receiver_pub=bean;
-                       // CodeUtils.getHashMapData(mContext,toChatUsername).put(toChatUsername,toChatUsername);
-                     /*   HashMap map=new HashMap();map.put(toChatUsername,bean);
-                        String a = CodeUtils.toJson(map, 1);
-                        HashMap<String, KeyBean> b = CodeUtils.toMap(a);
-                        Log.i("www",a+"加"+ b.size());*/
+                        List<KeyBean>list = new ArrayList<KeyBean>();list.add(bean);
+                        map.put(toChatUsername,list);
+                        String string = CodeUtils.toJson(map, 1);
+                        EaseApp.sf.edit().putString(EaseApp.map_receiver,string).commit();
+                       /* String z = EaseApp.sf.getString(EaseApp.map_receiver, null);
+                        HashMap<String,List<KeyBean>> b = CodeUtils.toMap(z);
+                        Log.i("www",string+"加"+ b.size());*/
                     }
                 });
     }
-    private void getApiService(){
+    private void getApiService(){//群聊
         ApiManger2.getApiService()
                 .getGroupChatKey(EaseApp.groupId)
                 .compose(((BaseActivity)mContext).<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
@@ -195,6 +197,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     @Override
                     protected void onSuccess(List<KeyBean> list) {
                         EaseApp.group_pub=list;
+                        map.put(EaseApp.groupId,list);
+                        String string = CodeUtils.toJson(map, 1);
+                        EaseApp.sf.edit().putString(EaseApp.map_group,string).commit();
                     }
                 });
     }
@@ -244,6 +249,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
      * 已经查询过的user，防止多次查询
      */
     private List<String> queriedUser;
+    private HashMap<String,List<KeyBean>> map=new HashMap<>();
     @Override
     protected void setUpView() {
         setChatFragmentListener(this);
@@ -254,9 +260,17 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             }
         }
         if(chatType == Constant.CHATTYPE_GROUP){
-            getApiService();
+            String z = EaseApp.sf.getString(EaseApp.map_group, null);//得到所有的map
+            map.clear();map = CodeUtils.toMap(z);
+            if(map.get(EaseApp.groupId)==null){
+                getApiService();
+            }
         }else {
-            getRecvChatKey();
+            String z = EaseApp.sf.getString(EaseApp.map_receiver, null);//得到所有的map
+            map.clear();map = CodeUtils.toMap(z);
+            if(map.get(toChatUsername)==null){
+                getRecvChatKey();
+            }
         }
         messageList.setInfoListener(new EaseChatRow.IInfoListener() {
             @Override

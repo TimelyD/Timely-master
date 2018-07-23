@@ -271,9 +271,9 @@ public class CodeUtils {
     /**
      *  json字符串转map
      * */
-    public static HashMap<String,KeyBean> toMap(String string){
-        Type type = new TypeToken<HashMap<String,KeyBean>>(){}.getType();
-        HashMap<String,KeyBean> b = new Gson().fromJson(string,type);
+    public static HashMap<String,List<KeyBean>> toMap(String string){
+        Type type = new TypeToken<HashMap<String,List<KeyBean>>>(){}.getType();
+        HashMap<String,List<KeyBean>> b = new Gson().fromJson(string,type);
         return b;
     }
 

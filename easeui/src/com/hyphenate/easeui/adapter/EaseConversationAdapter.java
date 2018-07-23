@@ -243,9 +243,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         String mi = message.getStringAttribute(EaseConstant.MI, null);       //获得用对方的公钥RSA加密后的random
         String send_msg= message.getStringAttribute(EaseConstant.SEND, null);//获得用我的公钥RSA加密后的random
         String pri = EaseApp.sf.getString("pri_key", "");//获得私钥（可解密aesKey）
-        String s = EaseApp.sf.getString("keyBean", ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
+        String s = EaseApp.sf.getString(EaseApp.keyBean, ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
         KeyBean bean = new Gson().fromJson(s, KeyBean.class);//我的聊天私钥的实体类
-        String a = EaseApp.sf.getString("key_list", "");//得到登录时获取的我的所有版本聊天私钥
+        String a = EaseApp.sf.getString(EaseApp.keylist, "");//得到登录时获取的我的所有版本聊天私钥
         if(mi!=null){
             try {
                 if(message.getChatType()== EMMessage.ChatType.Chat){
