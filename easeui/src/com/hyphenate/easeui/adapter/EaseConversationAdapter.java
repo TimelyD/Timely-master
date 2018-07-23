@@ -190,7 +190,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if(EaseUserUtils.getUserInfo(username).getIsLock() == 1){
                     holder.message.setText("******");
                 }else {
-                    holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),BufferType.SPANNABLE);
+                    //holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),BufferType.SPANNABLE);
+                    holder.message.setText(mi(lastMessage));
                 }
             }
             if(content != null){
@@ -227,6 +228,52 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.time.setTextSize(TypedValue.COMPLEX_UNIT_PX, timeSize);*/
 
         return convertView;
+    }
+
+    protected List<KeyBean> toArray(String string){
+        Type type = new TypeToken<List<KeyBean>>(){}.getType();
+        List<KeyBean> b = new Gson().fromJson(string,type);
+        return b;
+    }
+
+    protected String mi(EMMessage message){
+        EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
+        String text = txtBody.getMessage();
+        String version = message.getStringAttribute(EaseConstant.VERSION, null);
+        String mi = message.getStringAttribute(EaseConstant.MI, null);       //获得用对方的公钥RSA加密后的random
+        String send_msg= message.getStringAttribute(EaseConstant.SEND, null);//获得用我的公钥RSA加密后的random
+        String pri = EaseApp.sf.getString("pri_key", "");//获得私钥（可解密aesKey）
+        String s = EaseApp.sf.getString("keyBean", ""); //得到登录时获取的我的最新版本聊天私钥（解密消息用）
+        KeyBean bean = new Gson().fromJson(s, KeyBean.class);//我的聊天私钥的实体类
+        String a = EaseApp.sf.getString("key_list", "");//得到登录时获取的我的所有版本聊天私钥
+        if(mi!=null){
+            try {
+                if(message.direct() == EMMessage.Direct.RECEIVE){
+                    List<KeyBean> list = toArray(a);
+                    for(KeyBean be:list){
+                        if(version.equals(be.getVersion())){//获得对方发送消息的对应版本
+                            bean=be;
+                            break;
+                        }
+                    }
+                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
+                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                    String random = RSAUtil.decryptBase64ByPrivateKey(mi,prikey);
+                    text = AESCodeer.AESDncode(random,text);
+                }else {
+                    String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);//用我的RSA私钥对我aes解密
+                    String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                    String random = RSAUtil.decryptBase64ByPrivateKey(send_msg,prikey);
+                    text = AESCodeer.AESDncode(random,text);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if(text==null){
+            text="";
+        }
+        return text;
     }
 
     @Override

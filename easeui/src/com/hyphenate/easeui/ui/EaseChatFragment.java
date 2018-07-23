@@ -1093,6 +1093,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             String sign = AESCodeer.AESEncode(random,content);
             EMMessage message = EMMessage.createTxtSendMessage(sign, toChatUsername);       //发送的文本已经过random加密
             String pri = EaseApp.sf.getString("pri_key", "");//得到登录时生成的私钥
+            if(chatType == EaseConstant.CHATTYPE_GROUP){//如果是群组
+                for(KeyBean bean:EaseApp.group_pub){
+                    if(bean.isNewest()){
+                        EaseApp.receiver_pub=bean;
+                    }
+                }
+            }
             try {
                 String aeskey = RSAUtil.decryptBase64ByPrivateKey(EaseApp.receiver_pub.getAesKey(), pri);//用我的RSA私钥对接收方的aes解密
                 String pubkey = AESCodeer.AESDncode(aeskey,EaseApp.receiver_pub.getChatPubKey());       //对接收方的公钥进行解密
