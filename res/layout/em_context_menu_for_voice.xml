@@ -40,7 +40,6 @@
         android:padding="10dp"
         android:text="@string/collection"
         android:textColor="@android:color/black"
-        android:visibility="gone"
         android:textSize="20sp" />
     <View
         android:layout_width="match_parent"

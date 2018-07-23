@@ -65,6 +65,7 @@ public class FFmpeg implements FFmpegInterface {
         if (cmd.length != 0) {
             String[] ffmpegBinary = new String[] { FileUtils.getFFmpeg(context, environvenmentVars) };
             String[] command = concatenate(ffmpegBinary, cmd);
+            android.util.Log.e("Tag","命令不为空");
             ffmpegExecuteAsyncTask = new FFmpegExecuteAsyncTask(command , timeout, ffmpegExecuteResponseHandler);
             ffmpegExecuteAsyncTask.execute();
         } else {

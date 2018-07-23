@@ -35,10 +35,12 @@ class FFmpegExecuteAsyncTask extends AsyncTask<Void, String, CommandResult> {
     @Override
     protected CommandResult doInBackground(Void... params) {
         try {
+            android.util.Log.e("Tag","执行命令");
             process = shellCommand.run(cmd);
             if (process == null) {
                 return CommandResult.getDummyFailureResponse();
             }
+            android.util.Log.e("Tag","没有失败");
             Log.d("Running publishing updates method");
             checkAndUpdateProcess();
             return CommandResult.getOutputFromProcess(process);
@@ -89,10 +91,11 @@ class FFmpegExecuteAsyncTask extends AsyncTask<Void, String, CommandResult> {
                 String line;
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
                 while ((line = reader.readLine()) != null) {
+                    android.util.Log.e("Tag","正在转码。。。。。。。。。。");
                     if (isCancelled()) {
                         return;
                     }
-
+                    android.util.Log.e("Tag","正在转码");
                     output += line+"\n";
                     publishProgress(line);
                 }

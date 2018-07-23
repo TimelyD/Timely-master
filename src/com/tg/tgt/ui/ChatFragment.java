@@ -62,6 +62,7 @@ import com.hyphenate.easeui.utils.rxbus2.BusCode;
 import com.hyphenate.easeui.utils.rxbus2.RxBus;
 import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
+import com.hyphenate.easeui.utils.videocompress.CompressListener;
 import com.hyphenate.easeui.utils.videocompress.Compressor;
 import com.hyphenate.easeui.utils.videocompress.InitListener;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
@@ -194,18 +195,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RxBus.get().register(this);
-//        voiceToWavHandler = new Handler(){
-//            @Override
-//            public void handleMessage(Message msg) {
-//                super.handleMessage(msg);
-//                switch (msg.what){
-//                    case 1000:
-//                        Log.e("Tag","转换wanbi2222222222222");
-//                        createBody(new File(msg.obj.toString()),type);
-//                        break;
-//                }
-//            }
-//        };
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -400,9 +389,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file);//表单类型
             builder.addFormDataPart("file", file.getName(), body);
         }
-//        if (type == 2) {
-//            builder.addFormDataPart("image", file.getName(), );
-//        }
         builder.addFormDataPart("fromUid", contextMenuMessage.getFrom());
         builder.addFormDataPart("type",String.valueOf(type));
         builder.addFormDataPart("isFrom","1");
@@ -427,30 +413,95 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         EaseConstant.isCollection = false;
     }
 
-    public static android.os.Handler voiceToWavHandler;
-
-    private void ffmpegCommandAmr2Wav(String source, final String target) {
-//        final String command = "ffmpeg -i " + source + " -vn -acodec pcm_s16le -ab 256k -ac 1 -ar 16000 -f wav -y " + target;
-//        new Thread(new Runnable() {
+    /**
+     * 执行ffmpeg命令行
+     * @param commandLine commandLine
+     */
+    private void executeFFmpegCmd(final String[] commandLine){
+//        if(commandLine == null){
+//            return;
+//        }
+//        FFmpegCmd.execute(commandLine, new FFmpegCmd.OnHandleListener() {
 //            @Override
-//            public void run() {
-//                FFmpegNativeHelper.runCommand(command);
-//                //音频转换结束，开始语音识别
-//                Log.e("Tag","转换wanbi");
-//                Message msg = new Message();
-//                msg.what = 1000;
-//                msg.obj = target;
-//                voiceToWavHandler.sendMessage(msg);
+//            public void onBegin() {
+//                Log.e(TAG, "handle audio onBegin...");
+//                //mHandler.obtainMessage(MSG_BEGIN).sendToTarget();
 //            }
-//        }).start();
-//        Runnable compoundRun = new Runnable() {
-//            @Override
-//            public void run() {
 //
-//                //......
+//            @Override
+//            public void onEnd(int result) {
+//                Log.e(TAG, "handle audio onEnd...");
+//               // mHandler.obtainMessage(MSG_FINISH).sendToTarget();
 //            }
-//        };
-        //将runnable放在异步线程执行
+//        });
+    }
+
+    private void ffmpegCommandAmr2Wav(final String source, final String target) {
+
+        final String cmd = "-i "+source+" "+target;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (mCompressor == null) {
+                    mCompressor = new Compressor(getActivity().getApplicationContext());
+                    mCompressor.loadBinary(new InitListener() {
+                        @Override
+                        public void onLoadSuccess() {
+                            Log.e("Tag","加载成功");
+                            execCommand(cmd,target,source);
+                        }
+
+                        @Override
+                        public void onLoadFail(String reason) {
+                            Toast.makeText(getContext().getApplicationContext(), getString(R.string.compress_failed) + reason, Toast
+                                    .LENGTH_SHORT).show();
+                            Log.e("Tag","加载失败"+reason);
+                            mCompressor = null;
+                        }
+                    });
+                } else {
+                    execCommand(cmd,target,source);
+                }
+            }
+        }).start();
+    }
+
+    private Compressor mCompressor;
+    private void execCommand(final String cmd,final String target,final String source) {
+        mCompressor.execCommand(cmd, new CompressListener() {
+            @Override
+            public void onExecSuccess(final String message) {
+                Log.i(TAG, "success " + message);
+                Log.e("Tag","转码成功"+source);
+                Log.e("Tag","lllllllllllllllllllll"+target);
+//                if (target.endsWith(".mp3")){
+//                    Log.e("Tag","ooooooooooooooooooooooooooooo"+"          "+"-i " + source.substring(0,source.length()-5)+".mp3" + " -f wav" +
+//                            target.substring(0, target.length() - 5) + ".wav");
+//                    if (source.endsWith(".amr")) {
+//                        execCommand("-i " + source.substring(0,source.length()-5)+".mp3" + " -f wav " +
+//                                        target.substring(0, target.length() - 5) + ".wav",
+//                                target.substring(0, target.length() - 5) + ".wav", source);
+//                    }else {
+//                        execCommand("-i " + source+".mp3" + " -f wav" +
+//                                        target.substring(0, target.length() - 5) + ".wav",
+//                                target.substring(0, target.length() - 5) + ".wav", source);
+//                    }
+//                }else {
+                    Log.e("Tag","pppppppppppppppppppppppp");
+                    createBody(new File(target.substring(0,target.length()-5)+".mp3"),type);
+               // }
+            }
+
+            @Override
+            public void onExecFail(final String reason) {
+                Log.e("Tag","转码失败"+reason);
+            }
+
+            @Override
+            public void onExecProgress(String message) {
+                Log.i(TAG, "progress " + message);
+            }
+        });
     }
 
     private void openMyFile(int type){
@@ -463,15 +514,28 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.jpg");
                     createBody(file,type);
                 }else if (type == 3) {
-                    String fileString;
-                    if (!((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().endsWith(".amr")){
-                        copyFile(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl(),((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.amr");
-                        fileString = ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add";
-//                        file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.amr");
+//                    executeFFmpegCmd(FFmpegUtil.transformAudio(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl(),
+//                            ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().substring(0,
+//                                    ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().length()-5)+"towav.wav"));
+
+                    if (((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().endsWith(".amr")) {
+                        if (!(new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().substring(0,
+                                ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().length()-5)+".mp3")).exists()){
+                        ffmpegCommandAmr2Wav(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl(),
+                                ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().substring(0,
+                                        ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().length() - 5) + ".mp3");
+                        }else {
+                            createBody(new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().substring(0,
+                                    ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().length()-5)+".mp3"),type);
+                        }
                     }else {
-                        fileString = ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl();
+                        if (!(new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+".mp3")).exists()) {
+                            ffmpegCommandAmr2Wav(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl(),
+                                    ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl() + ".mp3");
+                        }else {
+                            createBody(new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+".mp3"),type);
+                        }
                     }
-                    ffmpegCommandAmr2Wav(fileString,((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"towav");
                 }else {
                     file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl());
                     createBody(file,type);
@@ -534,8 +598,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 break;
             case VOICE:
                 type = 3;
-              //  Toast.makeText(mContext,"暂时无法收藏语音",Toast.LENGTH_LONG).show();
-           //     openMyFile(3);
+                openMyFile(3);
                 break;
             case LOCATION:
                 break;
