@@ -266,8 +266,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     protected void onSuccess(NonceBean emptyData) {
                         Log.i("dcz",emptyData.getValue()+"");
                         RSAHandlePwdUtil.getKey();
-                        EaseApp.sf.edit().putString(EaseApp.map_group, null);
-                        EaseApp.sf.edit().putString(EaseApp.map_receiver, null);
+                        EaseApp.sf.edit().putString(EaseApp.map_group, null).commit();
+                        EaseApp.sf.edit().putString(EaseApp.map_receiver, null).commit();
                         Login(currentUsername,RSAHandlePwdUtil.jia(currentPassword+"#"+emptyData.getValue()),code,emptyData.getKey());
                     }
                 });

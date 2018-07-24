@@ -275,7 +275,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     if(message.direct() == EMMessage.Direct.RECEIVE){
                         String z = EaseApp.sf.getString(EaseApp.map_group, null);
                         HashMap<String, List<KeyBean>> map = toMap(z);
-                        List<KeyBean> list = map.get(EaseApp.groupId);
+                        List<KeyBean> list = map.get(message.conversationId());
                         for(KeyBean be:list){
                             if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;

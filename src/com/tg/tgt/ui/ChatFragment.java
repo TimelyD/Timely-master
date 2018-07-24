@@ -193,8 +193,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 });
     }
     private void getApiService(){//群聊
+        Log.i("www2",toChatUsername);
         ApiManger2.getApiService()
-                .getGroupChatKey(EaseApp.groupId)
+                .getGroupChatKey(toChatUsername)
                 .compose(((BaseActivity)mContext).<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
                 .subscribe(new BaseObserver2<List<KeyBean>>() {
                     @Override
@@ -203,7 +204,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                         if(map==null){
                             map=new HashMap<>();
                         }
-                        map.put(EaseApp.groupId,list);
+                        map.put(toChatUsername,list);
                         String string = CodeUtils.toJson(map, 1);
                         EaseApp.sf.edit().putString(EaseApp.map_group,string).commit();
                     }
@@ -268,7 +269,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         if(chatType == Constant.CHATTYPE_GROUP){
             String z = EaseApp.sf.getString(EaseApp.map_group, null);//得到总map
             map.clear();map = CodeUtils.toMap(z);
-            if(z==null||map.get(EaseApp.groupId)==null){
+            if(z==null||map.get(toChatUsername)==null){
                 getApiService();
             }
         }else {

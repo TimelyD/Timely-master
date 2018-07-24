@@ -447,7 +447,7 @@ public interface ApiService2 {
     /**
      *  查看消息接受者的共同秘钥
      * */
-    @GET("api/secretKey/getGroupChatKeyById/{groupId}")
-    Observable<HttpResult<List<KeyBean>>>getGroupChatKey(@Path("groupId")String groupId);
+    @GET("api/secretKey/getGroupChatKeyBySn/{groupSn}")
+    Observable<HttpResult<List<KeyBean>>>getGroupChatKey(@Path("groupSn")String groupSn);
 
 }

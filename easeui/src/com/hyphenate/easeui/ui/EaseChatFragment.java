@@ -1100,7 +1100,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             EMMessage message = EMMessage.createTxtSendMessage(sign, toChatUsername);       //发送的文本已经过random加密
             String pri = EaseApp.sf.getString("pri_key", "");//得到登录时生成的私钥
             String key=chatType == EaseConstant.CHATTYPE_GROUP?EaseApp.map_group:EaseApp.map_receiver;
-            String id =chatType == EaseConstant.CHATTYPE_GROUP?EaseApp.groupId:toChatUsername;
+            String id =chatType == EaseConstant.CHATTYPE_GROUP?toChatUsername:toChatUsername;
             String z = EaseApp.sf.getString(key, null);//得到总map
             HashMap<String, List<KeyBean>> map = toMap(z);
             List<KeyBean> list = map.get(id);
@@ -1438,7 +1438,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     if(message.direct() == EMMessage.Direct.RECEIVE){
                         String z = EaseApp.sf.getString(EaseApp.map_group, null);
                         HashMap<String, List<KeyBean>> map = toMap(z);
-                        List<KeyBean> list = map.get(EaseApp.groupId);
+                        List<KeyBean> list = map.get(toChatUsername);
                         for(KeyBean be:list){
                             if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;
