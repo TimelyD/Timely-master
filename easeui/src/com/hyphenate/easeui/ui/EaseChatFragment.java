@@ -90,6 +90,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -1081,6 +1082,11 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         inputAtUsername(username, true, nick);
     }
 
+    public static HashMap<String,List<KeyBean>> toMap(String string){
+        Type type = new TypeToken<HashMap<String,List<KeyBean>>>(){}.getType();
+        HashMap<String,List<KeyBean>> b = new Gson().fromJson(string,type);
+        return b;
+    }
 
     //send message
     protected void sendTextMessage(String content) {
@@ -1093,11 +1099,18 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             String sign = AESCodeer.AESEncode(random,content);
             EMMessage message = EMMessage.createTxtSendMessage(sign, toChatUsername);       //发送的文本已经过random加密
             String pri = EaseApp.sf.getString("pri_key", "");//得到登录时生成的私钥
-            if(chatType == EaseConstant.CHATTYPE_GROUP){//如果是群组
-                for(KeyBean bean:EaseApp.group_pub){
+            String key=chatType == EaseConstant.CHATTYPE_GROUP?EaseApp.map_group:EaseApp.map_receiver;
+            String id =chatType == EaseConstant.CHATTYPE_GROUP?EaseApp.groupId:toChatUsername;
+            String z = EaseApp.sf.getString(key, null);//得到总map
+            HashMap<String, List<KeyBean>> map = toMap(z);
+            List<KeyBean> list = map.get(id);
+            for(KeyBean bean:list){
+                if(list.size()>1){
                     if(bean.isNewest()){
                         EaseApp.receiver_pub=bean;
                     }
+                }else {
+                    EaseApp.receiver_pub=bean;
                 }
             }
             try {
@@ -1423,7 +1436,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 if(message.getChatType()==ChatType.GroupChat){
                     Log.i("对话","群聊");
                     if(message.direct() == EMMessage.Direct.RECEIVE){
-                        for(KeyBean be:EaseApp.group_pub){
+                        String z = EaseApp.sf.getString(EaseApp.map_group, null);
+                        HashMap<String, List<KeyBean>> map = toMap(z);
+                        List<KeyBean> list = map.get(EaseApp.groupId);
+                        for(KeyBean be:list){
                             if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;
                                 break;

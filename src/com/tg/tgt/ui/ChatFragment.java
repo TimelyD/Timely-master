@@ -180,6 +180,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     protected void onSuccess(KeyBean bean) {
                         EaseApp.receiver_pub=bean;
                         List<KeyBean>list = new ArrayList<KeyBean>();list.add(bean);
+                        if(map==null){
+                            map=new HashMap<>();
+                        }
                         map.put(toChatUsername,list);
                         String string = CodeUtils.toJson(map, 1);
                         EaseApp.sf.edit().putString(EaseApp.map_receiver,string).commit();
@@ -196,7 +199,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 .subscribe(new BaseObserver2<List<KeyBean>>() {
                     @Override
                     protected void onSuccess(List<KeyBean> list) {
-                        EaseApp.group_pub=list;
+                        //EaseApp.group_pub=list;
+                        if(map==null){
+                            map=new HashMap<>();
+                        }
                         map.put(EaseApp.groupId,list);
                         String string = CodeUtils.toJson(map, 1);
                         EaseApp.sf.edit().putString(EaseApp.map_group,string).commit();
@@ -260,15 +266,15 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             }
         }
         if(chatType == Constant.CHATTYPE_GROUP){
-            String z = EaseApp.sf.getString(EaseApp.map_group, null);//得到所有的map
+            String z = EaseApp.sf.getString(EaseApp.map_group, null);//得到总map
             map.clear();map = CodeUtils.toMap(z);
-            if(map.get(EaseApp.groupId)==null){
+            if(z==null||map.get(EaseApp.groupId)==null){
                 getApiService();
             }
         }else {
-            String z = EaseApp.sf.getString(EaseApp.map_receiver, null);//得到所有的map
+            String z = EaseApp.sf.getString(EaseApp.map_receiver, null);//得到总map
             map.clear();map = CodeUtils.toMap(z);
-            if(map.get(toChatUsername)==null){
+            if(z==null||map.get(toChatUsername)==null){
                 getRecvChatKey();
             }
         }

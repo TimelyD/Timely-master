@@ -266,6 +266,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     protected void onSuccess(NonceBean emptyData) {
                         Log.i("dcz",emptyData.getValue()+"");
                         RSAHandlePwdUtil.getKey();
+                        EaseApp.sf.edit().putString(EaseApp.map_group, null);
+                        EaseApp.sf.edit().putString(EaseApp.map_receiver, null);
                         Login(currentUsername,RSAHandlePwdUtil.jia(currentPassword+"#"+emptyData.getValue()),code,emptyData.getKey());
                     }
                 });
@@ -302,7 +304,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     protected void onSuccess(final LoginModel loginResult) {
                         SpUtils.put(mContext, Constant.NOT_CLEAR_SP, Constant.USERNAME, currentUsername);
-
                         final String password = loginResult.getEasemob();
 
                         SpUtils.put(mContext, AddTokenInterceptor.TOKEN, loginResult.getToken());

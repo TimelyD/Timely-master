@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 public class EaseChatRowText extends EaseChatRow{
@@ -62,6 +63,12 @@ public class EaseChatRowText extends EaseChatRow{
         select= (CheckBox) findViewById(R.id.select);
         bt= findViewById(R.id.bt);
     }
+
+    public static HashMap<String,List<KeyBean>> toMap(String string){
+        Type type = new TypeToken<HashMap<String,List<KeyBean>>>(){}.getType();
+        HashMap<String,List<KeyBean>> b = new Gson().fromJson(string,type);
+        return b;
+    }
     private boolean mIsLongClick = false;
     @Override
     public void onSetUpView() {
@@ -92,7 +99,10 @@ public class EaseChatRowText extends EaseChatRow{
                 if(message.getChatType()==ChatType.GroupChat){
                     Log.i("对话","群聊");
                     if(message.direct() == EMMessage.Direct.RECEIVE){
-                        for(KeyBean be:EaseApp.group_pub){
+                        String z = EaseApp.sf.getString(EaseApp.map_group, null);
+                        HashMap<String, List<KeyBean>> map = toMap(z);
+                        List<KeyBean> list = map.get(EaseApp.groupId);
+                        for(KeyBean be:list){
                             if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;
                                 break;

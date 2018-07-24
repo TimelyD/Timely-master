@@ -41,6 +41,7 @@ import com.hyphenate.util.DateUtils;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -236,6 +237,11 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         return b;
     }
 
+    public static HashMap<String,List<KeyBean>> toMap(String string){
+        Type type = new TypeToken<HashMap<String,List<KeyBean>>>(){}.getType();
+        HashMap<String,List<KeyBean>> b = new Gson().fromJson(string,type);
+        return b;
+    }
     protected String mi(EMMessage message){
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         String text = txtBody.getMessage();
@@ -263,7 +269,10 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if(message.getChatType()== EMMessage.ChatType.GroupChat){
                     Log.i("对话","群聊");
                     if(message.direct() == EMMessage.Direct.RECEIVE){
-                        for(KeyBean be:EaseApp.group_pub){
+                        String z = EaseApp.sf.getString(EaseApp.map_group, null);
+                        HashMap<String, List<KeyBean>> map = toMap(z);
+                        List<KeyBean> list = map.get(EaseApp.groupId);
+                        for(KeyBean be:list){
                             if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;
                                 break;
