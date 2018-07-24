@@ -26,8 +26,10 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.hyphenate.easeui.widget.EaseConversationList;
 import com.hyphenate.util.NetUtils;
@@ -50,6 +52,7 @@ import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.utils.ToastUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Handler;
 
@@ -376,7 +379,24 @@ public class ConversationListFragment extends EaseConversationListFragment {
 //            }
 //        });
     }
-
+   /* private void getApiService(){//群聊
+        Log.i("www2",toChatUsername);
+        ApiManger2.getApiService()
+                .getGroupChatKey(toChatUsername)
+                .compose(((BaseActivity)mContext).<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<List<KeyBean>>() {
+                    @Override
+                    protected void onSuccess(List<KeyBean> list) {
+                        //EaseApp.group_pub=list;
+                        if(map==null){
+                            map=new HashMap<>();
+                        }
+                        map.put(toChatUsername,list);
+                        String string = CodeUtils.toJson(map, 1);
+                        EaseApp.sf.edit().putString(EaseApp.map_group,string).commit();
+                    }
+                });
+    }*/
     private void toChatAct(EMConversation conversation, final String username, EaseUser result) {
         // start chat acitivity
         final Intent intent = new Intent(getActivity(), ChatActivity.class);

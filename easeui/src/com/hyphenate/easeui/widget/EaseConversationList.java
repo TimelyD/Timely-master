@@ -131,6 +131,9 @@ public class EaseConversationList extends ListView {
 
         boolean onSetGroup(String username, TextView name);
     }
+    public interface EaseListHelper {
+        void onSetIsMsgClock();
+    }
     public void setConversationListHelper(EaseConversationListHelper helper){
         conversationListHelper = helper;
     }
