@@ -13,7 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
@@ -24,15 +26,19 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.GroupInterfaceUtil;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.domain.EaseUser;
+
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.KeyBean;
+import com.hyphenate.easeui.ui.EaseBaseActivity;
 import com.hyphenate.easeui.utils.AESCodeer;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.GroupHelper;
+import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.RSAUtil;
 import com.hyphenate.easeui.widget.EaseConversationList.EaseConversationListHelper;
 import com.hyphenate.easeui.widget.chatrow.timeUtil;
@@ -43,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * conversation list adapter
@@ -54,6 +61,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     private List<EMConversation> copyConversationList;
     private ConversationFilter conversationFilter;
     private boolean notiyfyByFilter;
+    private Context context;
     
     protected int primaryColor;
     protected int secondaryColor;
@@ -66,6 +74,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                                    List<EMConversation> objects) {
         super(context, resource, objects);
         conversationList = objects;
+        this.context=context;
         copyConversationList = new ArrayList<EMConversation>();
         copyConversationList.addAll(objects);
     }
@@ -239,6 +248,43 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         List<KeyBean> b = new Gson().fromJson(string,type);
         return b;
     }
+    public static String toJson(Object obj,int method) {
+        // TODO Auto-generated method stub
+        if (method==1) {
+            //字段是首字母小写，其余单词首字母大写
+            Gson gson = new Gson();
+            String obj2 = gson.toJson(obj);
+            return obj2;
+        }else if(method==2){
+            // FieldNamingPolicy.LOWER_CASE_WITH_DASHES    全部转换为小写，并用空格或者下划线分隔
+            //FieldNamingPolicy.UPPER_CAMEL_CASE    所以单词首字母大写
+            Gson gson2=new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+            String obj2=gson2.toJson(obj);
+            return obj2;
+        }
+        return "";
+    }
+ /*   private List<KeyBean> getApiService(String toChatUsername){//群聊
+        Log.i("www2",toChatUsername);
+        HttpResult<List<KeyBean>> httpResult = ApiManger2.getApiService().getGroupChatKey(toChatUsername).blockingFirst();
+        if (HttpHelper.isHttpSuccess(httpResult)) {
+            List<KeyBean> data = httpResult.getData();
+            if(data==null){
+                return null;
+            }
+            String z = EaseApp.sf.getString(EaseApp.map_group, null);//得到总map
+            HashMap<String, List<KeyBean>> map = toMap(z);
+            if(map==null){
+                map=new HashMap<>();
+            }
+            map.put(toChatUsername,data);
+            String string = toJson(map, 1);
+            EaseApp.sf.edit().putString(EaseApp.map_group,string).commit();
+            return data;
+        }else {
+            return null;
+        }
+    }*/
 
     public static HashMap<String,List<KeyBean>> toMap(String string){
         Type type = new TypeToken<HashMap<String,List<KeyBean>>>(){}.getType();
@@ -274,8 +320,16 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     Log.i("对话","群聊");
                     if(message.direct() == EMMessage.Direct.RECEIVE){
                         String z = EaseApp.sf.getString(EaseApp.map_group, null);
+                        if(z==null){
+                            GroupInterfaceUtil.sendHttpData(message.conversationId());
+                            return "";
+                        }
                         HashMap<String, List<KeyBean>> map = toMap(z);
                         List<KeyBean> list = map.get(message.conversationId());
+                        if(list==null){
+                            GroupInterfaceUtil.sendHttpData(message.conversationId());
+                            return "";
+                        }
                         for(KeyBean be:list){
                             if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;
@@ -284,15 +338,12 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                         }
                     }
                 }
+                Log.i("对话","2");
                 String Key=message.direct() == EMMessage.Direct.RECEIVE?mi:send_msg;
                 String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
-                Log.i("qqq1",aeskey);
                 String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
-                Log.i("qqq2",prikey);
                 String random = RSAUtil.decryptBase64ByPrivateKey(Key,prikey);
-                Log.i("qqq3",random);
                 text = AESCodeer.AESDncode(random,text);
-                Log.i("qqq4",text);
             } catch (Exception e) {
                 e.printStackTrace();
             }

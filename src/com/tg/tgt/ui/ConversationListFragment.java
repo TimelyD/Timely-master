@@ -27,10 +27,13 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseApp;
+import com.hyphenate.easeui.GroupInterface;
+import com.hyphenate.easeui.GroupInterfaceUtil;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.KeyBean;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
+import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.widget.EaseConversationList;
 import com.hyphenate.util.NetUtils;
 import com.tg.tgt.App;
@@ -38,10 +41,12 @@ import com.tg.tgt.BuildConfig;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 import com.tg.tgt.db.InviteMessgeDao;
+import com.tg.tgt.helper.DBManager;
 import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.helper.SecurityDialog;
 import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.HttpHelper;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.IView;
 import com.tg.tgt.http.model2.GroupModel;
@@ -54,11 +59,12 @@ import com.tg.tgt.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Handler;
 
 import okhttp3.MultipartBody;
 
-public class ConversationListFragment extends EaseConversationListFragment {
+public class ConversationListFragment extends EaseConversationListFragment implements GroupInterface{
 
     private TextView errorText;
     private TextView mTvNewsTitle;
@@ -80,7 +86,7 @@ public class ConversationListFragment extends EaseConversationListFragment {
         View errorView = (LinearLayout) View.inflate(getActivity(), com.tg.tgt.R.layout.em_chat_neterror_item, null);
         errorItemContainer.addView(errorView);
         errorText = (TextView) errorView.findViewById(com.tg.tgt.R.id.tv_connect_errormsg);
-
+        GroupInterfaceUtil.setInstance(this);
         View newsView = LayoutInflater.from(mContext).inflate(R.layout.ease_row_chat_history, null);
         newsView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.common_65dp)));
         conversationListView.addHeaderView(newsView);
@@ -489,5 +495,39 @@ public class ConversationListFragment extends EaseConversationListFragment {
         // update unread count
         ((MainActivity) getActivity()).updateUnreadLabel();
         return true;
+    }
+
+    public static List<KeyBean> fetch(String id){
+        final HttpResult<List<KeyBean>> httpResult = ApiManger2.getApiService().getGroupChatKey(id).blockingFirst();
+        if (HttpHelper.isHttpSuccess(httpResult)) {
+            List<KeyBean> data = httpResult.getData();
+            if(data==null){
+                return null;
+            }
+            return data;
+        }else {
+            return null;
+        }
+    }
+    private HashMap<String, List<KeyBean>> map = CodeUtils.toMap(EaseApp.sf.getString(EaseApp.map_group, null));
+    private String ID;
+    @Override
+    public void GetGroupDate(String id) {
+        ID=id;
+        ApiManger2.getApiService()
+                .getGroupChatKey(id)
+                .compose(((BaseActivity)mContext).<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<List<KeyBean>>() {
+                    @Override
+                    protected void onSuccess(List<KeyBean> list) {
+                        if(map==null){
+                            map=new HashMap<>();
+                        }
+                        map.put(ID,list);
+                        String string = CodeUtils.toJson(map, 1);
+                        EaseApp.sf.edit().putString(EaseApp.map_group,string).commit();
+                        conversationListView.refresh();
+                    }
+                });
     }
 }

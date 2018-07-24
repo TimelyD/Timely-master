@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -86,6 +87,7 @@ public class EaseConversationList extends ListView {
             switch (message.what) {
             case MSG_REFRESH_ADAPTER_DATA:
                 if (adapter != null) {
+                    Log.i("dcz","刷新conversation适配器");
                     adapter.notifyDataSetChanged();
                 }
                 break;

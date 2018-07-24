@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tg.tgt"
     android:versionCode="1"
-    android:versionName="2.1.1">
+    android:versionName="2.1.2">
 
     <uses-sdk
         android:minSdkVersion="14"
