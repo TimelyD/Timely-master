@@ -210,7 +210,7 @@ public class EaseNotifier {
                 notifyText += msgs[5];
                 break;
             }
-            
+
             PackageManager packageManager = appContext.getPackageManager();
             String appname = (String) packageManager.getApplicationLabel(appContext.getApplicationInfo());
             
@@ -275,7 +275,7 @@ public class EaseNotifier {
             if(fromUsers.size()>1) {
                 mBuilder.setContentText(summaryBody);
             }else {
-                mBuilder.setContentText(notifyText);
+                mBuilder.setContentText("您有一条未读消息");
             }
             mBuilder.setContentIntent(pendingIntent);
             //新增悬挂式的通知
