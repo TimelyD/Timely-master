@@ -112,9 +112,13 @@ public class EaseChatRowText extends EaseChatRow{
                 }
                 String Key=message.direct() == EMMessage.Direct.RECEIVE?mi:send_msg;
                 String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
+                Log.i("qqqz1",aeskey);
                 String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                Log.i("qqqz2",prikey);
                 String random = RSAUtil.decryptBase64ByPrivateKey(Key,prikey);
+                Log.i("qqqz3",random);
                 text = AESCodeer.AESDncode(random,text);
+                Log.i("qqqz4",text);
             } catch (Exception e) {
                 e.printStackTrace();
             }

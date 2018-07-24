@@ -191,8 +191,11 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if(EaseUserUtils.getUserInfo(username).getIsLock() == 1){
                     holder.message.setText("******");
                 }else {
-                    //holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),BufferType.SPANNABLE);
-                    holder.message.setText(mi(lastMessage));
+                    if(lastMessage.getType()== EMMessage.Type.TXT){
+                        holder.message.setText(mi(lastMessage));
+                    }else {
+                        holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),BufferType.SPANNABLE);
+                    }
                 }
             }
             if(content != null){
@@ -245,6 +248,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     protected String mi(EMMessage message){
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         String text = txtBody.getMessage();
+
         String version = message.getStringAttribute(EaseConstant.VERSION, null);
         String mi = message.getStringAttribute(EaseConstant.MI, null);       //获得用对方的公钥RSA加密后的random
         String send_msg= message.getStringAttribute(EaseConstant.SEND, null);//获得用我的公钥RSA加密后的random
@@ -282,9 +286,13 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
                 String Key=message.direct() == EMMessage.Direct.RECEIVE?mi:send_msg;
                 String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
+                Log.i("qqq1",aeskey);
                 String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
+                Log.i("qqq2",prikey);
                 String random = RSAUtil.decryptBase64ByPrivateKey(Key,prikey);
+                Log.i("qqq3",random);
                 text = AESCodeer.AESDncode(random,text);
+                Log.i("qqq4",text);
             } catch (Exception e) {
                 e.printStackTrace();
             }
