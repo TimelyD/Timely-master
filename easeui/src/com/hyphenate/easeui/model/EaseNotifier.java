@@ -177,6 +177,10 @@ public class EaseNotifier {
         if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)){
             return;
         }
+        //如果是踢出群消息则不显示通知
+        if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, false)){
+            return;
+        }
         sendNotification(message, isForeground, true);
     }
     

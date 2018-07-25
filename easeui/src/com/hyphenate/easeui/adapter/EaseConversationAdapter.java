@@ -196,6 +196,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             //如果是进群邀请则显示邀请信息，如果不是则按原来
             if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)){
                 holder.message.setText(GroupHelper.parseInviteMsg(lastMessage));
+            }else if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, false)){
+                holder.message.setText(GroupHelper.parseKickedMsg(lastMessage));
             }else {
                 if(EaseUserUtils.getUserInfo(username).getIsLock() == 1){
                     holder.message.setText("******");

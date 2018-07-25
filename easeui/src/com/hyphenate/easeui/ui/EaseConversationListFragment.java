@@ -99,6 +99,8 @@ public class EaseConversationListFragment extends EaseBaseFragment{
                 EMMessage lastMessage = conversationList.get(i).getLastMessage();
                 if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)){
                     Log.i("xxx", GroupHelper.parseInviteMsg(lastMessage));
+                }else if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, false)){
+                    Log.i("xxx", GroupHelper.parseInviteMsg(lastMessage));
                 }else {
                     Log.i("xxx", EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext())))+"");
                 }

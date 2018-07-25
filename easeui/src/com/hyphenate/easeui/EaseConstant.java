@@ -12,17 +12,14 @@
  * limitations under the License.
  */
 package com.hyphenate.easeui;
-
-import com.hyphenate.chat.EMMessage;
-
 import java.util.ArrayList;
 
 public class EaseConstant {
     public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";
     public static final String MESSAGE_ATTR_IS_VIDEO_CALL = "is_video_call";
-   // public static final String MESSAGE_ATTR_IS_BUSSINES = "is_bussines";
     public static final String MESSAGE_TYPE_RECALL = "message_recall";
-    public static final String MESSAGE_ATTR_IS_INVITE_INTO_GROUP = "is_invite_into_group";
+    public static final String MESSAGE_ATTR_IS_INVITE_INTO_GROUP = "is_invite_into_group";//是否是邀请进群消息
+    public static final String MESSAGE_ATTR_IS_KICKED_GROUP = "is_kicked_group";//是否是踢出群消息
     public static final String MESSAGE_ATTR_IS_FIRE = "isFire";
     public static final String MESSAGE_ATTR_NICKNAME = "nickname";
     public static ArrayList<String>list_ms=new ArrayList<>();

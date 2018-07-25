@@ -74,6 +74,7 @@ public class EaseMessageAdapter extends BaseAdapter {
     private static final int MESSAGE_TYPE_INVITE_INTO_GROUP = 14;
     private static final int MESSAGE_SENT_BUSSINES = 15;
     private static final int MESSAGE_RECV_BUSSINES = 16;
+    private static final int MESSAGE_TYPE_IS_KICKED_GROUP = 17;
 
     public int itemTypeCount;
 
@@ -227,6 +228,10 @@ public class EaseMessageAdapter extends BaseAdapter {
             if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)) {
                 return MESSAGE_TYPE_INVITE_INTO_GROUP;
             }
+            //踢出群提示
+            if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, false)) {
+                return MESSAGE_TYPE_IS_KICKED_GROUP;
+            }
             if(message.getBooleanAttribute(EaseConstant.BUSSINES_ID, false)){
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_RECV_BUSSINES :
                         MESSAGE_SENT_BUSSINES;
@@ -298,9 +303,13 @@ public class EaseMessageAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         //将邀请进群提示类型单独取出来处理
         EMMessage message = getItem(position);
-        if (getItemViewType(position) == MESSAGE_TYPE_INVITE_INTO_GROUP) {
+        if (getItemViewType(position) == MESSAGE_TYPE_INVITE_INTO_GROUP||getItemViewType(position) == MESSAGE_TYPE_IS_KICKED_GROUP) {
             View inflate = View.inflate(context, R.layout.row_invite_message, null);
-            ((TextView) inflate.findViewById(R.id.tv_invite_msg)).setText(GroupHelper.parseInviteMsg(message));
+            if(getItemViewType(position) == MESSAGE_TYPE_INVITE_INTO_GROUP){
+                ((TextView) inflate.findViewById(R.id.tv_invite_msg)).setText(GroupHelper.parseInviteMsg(message));
+            }else {
+                ((TextView) inflate.findViewById(R.id.tv_invite_msg)).setText(GroupHelper.parseKickedMsg(message));
+            }
             //下面这一大坨都是时间戳的显示
             TextView timestamp = (TextView) inflate.findViewById(R.id.timestamp);
             if (timestamp != null) {
