@@ -543,10 +543,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     file = new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl()+"add.jpg");
                     createBody(file,type);
                 }else if (type == 3) {
-//                    executeFFmpegCmd(FFmpegUtil.transformAudio(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl(),
-//                            ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().substring(0,
-//                                    ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().length()-5)+"towav.wav"));
-
                     if (((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().endsWith(".amr")) {
                         if (!(new File(((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().substring(0,
                                 ((EMFileMessageBody) messageDownLoad.getBody()).getLocalUrl().length()-5)+".mp3")).exists()){
@@ -574,7 +570,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 Intent mIntent = new Intent(mContext, EaseShowNormalFileActivity.class);
                 mIntent.putExtra("msg",messageDownLoad);
                 startActivityForResult(mIntent,COLLECT_DOWNLOAD);
-                Log.e("Tag","不存在"+EaseConstant.isCollection);
             }
         }
     }
@@ -591,7 +586,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 InputStream inStream = new FileInputStream(oldPath); //读入原文件
                 FileOutputStream fs = new FileOutputStream(newPath);
                 byte[] buffer = new byte[1444];
-                int length;
                 while ( (byteread = inStream.read(buffer)) != -1) {
                     bytesum += byteread; //字节数 文件大小
                     System.out.println(bytesum);
@@ -601,7 +595,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             }
         }
         catch (Exception e) {
-            Log.e("Tag","复制单个文件操作出错");
             e.printStackTrace();
         }
     }
