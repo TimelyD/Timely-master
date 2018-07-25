@@ -49,7 +49,6 @@ public class ForwardMessageActivity extends PickContactNoCheckboxActivity {
     private HashMap<String,List<KeyBean>> map=new HashMap<>();
     private String ID;
     private void getRecvChatKey(String toChatUsername, final IsCodeResult isCodeResult){//单聊
-        Log.i("www2",toChatUsername);
         ID=toChatUsername;
         ApiManger2.getApiService()
                 .getRecvChatKey(ID)
