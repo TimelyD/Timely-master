@@ -178,7 +178,7 @@ public class EaseNotifier {
             return;
         }
         //如果是踢出群消息则不显示通知
-        if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, false)){
+        if(message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP,null)!=null){
             return;
         }
         sendNotification(message, isForeground, true);

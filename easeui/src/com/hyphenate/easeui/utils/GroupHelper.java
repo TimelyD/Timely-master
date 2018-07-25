@@ -12,6 +12,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.domain.InviteMsgBean;
@@ -50,10 +51,20 @@ public class GroupHelper {
     /**
      * 用来踢人出群时发送的提示信息
      * @param group
-     * @param members
+     * @param
      */
-    public static void sendKickedMsg(EMGroup group, String[] members){
-        StringBuilder sb = new StringBuilder();
+    public static void sendKickedMsg(EMGroup group,String content/*,String[] members*/){
+        String myUid = EMClient.getInstance().getCurrentUser();
+        EMMessage message = EMMessage.createSendMessage(EMMessage.Type.TXT);
+        message.setAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP,myUid);
+        message.setFrom(EMClient.getInstance().getCurrentUser());
+        message.setTo(group.getGroupId());
+        message.addBody(new EMTextMessageBody(content));
+        message.setUnread(true);
+        message.setChatType(EMMessage.ChatType.GroupChat);
+        message.setAttribute("group_ownerNickname", EaseApp.me_name);
+        EMClient.getInstance().chatManager().sendMessage(message);
+     /*   StringBuilder sb = new StringBuilder();
         for (int i = 0; i < members.length; i++) {
             String member = members[i];
             if(members.length-1 == i){
@@ -68,7 +79,8 @@ public class GroupHelper {
         message.addBody(new EMTextMessageBody(sb.toString()));
         message.setAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, true);
         message.setChatType(EMMessage.ChatType.GroupChat);
-        EMClient.getInstance().chatManager().sendMessage(message);
+        message.setUnread(true);Log.i("踢出",sb.toString()+"");
+        EMClient.getInstance().chatManager().sendMessage(message);*/
     }
 
     /**
@@ -158,52 +170,16 @@ public class GroupHelper {
      * */
     public static String parseKickedMsg(EMMessage message) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        try {
-            //此处bean中的userId实际上是环信id
-            InviteMsgBean inviteMsgBean = new Gson().fromJson(((EMTextMessageBody) message.getBody()).getMessage(),
-                    InviteMsgBean.class);
-            String myUid = EMClient.getInstance().getCurrentUser();
-            InviteMsgBean.InviterBean inviter = inviteMsgBean.getInviter();
-
-            List<InviteMsgBean.InviteeBean> invitee = inviteMsgBean.getInvitee();
-            for (int i = 0; i < invitee.size(); i++) {
-                InviteMsgBean.InviteeBean inviteeBean = invitee.get(i);
-                if(myUid.equals(inviteeBean.getUserId())){
-                    sb.append("你");
-                }else {
-                    EaseUser userInfo = EaseUserUtils.getUserInfo(inviteeBean.getUserId());
-                    String nickname;
-                    if(userInfo!=null && userInfo.getRemark()!=null) {
-                        nickname = userInfo.getRemark();
-                    }else {
-                        nickname = inviteeBean.getNickname();
-                    }
-                    int len = sb.length();
-                    sb.append(nickname);
-                    // sb.setSpan(new ForegroundColorSpan(Color.parseColor("#ffffff")),len,sb.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置后面的字体颜色
-                }
-                if (i != invitee.size() - 1)
-                    sb.append("、");
-                Log.i("qqq踢出",sb.toString());
-            }
-
-            if(myUid.equals(inviter.getUserId())){
-                sb.append("被你");
-            }else {
-                EaseUser userInfo = EaseUserUtils.getUserInfo(inviter.getUserId());
-                String nickname;
-                if(userInfo!=null && userInfo.getRemark()!=null) {
-                    nickname = userInfo.getRemark();
-                }else {
-                    nickname = inviter.getNickname();
-                }
-                sb.append("被").append(nickname);
-
-            }
-            sb.append("踢出了群聊");
-        } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+        EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
+        String msg = txtBody.getMessage();
+        String myUid = EMClient.getInstance().getCurrentUser();
+        String id = message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, null);
+        String ownerNickname = message.getStringAttribute("group_ownerNickname", null);
+        Log.i("dcz",msg+"+"+ownerNickname);
+        if(myUid.equals(id)){
+            return "你将"+msg+"移除群聊";
+        }else {
+            return ownerNickname+"将"+msg+"移除群聊";
         }
-        return sb.toString();
     }
 }

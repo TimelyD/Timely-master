@@ -25,6 +25,7 @@ import com.hyphenate.chat.EMPushConfigs;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseGroupListener;
 import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.utils.GroupHelper;
 import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseExpandGridView;
@@ -252,6 +253,19 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
                                 GroupManger.saveGroup(mGroup);
                                 membersAdapter.setData(emptyData);
                                 mTitleBar.setTitle(mGroup.getGroupName() + "(" + emptyData.size() + ")");
+                                String content = null;
+                                for(GroupUserModel bean:memberList){
+                                    for(String str:newmember){
+                                        if(str.equals(bean.getUserId())){
+                                            if(content==null){
+                                                content=bean.getUsername();
+                                            }else {
+                                                content=content+bean.getUsername();
+                                            }
+                                        }
+                                    }
+                                }
+                                GroupHelper.sendKickedMsg(group,content);
                             }
                         });
                 break;

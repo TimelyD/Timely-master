@@ -67,6 +67,7 @@ import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
@@ -187,6 +188,7 @@ public class MainActivity extends BaseActivity {
 				}
 			}
 		}
+		EaseApp.me_name=SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME);
 		Constant.User_Phone = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_phone_zww");
 		Constant.User_Nick = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"user_nick_zww");
 		Constant.myUserIdZww = SharedPreStorageMgr.getIntance().getStringValue(MainActivity.this,"my_userId");

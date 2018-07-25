@@ -515,9 +515,11 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             switch (requestCode) {
                 case REQUEST_CODE_ADD_USER2://踢群成员
                     final String[] newmember = data.getStringArrayExtra("newmembers");
+                    final String[] name = data.getStringArrayExtra("name");
                     if(newmember == null || newmember.length < 1){
                         return;
                     }
+                    final List<GroupUserModel> menlist = memberList;
                     ApiManger2.getApiService().deleteUser(mGroup.getId().toString(),getMembers(newmember)).compose(mActivity
                         .<HttpResult<List<GroupUserModel>>>bindToLifeCyclerAndApplySchedulers(false))
                         .subscribe(new BaseObserver2<List<GroupUserModel>>() {
@@ -535,6 +537,21 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 isLoading = true;
                                 //if (isClickDelete)
                                 mHandlerLoading.sendEmptyMessage(100001);
+                                String content = null;
+                                for(GroupUserModel bean:menlist){
+                                    for(String str:newmember){
+                                        Log.i("dczz",str+""+bean.getUserId());
+                                        if(str.equals(bean.getUserId())){
+                                            if(content==null){
+                                                content=bean.getUsername();
+                                            }else {
+                                                content=content+bean.getUsername();
+                                            }
+                                        }
+                                    }
+                                }
+                                GroupHelper.sendKickedMsg(group,content);
+                                //GroupHelper.sendKickedMsg(group,content,newmember);
                             }
                         });
 

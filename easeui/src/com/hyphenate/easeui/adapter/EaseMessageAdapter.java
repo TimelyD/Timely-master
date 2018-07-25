@@ -229,7 +229,7 @@ public class EaseMessageAdapter extends BaseAdapter {
                 return MESSAGE_TYPE_INVITE_INTO_GROUP;
             }
             //踢出群提示
-            if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP, false)) {
+            if (message.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP,null)!=null) {
                 return MESSAGE_TYPE_IS_KICKED_GROUP;
             }
             if(message.getBooleanAttribute(EaseConstant.BUSSINES_ID, false)){
