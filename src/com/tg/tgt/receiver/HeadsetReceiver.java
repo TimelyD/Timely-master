@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoicePlayClickListener;
@@ -19,6 +20,7 @@ public class HeadsetReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // 耳机插入状态 0 拔出，1 插入
         //AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        Log.e("Tag","耳机拔插");
         boolean state = intent.getIntExtra("state", 0) == 0 ? false : true;
         if (EaseChatRowVoicePlayClickListener.currentPlayListener != null){
             if (state)

@@ -26,10 +26,15 @@ import com.hyphenate.util.EMLog;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -58,6 +63,12 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 
 	private int voiceModel;
 
+
+	private SensorManager mManager;//传感器管理对象
+	private MySensorEventListener eventListener;
+	private boolean isTouchPhone = false;
+	private boolean isChangeTouchStatus = false;
+
 	public EaseChatRowVoicePlayClickListener(EMMessage message, ImageView v, ImageView iv_read_status, BaseAdapter adapter, Activity context) {
 		this.message = message;
 		voiceBody = (EMVoiceMessageBody) message.getBody();
@@ -66,6 +77,8 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		voiceIconView = v;
 		this.activity = context;
 		this.chatType = message.getChatType();
+		mManager = (SensorManager)activity.getSystemService(Context.SENSOR_SERVICE);
+		eventListener = new MySensorEventListener();
 	}
 
 	public void stopPlayVoice() {
@@ -85,27 +98,63 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		isPlaying = false;
 		playMsgId = null;
 		adapter.notifyDataSetChanged();
+		mManager.unregisterListener(eventListener,mManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
 	}
 
 	public void setModelVoice(int flag){
 		voiceModel = flag;
 		AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-		switch (flag){
-			case 0://默认扬声器
-				audioManager.setMode(AudioManager.MODE_NORMAL);
-				audioManager.setSpeakerphoneOn(true);
-				break;
-			case 1://听筒模式
-				audioManager.setSpeakerphoneOn(false);
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-					audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-				} else {
-					audioManager.setMode(AudioManager.MODE_IN_CALL);
+		EaseUI.getInstance().setSettingsProvider(new EaseUI.EaseSettingsProvider() {
+			@Override
+			public boolean isMsgNotifyAllowed(EMMessage message) {
+				return true;
+			}
+
+			@Override
+			public boolean isMsgSoundAllowed(EMMessage message) {
+				return true;
+			}
+
+			@Override
+			public boolean isMsgVibrateAllowed(EMMessage message) {
+				return true;
+			}
+
+			@Override
+			public boolean isSpeakerOpened() {
+				switch (voiceModel){
+					case 0:
+						return true;
+					case 1:
+					case 2:
+						return false;
+					default:
+						return true;
 				}
-				break;
-			case 2://耳机模式
-				audioManager.setSpeakerphoneOn(false);
-				break;
+			}
+		});
+		if (isPlaying){
+			currentPlayListener.stopPlayVoice();
+			palyVoiceMessage();
+		}else {
+			if (mediaPlayer != null) {
+				switch (voiceModel) {
+					case 0://默认扬声器
+						audioManager.setMode(AudioManager.MODE_NORMAL);
+						audioManager.setSpeakerphoneOn(true);
+						mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+						break;
+					case 1://听筒模式
+						audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+						// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+						audioManager.setMode(AudioManager.MODE_IN_CALL);
+						mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+						break;
+					case 2://耳机模式
+						audioManager.setSpeakerphoneOn(false);
+						break;
+				}
+			}
 		}
 	}
 
@@ -113,50 +162,30 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		if (!(new File(filePath).exists())) {
 			return;
 		}
+		mManager.registerListener(eventListener, mManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),// 距离感应器
+				SensorManager.SENSOR_DELAY_NORMAL);//注册传感器，第一个参数为距离监听器，第二个是传感器类型，第三个是延迟类型
 		playMsgId = message.getMsgId();
 		AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
 
 		mediaPlayer = new MediaPlayer();
 		if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
-			audioManager.setMode(AudioManager.MODE_NORMAL);
-			audioManager.setSpeakerphoneOn(true);
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
-		} else {
-			audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-			// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-			audioManager.setMode(AudioManager.MODE_IN_CALL);
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-		}
-		/*if (voiceModel == 0){
-			if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
-			audioManager.setMode(AudioManager.MODE_NORMAL);
-			audioManager.setSpeakerphoneOn(true);
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
-		} else {
-			audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-			// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-			audioManager.setMode(AudioManager.MODE_IN_CALL);
-			mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-				}
-		}else {
-			switch (voiceModel){
-				case 0:
-					audioManager.setMode(AudioManager.MODE_NORMAL);
-					audioManager.setSpeakerphoneOn(true);
-					break;
-				case 1:
-					audioManager.setSpeakerphoneOn(false);
-					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-						audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-					} else {
-						audioManager.setMode(AudioManager.MODE_IN_CALL);
-					}
-					break;
-				case 2:
-					audioManager.setSpeakerphoneOn(false);
-					break;
+			if(voiceModel == 2) {
+				audioManager.setSpeakerphoneOn(false);
+			}else {
+				audioManager.setMode(AudioManager.MODE_NORMAL);
+				audioManager.setSpeakerphoneOn(true);
+				mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
 			}
-		}*/
+		} else {
+			if(voiceModel == 2){
+				audioManager.setSpeakerphoneOn(false);
+			}else {
+				audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+				// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+				audioManager.setMode(AudioManager.MODE_IN_CALL);
+				mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+			}
+		}
 		try {
 			mediaPlayer.setDataSource(filePath);
 			mediaPlayer.prepare();
@@ -207,6 +236,130 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		}
 		voiceAnimation = (AnimationDrawable) voiceIconView.getDrawable();
 		voiceAnimation.start();
+	}
+
+	class MySensorEventListener implements SensorEventListener {
+
+
+		@Override
+		public void onAccuracyChanged(Sensor arg0, int arg1) {
+			// TODO Auto-generated method stub
+
+
+		}
+
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			// TODO Auto-generated method stub
+			float[] its = event.values;
+			if (its != null && event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+				if (its[0] == 0.0) {// 贴近手机
+					if (!isTouchPhone) {
+						isChangeTouchStatus = true;
+						EaseUI.getInstance().setSettingsProvider(new EaseUI.EaseSettingsProvider() {
+							@Override
+							public boolean isMsgNotifyAllowed(EMMessage message) {
+								return true;
+							}
+
+							@Override
+							public boolean isMsgSoundAllowed(EMMessage message) {
+								return true;
+							}
+
+							@Override
+							public boolean isMsgVibrateAllowed(EMMessage message) {
+								return true;
+							}
+
+							@Override
+							public boolean isSpeakerOpened() {
+								return false;
+							}
+						});
+					}
+					isTouchPhone = true;
+				} else {// 远离手机
+					if (isTouchPhone) {
+						isChangeTouchStatus = true;
+						EaseUI.getInstance().setSettingsProvider(new EaseUI.EaseSettingsProvider() {
+							@Override
+							public boolean isMsgNotifyAllowed(EMMessage message) {
+								return true;
+							}
+
+							@Override
+							public boolean isMsgSoundAllowed(EMMessage message) {
+								return true;
+							}
+
+							@Override
+							public boolean isMsgVibrateAllowed(EMMessage message) {
+								return true;
+							}
+
+							@Override
+							public boolean isSpeakerOpened() {
+								return true;
+							}
+						});
+					}
+					isTouchPhone = false;
+				}
+				if(isPlaying && isChangeTouchStatus){
+					currentPlayListener.stopPlayVoice();
+					isChangeTouchStatus = false;
+					palyVoiceMessage();
+				}
+			}
+
+
+		}
+	}
+
+	private void palyVoiceMessage() {
+		String st = activity.getResources().getString(R.string.Is_download_voice_click_later);
+		if (message.direct() == EMMessage.Direct.SEND) {
+			// for sent msg, we will try to play the voice file directly
+			playVoice(voiceBody.getLocalUrl());
+		} else {
+			if (message.status() == EMMessage.Status.SUCCESS) {
+				File file = new File(voiceBody.getLocalUrl());
+				if (file.exists() && file.isFile())
+					playVoice(voiceBody.getLocalUrl());
+				else
+					EMLog.e(TAG, "file not exist");
+
+
+			} else if (message.status() == EMMessage.Status.INPROGRESS) {
+				Toast.makeText(activity, st, Toast.LENGTH_SHORT).show();
+			} else if (message.status() == EMMessage.Status.FAIL) {
+				Toast.makeText(activity, st, Toast.LENGTH_SHORT).show();
+				new AsyncTask<Void, Void, Void>() {
+
+
+					@Override
+					protected Void doInBackground(Void... params) {
+						EMClient.getInstance().chatManager().downloadAttachment(message);
+						return null;
+					}
+
+
+					@Override
+					protected void onPostExecute(Void result) {
+						super.onPostExecute(result);
+						adapter.notifyDataSetChanged();
+					}
+
+
+				}.execute();
+
+
+			}
+
+
+		}
 	}
 
 	@Override
