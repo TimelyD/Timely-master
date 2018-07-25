@@ -173,6 +173,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         super.onActivityCreated(savedInstanceState);
     }
     private void getRecvChatKey(){//单聊
+        Log.i("www1",toChatUsername);
         ApiManger2.getApiService()
                 .getRecvChatKey(toChatUsername)
                 .compose(((BaseActivity)mContext).<HttpResult<KeyBean>>bindToLifeCyclerAndApplySchedulers(null))

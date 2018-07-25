@@ -201,7 +201,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     holder.message.setText("******");
                 }else {
                     if(lastMessage.getType()== EMMessage.Type.TXT){
-                        holder.message.setText(mi(lastMessage));
+                        //holder.message.setText(mi(lastMessage));
+                        holder.message.setText(EaseSmileUtils.getSmiledText(getContext(),mi(lastMessage)),BufferType.SPANNABLE);
                     }else {
                         holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),BufferType.SPANNABLE);
                     }

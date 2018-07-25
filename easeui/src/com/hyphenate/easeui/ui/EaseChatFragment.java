@@ -1094,16 +1094,20 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             Log.i("dcz","发送@文本");
             sendAtMessage(content);
         } else {
-            Log.i("dcz","发送文本2"+content);
+            Log.i("dcz","发送文本2"+content+"+id:"+toChatUsername);
             String random = RandomUtil.generateString(16);
             String sign = AESCodeer.AESEncode(random,content);
             EMMessage message = EMMessage.createTxtSendMessage(sign, toChatUsername);       //发送的文本已经过random加密
             String pri = EaseApp.sf.getString("pri_key", "");//得到登录时生成的私钥
             String key=chatType == EaseConstant.CHATTYPE_GROUP?EaseApp.map_group:EaseApp.map_receiver;
-            String id =chatType == EaseConstant.CHATTYPE_GROUP?toChatUsername:toChatUsername;
+            //String id =chatType == EaseConstant.CHATTYPE_GROUP?toChatUsername:toChatUsername;
+            Log.i("dcz","发送文本3"+key);
             String z = EaseApp.sf.getString(key, null);//得到总map
+            Log.i("dcz","发送文本4"+z);
             HashMap<String, List<KeyBean>> map = toMap(z);
-            List<KeyBean> list = map.get(id);
+            Log.i("dcz","发送文本5"+map.size());
+            List<KeyBean> list = map.get(toChatUsername);
+            Log.i("dcz","发送文本6"+list.size()+"jia"+toChatUsername);
             for(KeyBean bean:list){
                 if(list.size()>1){
                     if(bean.isNewest()){
@@ -1412,6 +1416,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected String mi(EMMessage message){
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         String text = txtBody.getMessage();
+        Log.i("dcz_mi",text);
         String version = message.getStringAttribute(EaseConstant.VERSION, null);
         String mi = message.getStringAttribute(EaseConstant.MI, null);       //获得用对方的公钥RSA加密后的random
         String send_msg= message.getStringAttribute(EaseConstant.SEND, null);//获得用我的公钥RSA加密后的random
@@ -1422,7 +1427,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         if(mi!=null){
             try {
                 if(message.getChatType()==ChatType.Chat){
-                    Log.i("对话","单聊");
+                    Log.i("dcz对话","单聊");
                     if(message.direct() == EMMessage.Direct.RECEIVE){
                         List<KeyBean> list = toArray(a);
                         for(KeyBean be:list){
@@ -1434,11 +1439,14 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     }
                 }
                 if(message.getChatType()==ChatType.GroupChat){
-                    Log.i("对话","群聊");
+                    Log.i("dcz对话","群聊");
                     if(message.direct() == EMMessage.Direct.RECEIVE){
                         String z = EaseApp.sf.getString(EaseApp.map_group, null);
+                        Log.i("dcz对话2",z+"/");
                         HashMap<String, List<KeyBean>> map = toMap(z);
-                        List<KeyBean> list = map.get(toChatUsername);
+                        Log.i("dcz对话3",map.size()+"/");
+                        List<KeyBean> list = map.get(message.conversationId());
+                        Log.i("dcz对话3",list.size()+"/");
                         for(KeyBean be:list){
                             if(version.equals(be.getVersion()+"")){//获得对方发送消息的对应版本
                                 bean=be;
@@ -1459,6 +1467,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         if(text==null){
             text="";
         }
+        Log.i("dcz_mi2",text);
         return text;
     }
     /**
