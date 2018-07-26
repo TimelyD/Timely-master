@@ -74,7 +74,6 @@ public class EaseChatRowText extends EaseChatRow{
     public void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
         String text = txtBody.getMessage();
-
         String version = message.getStringAttribute(EaseConstant.VERSION, null);
         String mi = message.getStringAttribute(EaseConstant.MI, null);       //获得用对方的公钥RSA加密后的random
         String send_msg= message.getStringAttribute(EaseConstant.SEND, null);//获得用我的公钥RSA加密后的random
@@ -113,13 +112,9 @@ public class EaseChatRowText extends EaseChatRow{
                 }
                 String Key=message.direct() == EMMessage.Direct.RECEIVE?mi:send_msg;
                 String aeskey = RSAUtil.decryptBase64ByPrivateKey(bean.getAesKey(), pri);
-                Log.i("qqqz1",aeskey);
                 String prikey = AESCodeer.AESDncode(aeskey,bean.getChatSKey());       //对我的私钥进行解密
-                Log.i("qqqz2",prikey);
                 String random = RSAUtil.decryptBase64ByPrivateKey(Key,prikey);
-                Log.i("qqqz3",random);
                 text = AESCodeer.AESDncode(random,text);
-                Log.i("qqqz4",text);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -127,7 +122,7 @@ public class EaseChatRowText extends EaseChatRow{
         if(text==null){
             text="";
         }
-
+        Log.i("内容",text);
         Spannable span = EaseSmileUtils.getSmiledText(context,text);
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);

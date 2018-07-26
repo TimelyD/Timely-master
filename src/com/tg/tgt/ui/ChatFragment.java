@@ -1031,7 +1031,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 startVideoCall();
                 break;
             case ITEM_COLLECTION:
-                Toast.makeText(getActivity(),"开发中。。。",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(mContext,CollectionActivity.class));
+                //Toast.makeText(getActivity(),"开发中。。。",Toast.LENGTH_LONG).show();
                 break;
             case ITEM_BUSINESS:
                 startBusiness();
