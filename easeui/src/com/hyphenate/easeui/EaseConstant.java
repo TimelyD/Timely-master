@@ -50,4 +50,7 @@ public class EaseConstant {
 
     public static boolean isCollection;
     public static android.os.Handler collectionHandler;
+
+    public static boolean isInputHeadset = false;
+    public static boolean isHandSetReciver = false;
 }

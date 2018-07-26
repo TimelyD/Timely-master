@@ -17,10 +17,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.easemob.redpacketsdk.constant.RPConstant;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoicePlayClickListener;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 
@@ -31,6 +33,9 @@ public class ContextMenuActivity extends BaseActivity {
 	public static final int RESULT_CODE_DUOFORWARD = 4;
 	public static final int RESULT_CODE_RECALL = 5;
 	public static final int RESULT_CODE_COLLECT = 6;
+	public static final int RESULT_CODE_PLAYVOICE = 7;
+
+	private TextView voiceText;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,8 @@ public class ContextMenuActivity extends BaseActivity {
 		    setContentView(R.layout.em_context_menu_for_image);
 		} else if (type == EMMessage.Type.VOICE.ordinal()) {
 		    setContentView(R.layout.em_context_menu_for_voice);
+			voiceText = (TextView)findViewById(R.id.play_way);
+			voiceText.setText(EaseConstant.isHandSetReciver?R.string.loudspeaker_play:R.string.receiver_play);
 		} else if (type == EMMessage.Type.VIDEO.ordinal()) {
 			setContentView(R.layout.em_context_menu_for_video);
 		} else if (type == EMMessage.Type.FILE.ordinal()) {
@@ -104,6 +111,18 @@ public class ContextMenuActivity extends BaseActivity {
 	}
 	public void collection(View view){
 		setResult(RESULT_CODE_COLLECT);
+		finish();
+	}
+
+	public void playReciverVoice(View view){
+		EaseConstant.isHandSetReciver = !EaseConstant.isHandSetReciver;
+		if (EaseChatRowVoicePlayClickListener.currentPlayListener != null){
+			if (EaseConstant.isHandSetReciver)
+				EaseChatRowVoicePlayClickListener.currentPlayListener.setModelVoice(1);
+			else
+				EaseChatRowVoicePlayClickListener.currentPlayListener.setModelVoice(0);
+		}
+		setResult(RESULT_CODE_PLAYVOICE);
 		finish();
 	}
 	

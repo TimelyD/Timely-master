@@ -722,6 +722,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 case ContextMenuActivity.RESULT_CODE_COLLECT:
                     collect(0);
                     break;
+                case ContextMenuActivity.RESULT_CODE_PLAYVOICE:
+                    break;
                 default:
                     break;
             }
