@@ -217,7 +217,6 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.em_activity_main);
 		// runtime permission for android 6.0, just require all permissions here for simple
 		requestPermissions();
-		VerUtils.check(this,false);
 		initView();
 
 		//umeng api
@@ -745,7 +744,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+		VerUtils.check2(this,false);
 		if (!isConflict && !isCurrentAccountRemoved) {
 			updateUnreadLabel();
 			updateUnreadAddressLable();

@@ -45,6 +45,9 @@ public class VerUtils {
     public static void check(final BaseActivity mActivity, final boolean isForeground) {
         check(mActivity, isForeground, null);
     }
+    public static void check2(final BaseActivity mActivity, final boolean isForeground) {
+        check2(mActivity, isForeground, null);
+    }
     public static void check(final BaseActivity mActivity, final boolean isForeground, final Consumer<Boolean> consumer) {
         ApiManger2.getApiService()
                 .ver("2")
@@ -112,6 +115,52 @@ public class VerUtils {
                                     })
                                     .show();
                         }
+                    }
+                });
+    }
+
+    public static void check2(final BaseActivity mActivity, final boolean isForeground, final Consumer<Boolean> consumer) {
+        ApiManger2.getApiService()
+                .ver("2")
+                .compose(mActivity.<HttpResult<VerModel>>bindToLifeCyclerAndApplySchedulers(isForeground?mActivity.getString(R.string.loading):null))
+                .subscribe(new BaseObserver2<VerModel>() {
+                    @Override
+                    protected void onSuccess(final VerModel model) {
+                        if(model == null){
+                            if(isForeground)
+                                ToastUtils.showToast(mActivity.getApplicationContext(), R.string.not_update);
+                            return;
+                        }
+                        int i = model.getVersion().compareTo(getVer(mActivity));
+                        if (i <= 0) {
+                            if(isForeground)
+                                ToastUtils.showToast(mActivity.getApplicationContext(), R.string.not_update);
+                            return;
+                        }
+                        if(consumer != null){
+                            try {
+                                consumer.accept(true);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return;
+                        }
+                        new AlertDialog.Builder(mActivity)
+                                .setTitle(R.string.need_to_update)
+                                .setMessage(mActivity.getResources().getConfiguration().locale.getLanguage().contains("zh") ? model.getContent() + "\n大小:" + model.getSize() : model.getContentEn() + "\nsize:" + model.getSize())
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //update(mActivity, model.getUrl(), model.getVersion());
+                                        Intent intent = new Intent();
+                                        intent.setAction("android.intent.action.VIEW");
+                                        Uri content_url = Uri.parse(ApiService2.downUrl);
+                                        intent.setData(content_url);
+                                        mActivity.startActivity(intent);
+                                    }
+                                })
+                                .show();
                     }
                 });
     }
