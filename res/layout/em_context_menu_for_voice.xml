@@ -48,6 +48,19 @@
         android:background="@android:color/darker_gray" />
 
     <TextView
+        android:id="@+id/play_way"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/em_context_menu_item_bg"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:onClick="playReciverVoice"
+        android:padding="10dp"
+        android:text="@string/receiver_play"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <TextView
         android:id="@+id/recall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

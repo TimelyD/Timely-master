@@ -176,6 +176,13 @@ public class ContactListFragment extends EaseContactListFragment {
             }
         });
         super.setUpView();
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //EMContactManager.getInstance().addUserToBlackList(username,true);//需异步处理
+                return false;
+            }
+        });
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override

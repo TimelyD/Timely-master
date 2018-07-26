@@ -19,6 +19,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMVoiceMessageBody;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.controller.EaseUI;
 import com.hyphenate.util.EMLog;
@@ -65,6 +66,7 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 
 
 	private SensorManager mManager;//传感器管理对象
+	private Sensor mProximiny;
 	private MySensorEventListener eventListener;
 	private boolean isTouchPhone = false;
 	private boolean isChangeTouchStatus = false;
@@ -124,6 +126,8 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 			public boolean isSpeakerOpened() {
 				switch (voiceModel){
 					case 0:
+						if (EaseConstant.isHandSetReciver)
+							return false;
 						return true;
 					case 1:
 					case 2:
@@ -140,15 +144,45 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 			if (mediaPlayer != null) {
 				switch (voiceModel) {
 					case 0://默认扬声器
-						audioManager.setMode(AudioManager.MODE_NORMAL);
-						audioManager.setSpeakerphoneOn(true);
-						mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+						if (EaseConstant.isHandSetReciver){
+							if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+								audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+								//设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+								audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+										audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+							} else {
+								audioManager.setMode(AudioManager.MODE_IN_CALL);
+								audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+										audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+							}
+						}else {
+							audioManager.setSpeakerphoneOn(true);
+							audioManager.setMode(AudioManager.MODE_NORMAL);
+							//设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+							audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+									audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), AudioManager.FX_KEY_CLICK);
+						}
+//						audioManager.setMode(AudioManager.MODE_NORMAL);
+//						audioManager.setSpeakerphoneOn(true);
+//						mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
 						break;
 					case 1://听筒模式
-						audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-						// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-						audioManager.setMode(AudioManager.MODE_IN_CALL);
-						mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+//						audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+//						// 把声音设定成Earpiece（听筒）出来，设定为正在通话中MODE_IN_CALL
+//						audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+//						mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+						audioManager.setSpeakerphoneOn(false);
+						//5.0以上
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+							audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+							//设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+							audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+									audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+						} else {
+							audioManager.setMode(AudioManager.MODE_IN_CALL);
+							audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+									audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+						}
 						break;
 					case 2://耳机模式
 						audioManager.setSpeakerphoneOn(false);
@@ -158,32 +192,64 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 		}
 	}
 
+
 	public void playVoice(String filePath) {
 		if (!(new File(filePath).exists())) {
 			return;
 		}
 		mManager.registerListener(eventListener, mManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),// 距离感应器
 				SensorManager.SENSOR_DELAY_NORMAL);//注册传感器，第一个参数为距离监听器，第二个是传感器类型，第三个是延迟类型
+		mProximiny = mManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 		playMsgId = message.getMsgId();
 		AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
 
 		mediaPlayer = new MediaPlayer();
 		if (EaseUI.getInstance().getSettingsProvider().isSpeakerOpened()) {
-			if(voiceModel == 2) {
+			if(voiceModel == 2 ||  EaseConstant.isInputHeadset) {
 				audioManager.setSpeakerphoneOn(false);
 			}else {
-				audioManager.setMode(AudioManager.MODE_NORMAL);
-				audioManager.setSpeakerphoneOn(true);
-				mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+				if (EaseConstant.isHandSetReciver) {
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+						audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+						//设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+						audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+								audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+					} else {
+						audioManager.setMode(AudioManager.MODE_IN_CALL);
+						audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+								audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+					}
+				} else{
+//				audioManager.setMode(AudioManager.MODE_NORMAL);
+//				audioManager.setSpeakerphoneOn(true);
+//				mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+					audioManager.setSpeakerphoneOn(true);
+					audioManager.setMode(AudioManager.MODE_NORMAL);
+				//设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+					audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+							audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), AudioManager.FX_KEY_CLICK);
+				}
 			}
 		} else {
-			if(voiceModel == 2){
+			if(voiceModel == 2 ||  EaseConstant.isInputHeadset){
 				audioManager.setSpeakerphoneOn(false);
 			}else {
-				audioManager.setSpeakerphoneOn(false);// 关闭扬声器
-				// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
-				audioManager.setMode(AudioManager.MODE_IN_CALL);
-				mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+//				audioManager.setSpeakerphoneOn(false);// 关闭扬声器
+//				// 把声音设定成Earpiece（听筒）出来，设定为正在通话中
+//				audioManager.setMode(AudioManager.MODE_IN_CALL);
+//				mediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+				audioManager.setSpeakerphoneOn(false);
+				//5.0以上
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+					audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+					//设置音量，解决有些机型切换后没声音或者声音突然变大的问题
+					audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+							audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+				} else {
+					audioManager.setMode(AudioManager.MODE_IN_CALL);
+					audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
+							audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), AudioManager.FX_KEY_CLICK);
+				}
 			}
 		}
 		try {
@@ -254,7 +320,7 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 			// TODO Auto-generated method stub
 			float[] its = event.values;
 			if (its != null && event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-				if (its[0] == 0.0) {// 贴近手机
+				if (its[0] < mProximiny.getMaximumRange()) {// 贴近手机
 					if (!isTouchPhone) {
 						isChangeTouchStatus = true;
 						EaseUI.getInstance().setSettingsProvider(new EaseUI.EaseSettingsProvider() {
@@ -330,8 +396,6 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 					playVoice(voiceBody.getLocalUrl());
 				else
 					EMLog.e(TAG, "file not exist");
-
-
 			} else if (message.status() == EMMessage.Status.INPROGRESS) {
 				Toast.makeText(activity, st, Toast.LENGTH_SHORT).show();
 			} else if (message.status() == EMMessage.Status.FAIL) {

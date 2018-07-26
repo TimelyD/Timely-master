@@ -273,4 +273,6 @@
     <string name="delete_moment_promit_message">是否要删除本条动态</string>
     <string name="delete_moment_sure">确定</string>
     <string name="delete_moment_cancle">取消</string>
+    <string name="receiver_play">听筒播放</string>
+    <string name="loudspeaker_play">扬声器播放</string>
 </resources>
