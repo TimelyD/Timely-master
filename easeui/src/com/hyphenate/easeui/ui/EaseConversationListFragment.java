@@ -100,7 +100,7 @@ public class EaseConversationListFragment extends EaseBaseFragment{
                 if(lastMessage.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_INVITE_INTO_GROUP, false)){
                     Log.i("xxx", GroupHelper.parseInviteMsg(lastMessage));
                 }else if(lastMessage.getStringAttribute(EaseConstant.MESSAGE_ATTR_IS_KICKED_GROUP,null)!=null){
-                    Log.i("xxx", GroupHelper.parseInviteMsg(lastMessage));
+                    Log.i("xxx", GroupHelper.parseKickedMsg(lastMessage));
                 }else {
                     Log.i("xxx", EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext())))+"");
                 }

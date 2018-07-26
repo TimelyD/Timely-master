@@ -136,8 +136,8 @@ public class GroupPickContacts2Activity extends BaseActivity {
             ToastUtils.showToast(getApplicationContext(), R.string.select_at_least_one);
             return;
         }
-        setResult(RESULT_OK, new Intent().putExtra("newmembers", var.toArray(new String[var.size()])));
-        Log.i("sss",var.toString());
+        setResult(RESULT_OK, new Intent().putExtra("newmembers", var.toArray(new String[var.size()])).putExtra("name",name.toArray(new String[name.size()])));
+        Log.i("sss",name.toString());
         finish();
     }
 
@@ -146,8 +146,9 @@ public class GroupPickContacts2Activity extends BaseActivity {
      *
      * @return
      */
+    private List<String> name;
     private List<String> getToBeAddMembers() {
-        List<String> members = new ArrayList<String>();
+        List<String> members = new ArrayList<String>();name = new ArrayList<String>();
         int length = contactAdapter.isCheckedArray.length;
         for (int i = 0; i < length; i++) {
             /*String username = contactAdapter.getItem(i).getUsername();
@@ -158,7 +159,8 @@ public class GroupPickContacts2Activity extends BaseActivity {
             if (contactAdapter.isCheckedArray[i]) {
                 // 这里不适用环信id
                 Log.e("Tag","id="+contactAdapter.getItem(i).getUserId()+"size="+contactAdapter.isCheckedArray.length);
-                members.add(contactAdapter.getItem(i).getUserId()+"");
+                members.add(contactAdapter.getItem(i).getUserId()+"");name.add(contactAdapter.getItem(i).getNickname()+"");
+               // Log.i("ssss",contactAdapter.getItem(i).getNickname()+"加"+contactAdapter.getItem(i).getUsername());
             }
         }
         contactAdapter.notifyDataSetChanged();

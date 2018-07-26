@@ -136,7 +136,7 @@ public class GroupPickContactsActivity extends BaseActivity {
 			ToastUtils.showToast(getApplicationContext(), R.string.select_at_least_one);
 			return;
 		}
-		setResult(RESULT_OK, new Intent().putExtra("newmembers", var.toArray(new String[var.size()])).putExtra("name",name.toArray(new String[name.size()])));
+		setResult(RESULT_OK, new Intent().putExtra("newmembers", var.toArray(new String[var.size()])));
 		finish();
 	}
 

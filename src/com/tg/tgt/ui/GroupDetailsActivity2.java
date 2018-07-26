@@ -538,16 +538,11 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 //if (isClickDelete)
                                 mHandlerLoading.sendEmptyMessage(100001);
                                 String content = null;
-                                for(GroupUserModel bean:menlist){
-                                    for(String str:newmember){
-                                        Log.i("dczz",str+""+bean.getUserId());
-                                        if(str.equals(bean.getUserId())){
-                                            if(content==null){
-                                                content=bean.getUsername();
-                                            }else {
-                                                content=content+bean.getUsername();
-                                            }
-                                        }
+                                for(String str:name){
+                                    if(content==null){
+                                        content=str;
+                                    }else {
+                                        content=content+"、"+str;
                                     }
                                 }
                                 GroupHelper.sendKickedMsg(group,content);
