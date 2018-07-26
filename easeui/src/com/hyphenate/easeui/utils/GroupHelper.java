@@ -60,7 +60,7 @@ public class GroupHelper {
         message.setFrom(EMClient.getInstance().getCurrentUser());
         message.setTo(group.getGroupId());
         message.addBody(new EMTextMessageBody(content));
-        message.setUnread(true);
+        message.setUnread(false);
         message.setChatType(EMMessage.ChatType.GroupChat);
         message.setAttribute("group_ownerNickname", EaseApp.me_name);
         EMClient.getInstance().chatManager().sendMessage(message);

@@ -241,6 +241,7 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
             switch (requestCode) {
                 case REQUEST_CODE_ADD_USER2://踢群成员
                 final String[] newmember = data.getStringArrayExtra("newmembers");
+                final String[] name = data.getStringArrayExtra("name");
                 if(newmember == null || newmember.length < 1){
                     return;
                 }
@@ -254,15 +255,11 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
                                 membersAdapter.setData(emptyData);
                                 mTitleBar.setTitle(mGroup.getGroupName() + "(" + emptyData.size() + ")");
                                 String content = null;
-                                for(GroupUserModel bean:memberList){
-                                    for(String str:newmember){
-                                        if(str.equals(bean.getUserId())){
-                                            if(content==null){
-                                                content=bean.getUsername();
-                                            }else {
-                                                content=content+bean.getUsername();
-                                            }
-                                        }
+                                for(String str:name){
+                                    if(content==null){
+                                        content=str;
+                                    }else {
+                                        content=content+"、"+str;
                                     }
                                 }
                                 GroupHelper.sendKickedMsg(group,content);
