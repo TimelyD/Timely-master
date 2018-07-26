@@ -122,7 +122,6 @@ public class EaseChatRowText extends EaseChatRow{
         if(text==null){
             text="";
         }
-        Log.i("内容",text);
         Spannable span = EaseSmileUtils.getSmiledText(context,text);
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);
@@ -142,7 +141,6 @@ public class EaseChatRowText extends EaseChatRow{
         contentView.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.i("dcz","item长按中");
                 mIsLongClick = true;
                 EaseChatFragment.enu=true;
                 Message msg = EaseChatFragment.mHandler.obtainMessage();
@@ -181,7 +179,6 @@ public class EaseChatRowText extends EaseChatRow{
         bt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("dcz","点击了");
                 if(select.getVisibility()==VISIBLE){
                     select.setChecked(select.isChecked()?false:true);
                 }
