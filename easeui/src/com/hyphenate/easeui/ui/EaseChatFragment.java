@@ -1104,6 +1104,11 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             String z = EaseApp.sf.getString(key, null);//得到总map
             HashMap<String, List<KeyBean>> map = toMap(z);
             List<KeyBean> list = map.get(toChatUsername);
+            if(list==null){
+                EMMessage mes = EMMessage.createTxtSendMessage(content, toChatUsername);
+                sendMessage(mes);
+                return;
+            }
             for(KeyBean bean:list){
                 if(list.size()>1){
                     if(bean.isNewest()){
