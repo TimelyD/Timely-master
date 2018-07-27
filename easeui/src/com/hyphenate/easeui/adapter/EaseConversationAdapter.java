@@ -186,7 +186,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         } else {
             holder.unreadLabel.setVisibility(View.GONE);
         }
-        if (conversation.getAllMsgCount() != 0) {
+        if (conversation.getAllMessages().size() != 0) {
         	// show the content of latest message
             EMMessage lastMessage = conversation.getLastMessage();
             String content = null;
@@ -223,7 +223,6 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         }else {
             //holder.message.setText("");
         }
-
         if(position  == getCount() - 1){
             holder.longDivider.setVisibility(View.VISIBLE);
             holder.shortDivider.setVisibility(View.GONE);
