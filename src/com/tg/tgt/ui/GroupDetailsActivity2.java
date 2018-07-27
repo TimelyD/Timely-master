@@ -151,8 +151,21 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         isClickDelete = false;
 
         setContentView(R.layout.em_activity_group_details);
-        setTitleBarLeftBack();
+  //      setTitleBarLeftBack();
         mTitleBar = ((EaseTitleBar) findViewById(R.id.title_bar));
+
+        mTitleBar.setLeftLayoutClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (mSubject != null) {
+//                    Disposable subscribe = mSubject.subscribe();
+//                    subscribe.dispose();
+//                }
+                if (back){
+                    finish();
+                }
+            }
+        });
 
         instance = this;
         st = /*getResources().getString(com.tg.tgt.R.string.people)*/")";
@@ -250,6 +263,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                 if (mSubject == null) {
                     mSubject = PublishSubject.create();
                     back=false;
+                    mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
                     mSubject.doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
                                 public void accept(@NonNull Disposable disposable) throws Exception {
@@ -260,6 +274,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 @Override
                                 public void accept(@NonNull Throwable throwable) throws Exception {
                                     back = true;
+                                    mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
                                 }
                             })
                             .debounce(500, TimeUnit.MILLISECONDS)
@@ -292,6 +307,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                     @Override
                                                     public void accept(@NonNull Disposable disposable) throws Exception {
                                                         loadingPB.setVisibility(View.VISIBLE);
+                                                        back = false;
+                                                        mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
                                                     }
                                                 })
                                                 .subscribe(new Consumer<List<GroupUserModel>>() {
@@ -310,17 +327,20 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                         }else {
                                                             more.setVisibility(View.GONE);
                                                         }
+                                                        back = true;
                                                         loadingPB.setVisibility(View.INVISIBLE);
+                                                        mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
 
                                                         // update block
                                                         refreshUi();
-                                                        back=true;
                                                     }
                                                 }, new Consumer<Throwable>() {
                                                     @Override
                                                     public void accept(@NonNull Throwable throwable) throws Exception {
                                                         throwable.printStackTrace();
                                                         loadingPB.setVisibility(View.INVISIBLE);
+                                                        mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                        back=true;
                                                         EaseAlertDialog dialog = new EaseAlertDialog(mActivity,
                                                                 HttpHelper.handleException
                                                                         (throwable), getString(R.string.give_up), getString(R
@@ -334,9 +354,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                                 }
                                                             }
                                                         });
-                                                        if(back==false){
+                                                     //   if(back==false){
                                                             dialog.show();
-                                                        }
+                                                      //  }
                                                     }
                                                 });
                                     }
@@ -1221,10 +1241,12 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                             final String st11 = getResources().getString(R.string.Add_a_button_was_clicked);
                             EMLog.d(TAG, st11);
                             // 进入选人页面
-                            startActivityForResult(
-                                    (new Intent(GroupDetailsActivity2.this, GroupPickContactsActivity.class).putExtra
-                                            ("groupId", groupId)),
-                                    REQUEST_CODE_ADD_USER);
+                            if (back) {
+                                startActivityForResult(
+                                        (new Intent(GroupDetailsActivity2.this, GroupPickContactsActivity.class).putExtra
+                                                ("groupId", groupId)),
+                                        REQUEST_CODE_ADD_USER);
+                            }
                         }
                     });
                 } else {
@@ -1242,9 +1264,11 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                     button.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startActivityForResult((new Intent(GroupDetailsActivity2.this, GroupPickContacts2Activity.class).putExtra
-                                            ("groupId", groupId)),
-                                    REQUEST_CODE_ADD_USER2);
+                            if (back) {
+                                startActivityForResult((new Intent(GroupDetailsActivity2.this, GroupPickContacts2Activity.class).putExtra
+                                                ("groupId", groupId)),
+                                        REQUEST_CODE_ADD_USER2);
+                            }
                             /*if (!isClickDelete) {
                                 isClickDelete = true;
                                 final String st11 = getResources().getString(R.string.Add_a_button_was_clicked);
@@ -1397,9 +1421,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
     public void back(View view) {
         setResult(RESULT_OK);
-        if(back==true){
-            finish();
-        }
+//        if(back==true){
+//            finish();
+//        }
     }
 
     @Override
