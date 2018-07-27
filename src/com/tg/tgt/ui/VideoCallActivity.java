@@ -554,7 +554,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                         @SuppressWarnings("UnnecessaryLocalVariable") final CallError fError = error;
                         if (fError == CallError.ERROR_UNAVAILABLE){
                             App.sf.edit().putBoolean("zq",false).commit();
-                            EMMessage message = EMMessage.createTxtSendMessage("未接听，点击回拨",username);
+                            /*EMMessage message = EMMessage.createTxtSendMessage("未接听，点击回拨",username);
                             JSONObject a=new JSONObject();
                             try {
                                 a.put("em_push_title","您有一个新来电");
@@ -564,7 +564,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                             message.setAttribute("em_apns_ext",a);
                             message.setAttribute("VoiceOrVideoText","未接听，点击回拨");
                             message.setAttribute("VoiceOrVideoImage","ease_chat_video_call_receive");
-                            EMClient.getInstance().chatManager().sendMessage(message);
+                            EMClient.getInstance().chatManager().sendMessage(message);*/
                             sms();
                             //return;
                         }
