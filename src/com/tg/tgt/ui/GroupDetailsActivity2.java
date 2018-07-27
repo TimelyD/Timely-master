@@ -243,16 +243,23 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             }
         };
     }
-
+    private Boolean back=true;
     private void updateGroup() {
         if (mSubject == null) {
             synchronized (loadingPB) {
                 if (mSubject == null) {
                     mSubject = PublishSubject.create();
+                    back=false;
                     mSubject.doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
                                 public void accept(@NonNull Disposable disposable) throws Exception {
                                     GroupDetailsActivity2.this.disposable = disposable;
+                                }
+                            })
+                            .doOnError(new Consumer<Throwable>() {
+                                @Override
+                                public void accept(@NonNull Throwable throwable) throws Exception {
+                                    back = true;
                                 }
                             })
                             .debounce(500, TimeUnit.MILLISECONDS)
@@ -307,6 +314,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
                                                         // update block
                                                         refreshUi();
+                                                        back=true;
                                                     }
                                                 }, new Consumer<Throwable>() {
                                                     @Override
@@ -326,7 +334,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                                 }
                                                             }
                                                         });
-                                                        dialog.show();
+                                                        if(back==false){
+                                                            dialog.show();
+                                                        }
                                                     }
                                                 });
                                     }
@@ -1387,13 +1397,17 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
     public void back(View view) {
         setResult(RESULT_OK);
-        finish();
+        if(back==true){
+            finish();
+        }
     }
 
     @Override
     public void onBackPressed() {
         setResult(RESULT_OK);
-        finish();
+        if(back==true){
+            finish();
+        }
     }
 
     @Override
