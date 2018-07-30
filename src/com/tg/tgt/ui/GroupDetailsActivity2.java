@@ -298,6 +298,13 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                         strings.clear();
                                                         strings.addAll(groupUserModels);
                                                         sortGroup(strings);
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                back = true;
+                                                                mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                            }
+                                                        });
                                                         return strings;
                                                     }
                                                 })
