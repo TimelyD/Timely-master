@@ -258,12 +258,12 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     }
     private Boolean back=true;
     private void updateGroup() {
+        mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
         if (mSubject == null) {
             synchronized (loadingPB) {
                 if (mSubject == null) {
                     mSubject = PublishSubject.create();
                     back=false;
-                    mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
                     mSubject.doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
                                 public void accept(@NonNull Disposable disposable) throws Exception {

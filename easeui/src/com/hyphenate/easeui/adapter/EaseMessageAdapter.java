@@ -74,7 +74,7 @@ public class EaseMessageAdapter extends BaseAdapter {
     private static final int MESSAGE_TYPE_INVITE_INTO_GROUP = 14;
     private static final int MESSAGE_SENT_BUSSINES = 15;
     private static final int MESSAGE_RECV_BUSSINES = 16;
-    private static final int MESSAGE_TYPE_IS_KICKED_GROUP = 19;
+    private static final int MESSAGE_TYPE_IS_KICKED_GROUP =17;
 
     public int itemTypeCount;
 
@@ -200,9 +200,9 @@ public class EaseMessageAdapter extends BaseAdapter {
     public int getViewTypeCount() {
         if (customRowProvider != null && customRowProvider.getCustomChatRowTypeCount() > 0) {
             //加入群提示
-            return customRowProvider.getCustomChatRowTypeCount() + 14 + 1;
+            return customRowProvider.getCustomChatRowTypeCount() + 18;
         }
-        return 14;
+        return 18;
     }
 
 
@@ -216,7 +216,7 @@ public class EaseMessageAdapter extends BaseAdapter {
         }
 
         if (customRowProvider != null && customRowProvider.getCustomChatRowType(message) > 0) {
-            return customRowProvider.getCustomChatRowType(message) + 13+1;
+            return customRowProvider.getCustomChatRowType(message) + 17;
         }
 
         if (message.getType() == EMMessage.Type.TXT) {
@@ -303,7 +303,7 @@ public class EaseMessageAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         //将邀请进群提示类型单独取出来处理
         EMMessage message = getItem(position);
-        Log.i("zzz",getItemViewType(position)+"/");
+        Log.i("zzz类型",getItemViewType(position)+"/");
         if (getItemViewType(position) == MESSAGE_TYPE_INVITE_INTO_GROUP||getItemViewType(position) == MESSAGE_TYPE_IS_KICKED_GROUP) {
             View inflate = View.inflate(context, R.layout.row_invite_message, null);
             if(getItemViewType(position) == MESSAGE_TYPE_INVITE_INTO_GROUP){

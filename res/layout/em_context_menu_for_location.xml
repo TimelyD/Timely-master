@@ -30,7 +30,6 @@
         android:background="@drawable/em_context_menu_item_bg"
         android:clickable="true"
         android:gravity="center_vertical"
-        android:visibility="gone"
         android:onClick="recall"
         android:padding="10dp"
         android:text="@string/recall"

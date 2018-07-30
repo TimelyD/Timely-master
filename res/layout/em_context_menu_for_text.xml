@@ -98,7 +98,6 @@
         android:clickable="true"
         android:gravity="center_vertical"
         android:onClick="recall"
-        android:visibility="gone"
         android:padding="10dp"
         android:text="@string/recall"
         android:textColor="@android:color/black"
