@@ -1206,7 +1206,10 @@ public class DemoHelper {
                         String title = message.getStringAttribute("em_apns_ext", "conference call");
                         Toast.makeText(appContext, title, Toast.LENGTH_LONG).show();
                     }
-                    handleCmdAction(message);
+                    if(action.equals("REVOKE_FLAG")){
+                    }else {
+                        handleCmdAction(message);
+                    }
                     //end of red packet code
                     //获取扩展属性 此处省略
                     //maybe you need get extension of your message

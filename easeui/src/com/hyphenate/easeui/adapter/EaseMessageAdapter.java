@@ -75,7 +75,6 @@ public class EaseMessageAdapter extends BaseAdapter {
     private static final int MESSAGE_SENT_BUSSINES = 15;
     private static final int MESSAGE_RECV_BUSSINES = 16;
     private static final int MESSAGE_TYPE_IS_KICKED_GROUP =17;
-
     public int itemTypeCount;
 
     // reference to conversation object in chatsdk
