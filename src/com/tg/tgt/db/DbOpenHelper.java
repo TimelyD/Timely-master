@@ -50,6 +50,19 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 			+ InviteMessgeDao.COLUMN_NAME_UNREAD_MSG_COUNT + " INTEGER, "
 			+ InviteMessgeDao.COLUMN_NAME_TIME + " TEXT, "
 	        + InviteMessgeDao.COLUMN_NAME_GROUPINVITER + " TEXT); ";
+
+
+	private static final String BLACK_TABLE_CREATE = "CREATE TABLE "
+			+ BlackMessageDao.TABLE_NAME + " ("
+			+ BlackMessageDao.COLUMN_NAME_NICK + " TEXT, "
+			+ BlackMessageDao.COLUMN_NAME_AVATAR + " TEXT, "
+			+ BlackMessageDao.COLUMN_NAME_ISLOCK + " INTEGER, "
+			+ BlackMessageDao.COLUMN_NAME_CON + " TEXT, "
+			+ BlackMessageDao.COLUMN_NAME_CHATID + " TEXT, "
+			+ BlackMessageDao.COLUMN_NAME_SEX + " TEXT, "
+			+ BlackMessageDao.COLUMN_NAME_STATE + " TEXT, "
+			+ BlackMessageDao.SN + " TEXT, "
+			+ BlackMessageDao.COLUMN_NAME_ID + " TEXT PRIMARY KEY);";
 			
 	private static final String ROBOT_TABLE_CREATE = "CREATE TABLE "
 			+ UserDao.ROBOT_TABLE_NAME + " ("
@@ -81,6 +94,7 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(USERNAME_TABLE_CREATE);
 		db.execSQL(INIVTE_MESSAGE_TABLE_CREATE);
+		db.execSQL(BLACK_TABLE_CREATE);
 		db.execSQL(CREATE_PREF_TABLE);
 		db.execSQL(ROBOT_TABLE_CREATE);
 		Log.e("Tag","zou zheli ");
@@ -110,6 +124,10 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 		if(oldVersion < 4){
 			db.execSQL("ALTER TABLE "+ UserDao.TABLE_NAME +" ADD COLUMN "+ UserDao.SN + " TEXT ;");
 			//db.execSQL("ALTER TABLE "+ UserDao.TABLE_NAME+ " ADD sn TEXT");
+		}
+		if (oldVersion < 5) {
+			db.execSQL(BLACK_TABLE_CREATE);
+			//加入黑名单
 		}
 	}
 	

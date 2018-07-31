@@ -741,6 +741,14 @@
             android:theme="@style/horizontal_slide"/>
         <activity android:name=".ui.WelcomeActivity"
             android:theme="@style/horizontal_slide"></activity>
+        <activity android:name=".ui.ContextBlackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle"></activity>
+        <activity android:name=".ui.ContextUnBlackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyle"></activity>
+        <activity android:name=".ui.BlackFriendsMsgActivity"
+            android:theme="@style/horizontal_slide"></activity>
     </application>
 
 </manifest>

@@ -272,4 +272,9 @@
     <string name="delete_moment_cancle">Cancel</string>
     <string name="receiver_play">receiver</string>
     <string name="loudspeaker_play">loudspeaker</string>
+    <string name="black_friends">Blacklist</string>
+    <string name="set_black_list">Set up a blacklist</string>
+    <string name="set_successful">successful</string>
+    <string name="set_fail">fail</string>
+    <string name="unset_black">Release the blacklist</string>
 </resources>

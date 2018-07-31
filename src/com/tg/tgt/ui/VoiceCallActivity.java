@@ -40,6 +40,7 @@ import com.google.gson.JsonObject;
 import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
@@ -198,6 +199,12 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
                         endCallTriggerByMe = true;
                         callStateTextView.setText(getResources().getString(R.string.hanging_up));
                         handler.sendEmptyMessage(MSG_CALL_END);
+                        break;
+                    case 100:
+                        handsFreeImage.setImageResource(R.drawable.t_speaker);
+                        mTvHandsFree.setTextColor(ContextCompat.getColor(mContext, R.color.half_white));
+                        closeSpeakerOn();
+                        isHandsfreeState = false;
                         break;
                 }
             }
@@ -497,7 +504,7 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener {
             Log.i("ddd",state+"");
            /* if(state==true){
             }else {*/
-                if (isHandsfreeState) {
+                if (isHandsfreeState || EaseConstant.isInputHeadset) {
                     handsFreeImage.setImageResource(R.drawable.t_speaker);
                     mTvHandsFree.setTextColor(ContextCompat.getColor(mContext, R.color.half_white));
                     closeSpeakerOn();

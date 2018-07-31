@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+              android:background="@color/white"
+    android:orientation="vertical" >
+    <View
+        android:id="@+id/kong"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.10dp"
+        android:visibility="gone"
+        android:background="@color/bg_t">
+    </View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common.65dp"
+        android:gravity="center_vertical" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/common.76dp"
+            android:background="@color/divider_t">
+        </View>
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/common.7dp"
+            android:id="@+id/avatar_container"
+            android:layout_width="@dimen/height_row_weixin"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true" >
+
+            <com.hyphenate.easeui.widget.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_centerInParent="true"
+                android:layout_width="@dimen/avatar_width"
+                android:layout_height="@dimen/avatar_width"
+                android:src="@drawable/default_avatar" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/base_line"
+            android:layout_centerInParent="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:layout_above="@id/base_line"
+            android:layout_marginBottom="@dimen/common.0dp"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:layout_toRightOf="@id/avatar_container"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_2" />
+
+        <!--
+         <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="6dp"
+        android:textColor="#888888"
+        android:textSize="13sp" />
+        -->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/msg_state"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_toRightOf="@id/avatar_container"-->
+            <!--android:src="@drawable/em_msg_state_fail_resend"-->
+            <!--android:visibility="gone" />-->
+
+        <TextView
+            android:text="message"
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/avatar_container"
+            android:layout_toLeftOf="@+id/ll"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_below="@id/base_line"
+            android:layout_marginTop="@dimen/common.0dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginLeft="@dimen/common.10dp"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_4" />
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <Button
+                android:id="@+id/user_state"
+                android:layout_width="wrap_content"
+                android:minWidth="@dimen/common.57dp"
+                android:paddingLeft="@dimen/common.10dp"
+                android:paddingRight="@dimen/common.10dp"
+                android:layout_height="@dimen/common.26dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common.10dp"
+                android:textColor="@drawable/btn_tx_selector2"
+                android:background="@drawable/btn_agree_selector"
+                android:text="@string/refuse"
+
+                android:textSize="@dimen/tx_3" />
+            <Button
+                android:id="@+id/agree"
+                android:layout_width="wrap_content"
+                android:minWidth="@dimen/common.57dp"
+                android:paddingLeft="@dimen/common.10dp"
+                android:paddingRight="@dimen/common.10dp"
+                android:layout_height="@dimen/common.26dp"
+                android:layout_centerVertical="true"
+                android:textColor="@drawable/btn_tx_selector"
+                android:background="@drawable/btn_reject_selector"
+                android:layout_marginRight="10dp"
+                android:text="@string/agree"
+                android:textSize="@dimen/tx_3"
+                android:layout_alignParentRight="true"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+         android:visibility="gone"
+           android:id="@+id/ll_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <View
+            style="@style/devide_line_eee"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="3dp"
+            android:background="#dfdfdf" />
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/group_chat"
+               android:textColor="#888888"
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/tv_groupName"
+                 android:textColor="#888888"
+                />
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>

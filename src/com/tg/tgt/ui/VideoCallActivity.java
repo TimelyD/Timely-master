@@ -48,6 +48,7 @@ import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMVideoCallHelper;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
@@ -137,6 +138,16 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                         }
                         EMLog.d(TAG, "btn_hangup_call");
                         handler.sendEmptyMessage(MSG_CALL_END);
+                        break;
+                    case 101:
+                        handsFreeImage.setImageResource(R.drawable.t_speaker);
+                        mTvHandsFree.setTextColor(ContextCompat.getColor(App.applicationContext, R.color.half_white));
+//                    } else {
+//                        handsFreeImage.setImageResource(R.drawable.speaker_gray);
+//                        mTvHandsFree.setTextColor(noVideoColor);
+//                    }
+                        closeSpeakerOn();
+                        isHandsfreeState = false;
                         break;
                 }
             }
@@ -457,13 +468,18 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                                     EMLog.d("EMCallManager", "soundPool stop ACCEPTED");
                                 } catch (Exception e) {
                                 }
-                                openSpeakerOn();
+                                if (!EaseConstant.isInputHeadset)
+                                    openSpeakerOn();
+                                else
+                                    closeSpeakerOn();
                                 ((TextView) findViewById(R.id.tv_is_p2p)).setText(EMClient.getInstance().callManager
                                         ().isDirectCall()
                                         ? R.string.direct_call : R.string.relay_call);
-                                handsFreeImage.setImageResource(R.drawable.t_speaker_white);
-                                mTvHandsFree.setTextColor(getResources().getColor(R.color.white));
-                                isHandsfreeState = true;
+                                if (!EaseConstant.isInputHeadset) {
+                                    handsFreeImage.setImageResource(R.drawable.t_speaker);
+                                    mTvHandsFree.setTextColor(ContextCompat.getColor(App.applicationContext, R.color.half_white));
+                                    isHandsfreeState = true;
+                                }
                                 isInCalling = true;
                                 chronometer.setVisibility(View.VISIBLE);
                                 chronometer.setBase(SystemClock.elapsedRealtime());
@@ -857,7 +873,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener {
                 Log.i("ddd",state+"");
                 /*if(state==true){
                 }else{*/
-                    if (isHandsfreeState) {
+                    if (isHandsfreeState || EaseConstant.isInputHeadset) {
 //                    if (isHasVideo) {
                         handsFreeImage.setImageResource(R.drawable.t_speaker);
                         mTvHandsFree.setTextColor(ContextCompat.getColor(App.applicationContext, R.color.half_white));

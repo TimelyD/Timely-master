@@ -18,7 +18,9 @@ import android.text.TextUtils;
 import com.hyphenate.chat.EMContact;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 
-public class EaseUser extends EMContact {
+import java.io.Serializable;
+
+public class EaseUser extends EMContact{
     
     /**
      * initial letter for nickname

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@color/bg_t"
+              android:orientation="vertical">
+
+    <!--<RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:background="@color/top_bar_normal_bg"
+        android:gravity="center_vertical" >
+
+        <include layout="@layout/ease_commom_back_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/Application_and_notify"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+    </RelativeLayout>-->
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        app:titleBarLeftImage="@drawable/back"
+        app:titleBarTitle="@string/black_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.hyphenate.easeui.widget.EaseTitleBar>
+
+    <com.classic.common.MultipleStatusView
+        android:id="@+id/multiple_status_layout"
+        app:emptyView="@layout/empty_new_friends"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <View
+        android:id="@+id/line"
+        android:layout_marginTop="@dimen/common.10dp"
+        style="@style/LineHorizontalStyle"/>
+    <ListView
+        android:layout_below="@id/line"
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:descendantFocusability="afterDescendants"
+        android:divider="@color/white"
+        android:footerDividersEnabled="false"
+        android:dividerHeight="@dimen/divider_height"
+        android:cacheColorHint="#00000000"
+        android:fastScrollEnabled="true" />
+    </com.classic.common.MultipleStatusView>
+
+</LinearLayout>

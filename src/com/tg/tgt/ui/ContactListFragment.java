@@ -15,6 +15,7 @@ package com.tg.tgt.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -30,13 +31,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMValueCallBack;
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
 import com.hyphenate.easeui.widget.EaseContactList;
+import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
 import com.tg.tgt.App;
 import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
+import com.tg.tgt.db.BlackMessageDao;
 import com.tg.tgt.db.InviteMessgeDao;
 import com.tg.tgt.db.UserDao;
 import com.tg.tgt.helper.SecurityDialog;
@@ -71,6 +75,11 @@ public class ContactListFragment extends EaseContactListFragment {
     private ContactItemView applicationItem;
     private InviteMessgeDao inviteMessgeDao;
 
+    private EaseUser blackEaseUser;
+
+    private static final int BLACKACTIVIT = 88;
+    public static final int BLACKSECUSSFUL = 888;
+
     @SuppressLint("InflateParams")
     @Override
     protected void initView() {
@@ -80,6 +89,7 @@ public class ContactListFragment extends EaseContactListFragment {
         applicationItem = (ContactItemView) headerView.findViewById(R.id.application_item);
         applicationItem.setOnClickListener(clickListener);
         headerView.findViewById(R.id.group_item).setOnClickListener(clickListener);
+        headerView.findViewById(R.id.black_item).setOnClickListener(clickListener);
 //        headerView.findViewById(R.id.chat_room_item).setOnClickListener(clickListener);
 //        headerView.findViewById(R.id.robot_item).setOnClickListener(clickListener);
         listView.addHeaderView(headerView);
@@ -179,8 +189,9 @@ public class ContactListFragment extends EaseContactListFragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //EMContactManager.getInstance().addUserToBlackList(username,true);//需异步处理
-                return false;
+                blackEaseUser = (EaseUser)listView.getItemAtPosition(position);
+                startActivityForResult(new Intent(mContext,ContextBlackActivity.class),BLACKACTIVIT);
+                return true;
             }
         });
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -266,6 +277,27 @@ public class ContactListFragment extends EaseContactListFragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == BLACKACTIVIT){
+            if (resultCode == BLACKSECUSSFUL){
+                try {
+                    if (blackEaseUser != null) {
+                        EMClient.getInstance().contactManager().addUserToBlackList(blackEaseUser.getUsername(), true);
+                        BlackMessageDao blackMessageDao = new BlackMessageDao(getContext());
+                        blackMessageDao.saveBlack(blackEaseUser);
+                        Toast.makeText(getContext(), R.string.set_successful, Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(getContext(), R.string.set_fail,Toast.LENGTH_LONG).show();
+                    }
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private void showSecurity(final String username, final EaseUser result) {
         SecurityDialog.show(getActivity(),this.getString(R.string.security_title),new SecurityDialog.OnSecurityListener(){
             @Override
@@ -312,6 +344,9 @@ public class ContactListFragment extends EaseContactListFragment {
             case R.id.group_item:
                 // 进入群聊列表页面
                 startActivity(new Intent(getActivity(), GroupsActivity.class));
+                break;
+            case R.id.black_item:
+                startActivity(new Intent(getActivity(),BlackFriendsMsgActivity.class));
                 break;
 //            case R.id.chat_room_item:
 //                //进入聊天室列表页面
