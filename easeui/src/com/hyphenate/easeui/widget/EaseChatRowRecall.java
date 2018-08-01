@@ -45,10 +45,10 @@ public class EaseChatRowRecall extends EaseChatRow {
         } else {
             messageStr = String.format(context.getString(R.string.msg_recall_by_user), message.getFrom());
         }
-      /*  if(message.getStringAttribute("name", null)!=null){
+        if(message.getStringAttribute("name", null)!=null){
             messageStr = String.format(context.getString(R.string.msg_recall_by_user),message.getStringAttribute("name", null));
         }
-        Log.i("收到2：",message.getStringAttribute("name", null)+"");*/
+        Log.i("收到2：",message.getStringAttribute("name", null)+"");
         contentView.setText(messageStr);
     }
 

@@ -260,7 +260,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     protected void setUpView() {
         setChatFragmentListener(this);
-        //recever();
+        recever();
         if (chatType == Constant.CHATTYPE_SINGLE) {
             Map<String, RobotUser> robotMap = DemoHelper.getInstance().getRobotList();
             if (robotMap != null && robotMap.containsKey(toChatUsername)) {
@@ -1315,7 +1315,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
+                        recall();
+                        /*try {
                             EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",contextMenuMessage.getTo());
                             EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
                             msgNotification.addBody(txtBody);
@@ -1333,7 +1334,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }
+                        }*/
                     }
                 }).start();
                 // Delete group-ack data according to this message.
@@ -1348,7 +1349,17 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         });
     }
 
-  /*  private void recall(){
+    private void recall(){
+        EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",contextMenuMessage.getTo());
+        EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
+        msgNotification.addBody(txtBody);
+        msgNotification.setMsgTime(contextMenuMessage.getMsgTime());
+        msgNotification.setLocalTime(contextMenuMessage.getMsgTime());
+        msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+        msgNotification.setStatus(EMMessage.Status.SUCCESS);
+        EMClient.getInstance().chatManager().saveMessage(msgNotification);
+        conversation.removeMessage(contextMenuMessage.getMsgId());
+
         EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
         // 如果是群聊，设置chattype，默认是单聊
         if (chatType == EaseConstant.CHATTYPE_GROUP){
@@ -1361,10 +1372,16 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         // 设置要发给谁，用户username或者群聊groupid
         cmdMsg.setTo(toChatUsername);
         // 通过扩展字段添加要撤回消息的id
+      /*  cmdMsg.setMsgTime(contextMenuMessage.getMsgTime());
+        cmdMsg.setLocalTime(contextMenuMessage.getMsgTime());*/
+        cmdMsg.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
         cmdMsg.setAttribute("msgId",contextMenuMessage.getMsgId());
         cmdMsg.setAttribute("name", SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
+        cmdMsg.setStatus(EMMessage.Status.SUCCESS);
         Log.i("发送：",SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
+        //EMClient.getInstance().chatManager().saveMessage(cmdMsg);
         EMClient.getInstance().chatManager().sendMessage(cmdMsg);
+        messageList.refresh();
     }
     private EMMessageListener msgListener;
     private void recever(){
@@ -1391,7 +1408,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",toChatUsername);
                 EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name));
                 msgNotification.addBody(txtBody);
-                msgNotification.setMsgTime(time);Log.i("qqq2",time+"q");
+                msgNotification.setMsgTime(time);
                 msgNotification.setLocalTime(time);
                 msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
                 msgNotification.setAttribute("name",name);
@@ -1425,13 +1442,13 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             }
         };
         EMClient.getInstance().chatManager().addMessageListener(msgListener);
-    }*/
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         //调用该方法可防止红包SDK引起的内存泄漏
         RPRedPacketUtil.getInstance().detachView();
-       // EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
     }
 }

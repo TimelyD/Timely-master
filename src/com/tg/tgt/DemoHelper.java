@@ -1190,7 +1190,7 @@ public class DemoHelper {
             @Override
             public void onCmdMessageReceived(List<EMMessage> messages) {
                 for (EMMessage message : messages) {
-                    EMLog.d(TAG, "receive command message");
+                    EMLog.d(TAG, "receive command message"+message.conversationId()+"+from"+message.getFrom());
                     //get message body
                     EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) message.getBody();
                     final String action = cmdMsgBody.action();//获取自定义action
@@ -1207,6 +1207,29 @@ public class DemoHelper {
                         Toast.makeText(appContext, title, Toast.LENGTH_LONG).show();
                     }
                     if(action.equals("REVOKE_FLAG")){
+                     /*   if(ActMgrs.getActManager().currentActivity()instanceof ChatActivity){
+                        }else {*/
+                            EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.conversationId());
+                            String id = message.getStringAttribute("msgId", null);
+                            String name =message.getStringAttribute("name", null);
+                            Log.i("收到：",name);
+                            long time = 0;
+                            for(EMMessage msg:conversation.getAllMessages()){
+                                if(msg.getMsgId().equals(id)){
+                                    time=msg.getMsgTime();
+                                }
+                            }
+                            EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",message.conversationId());
+                            EMTextMessageBody txtBody = new EMTextMessageBody(appContext.getResources().getString(R.string.msg_recall_by_user,name));
+                            msgNotification.addBody(txtBody);
+                            msgNotification.setMsgTime(time);
+                            msgNotification.setLocalTime(time);
+                            msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+                            msgNotification.setAttribute("name",name);
+                            msgNotification.setStatus(EMMessage.Status.SUCCESS);
+                            EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                            conversation.removeMessage(id);
+                     //   }
                     }else {
                         handleCmdAction(message);
                     }
