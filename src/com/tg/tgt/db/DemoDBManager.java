@@ -105,7 +105,89 @@ public class DemoDBManager {
         }
         return users;
     }
-    
+
+
+    /**
+     * 获取黑名单列表
+     * @return
+     */
+    synchronized public List<EaseUser> getBlackList() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+       List<EaseUser> users = new ArrayList<>();
+        if (db.isOpen()) {
+            Cursor cursor = db.rawQuery("select * from " + BlackMessageDao.TABLE_NAME /* + " desc" */, null);
+            while (cursor.moveToNext()) {
+                String username = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_ID));
+                String nick = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_NICK));
+                String avatar = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_AVATAR));
+                String con = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_CON));
+                String chatid = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_CHATID));
+                String sex = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_SEX));
+                String state = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_STATE));
+                String sn = cursor.getString(cursor.getColumnIndex(UserDao.SN));
+                int isLock = cursor.getInt(cursor.getColumnIndex(UserDao.COLUMN_NAME_ISLOCK));
+                EaseUser user = new EaseUser(username);
+                user.setNick(nick);
+                user.setAvatar(avatar);
+                //设置用户备注
+                user.setRemark(con);
+                //设置用户加锁
+                user.setIsLock(isLock);
+
+                user.setChatid(chatid);
+                user.setChatidsex(sex);
+                user.setChatidstate(state);
+                user.setSn(sn);
+
+                if (username.equals(Constant.NEW_FRIENDS_USERNAME) || username.equals(Constant.GROUP_USERNAME)
+                        || username.equals(Constant.CHAT_ROOM)|| username.equals(Constant.CHAT_ROBOT)) {
+                    user.setInitialLetter("");
+                } else {
+                    EaseCommonUtils.setUserInitialLetter(user);
+                }
+                users.add(user);
+            }
+            cursor.close();
+        }
+        return users;
+    }
+
+    /**
+     * delete a contact
+     * @param username
+     */
+    synchronized public void deleteBlack(String username){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db.isOpen()){
+            db.delete(BlackMessageDao.TABLE_NAME, BlackMessageDao.COLUMN_NAME_ID + " = ?", new String[]{username});
+        }
+    }
+
+    /**
+     * save a contact
+     * @param user
+     */
+    synchronized public void saveBlack(EaseUser user){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(BlackMessageDao.COLUMN_NAME_ID, user.getUsername());
+        if(user.getNick() != null)
+            values.put(BlackMessageDao.COLUMN_NAME_NICK, user.getNick());
+        if(user.getAvatar() != null)
+            values.put(BlackMessageDao.COLUMN_NAME_AVATAR, user.getAvatar());
+        if(user.getSn()!=null){values.put(BlackMessageDao.SN,user.getSn());}
+        if(user.getIsLock()!=-1) {
+            values.put(BlackMessageDao.COLUMN_NAME_ISLOCK, user.getIsLock());
+            values.put(BlackMessageDao.COLUMN_NAME_CON, user.safeGetRemark());
+            values.put(BlackMessageDao.COLUMN_NAME_CHATID, user.getChatid());
+            values.put(BlackMessageDao.COLUMN_NAME_SEX, user.getChatidsex());
+            values.put(BlackMessageDao.COLUMN_NAME_STATE, user.getChatidstate());
+        }
+        if(db.isOpen()){
+            db.replace(BlackMessageDao.TABLE_NAME, null, values);
+        }
+    }
+
     /**
      * delete a contact
      * @param username

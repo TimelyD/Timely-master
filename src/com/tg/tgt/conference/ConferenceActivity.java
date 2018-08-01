@@ -7,6 +7,8 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -26,6 +28,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConference;
 import com.hyphenate.chat.EMConferenceStream;
 import com.hyphenate.chat.EMStreamParam;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.controller.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
@@ -98,6 +101,8 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
     /**用来控制最多9人*/
     public static final Set<String> allUsers = new HashSet<>();
 
+    public static Handler Handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +116,17 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
         allUsers.clear();
         initView();
         init();
+        Handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 102:
+                        closeSpeaker();
+                        break;
+                }
+            }
+        };
     }
 
     @Override
@@ -137,7 +153,8 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
         } else {
             Uri ringUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             audioManager.setMode(AudioManager.MODE_RINGTONE);
-            audioManager.setSpeakerphoneOn(true);
+            if (!EaseConstant.isInputHeadset)
+                audioManager.setSpeakerphoneOn(true);
             ringtone = RingtoneManager.getRingtone(this, ringUri);
             ringtone.play();
             mTvNick.setText(getIntent().getStringExtra("nickname"));
@@ -251,8 +268,10 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
         mBtnMute.setAlpha(getAlpha(param.isMute()));
         mBtnVideo.setAlpha(getAlpha(!param.isVideoOff()));
         mBtnHandsfree.setAlpha(getAlpha(true));
-        openSpeaker();
-
+        if (!EaseConstant.isInputHeadset)
+            openSpeaker();
+        else
+            closeSpeaker();
         localView.setUser(EMClient.getInstance().getCurrentUser());
         EMClient.getInstance().conferenceManager().setLocalSurfaceView(localView.getSurfaceView());
 //        localView.setOnClickListener(new View.OnClickListener() {
@@ -960,7 +979,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                 voiceSwitch();
                 break;
             case R.id.btn_handsfree:
-                if (audioManager.isSpeakerphoneOn()) {
+                if (audioManager.isSpeakerphoneOn() || EaseConstant.isInputHeadset) {
                     closeSpeaker();
                 } else {
                     openSpeaker();

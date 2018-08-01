@@ -11,6 +11,9 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoicePlayClickListener;
 import com.hyphenate.util.EMLog;
 import com.tg.tgt.Constant;
+import com.tg.tgt.conference.ConferenceActivity;
+import com.tg.tgt.ui.VideoCallActivity;
+import com.tg.tgt.ui.VoiceCallActivity;
 
 /**
  * Created by lzan13 on 2018/4/2.
@@ -30,6 +33,12 @@ public class HeadsetReceiver extends BroadcastReceiver {
                 EaseChatRowVoicePlayClickListener.currentPlayListener.setModelVoice(0);
         }
         EaseConstant.isInputHeadset = state;
+        if (VoiceCallActivity.Handler != null && state)
+            VoiceCallActivity.Handler.sendEmptyMessage(100);
+        if (VideoCallActivity.Handler != null && state)
+            VideoCallActivity.Handler.sendEmptyMessage(101);
+        if (ConferenceActivity.Handler != null && state)
+            ConferenceActivity.Handler.sendEmptyMessage(102);
         // 耳机类型
         String name = intent.getStringExtra("name");
         // 耳机是否带有麦克风 0 没有，1 有

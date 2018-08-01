@@ -275,4 +275,9 @@
     <string name="delete_moment_cancle">取消</string>
     <string name="receiver_play">听筒播放</string>
     <string name="loudspeaker_play">扬声器播放</string>
+    <string name="black_friends">黑名单</string>
+    <string name="set_black_list">设置黑名单</string>
+    <string name="set_successful">设置成功</string>
+    <string name="set_fail">设置失败</string>
+    <string name="unset_black">解除黑名单</string>
 </resources>
