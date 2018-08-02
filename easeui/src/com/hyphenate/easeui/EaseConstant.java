@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class EaseConstant {
     public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";
     public static final String MESSAGE_ATTR_IS_VIDEO_CALL = "is_video_call";
-    public static final String MESSAGE_TYPE_RECALL = "message_recall";
     public static final String MESSAGE_ATTR_IS_INVITE_INTO_GROUP = "is_invite_into_group";//是否是邀请进群消息
     public static final String MESSAGE_ATTR_IS_KICKED_GROUP = "group_owner";//群主ID(是否是踢出群消息)
     public static final String MESSAGE_ATTR_IS_FIRE = "isFire";
@@ -32,7 +31,14 @@ public class EaseConstant {
     public static final String MESSAGE_ATTR_VALUE_AT_MSG_ALL = "ALL";
     public static final String MI="Encrypted";//是否加密类型
     public static final String VERSION="Version";//加密的当前最新版本
-    public static final String SEND="send";//判断是否是发送方需要显示的文本
+    public static final String SEND="EncryptedMySelf";//判断是否是发送方需要显示的文本
+    /**
+     *  撤回消息的常量
+     * */
+    public static final String MSG_ID="ReCallMessageID";
+    public static final String MSG_NAME="ReCallMessageNickname";
+    public static final String MESSAGE_TYPE_RECALL = "message_recall";
+    public static final String MSG_SENDID="ReCallMessageUsername";
     /**
      * 名片的参数
      * */

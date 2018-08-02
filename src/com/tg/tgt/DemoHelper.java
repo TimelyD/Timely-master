@@ -1190,7 +1190,7 @@ public class DemoHelper {
             @Override
             public void onCmdMessageReceived(List<EMMessage> messages) {
                 for (EMMessage message : messages) {
-                    EMLog.d(TAG, "receive command message");
+                    EMLog.d(TAG, "receive command message"+message.conversationId()+"+from"+message.getFrom());
                     //get message body
                     EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) message.getBody();
                     final String action = cmdMsgBody.action();//获取自定义action
@@ -1206,7 +1206,49 @@ public class DemoHelper {
                         String title = message.getStringAttribute("em_apns_ext", "conference call");
                         Toast.makeText(appContext, title, Toast.LENGTH_LONG).show();
                     }
-                    handleCmdAction(message);
+                    if(action.equals(EaseConstant.MSG_ID)){
+                     /*   if(ActMgrs.getActManager().currentActivity()instanceof ChatActivity){
+                        }else {*/
+                            EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.conversationId());
+                            String id = message.getStringAttribute(EaseConstant.MSG_ID, null);
+                            String name =message.getStringAttribute(EaseConstant.MSG_NAME, null);
+                            long time = 0;
+                            for(EMMessage msg:conversation.getAllMessages()){
+                                if(msg.getMsgId().equals(id)){
+                                    time=msg.getMsgTime();
+                                }
+                            }
+                            String nickname="";String name2="";
+                            if(conversation.getType()== EMConversation.EMConversationType.GroupChat){
+                                nickname=appContext.getString(R.string.msg_recall_by_user,name);
+                                name2=name;
+                            }else {
+                                nickname=appContext.getString(R.string.msg_recall_by_user,appContext.getString(R.string.other));
+                                name2=appContext.getString(R.string.other);
+                            }
+                            EMMessage msgNotification = EMMessage.createTxtSendMessage(nickname,message.conversationId());
+                            EMTextMessageBody txtBody = new EMTextMessageBody(appContext.getResources().getString(R.string.msg_recall_by_user,name2));
+                            msgNotification.addBody(txtBody);
+                            msgNotification.setMsgTime(time);
+                            msgNotification.setLocalTime(time);
+                            msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+                            msgNotification.setAttribute(EaseConstant.MSG_NAME,name);
+                            msgNotification.setStatus(EMMessage.Status.SUCCESS);
+                            EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                            conversation.removeMessage(id);
+                        if (MainActivity.messageCountHandler != null){
+                            for(EMMessage msg:conversation.getAllMessages()){
+                                if(msg.getMsgId().equals(id)){
+                                    if(msg.isUnread()==true){
+                                        MainActivity.messageCountHandler.sendEmptyMessage(2);
+                                    }
+                                }
+                            }
+                        }
+                     //   }
+                    }else {
+                        handleCmdAction(message);
+                    }
                     //end of red packet code
                     //获取扩展属性 此处省略
                     //maybe you need get extension of your message

@@ -24,7 +24,8 @@
     <string name="delete_message">删除消息</string>
     <string name="recall">撤回</string>
     <string name="msg_recall_by_self">您撤回了一条消息</string>
-    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
+    <string name="msg_recall_by_user">%1$s撤回了一条消息</string>
+    <string name="other">对方</string>
     <string name="delete_conversation_messages">删除会话和消息</string>
     <string name="delete_conversation">删除会话</string>
     <string name="copy_message">复制消息</string>
@@ -67,6 +68,7 @@
     <string name="button_add">添加</string>
     <string name="search_header">搜</string>
     <string name="network_isnot_available">网络不可用</string>
+    <string name="noRecall">消息已经超过两分钟 无法撤回</string>
     <string name="recoding_fail">录音失败，请重试！</string>
     <string name="select_contacts">选择联系人</string>
     <string name="confirm_forward_to">确定转发到：%1$s ?</string>

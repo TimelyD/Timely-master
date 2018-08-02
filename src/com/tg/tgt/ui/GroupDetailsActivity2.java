@@ -258,12 +258,12 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     }
     private Boolean back=true;
     private void updateGroup() {
+        mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
         if (mSubject == null) {
             synchronized (loadingPB) {
                 if (mSubject == null) {
                     mSubject = PublishSubject.create();
                     back=false;
-                    mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
                     mSubject.doOnSubscribe(new Consumer<Disposable>() {
                                 @Override
                                 public void accept(@NonNull Disposable disposable) throws Exception {
@@ -298,6 +298,13 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                         strings.clear();
                                                         strings.addAll(groupUserModels);
                                                         sortGroup(strings);
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                back = true;
+                                                                mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                            }
+                                                        });
                                                         return strings;
                                                     }
                                                 })

@@ -26,6 +26,8 @@ import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoicePlayClickListener;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 
+import java.util.Date;
+
 public class ContextMenuActivity extends BaseActivity {
     public static final int RESULT_CODE_COPY = 1;
     public static final int RESULT_CODE_DELETE = 2;
@@ -80,6 +82,14 @@ public class ContextMenuActivity extends BaseActivity {
 	        if (v != null) {
 	            v.setVisibility(View.GONE);
 	        }
+		}
+		View recall = (View) findViewById(R.id.recall);
+		if(message.direct() == EMMessage.Direct.RECEIVE ) {
+			recall.setVisibility(View.GONE);
+		}
+		long cha = (new Date().getTime() - message.getMsgTime())/1000;
+		if(cha>120||message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)||message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
+			recall.setVisibility(View.GONE);
 		}
 	}
 

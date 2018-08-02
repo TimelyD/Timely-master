@@ -26,6 +26,7 @@
     <string name="collection">collection</string>
     <string name="msg_recall_by_self">This message has been recalled by myself</string>
     <string name="msg_recall_by_user">This message has been recalled by %1$s</string>
+    <string name="other">The other</string>
     <string name="delete_conversation_messages">Delete conversation and messages</string>
     <string name="delete_conversation">Delete conversation</string>
     <string name="copy_message">Copy message</string>
@@ -72,6 +73,7 @@
     <string name="button_add">Add</string>
     <string name="search_header">Search</string>
     <string name="network_isnot_available">The network is not available</string>
+    <string name="noRecall">Can\'t be withdrawn for more than two minutes</string>
     <string name="recoding_fail">The recording failure, please try again！</string>
     <string name="select_contacts">Select the contact</string>
     <string name="confirm_forward_to">Confirm to forward to：%1$s ?</string>

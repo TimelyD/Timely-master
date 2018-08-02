@@ -2,8 +2,11 @@ package com.tg.tgt.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +16,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,8 +40,12 @@ import com.easemob.redpacketsdk.constant.RPConstant;
 import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.EMMessageListener;
+import com.hyphenate.chat.EMChatManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
@@ -65,11 +73,14 @@ import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
 import com.hyphenate.easeui.utils.videocompress.CompressListener;
 import com.hyphenate.easeui.utils.videocompress.Compressor;
 import com.hyphenate.easeui.utils.videocompress.InitListener;
+import com.hyphenate.easeui.widget.EaseChatRowRecall;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoice;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.hyphenate.easeui.widget.chatrow.timeUtil;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
+import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.DemoHelper;
 import com.tg.tgt.R;
@@ -86,6 +97,7 @@ import com.tg.tgt.moment.bean.CollectBean;
 import com.tg.tgt.moment.bean.User;
 import com.tg.tgt.utils.AMRToWAV;
 import com.tg.tgt.utils.CodeUtils;
+import com.tg.tgt.utils.SharedPreStorageMgr;
 import com.tg.tgt.widget.ChatRowVoiceCall;
 
 import java.io.File;
@@ -95,6 +107,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,7 +154,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     private static final int MESSAGE_TYPE_RECV_RED_PACKET_ACK = 8;
     private static final int MESSAGE_TYPE_RECV_RANDOM = 11;
     private static final int MESSAGE_TYPE_SEND_RANDOM = 12;
-
+    private static final int MESSAGE_TYPE_RECALL = 9;
     private static final int MESSAGE_TYPE_INVITE_INTO_GROUP = 13;
 
     //阅后即焚
@@ -250,6 +263,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     protected void setUpView() {
         setChatFragmentListener(this);
+        recever();
         if (chatType == Constant.CHATTYPE_SINGLE) {
             Map<String, RobotUser> robotMap = DemoHelper.getInstance().getRobotList();
             if (robotMap != null && robotMap.containsKey(toChatUsername)) {
@@ -1147,6 +1161,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 }else  if(message.getBooleanAttribute(EaseConstant.BUSSINES_ID, false)){
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_RECV_BUSSINES :
                             MESSAGE_SENT_BUSSINES;
+                }else if(message.getBooleanAttribute(EaseConstant.MESSAGE_TYPE_RECALL, false)){
+                    return MESSAGE_TYPE_RECALL;
                 }
                 /*else if(message.ext().get("VoiceOrVideoImage").equals("ease_chat_voice_call_receive")){
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL :
@@ -1196,6 +1212,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                                 equals("ease_chat_voice_call_receive")?Constant.MESSAGE_ATTR_IS_VOICE_CALL:Constant.MESSAGE_ATTR_IS_VIDEO_CALL, true);
                         return new ChatRowVoiceCall(getActivity(), message, position, adapter);
                     }
+                }
+                if(message.getBooleanAttribute(Constant.MESSAGE_TYPE_RECALL, false)){
+                    EaseChatRowRecall presenter = new EaseChatRowRecall(getActivity(), message, position, adapter);
+                    return presenter;
                 }
                /* if(message.ext().get("bussines_id")!=null){
                     message.setAttribute(Constant.MESSAGE_ATTR_IS_BUSSINES, true);
@@ -1295,7 +1315,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             @Override
             public void onClick(View arg0) {
                 dialog.dismiss();
-                new Thread(new Runnable() {
+                recall();
+               /* new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -1318,7 +1339,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                             });
                         }
                     }
-                }).start();
+                }).start();*/
                 // Delete group-ack data according to this message.
                 EaseDingMessageHelper.get().delete(contextMenuMessage);
             }
@@ -1331,10 +1352,111 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         });
     }
 
+    private void recall(){
+        long cha = (new Date().getTime() - contextMenuMessage.getMsgTime())/1000;
+        if(cha>120){
+            Toast toast = Toast.makeText(getActivity(), R.string.noRecall, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);toast.show();
+            return;
+        }
+        EMMessage msgNotification = EMMessage.createTxtSendMessage(getString(R.string.msg_recall_by_self),contextMenuMessage.getTo());
+        EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
+        msgNotification.addBody(txtBody);
+        msgNotification.setMsgTime(contextMenuMessage.getMsgTime());
+        msgNotification.setLocalTime(contextMenuMessage.getMsgTime());
+        msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+        msgNotification.setStatus(EMMessage.Status.SUCCESS);
+        EMClient.getInstance().chatManager().saveMessage(msgNotification);
+        conversation.removeMessage(contextMenuMessage.getMsgId());
+
+        EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
+        // 如果是群聊，设置chattype，默认是单聊
+        if (chatType == EaseConstant.CHATTYPE_GROUP){
+            cmdMsg.setChatType(EMMessage.ChatType.GroupChat);
+        }
+        EMCmdMessageBody cmdBody = new EMCmdMessageBody(EaseConstant.MSG_ID);
+        // 设置消息body
+        cmdMsg.addBody(cmdBody);
+        // 设置要发给谁，用户username或者群聊groupid
+        cmdMsg.setTo(toChatUsername);
+        // 通过扩展字段添加要撤回消息的id
+        cmdMsg.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+        cmdMsg.setAttribute(Constant.MSG_SENDID,SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));
+        cmdMsg.setAttribute(EaseConstant.MSG_ID,contextMenuMessage.getMsgId());
+        cmdMsg.setAttribute(EaseConstant.MSG_NAME, SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
+        cmdMsg.setStatus(EMMessage.Status.SUCCESS);
+        EMClient.getInstance().chatManager().sendMessage(cmdMsg);
+        messageList.refresh();
+    }
+    private EMMessageListener msgListener;
+    private void recever(){
+        msgListener = new EMMessageListener() {
+            @Override
+            public void onMessageReceived(List<EMMessage> messages) {
+                //收到消息
+                Log.i("收到：","消息");
+            }
+
+            @Override
+            public void onCmdMessageReceived(List<EMMessage> messages) {
+                //收到透传消息
+                for (EMMessage a : messages) {
+                    EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) a.getBody();
+                    final String action = cmdMsgBody.action();//获取自定义action
+                    if(action.equals(EaseConstant.MSG_ID)){
+                        String id = a.getStringAttribute(EaseConstant.MSG_ID, null);
+                        String name = a.getStringAttribute(EaseConstant.MSG_NAME, null);
+                        long time = 0;
+                        for(EMMessage msg:conversation.getAllMessages()){
+                            if(msg.getMsgId().equals(id)){
+                                time=msg.getMsgTime();
+                            }
+                        }
+                        String nickname="";String name2="";
+                        if(conversation.getType()== EMConversation.EMConversationType.GroupChat){
+                            nickname=getString(R.string.msg_recall_by_user,name);name2=name;
+                        }else {
+                            nickname=getString(R.string.msg_recall_by_user,getString(R.string.other));name2=getString(R.string.other);
+                        }
+                        EMMessage msgNotification = EMMessage.createTxtSendMessage(nickname,toChatUsername);
+                        EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name2));
+                        msgNotification.addBody(txtBody);
+                        msgNotification.setMsgTime(time);
+                        msgNotification.setLocalTime(time);
+                        msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+                        msgNotification.setAttribute(EaseConstant.MSG_NAME,name);
+                        msgNotification.setStatus(EMMessage.Status.SUCCESS);
+                        EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                        conversation.removeMessage(a.getStringAttribute(EaseConstant.MSG_ID,null));
+                        messageList.refresh();
+                    }
+                }
+            }
+            @Override
+            public void onMessageRead(List<EMMessage> messages) {
+                Log.i("收到：","已读回执");
+            }
+            @Override
+            public void onMessageDelivered(List<EMMessage> message) {
+                Log.i("收到：","已送达回执");
+            }
+            @Override
+            public void onMessageRecalled(List<EMMessage> messages) {
+                Log.i("收到：","消息被撤回");
+            }
+            @Override
+            public void onMessageChanged(EMMessage message, Object change) {
+                Log.i("收到：","消息状态变动");
+            }
+        };
+        EMClient.getInstance().chatManager().addMessageListener(msgListener);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         //调用该方法可防止红包SDK引起的内存泄漏
         RPRedPacketUtil.getInstance().detachView();
+        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
     }
 }
