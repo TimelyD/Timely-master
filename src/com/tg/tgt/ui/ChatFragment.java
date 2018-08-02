@@ -1350,7 +1350,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     }
 
     private void recall(){
-        EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",contextMenuMessage.getTo());
+        EMMessage msgNotification = EMMessage.createTxtSendMessage(getString(R.string.msg_recall_by_self),contextMenuMessage.getTo());
         EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
         msgNotification.addBody(txtBody);
         msgNotification.setMsgTime(contextMenuMessage.getMsgTime());
@@ -1395,27 +1395,28 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             @Override
             public void onCmdMessageReceived(List<EMMessage> messages) {
                 //收到透传消息
-                EMMessage a = messages.get(0);
-                String id = a.getStringAttribute("msgId", null);
-                String name = a.getStringAttribute("name", null);
-                Log.i("收到：",name);
-                long time = 0;
-                for(EMMessage msg:conversation.getAllMessages()){
-                    if(msg.getMsgId().equals(id)){
-                        time=msg.getMsgTime();
+                for (EMMessage a : messages) {
+                    String id = a.getStringAttribute("msgId", null);
+                    String name = a.getStringAttribute("name", null);
+                    Log.i("收到：",name);
+                    long time = 0;
+                    for(EMMessage msg:conversation.getAllMessages()){
+                        if(msg.getMsgId().equals(id)){
+                            time=msg.getMsgTime();
+                        }
                     }
+                    EMMessage msgNotification = EMMessage.createTxtSendMessage(getString(R.string.msg_recall_by_user,name),toChatUsername);
+                    EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name));
+                    msgNotification.addBody(txtBody);
+                    msgNotification.setMsgTime(time);
+                    msgNotification.setLocalTime(time);
+                    msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+                    msgNotification.setAttribute("name",name);
+                    msgNotification.setStatus(EMMessage.Status.SUCCESS);
+                    EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                    conversation.removeMessage(a.getStringAttribute("msgId",null));
+                    messageList.refresh();
                 }
-                EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",toChatUsername);
-                EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name));
-                msgNotification.addBody(txtBody);
-                msgNotification.setMsgTime(time);
-                msgNotification.setLocalTime(time);
-                msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
-                msgNotification.setAttribute("name",name);
-                msgNotification.setStatus(EMMessage.Status.SUCCESS);
-                EMClient.getInstance().chatManager().saveMessage(msgNotification);
-                conversation.removeMessage(a.getStringAttribute("msgId",null));
-                messageList.refresh();
             }
 
             @Override

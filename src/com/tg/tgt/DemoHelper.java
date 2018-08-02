@@ -1219,7 +1219,7 @@ public class DemoHelper {
                                     time=msg.getMsgTime();
                                 }
                             }
-                            EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",message.conversationId());
+                            EMMessage msgNotification = EMMessage.createTxtSendMessage(appContext.getString(R.string.msg_recall_by_user,name),message.conversationId());
                             EMTextMessageBody txtBody = new EMTextMessageBody(appContext.getResources().getString(R.string.msg_recall_by_user,name));
                             msgNotification.addBody(txtBody);
                             msgNotification.setMsgTime(time);
