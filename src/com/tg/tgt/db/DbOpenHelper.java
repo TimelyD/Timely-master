@@ -22,7 +22,7 @@ import com.tg.tgt.DemoHelper;
 
 public class DbOpenHelper extends SQLiteOpenHelper{
 
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	private static DbOpenHelper instance;
 
 	private static final String USERNAME_TABLE_CREATE = "CREATE TABLE "
