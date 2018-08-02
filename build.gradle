@@ -137,7 +137,7 @@ android {
     }
 }
 greendao {
-    schemaVersion 2
+    schemaVersion 3
 }
 dependencies {
     compile project(':redpacketlibrary')
