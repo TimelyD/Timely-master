@@ -1206,13 +1206,12 @@ public class DemoHelper {
                         String title = message.getStringAttribute("em_apns_ext", "conference call");
                         Toast.makeText(appContext, title, Toast.LENGTH_LONG).show();
                     }
-                    if(action.equals("REVOKE_FLAG")){
+                    if(action.equals(EaseConstant.MSG_ID)){
                      /*   if(ActMgrs.getActManager().currentActivity()instanceof ChatActivity){
                         }else {*/
                             EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.conversationId());
-                            String id = message.getStringAttribute("msgId", null);
-                            String name =message.getStringAttribute("name", null);
-                            Log.i("收到：",name);
+                            String id = message.getStringAttribute(EaseConstant.MSG_ID, null);
+                            String name =message.getStringAttribute(EaseConstant.MSG_NAME, null);
                             long time = 0;
                             for(EMMessage msg:conversation.getAllMessages()){
                                 if(msg.getMsgId().equals(id)){
@@ -1224,8 +1223,8 @@ public class DemoHelper {
                                 nickname=appContext.getString(R.string.msg_recall_by_user,name);
                                 name2=name;
                             }else {
-                                nickname=appContext.getString(R.string.msg_recall_by_user,"对方");
-                                name2="对方";
+                                nickname=appContext.getString(R.string.msg_recall_by_user,appContext.getString(R.string.other));
+                                name2=appContext.getString(R.string.other);
                             }
                             EMMessage msgNotification = EMMessage.createTxtSendMessage(nickname,message.conversationId());
                             EMTextMessageBody txtBody = new EMTextMessageBody(appContext.getResources().getString(R.string.msg_recall_by_user,name2));
@@ -1233,7 +1232,7 @@ public class DemoHelper {
                             msgNotification.setMsgTime(time);
                             msgNotification.setLocalTime(time);
                             msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
-                            msgNotification.setAttribute("name",name);
+                            msgNotification.setAttribute(EaseConstant.MSG_NAME,name);
                             msgNotification.setStatus(EMMessage.Status.SUCCESS);
                             EMClient.getInstance().chatManager().saveMessage(msgNotification);
                             conversation.removeMessage(id);

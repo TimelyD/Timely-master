@@ -40,6 +40,7 @@
     <string name="button_uploadlog">上传运行日志</string>
     <string name="msg_recall_by_self">您撤回了一条消息</string>
     <string name="msg_recall_by_user">%1$s撤回了一条消息</string>
+    <string name="other">对方</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="prompt">提示</string>

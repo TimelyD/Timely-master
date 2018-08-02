@@ -25,6 +25,7 @@
     <string name="recall">撤回</string>
     <string name="msg_recall_by_self">您撤回了一条消息</string>
     <string name="msg_recall_by_user">%1$s撤回了一条消息</string>
+    <string name="other">对方</string>
     <string name="delete_conversation_messages">删除会话和消息</string>
     <string name="delete_conversation">删除会话</string>
     <string name="copy_message">复制消息</string>

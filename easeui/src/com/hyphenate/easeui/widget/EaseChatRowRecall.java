@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 
@@ -47,15 +48,14 @@ public class EaseChatRowRecall extends EaseChatRow {
         } else {
             messageStr = String.format(context.getString(R.string.msg_recall_by_user), message.getFrom());
         }
-        if(message.getStringAttribute("name", null)!=null){
+        if(message.getStringAttribute(EaseConstant.MSG_NAME, null)!=null){
             EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.conversationId());
             if(conversation.getType()== EMConversation.EMConversationType.GroupChat){
-                messageStr = String.format(context.getString(R.string.msg_recall_by_user),message.getStringAttribute("name", null));
+                messageStr = String.format(context.getString(R.string.msg_recall_by_user),message.getStringAttribute(EaseConstant.MSG_NAME, null));
             }else {
-                messageStr = String.format(context.getString(R.string.msg_recall_by_user),"对方");
+                messageStr = String.format(context.getString(R.string.msg_recall_by_user),context.getString(R.string.other));
             }
         }
-        Log.i("收到2：",messageStr);
         contentView.setText(messageStr);
     }
 

@@ -1365,18 +1365,17 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         if (chatType == EaseConstant.CHATTYPE_GROUP){
             cmdMsg.setChatType(EMMessage.ChatType.GroupChat);
         }
-        String action="REVOKE_FLAG";
-        EMCmdMessageBody cmdBody = new EMCmdMessageBody(action);
+        EMCmdMessageBody cmdBody = new EMCmdMessageBody(EaseConstant.MSG_ID);
         // 设置消息body
         cmdMsg.addBody(cmdBody);
         // 设置要发给谁，用户username或者群聊groupid
         cmdMsg.setTo(toChatUsername);
         // 通过扩展字段添加要撤回消息的id
         cmdMsg.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
-        cmdMsg.setAttribute("msgId",contextMenuMessage.getMsgId());
-        cmdMsg.setAttribute("name", SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
+        cmdMsg.setAttribute(Constant.MSG_SENDID,SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.MYUID));
+        cmdMsg.setAttribute(EaseConstant.MSG_ID,contextMenuMessage.getMsgId());
+        cmdMsg.setAttribute(EaseConstant.MSG_NAME, SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
         cmdMsg.setStatus(EMMessage.Status.SUCCESS);
-        Log.i("发送：",SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
         EMClient.getInstance().chatManager().sendMessage(cmdMsg);
         messageList.refresh();
     }
@@ -1393,31 +1392,35 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             public void onCmdMessageReceived(List<EMMessage> messages) {
                 //收到透传消息
                 for (EMMessage a : messages) {
-                    String id = a.getStringAttribute("msgId", null);
-                    String name = a.getStringAttribute("name", null);
-                    long time = 0;
-                    for(EMMessage msg:conversation.getAllMessages()){
-                        if(msg.getMsgId().equals(id)){
-                            time=msg.getMsgTime();
+                    EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) a.getBody();
+                    final String action = cmdMsgBody.action();//获取自定义action
+                    if(action.equals(EaseConstant.MSG_ID)){
+                        String id = a.getStringAttribute(EaseConstant.MSG_ID, null);
+                        String name = a.getStringAttribute(EaseConstant.MSG_NAME, null);
+                        long time = 0;
+                        for(EMMessage msg:conversation.getAllMessages()){
+                            if(msg.getMsgId().equals(id)){
+                                time=msg.getMsgTime();
+                            }
                         }
+                        String nickname="";String name2="";
+                        if(conversation.getType()== EMConversation.EMConversationType.GroupChat){
+                            nickname=getString(R.string.msg_recall_by_user,name);name2=name;
+                        }else {
+                            nickname=getString(R.string.msg_recall_by_user,getString(R.string.other));name2=getString(R.string.other);
+                        }
+                        EMMessage msgNotification = EMMessage.createTxtSendMessage(nickname,toChatUsername);
+                        EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name2));
+                        msgNotification.addBody(txtBody);
+                        msgNotification.setMsgTime(time);
+                        msgNotification.setLocalTime(time);
+                        msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
+                        msgNotification.setAttribute(EaseConstant.MSG_NAME,name);
+                        msgNotification.setStatus(EMMessage.Status.SUCCESS);
+                        EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                        conversation.removeMessage(a.getStringAttribute(EaseConstant.MSG_ID,null));
+                        messageList.refresh();
                     }
-                    String nickname="";String name2="";
-                    if(conversation.getType()== EMConversation.EMConversationType.GroupChat){
-                        nickname=getString(R.string.msg_recall_by_user,name);name2=name;
-                    }else {
-                        nickname=getString(R.string.msg_recall_by_user,"对方");name2="对方";
-                    }
-                    EMMessage msgNotification = EMMessage.createTxtSendMessage(nickname,toChatUsername);
-                    EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name2));
-                    msgNotification.addBody(txtBody);
-                    msgNotification.setMsgTime(time);
-                    msgNotification.setLocalTime(time);
-                    msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
-                    msgNotification.setAttribute("name",name);
-                    msgNotification.setStatus(EMMessage.Status.SUCCESS);
-                    EMClient.getInstance().chatManager().saveMessage(msgNotification);
-                    conversation.removeMessage(a.getStringAttribute("msgId",null));
-                    messageList.refresh();
                 }
             }
             @Override
