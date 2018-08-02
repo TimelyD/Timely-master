@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,6 +77,7 @@ import com.hyphenate.easeui.widget.EaseChatRowRecall;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoice;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.hyphenate.easeui.widget.chatrow.timeUtil;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
 import com.tg.tgt.App;
@@ -105,6 +107,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1312,11 +1315,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             @Override
             public void onClick(View arg0) {
                 dialog.dismiss();
-                new Thread(new Runnable() {
+                recall();
+               /* new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        recall();
-                        /*try {
+                        try {
                             EMMessage msgNotification = EMMessage.createTxtSendMessage(" ",contextMenuMessage.getTo());
                             EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
                             msgNotification.addBody(txtBody);
@@ -1334,9 +1337,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }*/
+                        }
                     }
-                }).start();
+                }).start();*/
                 // Delete group-ack data according to this message.
                 EaseDingMessageHelper.get().delete(contextMenuMessage);
             }
@@ -1350,6 +1353,12 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     }
 
     private void recall(){
+        long cha = (new Date().getTime() - contextMenuMessage.getMsgTime())/1000;
+        if(cha>120){
+            Toast toast = Toast.makeText(getActivity(), R.string.noRecall, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);toast.show();
+            return;
+        }
         EMMessage msgNotification = EMMessage.createTxtSendMessage(getString(R.string.msg_recall_by_self),contextMenuMessage.getTo());
         EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_self));
         msgNotification.addBody(txtBody);
