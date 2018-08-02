@@ -28,6 +28,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConference;
 import com.hyphenate.chat.EMConferenceStream;
 import com.hyphenate.chat.EMStreamParam;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.controller.EaseUI;
@@ -46,6 +47,7 @@ import com.tg.tgt.helper.CmdHelper;
 import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.http.model2.GroupUserModel;
 import com.tg.tgt.ui.BaseActivity;
+import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.ToastUtils;
 import com.tg.tgt.widget.MyChronometer;
 
@@ -424,7 +426,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                                     @Override
                                     public void onSuccess(Object value) {
                                         EMLog.e(TAG, "invite join conference success");
-                                        ToastUtils.safeShowToast(mContext, String.format("邀请%s成功", members[finalI]));
+                                        ToastUtils.safeShowToast(mContext, String.format("邀请%s成功",EaseApp.nick.get(finalI)));
                                         Log.e("ZWW","members邀请成功"+members[finalI]);
                                         runOnUiThread(new Runnable() {
                                             @Override
@@ -448,7 +450,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                                                                 }
                                                                 allUsers.remove(members[finalI]);
                                                                 ToastUtils.safeShowToast(mContext, String.format
-                                                                        ("邀请%s超时", members[finalI]));
+                                                                        ("邀请%s超时",EaseApp.nick.get(finalI)));
 
                                                                 exitIfNobody();
                                                             }
@@ -462,7 +464,7 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                                         allUsers.remove(members[finalI]);
                                         EMLog.e(TAG, "invite join conference failed " + error + ", " + errorMsg);
                                         ToastUtils.safeShowGeneralToast(mContext, String.format("邀请%s失败:%s",
-                                                members[finalI], errorMsg));
+                                                EaseApp.nick.get(finalI), errorMsg));
                                     }
                                 });
             }
@@ -799,15 +801,21 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
      * --------------------------------------------------------------------
      * 多人音视频会议回调方法
      */
-
+    private String nickname;
     @Override
     public void onMemberJoined(final String username) {
         allUsers.add(username);
+        nickname = username;
+        for(EaseUser nick:EaseApp.mAlluserList){
+            if(nick.getUsername().equals(username)){
+                nickname=nick.getNick();
+            }
+        }
         if (BuildConfig.DEBUG)
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(mContext, username + " joined conference!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,nickname + " 加入通话!", Toast.LENGTH_SHORT).show();
                 }
             });
     }
@@ -815,11 +823,17 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
     @Override
     public void onMemberExited(final String username) {
         allUsers.remove(username);
+        nickname = username;
+        for(EaseUser nick:EaseApp.mAlluserList){
+            if(nick.getUsername().equals(username)){
+                nickname=nick.getNick();
+            }
+        }
         if (BuildConfig.DEBUG)
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(mContext, username + " removed conference!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, nickname + " 取消通话!", Toast.LENGTH_SHORT).show();
                     exitIfNobody();
                 }
             });
@@ -831,12 +845,17 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
             //最多加入9个steam
             return;
         }
-        Log.e("ZWW","添加窗口");
+        nickname =  stream.getUsername();
+        for(EaseUser nick:EaseApp.mAlluserList){
+            if(nick.getUsername().equals( stream.getUsername())){
+                nickname=nick.getNick();
+            }
+        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if(BuildConfig.DEBUG)
-                Toast.makeText(mContext, stream.getUsername() + " stream add!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,nickname + "加入!", Toast.LENGTH_SHORT).show();
                 streamList.add(stream);
                 addConferenceView(stream);
                 updateConferenceMemberView(stream, true);
@@ -847,11 +866,17 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
 
     @Override
     public void onStreamRemoved(final EMConferenceStream stream) {
+        nickname =  stream.getUsername();
+        for(EaseUser nick:EaseApp.mAlluserList){
+            if(nick.getUsername().equals( stream.getUsername())){
+                nickname=nick.getNick();
+            }
+        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if(BuildConfig.DEBUG)
-                Toast.makeText(mContext, stream.getUsername() + " stream removed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,nickname + " 退出!", Toast.LENGTH_SHORT).show();
                 if (streamList.contains(stream)) {
                     removeConferenceView(stream);
                     updateConferenceViewGroup();
@@ -862,11 +887,17 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
 
     @Override
     public void onStreamUpdate(final EMConferenceStream stream) {
+        nickname =  stream.getUsername();
+        for(EaseUser nick:EaseApp.mAlluserList){
+            if(nick.getUsername().equals( stream.getUsername())){
+                nickname=nick.getNick();
+            }
+        }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if(BuildConfig.DEBUG)
-                Toast.makeText(mContext, stream.getUsername() + " stream update!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,nickname + " stream update!", Toast.LENGTH_SHORT).show();
                 updateConferenceMemberView(stream);
             }
         });
@@ -903,9 +934,9 @@ public class ConferenceActivity extends BaseActivity implements EMConferenceList
                 public void run() {
                     if (streamId.indexOf(conference.getPubStreamId()) != -1) {
                         conference.setPubStreamId(streamId);
-                        Toast.makeText(mContext, "Publish setup streamId=" + streamId, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "Publish setup streamId=" + streamId, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(mContext, "Subscribe setup streamId=" + streamId, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, "Subscribe setup streamId=" + streamId, Toast.LENGTH_SHORT).show();
                     }
                 }
             });

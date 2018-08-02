@@ -88,7 +88,7 @@ public class ContextMenuActivity extends BaseActivity {
 			recall.setVisibility(View.GONE);
 		}
 		long cha = (new Date().getTime() - message.getMsgTime())/1000;
-		if(cha>120){
+		if(cha>120||message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)||message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
 			recall.setVisibility(View.GONE);
 		}
 	}

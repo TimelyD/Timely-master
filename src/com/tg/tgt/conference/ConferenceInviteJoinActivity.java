@@ -3,6 +3,7 @@ package com.tg.tgt.conference;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.adapter.EaseContactAdapter;
 import com.hyphenate.easeui.domain.EaseUser;
@@ -28,6 +30,7 @@ import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.http.model2.GroupUserModel;
 import com.tg.tgt.ui.BaseActivity;
 import com.tg.tgt.ui.GroupPickContactsActivity;
+import com.tg.tgt.utils.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -154,11 +157,13 @@ public class ConferenceInviteJoinActivity extends BaseActivity {
      * @return
      */
     private List<String> getToBeAddMembers() {
-        List<String> members = new ArrayList<String>();
+        List<String> members = new ArrayList<String>();EaseApp.nick.clear();
+        EaseApp.mAlluserList.clear();EaseApp.mAlluserList.addAll(mAlluserList);
         int length = contactAdapter.isCheckedArray.length;
         for (int i = 0; i < length; i++) {
             if (contactAdapter.isCheckedArray[i]) {
                 members.add(mAlluserList.get(i).getUsername());
+                EaseApp.nick.add(mAlluserList.get(i).getNick());
             }
         }
 

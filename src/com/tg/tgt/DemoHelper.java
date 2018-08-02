@@ -1236,6 +1236,15 @@ public class DemoHelper {
                             msgNotification.setStatus(EMMessage.Status.SUCCESS);
                             EMClient.getInstance().chatManager().saveMessage(msgNotification);
                             conversation.removeMessage(id);
+                        if (MainActivity.messageCountHandler != null){
+                            for(EMMessage msg:conversation.getAllMessages()){
+                                if(msg.getMsgId().equals(id)){
+                                    if(msg.isUnread()==true){
+                                        MainActivity.messageCountHandler.sendEmptyMessage(2);
+                                    }
+                                }
+                            }
+                        }
                      //   }
                     }else {
                         handleCmdAction(message);

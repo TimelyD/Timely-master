@@ -287,6 +287,13 @@ public class MainActivity extends BaseActivity {
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
 				int count = getUnreadMsgCountTotal();
+				Log.i("count",count+"+");
+				if(msg.what==1){
+				}else {
+					if(count>0){
+						count=count-1;
+					}
+				}
 				if (count>0)
 					ShortcutBadger.applyCount(MainActivity.this,count);
 				else
