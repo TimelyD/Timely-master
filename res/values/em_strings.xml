@@ -26,7 +26,7 @@
     <string name="collection">collection</string>
     <string name="msg_recall_by_self">This message has been recalled by myself</string>
     <string name="msg_recall_by_user">This message has been recalled by %1$s</string>
-    <string name="other">The other</string>
+    <string name="other">The other </string>
     <string name="delete_conversation_messages">Delete conversation and messages</string>
     <string name="delete_conversation">Delete conversation</string>
     <string name="copy_message">Copy message</string>
