@@ -1372,14 +1372,11 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         // 设置要发给谁，用户username或者群聊groupid
         cmdMsg.setTo(toChatUsername);
         // 通过扩展字段添加要撤回消息的id
-      /*  cmdMsg.setMsgTime(contextMenuMessage.getMsgTime());
-        cmdMsg.setLocalTime(contextMenuMessage.getMsgTime());*/
         cmdMsg.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
         cmdMsg.setAttribute("msgId",contextMenuMessage.getMsgId());
         cmdMsg.setAttribute("name", SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
         cmdMsg.setStatus(EMMessage.Status.SUCCESS);
         Log.i("发送：",SharedPreStorageMgr.getIntance().getStringValue(App.applicationContext, Constant.NICKNAME));
-        //EMClient.getInstance().chatManager().saveMessage(cmdMsg);
         EMClient.getInstance().chatManager().sendMessage(cmdMsg);
         messageList.refresh();
     }
@@ -1398,15 +1395,20 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 for (EMMessage a : messages) {
                     String id = a.getStringAttribute("msgId", null);
                     String name = a.getStringAttribute("name", null);
-                    Log.i("收到：",name);
                     long time = 0;
                     for(EMMessage msg:conversation.getAllMessages()){
                         if(msg.getMsgId().equals(id)){
                             time=msg.getMsgTime();
                         }
                     }
-                    EMMessage msgNotification = EMMessage.createTxtSendMessage(getString(R.string.msg_recall_by_user,name),toChatUsername);
-                    EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name));
+                    String nickname="";String name2="";
+                    if(conversation.getType()== EMConversation.EMConversationType.GroupChat){
+                        nickname=getString(R.string.msg_recall_by_user,name);name2=name;
+                    }else {
+                        nickname=getString(R.string.msg_recall_by_user,"对方");name2="对方";
+                    }
+                    EMMessage msgNotification = EMMessage.createTxtSendMessage(nickname,toChatUsername);
+                    EMTextMessageBody txtBody = new EMTextMessageBody(getResources().getString(R.string.msg_recall_by_user,name2));
                     msgNotification.addBody(txtBody);
                     msgNotification.setMsgTime(time);
                     msgNotification.setLocalTime(time);
@@ -1418,27 +1420,20 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     messageList.refresh();
                 }
             }
-
             @Override
             public void onMessageRead(List<EMMessage> messages) {
-                //收到已读回执
                 Log.i("收到：","已读回执");
             }
-
             @Override
             public void onMessageDelivered(List<EMMessage> message) {
-                //收到已送达回执
                 Log.i("收到：","已送达回执");
             }
             @Override
             public void onMessageRecalled(List<EMMessage> messages) {
-                //消息被撤回
                 Log.i("收到：","消息被撤回");
             }
-
             @Override
             public void onMessageChanged(EMMessage message, Object change) {
-                //消息状态变动
                 Log.i("收到：","消息状态变动");
             }
         };

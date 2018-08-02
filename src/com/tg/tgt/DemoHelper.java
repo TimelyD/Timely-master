@@ -1219,8 +1219,16 @@ public class DemoHelper {
                                     time=msg.getMsgTime();
                                 }
                             }
-                            EMMessage msgNotification = EMMessage.createTxtSendMessage(appContext.getString(R.string.msg_recall_by_user,name),message.conversationId());
-                            EMTextMessageBody txtBody = new EMTextMessageBody(appContext.getResources().getString(R.string.msg_recall_by_user,name));
+                            String nickname="";String name2="";
+                            if(conversation.getType()== EMConversation.EMConversationType.GroupChat){
+                                nickname=appContext.getString(R.string.msg_recall_by_user,name);
+                                name2=name;
+                            }else {
+                                nickname=appContext.getString(R.string.msg_recall_by_user,"对方");
+                                name2="对方";
+                            }
+                            EMMessage msgNotification = EMMessage.createTxtSendMessage(nickname,message.conversationId());
+                            EMTextMessageBody txtBody = new EMTextMessageBody(appContext.getResources().getString(R.string.msg_recall_by_user,name2));
                             msgNotification.addBody(txtBody);
                             msgNotification.setMsgTime(time);
                             msgNotification.setLocalTime(time);
