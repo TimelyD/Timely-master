@@ -76,6 +76,7 @@ import com.hyphenate.easeui.utils.videocompress.InitListener;
 import com.hyphenate.easeui.widget.EaseChatRowRecall;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRow;
 import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoice;
+import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoicePlayClickListener;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.easeui.widget.chatrow.timeUtil;
 import com.hyphenate.exceptions.HyphenateException;
@@ -1427,6 +1428,15 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                         msgNotification.setAttribute(EaseConstant.MSG_NAME,name);
                         msgNotification.setStatus(EMMessage.Status.SUCCESS);
                         EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                        String msgid = a.getStringAttribute(EaseConstant.MSG_ID, null);
+                        if (EaseChatRowVoicePlayClickListener.playMsgId != null && EaseChatRowVoicePlayClickListener.playMsgId.equals(msgid) && EaseChatRowVoicePlayClickListener.isPlaying) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    EaseChatRowVoicePlayClickListener.currentPlayListener.stopPlayVoice();
+                                }
+                            });
+                        }
                         conversation.removeMessage(a.getStringAttribute(EaseConstant.MSG_ID,null));
                         messageList.refresh();
                     }
