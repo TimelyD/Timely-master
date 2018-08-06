@@ -161,12 +161,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 //                    Disposable subscribe = mSubject.subscribe();
 //                    subscribe.dispose();
 //                }
-                if (back){
-                    finish();
-                }
+                finish();
             }
         });
-
         instance = this;
         st = /*getResources().getString(com.tg.tgt.R.string.people)*/")";
 
@@ -256,9 +253,27 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             }
         };
     }
+    private void setEn(Boolean a){
+        if(a==false){
+            mTitleBar.setLeftLayoutClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    return;
+                }
+            });
+        }else {
+            mTitleBar.setLeftLayoutClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+    }
     private Boolean back=true;
     private void updateGroup() {
-        mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
+        //mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
+        setEn(false);
         if (mSubject == null) {
             synchronized (loadingPB) {
                 if (mSubject == null) {
@@ -274,7 +289,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 @Override
                                 public void accept(@NonNull Throwable throwable) throws Exception {
                                     back = true;
-                                    mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                    //mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                    setEn(true);
                                 }
                             })
                             .debounce(500, TimeUnit.MILLISECONDS)
@@ -302,7 +318,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                             @Override
                                                             public void run() {
                                                                 back = true;
-                                                                mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                                //mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                                setEn(true);
                                                             }
                                                         });
                                                         return strings;
@@ -315,7 +332,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                     public void accept(@NonNull Disposable disposable) throws Exception {
                                                         loadingPB.setVisibility(View.VISIBLE);
                                                         back = false;
-                                                        mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
+                                                        //mTitleBar.setLeftLayoutVisibility(View.INVISIBLE);
+                                                        setEn(false);
                                                     }
                                                 })
                                                 .subscribe(new Consumer<List<GroupUserModel>>() {
@@ -336,8 +354,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                         }
                                                         back = true;
                                                         loadingPB.setVisibility(View.INVISIBLE);
-                                                        mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
-
+                                                        //mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                        setEn(true);
                                                         // update block
                                                         refreshUi();
                                                     }
@@ -346,7 +364,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                                     public void accept(@NonNull Throwable throwable) throws Exception {
                                                         throwable.printStackTrace();
                                                         loadingPB.setVisibility(View.INVISIBLE);
-                                                        mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                        //mTitleBar.setLeftLayoutVisibility(View.VISIBLE);
+                                                        setEn(true);
                                                         back=true;
                                                         EaseAlertDialog dialog = new EaseAlertDialog(mActivity,
                                                                 HttpHelper.handleException

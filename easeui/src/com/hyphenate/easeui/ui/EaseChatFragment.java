@@ -46,6 +46,7 @@ import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
@@ -1526,6 +1527,19 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     VideoBean videoBean = new VideoBean(path, null,dur);
                     videoBean.setSize(len);
                     sendVideo(videoBean);
+                }
+                break;
+            case FILE:
+                String url = ((EMFileMessageBody) forward_msg.getBody()).getLocalUrl();
+                if (url != null) {
+                    File file = new File(url);
+                    if (!file.exists()) {
+                        // send thumb nail if original image does not exist
+                        Toast.makeText(getActivity(),"请先下载文件", Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                    Log.i("dcze",((EMFileMessageBody) forward_msg.getBody()).getLocalUrl()+"+"+url);
+                    sendFileMessage(url);
                 }
                 break;
             default:

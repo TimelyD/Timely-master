@@ -51,6 +51,7 @@ public class VoiceRecorderView extends RelativeLayout {
     private EaseVoiceRecorderCallback callBack;
     private ImageView mRightWaveIv;
     private ImageView mLeftWaveIv;
+    private View kong;
     //    private AnimationDrawable mRightAnim;
 
     public void setCallback(EaseVoiceRecorderCallback callBack){
@@ -83,7 +84,12 @@ public class VoiceRecorderView extends RelativeLayout {
         mSendVoiceIv = (ImageView) findViewById(R.id.send_voice_iv);
         mRightWaveIv = (ImageView) findViewById(R.id.right_wave_iv);
         mLeftWaveIv = (ImageView) findViewById(R.id.left_wave_iv);
-
+        kong=findViewById(R.id.kong);
+        kong.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         mSendVoiceIv.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

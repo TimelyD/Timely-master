@@ -394,7 +394,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     }
                 }
             }
-            if(type==EMMessage.Type.VOICE||type==EMMessage.Type.FILE||type==EMMessage.Type.LOCATION){
+            if(type==EMMessage.Type.VOICE||type==EMMessage.Type.LOCATION){
                 Toast.makeText(getActivity(),getActivity().getString(R.string.ti10),Toast.LENGTH_LONG).show();
                 return;
             }
@@ -717,7 +717,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     break;
 
                 case ContextMenuActivity.RESULT_CODE_FORWARD: // forward
-                    Log.i("dcz","RESULT_CODE_FORWARD");
+                    Log.i("dcz","RESULT_CODE_FORWARD"+contextMenuMessage.getMsgId());
                     zheng( contextMenuMessage.getMsgId());
                     break;
                 case ContextMenuActivity.RESULT_CODE_DUOFORWARD:
