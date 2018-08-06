@@ -10,7 +10,36 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        hyphenate:titleBarLeftImage="@drawable/back"/>
+        hyphenate:titleBarLeftImage="@drawable/back">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/titleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common.18sp"/>
+
+            <ImageView
+                android:id="@+id/headImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/titleName"
+                android:layout_marginLeft="@dimen/common.8dp"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </com.hyphenate.easeui.widget.EaseTitleBar>
     <View
         android:id="@+id/xian"
         android:layout_width="match_parent"

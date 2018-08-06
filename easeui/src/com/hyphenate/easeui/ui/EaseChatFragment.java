@@ -36,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -160,6 +161,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected MyItemClickListener extendMenuItemClickListener;
     protected View mReadFireView;
     private String mVideoCachePath;
+
+    private ImageView headImg;
+    private TextView titleTxt;
     public static Boolean enu=false;
     public static Handler Handler ;
     private void handler(){

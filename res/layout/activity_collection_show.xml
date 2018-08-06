@@ -95,12 +95,12 @@
         android:visibility="gone"
         android:layout_marginTop="@dimen/common.20dp">
 
-        <ImageView
+        <com.tg.tgt.widget.ResizableImageView
             android:id="@+id/image_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:scaleType="center"/>
+            android:layout_marginBottom="@dimen/common.100dp"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
     <RelativeLayout

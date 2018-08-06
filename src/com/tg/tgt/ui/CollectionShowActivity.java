@@ -34,6 +34,7 @@ import com.tg.tgt.utils.Player;
 import com.tg.tgt.utils.PlayerVideo;
 
 import com.hyphenate.easeui.GlideApp;
+import com.tg.tgt.widget.ResizableImageView;
 
 /**
  * Created by DELL on 2018/7/2.
@@ -58,7 +59,7 @@ public class CollectionShowActivity extends BaseActivity {
     private TextView colletionTime;
 
     private RelativeLayout imageRelative;
-    private ImageView imageView;
+    private ResizableImageView imageView;
 
     private RelativeLayout textRelative;
     private TextView textView;
@@ -111,7 +112,7 @@ public class CollectionShowActivity extends BaseActivity {
         userName = (TextView) findViewById(R.id.nick_name);
         colletionTime = (TextView) findViewById(R.id.collection_time);
         imageRelative = (RelativeLayout)findViewById(R.id.image_relative);
-        imageView = (ImageView) findViewById(R.id.image_show);
+        imageView = (ResizableImageView) findViewById(R.id.image_show);
         textRelative = (RelativeLayout)findViewById(R.id.text_relative);
         textView = (TextView) findViewById(R.id.text_content);
     }
@@ -119,7 +120,7 @@ public class CollectionShowActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initData(){
         collectionItemModel = (CollectionItemModel) this.getIntent().getExtras().get("model");
-        Log.e("Tag","type=="+collectionItemModel.getType());
+        Log.e("Tag","type=="+collectionItemModel.getType()+"filepath="+collectionItemModel.getFilePath());
         switch (collectionItemModel.getType()) {//1:图片 2:视频 3:音频 4:文件 5:文本
             case 1:
                 imageRelative.setVisibility(View.VISIBLE);
