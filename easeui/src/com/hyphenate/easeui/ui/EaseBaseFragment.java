@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 public abstract class EaseBaseFragment extends Fragment{
@@ -27,7 +30,6 @@ public abstract class EaseBaseFragment extends Fragment{
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         //noinspection ConstantConditions
         titleBar = (EaseTitleBar) getView().findViewById(com.hyphenate.easeui.R.id.title_bar);
-        
         initView();
         setUpView();
     }

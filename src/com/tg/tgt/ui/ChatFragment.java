@@ -738,6 +738,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                     collect(0);
                     break;
                 case ContextMenuActivity.RESULT_CODE_PLAYVOICE:
+                    if (EaseConstant.isHandSetReciver)
+                        titleBar.setHeatVisibility(View.VISIBLE);
+                    else
+                        titleBar.setHeatVisibility(View.GONE);
                     break;
                 default:
                     break;
@@ -751,8 +755,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 }
             }
         }else if(requestCode == REQUEST_CODE_GROUP_DETAIL){
-            if(resultCode == Activity.RESULT_OK)
+            if(resultCode == Activity.RESULT_OK) {
                 titleBar.setTitle(GroupManger.getGroup(toChatUsername).getGroupName());
+
+            }
         }else if (requestCode == COLLECT_DOWNLOAD){//收藏时没下载的情况
             if (resultCode == COLLECT_SUCCESS){
                 if (type == 1 && !((EMFileMessageBody)messageDownLoad.getBody()).getLocalUrl().endsWith(".jpg")) {

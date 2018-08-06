@@ -70,13 +70,13 @@ public class EaseTitleBar extends RelativeLayout{
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EaseTitleBar);
             String title = ta.getString(R.styleable.EaseTitleBar_titleBarTitle);
             if(TextUtils.isEmpty(title)) {
-                Drawable drawable = ta.getDrawable(R.styleable.EaseTitleBar_titleBarTitleImage);
-                if(null != drawable){
+             //   Drawable drawable = ta.getDrawable(R.styleable.EaseTitleBar_titleBarTitleImage);
+              //  if(null != drawable){
                     ivTitle = (ImageView) findViewById(R.id.iv_title);
                     //ivTitle.setVisibility(VISIBLE);
-                    ivTitle.setImageDrawable(drawable);
+             //       ivTitle.setImageDrawable(drawable);
                     titleView.setText(R.string.session);
-                }
+             //   }
             }else {
                 titleView.setText(title);
             }
@@ -152,6 +152,12 @@ public class EaseTitleBar extends RelativeLayout{
         leftLayout.setVisibility(visibility);
     }
 
+    public void setHeatVisibility(int visibility){
+        if (null == ivTitle)
+            ivTitle = (ImageView) findViewById(R.id.iv_title);
+        ivTitle.setVisibility(visibility);
+    }
+
     public void setRightLayoutVisibility(int visibility){
         rightLayout.setVisibility(visibility);
     }
@@ -161,6 +167,10 @@ public class EaseTitleBar extends RelativeLayout{
             ivTitle.setVisibility(GONE);
         }
         titleView.setText(title);
+    }
+
+    public void setTitleView(){
+        titleView.setText(View.GONE);
     }
 
     public void setBackgroundColor(int color){
