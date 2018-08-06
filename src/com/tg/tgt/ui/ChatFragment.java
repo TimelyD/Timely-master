@@ -666,6 +666,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     public void onResume() {
         super.onResume();
         if (chatType == EaseConstant.CHATTYPE_GROUP) {
+            if (EaseConstant.isHandSetReciver)
+                titleBar.setHeatVisibility(View.VISIBLE);
             titleBar.setTitle(GroupManger.getGroup(toChatUsername).getGroupName());
         }
     }
