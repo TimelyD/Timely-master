@@ -155,7 +155,11 @@ public class EaseTitleBar extends RelativeLayout{
     public void setHeatVisibility(int visibility){
         if (null == ivTitle)
             ivTitle = (ImageView) findViewById(R.id.iv_title);
-        ivTitle.setVisibility(visibility);
+        ivTitle.setVisibility(VISIBLE);
+        if (visibility == GONE)
+            ivTitle.setBackgroundResource(R.drawable.heat_img);
+        else
+            ivTitle.setBackgroundResource(R.drawable.heat);
     }
 
     public void setRightLayoutVisibility(int visibility){
