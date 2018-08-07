@@ -1202,6 +1202,12 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         sendMessage(message);
     }
 
+    protected void sendFileMessage(String filePath,String name) {
+        EMMessage message = EMMessage.createFileSendMessage(filePath, toChatUsername);
+        ( (EMFileMessageBody)message.getBody()).setFileName(name);
+        sendMessage(message);
+    }
+
 
     protected void sendMessage(EMMessage message) {
         if (message == null) {
@@ -1542,8 +1548,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                         Toast.makeText(getActivity(),"请先下载文件", Toast.LENGTH_LONG).show();
                         break;
                     }
-                    Log.i("dcze",((EMFileMessageBody) forward_msg.getBody()).getLocalUrl()+"+"+url);
-                    sendFileMessage(url);
+                    sendFileMessage(url,((EMFileMessageBody) forward_msg.getBody()).getFileName());
                 }
                 break;
             default:
