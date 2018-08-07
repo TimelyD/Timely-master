@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/left_layout"
         android:layout_toLeftOf="@+id/right_layout"
-        android:layout_centerInParent="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/title"
@@ -40,13 +40,14 @@
         <ImageView
             android:visibility="gone"
             android:id="@+id/iv_title"
-            android:gravity="center"
-            android:src="@drawable/heat"
+            android:background="@drawable/heat_img"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/common.19dp"
             android:layout_toRightOf="@id/title"
             android:layout_marginLeft="@dimen/common.5dp"
-            android:scaleType="fitCenter"/>
+            android:layout_height="@dimen/common.18dp"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="@dimen/common.3dp"
+            android:layout_alignBottom="@id/title"/>
 
     </RelativeLayout>
 

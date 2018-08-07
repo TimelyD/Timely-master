@@ -670,6 +670,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 titleBar.setHeatVisibility(View.VISIBLE);
             titleBar.setTitle(GroupManger.getGroup(toChatUsername).getGroupName());
         }
+        if (EaseConstant.isHandSetReciver)
+            titleBar.setHeatVisibility(View.VISIBLE);
+        else
+            titleBar.setHeatVisibility(View.GONE);
     }
 
     private int isCode;
