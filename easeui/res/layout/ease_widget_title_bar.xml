@@ -44,10 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_toRightOf="@id/title"
             android:layout_marginLeft="@dimen/common.5dp"
-            android:layout_height="@dimen/common.18dp"
+            android:layout_height="@dimen/common.13dp"
             android:scaleType="fitCenter"
-            android:layout_marginBottom="@dimen/common.3dp"
-            android:layout_alignBottom="@id/title"/>
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
