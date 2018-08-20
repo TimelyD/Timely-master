@@ -212,7 +212,7 @@ public class ForgetPwdAct extends BaseActivity implements View.OnClickListener {
 
         ApiManger2.getApiService()
                 .sendRestPwdSms(mEmailLast,email)
-                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(false))
                 .subscribe(new BaseObserver2<EmptyData>() {
                     @Override
                     protected void onSuccess(EmptyData emptyData) {

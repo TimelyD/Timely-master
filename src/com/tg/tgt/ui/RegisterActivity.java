@@ -351,7 +351,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 				});*/
 		ApiManger2.getApiService()
 				.sendRegistSms(username,mEmailLast.trim())
-				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+				.compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(false))
 				.subscribe(new BaseObserver2<EmptyData>() {
 					@Override
 					protected void onSuccess(EmptyData emptyData) {

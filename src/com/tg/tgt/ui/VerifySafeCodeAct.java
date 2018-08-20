@@ -68,7 +68,7 @@ public class VerifySafeCodeAct extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.get_code_btn:
                 ApiManger2.getApiService().sendRestSafePwdSms(Constant.MYUID)
-                        .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+                        .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(false))
                         .subscribe(new BaseObserver2<EmptyData>() {
                             @Override
                             protected void onSuccess(EmptyData emptyData) {
