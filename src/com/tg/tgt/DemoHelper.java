@@ -1303,6 +1303,7 @@ public class DemoHelper {
         }
         EMCmdMessageBody cmdMsgBody = (EMCmdMessageBody) message.getBody();
         String action = cmdMsgBody.action();
+        Log.i("qqq","哈哈"+action);
         final String username = message.getFrom();
         if(action.startsWith(CMD_USERADD_)){
             //头的长度
@@ -1337,8 +1338,7 @@ public class DemoHelper {
         }else if(action.startsWith(CMD_USERPASS_)){
             //json是被拼接的json，例如action:USERADD_98_{"nickname":"ufuf","json":"hh","avatar":"http://192.168.2.78:9998/group1/M00/00/01/wKgCTln2zzCATNoGAAA00JG5ens821.jpg"}
             String json = action.substring(CMD_USERPASS_.length());
-
-            saveUserInfoFromJson(json);
+            //saveUserInfoFromJson(json);//这个如果放出来就会在app杀死情况下收不到提示
 
             /*List<InviteMessage> msgs = inviteMessgeDao.getMessagesList();
             for (InviteMessage inviteMessage : msgs) {
