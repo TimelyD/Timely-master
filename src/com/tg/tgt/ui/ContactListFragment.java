@@ -186,14 +186,14 @@ public class ContactListFragment extends EaseContactListFragment {
             }
         });
         super.setUpView();
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 blackEaseUser = (EaseUser)listView.getItemAtPosition(position);
                 startActivityForResult(new Intent(mContext,ContextBlackActivity.class),BLACKACTIVIT);
                 return true;
             }
-        });
+        });*/
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override

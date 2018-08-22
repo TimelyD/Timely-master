@@ -1112,6 +1112,7 @@ public class DemoHelper {
         }
         inviteMessgeDao.saveMessage(msg);
         //increase the unread message count
+        Log.i("qqq","加了");
         inviteMessgeDao.saveUnreadMessageCount(inviteMessgeDao.getUnreadMessagesCount()+1);
         // notify there is new message
         getNotifier().vibrateAndPlayTone(null);

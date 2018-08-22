@@ -25,6 +25,7 @@ import com.tg.tgt.db.InviteMessgeDao;
 import com.tg.tgt.domain.InviteMessage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -59,6 +60,7 @@ public class NewFriendsMsgActivity extends BaseActivity {
 				shi.add(msgs.get(i));
 			}
 		}
+		Collections.reverse(shi);
 		for(InviteMessage a:shi){
 			ce.add(a);
 		}
