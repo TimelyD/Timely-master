@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/jiantou_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_alignParentTop="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common.10dp"
+            android:background="@drawable/pop_jiantou"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_below="@+id/jiantou_relative">
+
+        <RelativeLayout
+            android:id="@+id/delete_relative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.60dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/common.22dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/delete_friend_iamge"/>
+
+            <TextView
+                android:id="@+id/delete_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imageDelete"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common.18dp"
+                android:textSize="@dimen/common.15sp"
+                android:textColor="#E6000000"
+                android:text="@string/shanchucitiaodongtai"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common.2dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignLeft="@+id/delete_text"
+                android:background="@color/divider_t"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/feedback_relative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common.60dp">
+
+            <ImageView
+                android:id="@+id/imageFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/common.22dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/feedback_friend_image"/>
+
+            <TextView
+                android:id="@+id/feedback_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imageFeedback"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/common.18dp"
+                android:textSize="@dimen/common.15sp"
+                android:textColor="#E6000000"
+                android:text="@string/jubao"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common.2dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignLeft="@+id/feedback_text"
+                android:background="@color/divider_t"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>
