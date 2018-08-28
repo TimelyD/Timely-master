@@ -241,6 +241,30 @@
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/tx_3"/>
                 </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/zhuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:gravity="top"
+                        android:paddingLeft="@dimen/common.10dp"
+                        style="@style/InfoLayoutStyle">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical|left"
+                            android:text="@string/The_transfer"
+                            android:textColor="@color/tx_black_2"
+                            android:textSize="@dimen/tx_3"/>
+                        <View
+                            android:layout_alignParentTop="true"
+                            style="@style/LineHorizontalStyle"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:background="@color/bg_t"

@@ -1311,6 +1311,7 @@ public class DemoHelper {
             //除了头，第一个分割符的index
             int i = action.indexOf(CMD_SPLIT, head_length);
             long messageId = Long.parseLong(action.substring(head_length, i));
+            Log.i("qqq_",messageId+"");
             //reason是被拼接的json，例如action:USERADD_98_{"nickname":"ufuf","reason":"hh","avatar":"http://192.168.2.78:9998/group1/M00/00/01/wKgCTln2zzCATNoGAAA00JG5ens821.jpg"}
             String json = action.substring(i+1);
 

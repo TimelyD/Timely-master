@@ -175,7 +175,7 @@ public class NewGroupActivity extends BaseActivity {
             String desc = introductionEditText.getText().toString();
             final String[] members = data.getStringArrayExtra("newmembers");
 			ApiManger2.getApiService()
-					.createGroup(groupName, desc, 500, memberCheckbox.isChecked(), false, getMembers(members))
+					.createGroup(groupName, desc, 500,true, false, getMembers(members))
 					.compose(this.<HttpResult<GroupModel>>bindToLifeCyclerAndApplySchedulers(false))
 					.subscribe(new BaseObserver2<GroupModel>() {
 						@Override

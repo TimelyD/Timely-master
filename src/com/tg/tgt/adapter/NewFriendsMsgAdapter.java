@@ -19,6 +19,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -278,6 +279,10 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 					@Override
 					public void onFaild(int code, String message) {
 						super.onFaild(code, message);
+						if(code==50001){
+							messgeDao.deleteMessage(msg.getFrom());
+							((BaseActivity) context).finish();
+						}
 					}
 				});
 
@@ -371,7 +376,17 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                              }
                          });
                      }
-                 });
+
+					 @Override
+					 public void onFaild(int code, String message) {
+						 super.onFaild(code, message);
+						 Log.i("zzz2",code+"+"+msg.getFrom()+"+"+msg.getMessageId());
+						 if(code==50001){
+							 messgeDao.deleteMessage(msg.getFrom());
+							 ((BaseActivity) context).finish();
+						 }
+					 }
+				 });
 
         /*final ProgressDialog pd = new ProgressDialog(context);
         String str1 = context.getResources().getString(R.string.Are_refuse_with);

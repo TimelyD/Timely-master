@@ -131,6 +131,7 @@
     <string name="blacklist">Black list</string>
     <string name="serach_group_message">Search messages</string>
     <string name="Empty_the_chat_record">Clear conversation</string>
+    <string name="The_transfer">Transfer of the group manager</string>
     <string name="Shielding_of_the_message">No group messaging</string>
     <string name="block_offline_group_push">Prompt group message</string>
     <string name="dismiss_group">Dismiss group</string>
