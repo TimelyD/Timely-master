@@ -47,6 +47,7 @@ public class GroupModel {
     private int maxUsers;
     private String updateTime;
     private long userId;
+    private Boolean groupOwner;
 
     @ToMany(referencedJoinProperty = "groupId")
     private List<GroupUserModel> groupUserModels;
@@ -60,7 +61,7 @@ public class GroupModel {
     @Generated(hash = 2010397577)
     public GroupModel(int affiliationsCont, boolean allowInvites, boolean blocks, String createTime,
             String groupDescription, String groupName, String groupSn, Long id,
-            boolean inviteNeedConffirm, int maxUsers, String updateTime, long userId) {
+            boolean inviteNeedConffirm, int maxUsers, String updateTime, long userId,boolean groupOwner) {
         this.affiliationsCont = affiliationsCont;
         this.allowInvites = allowInvites;
         this.blocks = blocks;
@@ -73,6 +74,7 @@ public class GroupModel {
         this.maxUsers = maxUsers;
         this.updateTime = updateTime;
         this.userId = userId;
+        this.groupOwner=groupOwner;
     }
 
     public void setGroupUserModels(List<GroupUserModel> groupUserModels) {
@@ -178,6 +180,14 @@ public class GroupModel {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public Boolean getGroupOwner() {
+        return groupOwner;
+    }
+
+    public void setGroupOwner(Boolean groupOwner) {
+        this.groupOwner = groupOwner;
     }
 
     /**
