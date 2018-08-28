@@ -29,6 +29,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.DeviceUtils;
@@ -195,13 +196,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     private void refreshMotionUnread() {
         int motionUnread = getMotionUnread();
+        EaseConstant.friendsUnread = getMotionUnread();
         if(motionUnread>0){
             //tvUnreadMoment.setVisibility(View.VISIBLE);
             tvUnreadMoment.setVisibility(View.VISIBLE);
             tvUnreadMoment.setText(""+motionUnread);
-            MainActivity.Handler.sendEmptyMessage(motionUnread);
+            //MainActivity.Handler.sendEmptyMessage(motionUnread);
         }else {
-            MainActivity.Handler.sendEmptyMessage(0);
+        //    MainActivity.Handler.sendEmptyMessage(0);
             tvUnreadMoment.setVisibility(View.GONE);
         }
     }
@@ -357,7 +359,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 showQrCode();
                 break;
             case R.id.friends_circle_layout:
-                DBManager.getInstance().saveUnreadMotionActionCount(0);
+               // DBManager.getInstance().saveUnreadMotionActionCount(0);
                 startActivity(new Intent(mContext, MomentAct.class));
                 break;
             case R.id.friends_me:

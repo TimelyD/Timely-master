@@ -241,12 +241,11 @@ public class EaseContact2Adapter extends ArrayAdapter<GroupUserModel> implements
                     
                     if(username.startsWith(prefixString)){
                         newValues.add(user);
-                    }
-                    else{
+                    } else{
                          final String[] words = username.split(" ");
                          final int wordCount = words.length;
     
-                         // Start at index 0, in case valueText starts with space(s)
+                         // Start at index 0, in case valueText star·ts with space(s)
                         for (String word : words) {
                             if (word.startsWith(prefixString)) {
                                 newValues.add(user);

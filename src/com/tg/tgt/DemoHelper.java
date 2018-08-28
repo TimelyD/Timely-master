@@ -47,6 +47,7 @@ import com.hyphenate.easeui.model.EaseNotifier;
 import com.hyphenate.easeui.model.EaseNotifier.EaseNotificationInfoProvider;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.hyphenate.easeui.utils.SpUtils;
 import com.hyphenate.easeui.utils.rxbus2.BusCode;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
@@ -1110,7 +1111,9 @@ public class DemoHelper {
         if (inviteMessgeDao == null) {
             inviteMessgeDao = new InviteMessgeDao(appContext);
         }
+        Log.e("Tag","msg=notifyNewInviteMessage");
         inviteMessgeDao.saveMessage(msg);
+        Log.e("Tag","msg=notifyNewInviteMessage");
         //increase the unread message count
         Log.i("qqq","加了");
         inviteMessgeDao.saveUnreadMessageCount(inviteMessgeDao.getUnreadMessagesCount()+1);
@@ -1305,6 +1308,7 @@ public class DemoHelper {
         String action = cmdMsgBody.action();
         Log.i("qqq","哈哈"+action);
         final String username = message.getFrom();
+        Log.e("Tag","action="+action);
         if(action.startsWith(CMD_USERADD_)){
             //头的长度
             int head_length = CMD_USERADD_.length();
@@ -1338,6 +1342,9 @@ public class DemoHelper {
         }else if(action.startsWith(CMD_USERPASS_)){
             //json是被拼接的json，例如action:USERADD_98_{"nickname":"ufuf","json":"hh","avatar":"http://192.168.2.78:9998/group1/M00/00/01/wKgCTln2zzCATNoGAAA00JG5ens821.jpg"}
             String json = action.substring(CMD_USERPASS_.length());
+            Log.e("Tag","msg="+json);
+            saveUserInfoFromJson(json);
+            Log.e("Tag","msg="+json);
             //saveUserInfoFromJson(json);
 
             /*List<InviteMessage> msgs = inviteMessgeDao.getMessagesList();
@@ -1353,6 +1360,7 @@ public class DemoHelper {
             msg.setTime(System.currentTimeMillis());
             Log.d(TAG, username + "accept your request");
             msg.setStatus(InviteMessage.InviteMesageStatus.BEAGREED);
+            Log.e("Tag","msg="+json);
             notifyNewInviteMessage(msg);
             broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
             saveUserInfoFromJson(json);
@@ -1426,7 +1434,14 @@ public class DemoHelper {
                 ActionBean actionBean = getGson().fromJson(action, ActionBean.class);
                 DBManager.getInstance().insertMomentAction(actionBean);
                 DBManager.getInstance().saveUnreadMotionActionCount(1);
-                RxBus.get().send(BusCode.MOMENT_ACTION);
+                if (!TextUtils.isEmpty(actionBean.getPicture()))
+                    SpUtils.put(appContext,"lastHeadImage",actionBean.getPicture());
+                if (EaseConstant.isFriendsView){
+                    RxBus.get().send(BusCode.FRIENDVIEW_ACTION);
+                }else {
+                    RxBus.get().send(BusCode.MOMENT_ACTION);
+                }
+
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
             }
@@ -1446,14 +1461,17 @@ public class DemoHelper {
      */
     private boolean saveUserInfoFromJson(String json){
         boolean success = false;
+        Log.e("Tag","msg3="+json);
         if(sGson == null)
             sGson = new Gson();
         try {
+            Log.e("Tag","msg2="+json);
             UserFriendModel userFriendModel = sGson.fromJson(json, UserFriendModel.class);
             EaseUser easeUser = CodeUtils.wrapUser(userFriendModel);
             saveContact(easeUser);
             success = true;
         } catch (JsonSyntaxException e) {
+            Log.e("Tag","msg=");
             e.printStackTrace();
         }
         return success;
@@ -1573,7 +1591,6 @@ public class DemoHelper {
         if (isLoggedIn() && contactList == null) {
             contactList = demoModel.getContactList();
         }
-
         // return a empty non-null object to avoid app crash
         if (contactList == null) {
             return new Hashtable<String, EaseUser>();

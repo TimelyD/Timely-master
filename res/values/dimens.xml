@@ -9,6 +9,7 @@
     <dimen name="normal_textsize">@dimen/common.12sp</dimen>
     <dimen name="circle_call_width">@dimen/common.60dp</dimen>
     <dimen name="normal_moment_layout_height">@dimen/common.48dp</dimen>
+    <dimen name="head_moment_height">@dimen/common.200dp</dimen>
     <dimen name="head_moment_layout_height">@dimen/common.275dp</dimen>
     <dimen name="tx_0">@dimen/common.20sp</dimen>
     <!--标题-->
