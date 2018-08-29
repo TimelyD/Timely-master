@@ -202,11 +202,13 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
     }
 
     boolean isCurrentOwner(EMGroup group) {
-        return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        //return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        return mGroup != null && mGroup.getGroupOwner()==true;
     }
 
     boolean isCurrentOwner() {
-        return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        //return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        return mGroup != null && mGroup.getGroupOwner()==true;
     }
 
     boolean isCurrentAdmin(EMGroup group) {
@@ -485,7 +487,8 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
             }else {
                 final GroupUserModel groupUserModel = getItem(position);
                 final String username = String.valueOf(groupUserModel.getUserId());
-                if(username.equals(mGroup.getUserId().toString())){
+                //if(username.equals(mGroup.getUserId().toString())){
+                if(groupUserModel.getGroupOwner()==true){
                     holder.ownerstar.setVisibility(View.VISIBLE);
                 }else {
                     holder.ownerstar.setVisibility(View.GONE);
@@ -508,7 +511,8 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
                             return;
                         }
                         //点击群主，无效
-                        if (username.equals(mGroup.getUserId().toString())) {
+                       // if (username.equals(mGroup.getUserId().toString())) {
+                        if (groupUserModel.getGroupOwner()==true) {
                             return;
                             //不是群主点击管理员无效
                         } else if (groupUserModel.getGroupAdmin() && !isCurrentOwner(group)) {

@@ -130,10 +130,12 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         
         if (conversation.getType() == EMConversationType.GroupChat) {
             String groupId = conversation.conversationId();
-            if(EMClient.getInstance().groupManager().getGroup(groupId).isMsgBlocked()){
-                holder.block.setVisibility(View.VISIBLE);
-            }else {
-                holder.block.setVisibility(View.GONE);
+            if(EMClient.getInstance().groupManager().getGroup(groupId)!=null){
+                if(EMClient.getInstance().groupManager().getGroup(groupId).isMsgBlocked()){
+                    holder.block.setVisibility(View.VISIBLE);
+                }else {
+                    holder.block.setVisibility(View.GONE);
+                }
             }
             if(EaseAtMessageHelper.get().hasAtMeMsg(groupId)){
                 holder.motioned.setVisibility(View.VISIBLE);

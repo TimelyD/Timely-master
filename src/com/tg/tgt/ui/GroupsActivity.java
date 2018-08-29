@@ -152,8 +152,10 @@ public class GroupsActivity extends BaseActivity {
 		Collections.sort(grouplist, new Comparator<GroupModel>() {
 			@Override
 			public int compare(GroupModel lhs, GroupModel rhs) {
-				boolean lhsOwner = App.getMyUid().equals(String.valueOf(lhs.getUserId()));
-				boolean rhsOwner = App.getMyUid().equals(String.valueOf(rhs.getUserId()));
+				/*boolean lhsOwner = App.getMyUid().equals(String.valueOf(lhs.getUserId()));
+				boolean rhsOwner = App.getMyUid().equals(String.valueOf(rhs.getUserId()));*/
+				boolean lhsOwner = lhs.getGroupOwner();
+				boolean rhsOwner = rhs.getGroupOwner();
 				/*if(lhsOwner && rhsOwner){
 					return 0;
 				}else */if(!lhsOwner & rhsOwner){
@@ -175,7 +177,19 @@ public class GroupsActivity extends BaseActivity {
 
 	@Override
 	public void onResume() {
-        refresh();
+		new Thread(){
+			@Override
+			public void run(){
+				try {
+					GroupManger.fetchAllGroup();
+					handler.sendEmptyMessage(0);
+				} catch (Exception e) {
+					e.printStackTrace();
+					handler.sendEmptyMessage(1);
+				}
+			}
+		}.start();
+        //refresh();
 		super.onResume();
 	}
 	

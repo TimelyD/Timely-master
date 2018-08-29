@@ -202,7 +202,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         mGroupUsers = GroupManger.getGroupUsers(groupId);
         memberList.addAll(mGroupUsers.values());
         sortGroup(memberList);
-        n = isCurrentOwner() || mGroup.getAllowInvites() ? 2 : 0;
+        n = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 0;
         //int size = memberList.size() + n > 10 ? 10 : memberList.size() + n;
         Log.i("zzz",n+"+"+memberList.size());
         if(memberList.size() + n > 10){
@@ -213,7 +213,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
       /*  memberList2.clear();
         memberList2=memberList;*/
         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
-        zhuan.setVisibility(isCurrentOwner()||mGroup.getAllowInvites()?View.VISIBLE:View.GONE);
+        zhuan.setVisibility(isCurrentOwner()||mGroup.getGroupOwner()?View.VISIBLE:View.GONE);
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner,memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
         userGridview.setAdapter(membersAdapter);
@@ -263,6 +263,26 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                 }
             }
         };
+    }
+    private void shua(){
+        mGroup = GroupManger.getGroup(groupId);
+        mGroupUsers = GroupManger.getGroupUsers(groupId);
+        memberList.clear();
+        memberList.addAll(mGroupUsers.values());
+        sortGroup(memberList);
+        n = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 0;
+        Log.i("zzz",n+"+"+memberList.size());
+        if(memberList.size() + n > 10){
+            more.setVisibility(View.VISIBLE);
+        }else {
+            more.setVisibility(View.GONE);
+        }
+        mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
+        membersAdapter.notifyDataSetChanged();
+        // 保证每次进详情看到的都是最新的group
+//		updateGroup();
+        refreshUi();
+        updateGroup();
     }
     private void setEn(Boolean a){
         if(a==false){
@@ -431,6 +451,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         exitBtn.setVisibility(isOwner ? View.GONE : View.VISIBLE);
         deleteBtn.setVisibility(isOwner ? View.VISIBLE : View.GONE);
         changeGroupNameLayout.setVisibility(isOwner ? View.VISIBLE : View.GONE);
+        zhuan.setVisibility(isOwner ? View.VISIBLE : View.GONE);
 //        changeGroupDescriptionLayout.setVisibility(isOwner ? View.VISIBLE : View.GONE);
     }
 
@@ -459,7 +480,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     }
 
     boolean isCurrentOwner(EMGroup group) {
-        return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        //return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        return mGroup != null && mGroup.getGroupOwner()==true;
 		/*String owner = group.getOwner();
 		if (owner == null || owner.isEmpty()) {
 			return false;
@@ -468,7 +490,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     }
 
     boolean isCurrentOwner() {
-        return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        //return mGroup != null && App.getMyUid().equals(String.valueOf(mGroup.getUserId()));
+        return mGroup != null && mGroup.getGroupOwner()==true;
     }
 
     boolean isCurrentAdmin(EMGroup group) {
@@ -587,7 +610,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                             .subscribe(new BaseObserver2<List<GroupUserModel>>() {
                                 @Override
                                 protected void onSuccess(List<GroupUserModel> emptyData) {
-
+                                    shua();
                                 }
                             });
                     break;
@@ -1242,7 +1265,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private class GridAdapter extends ArrayAdapter<GroupUserModel> {
 
         public int getHeadCount() {
-            return isCurrentOwner()||mGroup.getAllowInvites() ? 2 : 1;
+            return isCurrentOwner()||mGroup.getGroupOwner() ? 2 : 1;
         }
 
         private int res;
@@ -1338,11 +1361,16 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                 final String username = String.valueOf(groupUserModel.getUserId());
 //				EaseUserUtils.setUserNick(username, holder.textView);
 //				EaseUserUtils.setUserAvatar(getContext(), username, holder.imageView);
-                if(username.equals(mGroup.getUserId().toString())){
+                if(groupUserModel.getGroupOwner()==true){
                     holder.ownerstar.setVisibility(View.VISIBLE);
                 }else {
                     holder.ownerstar.setVisibility(View.GONE);
                 }
+                /*if(username.equals(mGroup.getUserId().toString())){
+                    holder.ownerstar.setVisibility(View.VISIBLE);
+                }else {
+                    holder.ownerstar.setVisibility(View.GONE);
+                }*/
                 GlideApp.with(mActivity).load(groupUserModel.getPicture()).placeholder(R.drawable.default_avatar2)
                         .into(holder.imageView);
                 EaseUser userInfo = EaseUserUtils.getUserInfo(groupUserModel.getUsername());
@@ -1372,7 +1400,9 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                         }
 
                         //点击群主，无效
-                        if (username.equals(mGroup.getUserId().toString())) {
+                       /* if (username.equals(mGroup.getUserId().toString())) {
+                            return;*/
+                        if (groupUserModel.getGroupOwner()==true) {
                             return;
                             //不是群主点击管理员无效
                         } else if (groupUserModel.getGroupAdmin() && !isCurrentOwner(group)) {

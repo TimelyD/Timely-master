@@ -1571,9 +1571,9 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             getActivity().runOnUiThread(new Runnable() {
 
                 public void run() {
+                    Log.i("www",toChatUsername+"++"+groupId);
                     if (toChatUsername.equals(groupId)) {
-                        Toast.makeText(EaseApp.applicationContext, com.hyphenate.easeui.R.string.you_are_group, Toast.LENGTH_LONG)
-                                .show();
+                        Toast.makeText(EaseApp.applicationContext, com.hyphenate.easeui.R.string.you_are_group, Toast.LENGTH_LONG).show();
                         Activity activity = getActivity();
                         if (activity != null && !activity.isFinishing()) {
                             activity.finish();

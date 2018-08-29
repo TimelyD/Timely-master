@@ -58,10 +58,11 @@ public class GroupModel {
     @Generated(hash = 676544898)
     private transient GroupModelDao myDao;
 
-    @Generated(hash = 2010397577)
+    @Generated(hash = 1704371473)
     public GroupModel(int affiliationsCont, boolean allowInvites, boolean blocks, String createTime,
             String groupDescription, String groupName, String groupSn, Long id,
-            boolean inviteNeedConffirm, int maxUsers, String updateTime, long userId,boolean groupOwner) {
+            boolean inviteNeedConffirm, int maxUsers, String updateTime, long userId,
+            Boolean groupOwner) {
         this.affiliationsCont = affiliationsCont;
         this.allowInvites = allowInvites;
         this.blocks = blocks;
@@ -74,7 +75,7 @@ public class GroupModel {
         this.maxUsers = maxUsers;
         this.updateTime = updateTime;
         this.userId = userId;
-        this.groupOwner=groupOwner;
+        this.groupOwner = groupOwner;
     }
 
     public void setGroupUserModels(List<GroupUserModel> groupUserModels) {
@@ -182,14 +183,6 @@ public class GroupModel {
         this.userId = userId;
     }
 
-    public Boolean getGroupOwner() {
-        return groupOwner;
-    }
-
-    public void setGroupOwner(Boolean groupOwner) {
-        this.groupOwner = groupOwner;
-    }
-
     /**
      * To-many relationship, resolved on first access (and after reset).
      * Changes to to-many relations are not persisted, make changes to the target entity.
@@ -261,4 +254,11 @@ public class GroupModel {
         myDao = daoSession != null ? daoSession.getGroupModelDao() : null;
     }
 
+    public Boolean getGroupOwner() {
+        return this.groupOwner;
+    }
+
+    public void setGroupOwner(Boolean groupOwner) {
+        this.groupOwner = groupOwner;
+    }
 }

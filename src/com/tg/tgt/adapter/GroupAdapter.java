@@ -124,15 +124,18 @@ public class GroupAdapter extends ArrayAdapter<GroupModel> {
 				convertView = inflater.inflate(R.layout.em_row_group, parent, false);
 			}
 					TextView header = (TextView) convertView.findViewById(R.id.header);
-			if(App.getMyUid().equals(String.valueOf(groups.get(position-headCount).getUserId()))) {
-				if (position-headCount == 0 || !App.getMyUid().equals(String.valueOf(groups.get(position - headCount -1).getUserId()))) {
+			//if(App.getMyUid().equals(String.valueOf(groups.get(position-headCount).getUserId()))) {
+			if(groups.get(position-headCount).getGroupOwner()==true) {
+				//if (position-headCount == 0 || !App.getMyUid().equals(String.valueOf(groups.get(position - headCount -1).getUserId()))) {
+				if (position-headCount == 0 ||groups.get(position - headCount -1).getGroupOwner()==false) {
 					header.setVisibility(View.VISIBLE);
 					header.setText(R.string.group_i_create);
 				} else {
 					header.setVisibility(View.GONE);
 				}
 			}else{
-				if(position-headCount == 0  || App.getMyUid().equals(String.valueOf(groups.get(position - headCount -1).getUserId()))){
+				//if(position-headCount == 0  || App.getMyUid().equals(String.valueOf(groups.get(position - headCount -1).getUserId()))){
+				if(position-headCount == 0  || groups.get(position - headCount -1).getGroupOwner()==true){
 					header.setVisibility(View.VISIBLE);
 					header.setText(R.string.group_i_join);
 				}else {
