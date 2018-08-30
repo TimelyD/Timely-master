@@ -1335,6 +1335,7 @@ public class DemoHelper {
             msg.setStatus(InviteMessage.InviteMesageStatus.BEINVITEED);
             notifyNewInviteMessage(msg);
             broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
+            broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED2));
         }else if(action.startsWith(CMD_USERPASS_)){
             //json是被拼接的json，例如action:USERADD_98_{"nickname":"ufuf","json":"hh","avatar":"http://192.168.2.78:9998/group1/M00/00/01/wKgCTln2zzCATNoGAAA00JG5ens821.jpg"}
             String json = action.substring(CMD_USERPASS_.length());
@@ -1355,6 +1356,7 @@ public class DemoHelper {
             msg.setStatus(InviteMessage.InviteMesageStatus.BEAGREED);
             notifyNewInviteMessage(msg);
             broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
+            broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED2));
             saveUserInfoFromJson(json);
             /*CodeUtils.fetchUser(null, userId, new Consumer<Boolean>() {
                 @Override
@@ -1405,6 +1407,7 @@ public class DemoHelper {
             msg.setStatus(InviteMessage.InviteMesageStatus.BEREFUSED);
             notifyNewInviteMessage(msg);
             broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
+            broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED2));
         }else if(action.startsWith(CMD_CANCEL_)){
             try {
                 if(easeUI.getTopActivity().getClass().getSimpleName().equals("ConferenceActivity")){

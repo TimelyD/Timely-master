@@ -262,11 +262,12 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 						// update database
 						ContentValues values = new ContentValues();
 						values.put(InviteMessgeDao.COLUMN_NAME_STATUS, msg.getStatus().ordinal());
-						messgeDao.updateMessage(msg.getId(), values);
+						messgeDao.updateMessage(msg.getId(), values);Log.i("zzz2","zzz");
 						((Activity) context).runOnUiThread(new Runnable() {
 
 							@Override
 							public void run() {
+								Log.i("zzz","zzz");
 								buttonRefuse.setText(str2);
 								buttonRefuse.setBackgroundDrawable(null);
 								buttonRefuse.setTextColor(Color.BLACK);
@@ -354,11 +355,11 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 			return;
 		}
         final String str2 = context.getResources().getString(R.string.Has_refused_to);
-		 observable
-				.compose(((BaseActivity)context).<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
+		 observable.compose(((BaseActivity)context).<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers())
                  .subscribe(new BaseObserver2<EmptyData>() {
                      @Override
                      protected void onSuccess(EmptyData emptyData) {
+						 Log.i("zzz4","zzz");
                          msg.setStatus(InviteMesageStatus.REFUSED);
                          // update database
                          ContentValues values = new ContentValues();
@@ -368,7 +369,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 
                              @Override
                              public void run() {
-                                 buttonRefuse.setText(str2);
+                                 buttonRefuse.setText(str2);	Log.i("zzz5","zzz");
                                  buttonRefuse.setBackgroundDrawable(null);
                                  buttonRefuse.setEnabled(false);
                                  buttonRefuse.setTextColor(ContextCompat.getColor(context, R.color.tx_black_2));
