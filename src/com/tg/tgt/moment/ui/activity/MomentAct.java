@@ -73,6 +73,7 @@ import com.tg.tgt.moment.widgets.CommentInputMenu;
 import com.tg.tgt.moment.widgets.CommentListView;
 import com.tg.tgt.ui.BaseActivity;
 import com.tg.tgt.ui.MainActivity;
+import com.tg.tgt.ui.MsgActivity;
 import com.tg.tgt.ui.NewDynamicAct;
 import com.tg.tgt.utils.StatusBarUtil;
 import com.tg.tgt.utils.TakePhotoUtils;
@@ -513,6 +514,8 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                 EaseConstant.friendsUnread = 0;
                 DBManager.getInstance().saveUnreadMotionActionCount(0);
                 MainActivity.Handler.sendEmptyMessage(0);
+                Intent intent=new Intent(MomentAct.this, MsgActivity.class);
+                startActivity(intent);
             }
         });
         if (EaseConstant.friendsUnread > 0){

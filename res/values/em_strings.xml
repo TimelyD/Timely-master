@@ -387,4 +387,5 @@
     <string name="Failed_to_create_chat_room">Failed to create chat room</string>
 
     <string name="mail_log_title">Send mail, contain logs</string>
+    <string name="clear">Empty</string>
 </resources>

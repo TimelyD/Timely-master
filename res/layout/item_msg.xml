@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="@dimen/common.12dp"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.hyphenate.easeui.widget.CircleImageView
+        android:id="@+id/avatar_iv"
+        android:layout_width="@dimen/common.48dp"
+        android:layout_height="@dimen/common.48dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/default_avatar" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/common.10dp"
+        android:layout_marginRight="@dimen/common.10dp"
+        android:layout_toRightOf="@id/avatar_iv"
+        android:layout_toLeftOf="@+id/add_btn"
+        android:layout_centerVertical="true">
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/tx_black_1"
+            android:textSize="@dimen/tx_2" />
+        <TextView
+            android:id="@+id/ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="ID:"
+            android:textColor="@color/tx_black_2"
+            android:textSize="@dimen/tx_4" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/add_btn"
+        android:text="@string/button_add"
+        style="@style/TitleBtnStyle" />
+</RelativeLayout>

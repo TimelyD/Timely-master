@@ -252,6 +252,7 @@
     <string name="ti10">Selected messages contain voice/location/business card messages that cannot be forwarded.</string>
     <string name="ti11">Send a success</string>
     <string name="ti12">Send a message</string>
+    <string name="ti13">Clear all comment messages？</string>
     <string name="selected_all">All</string>
     <string name="delete_button">delete</string>
     <string name="collection_title">collection</string>

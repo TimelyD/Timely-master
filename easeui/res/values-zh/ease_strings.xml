@@ -324,4 +324,5 @@
     <string name="quiting_the_chat_room">正在退出聊天室……</string>
 
     <string name="read_and_fire_hint">你已开启了阅后即焚功能，对方看到消息后会自动销毁！</string>
+    <string name="clear">清空</string>
 </resources>
