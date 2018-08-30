@@ -280,4 +280,6 @@
     <string name="set_successful">设置成功</string>
     <string name="set_fail">设置失败</string>
     <string name="unset_black">解除黑名单</string>
+    <string name="shanchucitiaodongtai">删除此条动态</string>
+    <string name="jubao">举报</string>
 </resources>

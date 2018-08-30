@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.tg.tgt.R;
@@ -22,6 +23,7 @@ public class CircleRecycleViewDivider extends RecyclerView.ItemDecoration {
     public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
 
     private Drawable mDivider;
+    private Drawable firstMDivider;
 
     private int mOrientation;
 
@@ -31,6 +33,7 @@ public class CircleRecycleViewDivider extends RecyclerView.ItemDecoration {
     private int inset;
 
     private Paint paint;
+    private Context mContent;
 
     /**
      * @param context
@@ -40,9 +43,11 @@ public class CircleRecycleViewDivider extends RecyclerView.ItemDecoration {
      */
     public CircleRecycleViewDivider(Context context, int orientation, int drawable, int inset) {
         mDivider = context.getResources().getDrawable(drawable);
+        firstMDivider = context.getResources().getDrawable(R.drawable.divider_first);
         this.inset = inset;
         paint = new Paint();
         paint.setColor(context.getResources().getColor(R.color.divider_t));
+        mContent = context;
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
         setOrientation(orientation);
@@ -69,12 +74,15 @@ public class CircleRecycleViewDivider extends RecyclerView.ItemDecoration {
         final int right = parent.getWidth() - parent.getPaddingRight();
 
         final int childCount = parent.getChildCount();
+
+        Log.e("Tag","childCount="+childCount);
         //最后一个item不画分割线
         for (int i = 1; i < childCount - 1; i++) {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getBottom() + params.bottomMargin;
             final int bottom = top + mDivider.getIntrinsicHeight();
+            Log.e("Tag","top1="+top+", bottom1="+bottom);
             if (inset > 0) {
                 c.drawRect(left, top, right, bottom, paint);
                 mDivider.setBounds(left + inset, top, right - inset, bottom);
@@ -83,6 +91,21 @@ public class CircleRecycleViewDivider extends RecyclerView.ItemDecoration {
             }
             mDivider.draw(c);
         }
+        if (childCount>0) {
+            final int position = parent.getChildAdapterPosition(parent.getChildAt(0));
+            if (position == 0) {
+                final View child = parent.getChildAt(0);
+                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+                final int top = child.getBottom() + params.bottomMargin;
+                final int bottom = top + mDivider.getIntrinsicHeight();
+                firstMDivider.setBounds(left, top, right, bottom);
+                firstMDivider.draw(c);
+                Log.e("Tag","top="+top+", bottom="+bottom);
+                Log.e("Tag","position="+position);
+            }
+        }
+       // mDivider.draw(c);
+
     }
 
     private void drawHorizontal(Canvas c, RecyclerView parent) {

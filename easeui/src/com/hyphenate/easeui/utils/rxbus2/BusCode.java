@@ -7,6 +7,7 @@ package com.hyphenate.easeui.utils.rxbus2;
 public interface BusCode {
     int GROUP_DETAIL = 11;
     int MOMENT_ACTION = 12;
+    int FRIENDVIEW_ACTION = 18;
     /**一条朋友圈信息发生改变*/
     int MOMENT_CHANGE_ACTION = 13;
 

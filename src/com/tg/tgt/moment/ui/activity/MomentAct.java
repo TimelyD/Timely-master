@@ -1,8 +1,11 @@
 package com.tg.tgt.moment.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,13 +18,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +41,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.gyf.barlibrary.ImmersionBar;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
@@ -41,6 +49,10 @@ import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.L;
 import com.hyphenate.easeui.utils.PhoneUtil;
 import com.hyphenate.easeui.utils.SpUtils;
+import com.hyphenate.easeui.utils.rxbus2.BusCode;
+import com.hyphenate.easeui.utils.rxbus2.Subscribe;
+import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
+import com.hyphenate.easeui.widget.CircleImageView;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
@@ -48,6 +60,7 @@ import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
+import com.tg.tgt.helper.DBManager;
 import com.tg.tgt.moment.bean.CircleItem;
 import com.tg.tgt.moment.bean.CommentConfig;
 import com.tg.tgt.moment.bean.CommentItem;
@@ -59,6 +72,7 @@ import com.tg.tgt.moment.ui.adapter.MomentAdapter;
 import com.tg.tgt.moment.widgets.CommentInputMenu;
 import com.tg.tgt.moment.widgets.CommentListView;
 import com.tg.tgt.ui.BaseActivity;
+import com.tg.tgt.ui.MainActivity;
 import com.tg.tgt.ui.NewDynamicAct;
 import com.tg.tgt.utils.StatusBarUtil;
 import com.tg.tgt.utils.TakePhotoUtils;
@@ -109,6 +123,10 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
 
     public static String isFromId;
 
+    private RelativeLayout newRelative;
+    private CircleImageView friendsHead;
+    private TextView msgNumberText;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +157,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                         else
                             Constant.isMineHome = false;
 //                        }
-                        Log.e("Tag2222222",">>>>>>>>1002");
+//                        Log.e("Tag2222222",">>>>>>>>1002");
                         break;
                     case 1002:
                         mPresenter.loadData(false);
@@ -154,6 +172,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         super.onResume();
         mCommentInputMenu.onRegister();
         if (!mIsHomePage){
+            EaseConstant.isFriendsView = true;
             if (Constant.isMineHome){
                 mPresenter.loadData(false);
                 Constant.isMineHome = false;
@@ -376,6 +395,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     private int dividerColor;
     private void initView() {
         headHeight = getResources().getDimensionPixelSize(R.dimen.head_moment_layout_height);
+        headHeight = headHeight + getResources().getDimensionPixelSize(R.dimen.common_76dp);
         dividerColor = ContextCompat.getColor(mContext, R.color.divider_t);
         mTitleBar = findViewById(R.id.title_bar);
         mTitleBarDivider = findViewById(R.id.title_bar_divider);
@@ -399,7 +419,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                     return;
                 }
                 float alpha = Math.min(1, (float) scrollY / headHeight);
-        //        Log.e("Tag","高度=="+alpha);
+      //          Log.e("Tag","高度=="+alpha);
                 if(alpha>.4f){
                     StatusBarUtil.darkMode(mActivity);
                     mTitle.setTextColor(Color.BLACK);
@@ -415,11 +435,25 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                     mTitleBar.setBackgroundColor(Color.TRANSPARENT);
                     mTitleBarDivider.setBackgroundColor(Color.TRANSPARENT);
                 }
-                if (alpha>0.8){
+                if (alpha>0.95f){
                     mParallax.setVisibility(View.INVISIBLE);
                 }else {
                     mParallax.setVisibility(View.VISIBLE);
                 }
+//                if (alpha>=0.1f){
+//                  //  newRelative.setBackgroundColor(getResources().getColor(R.color.transparent));
+//                }else {
+//                    //newRelative.setBackgroundColor(getResources().getColor(R.color.white));
+//                }
+//                if (alpha>0.2f){
+//                    if (newRelative.getVisibility() != View.GONE){
+//                        newRelative.setBackgroundColor(getResources().getColor(R.color.transparent));
+//                    }
+//                }else {
+//                    if (newRelative.getVisibility() != View.GONE){
+//                        newRelative.setBackgroundColor(getResources().getColor(R.color.white));
+//                    }
+//                }
 //                mTitleBar.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, Color.WHITE));
 //                mTitleBarDivider.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, dividerColor));
                 L.d("onScrollChanged","alpha:"+alpha+"\tscrollY:"+scrollY+"\tfirstScroll:"+firstScroll+"\tdragging:"+dragging);
@@ -463,12 +497,36 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         }
         mAdapter.addHeaderView(header);
         TextView stateTv = (TextView) header.findViewById(R.id.tv_state);
+//        newRelative = (RelativeLayout) header.findViewById(R.id.new_relative_show) ;
 //        if (!TextUtils.isEmpty(mUserInfo.getChatidstate()) && mUserInfo.getChatidstate().length()>28) {
 //            stateTv.setTextSize(13);
 //            stateTv.setText(TextUtils.isEmpty(mUserInfo.getChatidstate())?this.getString(R.string.nox):mUserInfo.getChatidstate());
 //        }else
         stateTv.setText(TextUtils.isEmpty(mUserInfo.getChatidstate())?this.getString(R.string.nox):mUserInfo.getChatidstate());
         TextView nameTv = (TextView) header.findViewById(R.id.tv_name);
+        newRelative = (RelativeLayout) header.findViewById(R.id.new_relative_show);
+        friendsHead = (CircleImageView) header.findViewById(R.id.last_user);
+        msgNumberText = (TextView) header.findViewById(R.id.new_numbers);
+        newRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EaseConstant.friendsUnread = 0;
+                DBManager.getInstance().saveUnreadMotionActionCount(0);
+                MainActivity.Handler.sendEmptyMessage(0);
+            }
+        });
+        if (EaseConstant.friendsUnread > 0){
+            if (!mIsHomePage) {
+                newRelative.setVisibility(View.VISIBLE);
+                msgNumberText.setText(EaseConstant.friendsUnread+"新消息");
+                Glide.with(MomentAct.this)
+                        .load((String)SpUtils.get(MomentAct.this,"lastHeadImage",""))
+                        .into(friendsHead);
+                //ImageUtils.show(MomentAct.this,(String)SpUtils.get(MomentAct.this,"lastHeadImage",""),(ImageView)friendsHead);
+            }
+        }else {
+            newRelative.setVisibility(View.GONE);
+        }
         nameTv.setText(mUserInfo.safeGetRemark());
         ImageView avatarIv = (ImageView) header.findViewById(R.id.iv_avatar);
  //       GlideApp.with(mActivity).load(mUserInfo.getAvatar()).placeholder(R.drawable.default_avatar).into(avatarIv);
@@ -510,11 +568,94 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                         config.hint = "";
                         updateEditTextBodyVisible(View.VISIBLE, config);
                         break;
+                    case R.id.friends_pull:
+                        showDialog(view,mData.get(position).getUserId(),mData.get(position).getId());
+                        break;
                     default:
                         break;
                 }
             }
         });
+    }
+
+    private void showDialog(View view, String id, final String itemId){
+        // 用于PopupWindow的View
+        View contentView=LayoutInflater.from(MomentAct.this).inflate(R.layout.pop_delete_friends, null, false);
+        RelativeLayout relativeLayoutDelete = (RelativeLayout) contentView.findViewById(R.id.delete_relative) ;
+        RelativeLayout relativeLayoutReport = (RelativeLayout) contentView.findViewById(R.id.feedback_relative);
+        if (Constant.myUserIdZww.equals(id)){
+            relativeLayoutDelete.setVisibility(View.VISIBLE);
+        }
+        // 创建PopupWindow对象，其中：
+        // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
+        // 第三个参数是PopupWindow的高度，第四个参数指定PopupWindow能否获得焦点
+        final PopupWindow window=new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        // 设置PopupWindow的背景
+      //  window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // 设置PopupWindow是否能响应外部点击事件
+        window.setOutsideTouchable(true);
+        // 设置PopupWindow是否能响应点击事件
+        window.setTouchable(true);
+        // 显示PopupWindow，其中：
+        // 第一个参数是PopupWindow的锚点，第二和第三个参数分别是PopupWindow相对锚点的x、y偏移
+        window.showAsDropDown(view);
+        backgroundAlpha(0.5f);
+        window.setOnDismissListener(new poponDismissListener());
+        relativeLayoutDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(mActivity)
+                        .setTitle(R.string.delete_comment_title)
+                        .setMessage(getString(R.string.delete_moment_promit_message))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.delete_moment_sure), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //update(mActivity, model.getUrl(), model.getVersion());
+                                mPresenter.deleteCircle(itemId);
+                                window.dismiss();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.delete_moment_cancle), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+        relativeLayoutReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("TagTag","点击了举报");
+                window.dismiss();
+            }
+        });
+        // 或者也可以调用此方法显示PopupWindow，其中：
+        // 第一个参数是PopupWindow的父View，第二个参数是PopupWindow相对父View的位置，
+        // 第三和第四个参数分别是PopupWindow相对父View的x、y偏移
+        // window.showAtLocation(parent, gravity, x, y);
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+
+    class poponDismissListener implements PopupWindow.OnDismissListener{
+        @Override
+        public void onDismiss() {
+            // TODO Auto-generated method stub
+            //Log.v("List_noteTypeActivity:", "我是关闭事件");
+            backgroundAlpha(1f);
+        }
     }
 
     public static final int REQ_DETAIL = 1231;
@@ -524,11 +665,8 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DELETECIRCLE){
-            Log.e("Tag---","回调");
             if (resultCode == DELETECIRCLESUCCESS){
-                Log.e("Tag",">>>>>>>>1002");
                 mPresenter.loadData(false);
-                Log.e("Tag---","回调删除");
             }
         }
         if(requestCode == REQ_DETAIL){
@@ -546,9 +684,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             }
         }else {
             if (resultCode == DELETECIRCLESUCCESS){
-                Log.e("Tag",">>>>>>>>1002");
                 mPresenter.loadData(false);
-                Log.e("Tag---","回调删除");
             }
         }
     }
@@ -571,12 +707,25 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
     protected void onDestroy() {
         if (mPresenter != null)
             mPresenter.recycle();
+        if (EaseConstant.isFriendsView)
+            EaseConstant.isFriendsView = false;
         super.onDestroy();
+    }
+
+    @Subscribe(code = BusCode.FRIENDVIEW_ACTION, threadMode = ThreadMode.MAIN)
+    public void onMomentAction(){
+        EaseConstant.friendsUnread = DBManager.getInstance().getUnreadMotionActionCount();
+        Glide.with(MomentAct.this)
+                .load((String)SpUtils.get(MomentAct.this,"lastHeadImage",""))
+                .into(friendsHead);
+        newRelative.setVisibility(View.VISIBLE);
+        msgNumberText.setText(EaseConstant.friendsUnread+"新消息");
     }
 
     @Override
     public void update2DeleteCircle(String circleId) {
-
+        Message msg = new Message();
+        MomentAct.mCollectHandler.sendEmptyMessage(1001);
     }
 
     @Override
@@ -872,6 +1021,10 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
 
     @Override
     public void setDelete(boolean isSuccess, String toast) {
-
+        if (isSuccess){
+            Toast.makeText(MomentAct.this, R.string.delete_moment_successful,Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(MomentAct.this,toast,Toast.LENGTH_LONG).show();
+        }
     }
 }

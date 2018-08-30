@@ -277,4 +277,6 @@
     <string name="set_successful">successful</string>
     <string name="set_fail">fail</string>
     <string name="unset_black">Release the blacklist</string>
+    <string name="shanchucitiaodongtai">Delete this item</string>
+    <string name="jubao">Report</string>
 </resources>

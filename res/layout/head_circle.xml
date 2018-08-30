@@ -5,6 +5,7 @@
                 android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/user_relative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/head_moment_layout_height">
 
@@ -71,6 +72,47 @@
                     android:textSize="@dimen/common.13sp"/>
 
             </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/new_relative_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_relative"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="@dimen/common.180dp"
+            android:layout_height="@dimen/common.42dp"
+            android:background="@drawable/new_moments_shape"
+            android:layout_marginTop="@dimen/common.40dp"
+            android:layout_centerHorizontal="true">
+
+            <com.hyphenate.easeui.widget.CircleImageView
+                android:id="@+id/last_user"
+                android:layout_width="@dimen/common.36dp"
+                android:layout_height="@dimen/common.36dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/common.3dp"/>
+
+            <TextView
+                android:id="@+id/new_numbers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common.15sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common.10dp"
+                android:background="@drawable/xiangqingjiantou"/>
 
         </RelativeLayout>
     </RelativeLayout>

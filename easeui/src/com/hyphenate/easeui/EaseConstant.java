@@ -59,4 +59,8 @@ public class EaseConstant {
 
     public static boolean isInputHeadset = false;
     public static boolean isHandSetReciver = false;
+
+    public static int friendsUnread;
+
+    public static boolean isFriendsView = false;
 }
