@@ -447,7 +447,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             }
         });
         dialog.setContentView(root);
-        Window dialogWindow = dialog.getWindow();
+      /*  Window dialogWindow = dialog.getWindow();
         dialogWindow.setGravity(Gravity.CENTER);
         //   dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
         WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
@@ -459,7 +459,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         root.measure(0, 0);
 //        lp.height = root.getMeasuredHeight();
         lp.alpha = 9f; // 透明度
-        dialogWindow.setAttributes(lp);
+        dialogWindow.setAttributes(lp);*/
         dialog.show();
         final ImageView ivQr = (ImageView) root.findViewById(R.id.iv_qr_code);
         GlideUrl glideUrl = new GlideUrl(ApiService2.BASE_URL+ ApiService2.QR_CODE, new LazyHeaders.Builder()
