@@ -187,7 +187,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
         super.onActivityCreated(savedInstanceState);
     }
     private void getRecvChatKey(){//单聊
-        Log.i("www1",toChatUsername);
         ApiManger2.getApiService()
                 .getRecvChatKey(toChatUsername)
                 .compose(((BaseActivity)mContext).<HttpResult<KeyBean>>bindToLifeCyclerAndApplySchedulers(null))
@@ -209,7 +208,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 });
     }
     private void getApiService(){//群聊
-        Log.i("www2",toChatUsername);
         ApiManger2.getApiService()
                 .getGroupChatKey(toChatUsername)
                 .compose(((BaseActivity)mContext).<HttpResult<List<KeyBean>>>bindToLifeCyclerAndApplySchedulers(null))
@@ -377,6 +375,22 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 collect(1);
             }
         });
+
+        if (data_uri == null) {
+            return;
+        }
+        File file = new File(data_uri);
+        if (!file.exists()) {
+            Toast.makeText(getActivity(), com.hyphenate.easeui.R.string.File_does_not_exist, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //limit the size < 10M
+        if (file.length() > 10 * 1024 * 1024) {
+            Toast.makeText(getActivity(), com.hyphenate.easeui.R.string.The_file_is_not_greater_than_10_m, Toast
+                    .LENGTH_SHORT).show();
+            return;
+        }
+        sendFileMessage(data_uri);
     }
     protected void yan() {
         for(int i=0;i<EaseConstant.list_ms.size();i++){

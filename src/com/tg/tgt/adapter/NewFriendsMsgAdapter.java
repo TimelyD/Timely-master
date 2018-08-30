@@ -262,12 +262,11 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 						// update database
 						ContentValues values = new ContentValues();
 						values.put(InviteMessgeDao.COLUMN_NAME_STATUS, msg.getStatus().ordinal());
-						messgeDao.updateMessage(msg.getId(), values);Log.i("zzz2","zzz");
+						messgeDao.updateMessage(msg.getId(), values);
 						((Activity) context).runOnUiThread(new Runnable() {
 
 							@Override
 							public void run() {
-								Log.i("zzz","zzz");
 								buttonRefuse.setText(str2);
 								buttonRefuse.setBackgroundDrawable(null);
 								buttonRefuse.setTextColor(Color.BLACK);
@@ -359,7 +358,6 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                  .subscribe(new BaseObserver2<EmptyData>() {
                      @Override
                      protected void onSuccess(EmptyData emptyData) {
-						 Log.i("zzz4","zzz");
                          msg.setStatus(InviteMesageStatus.REFUSED);
                          // update database
                          ContentValues values = new ContentValues();
@@ -369,7 +367,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 
                              @Override
                              public void run() {
-                                 buttonRefuse.setText(str2);	Log.i("zzz5","zzz");
+                                 buttonRefuse.setText(str2);
                                  buttonRefuse.setBackgroundDrawable(null);
                                  buttonRefuse.setEnabled(false);
                                  buttonRefuse.setTextColor(ContextCompat.getColor(context, R.color.tx_black_2));

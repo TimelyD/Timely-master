@@ -44,11 +44,13 @@ public class PickContactNoCheckboxActivity extends BaseActivity {
 
 	protected EaseContactAdapter contactAdapter;
 	private List<EaseUser> contactList;
+	private String uri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(com.tg.tgt.R.layout.em_activity_pick_contact_no_checkbox);
+		uri=getIntent().getStringExtra("data_uri");
 		ListView listView = (ListView) findViewById(com.tg.tgt.R.id.list);
 		EaseSidebar sidebar = (EaseSidebar) findViewById(com.tg.tgt.R.id.sidebar);
 		sidebar.setListView(listView);
@@ -59,7 +61,6 @@ public class PickContactNoCheckboxActivity extends BaseActivity {
 		contactAdapter = new EaseContactAdapter(this, com.tg.tgt.R.layout.ease_row_contact, contactList);
 		listView.setAdapter(contactAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				onListItemClick(position);
@@ -69,8 +70,18 @@ public class PickContactNoCheckboxActivity extends BaseActivity {
 	}
 
 	protected void onListItemClick(int position) {
-		setResult(RESULT_OK, new Intent().putExtra("username", contactAdapter.getItem(position).getUsername()));
+		if(uri==null){
+			setResult(RESULT_OK, new Intent().putExtra("username", contactAdapter.getItem(position).getUsername()));
+		}else {
+			toChatAct(contactList.get(position).getUsername());
+		}
 		finish();
+	}
+	private void toChatAct(String username) {
+		// demo中直接进入聊天页面，实际一般是进入用户详情页
+		Intent intent = new Intent(this, ChatActivity.class);
+		intent.putExtra("userId", username);intent.putExtra("data_uri",uri);
+		startActivity(intent);
 	}
 
 	public void back(View view) {

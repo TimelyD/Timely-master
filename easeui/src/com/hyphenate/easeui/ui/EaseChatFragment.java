@@ -120,6 +120,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     protected Bundle fragmentArgs;
     protected int chatType;
     protected String toChatUsername;
+    protected String data_uri;
     protected LinearLayout ll_zhuan;
     protected RelativeLayout zhuan;
     protected RelativeLayout del;
@@ -196,6 +197,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         chatType = fragmentArgs.getInt(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
         // userId you are chat with or group id
         toChatUsername = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
+        data_uri=fragmentArgs.getString("data_uri");
         super.onActivityCreated(savedInstanceState);
     }
 

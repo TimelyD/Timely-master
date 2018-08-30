@@ -87,7 +87,6 @@ public class NewFriendsMsgActivity extends BaseActivity {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				String action = intent.getAction();
-				Log.i("wwwww","广播"+action);
 				if(action.equals(Constant.ACTION_CONTACT_CHANAGED2)){
 					recreate();
 				}

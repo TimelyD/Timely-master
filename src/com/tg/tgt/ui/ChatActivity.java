@@ -16,6 +16,7 @@ public class ChatActivity extends BaseActivity{
     public static ChatActivity activityInstance;
     private EaseChatFragment chatFragment;
     String toChatUsername;
+    String uri;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -24,12 +25,12 @@ public class ChatActivity extends BaseActivity{
         activityInstance = this;
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
+        uri=getIntent().getStringExtra("data_uri");
         //use EaseChatFratFragment
         chatFragment = new ChatFragment();
         //pass parameters to chat fragment
         chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment,"chat").commit();
-
     }
 
     @Override

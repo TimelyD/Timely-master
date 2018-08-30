@@ -3,8 +3,10 @@ package com.tg.tgt.ui;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
@@ -69,7 +71,18 @@ public class SplashActivity extends BaseActivity {
 						String topActivityName = EasyUtils.getTopActivityName(EMClient.getInstance().getContext());
 						if (topActivityName != null && (topActivityName.equals(VideoCallActivity.class.getName()) || topActivityName.equals(VoiceCallActivity.class.getName()))) {
 						} else {
-							startActivity(new Intent(SplashActivity.this, MainActivity.class));
+							Intent intent = getIntent();
+							String action = intent.getAction();
+							String str = null;
+							if (intent.ACTION_VIEW.equals(action)) {
+								Uri uri = intent.getData();
+								str = Uri.decode(uri.getEncodedPath());
+							}
+							if(str==null){
+								startActivity(new Intent(SplashActivity.this, MainActivity.class));
+							}else {
+								startActivity(new Intent(SplashActivity.this, PickContactNoCheckboxActivity.class).putExtra("data_uri",str));
+							}
 						}
 						finish();
 					}else {
