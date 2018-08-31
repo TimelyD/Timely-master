@@ -18,6 +18,10 @@ import com.tg.tgt.moment.bean.MsgBean;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 段   消息列表
+ **/
+
 public class MsgActivity extends BaseActivity {
     private ListView ListView;
     private List<MsgBean> list=new ArrayList<>();

@@ -1,46 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="@dimen/common.12dp"
     android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <com.hyphenate.easeui.widget.CircleImageView
-        android:id="@+id/avatar_iv"
-        android:layout_width="@dimen/common.48dp"
-        android:layout_height="@dimen/common.48dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/default_avatar" />
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/common.10dp"
-        android:layout_marginRight="@dimen/common.10dp"
-        android:layout_toRightOf="@id/avatar_iv"
-        android:layout_toLeftOf="@+id/add_btn"
-        android:layout_centerVertical="true">
-        <TextView
-            android:id="@+id/name_tv"
-            android:layout_width="wrap_content"
+        android:layout_margin="@dimen/common.12dp"
+        android:orientation="horizontal">
+        <com.hyphenate.easeui.widget.CircleImageView
+            android:id="@+id/avatar_iv"
+            android:layout_width="@dimen/common.40dp"
+            android:layout_height="@dimen/common.40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/default_avatar" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/tx_black_1"
-            android:textSize="@dimen/tx_2" />
-        <TextView
-            android:id="@+id/ID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="ID:"
-            android:textColor="@color/tx_black_2"
-            android:textSize="@dimen/tx_4" />
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/common.10dp"
+                android:layout_marginRight="@dimen/common.10dp"
+                android:layout_toRightOf="@id/avatar_iv"
+                android:layout_toLeftOf="@+id/add_btn"
+                android:layout_gravity="center_vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/name_tv"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="大叔你好"
+                        android:textColor="@color/tx_black_1"
+                        android:textSize="@dimen/tx_2" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/tx_black_2"
+                        android:textSize="@dimen/tx_4"
+                        android:text="2018.12.12 12:17"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/common.4dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="评价了您的动态dagdgadgdagdagdagdagdagdag"
+                    android:textColor="@color/tx_black_2"
+                    android:textSize="@dimen/tx_2" />
+            </LinearLayout>
+            <com.hyphenate.easeui.widget.ZQImageViewRoundOval
+                android:id="@+id/photo"
+                android:background="@drawable/zhan"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/common.8dp"
+                android:layout_width="@dimen/common.55dp"
+                android:layout_height="@dimen/common.55dp"/>
+        </LinearLayout>
     </LinearLayout>
-    <Button
-        android:id="@+id/add_btn"
-        android:text="@string/button_add"
-        style="@style/TitleBtnStyle" />
-</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/tintGray"
+        android:layout_marginLeft="@dimen/common.65dp">
+    </View>
+</LinearLayout>

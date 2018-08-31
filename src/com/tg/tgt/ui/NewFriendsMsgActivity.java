@@ -41,7 +41,6 @@ import java.util.List;
  *
  */
 public class NewFriendsMsgActivity extends BaseActivity {
-
 	private MultipleStatusView mMultipleStatusView;
 
 	@Override

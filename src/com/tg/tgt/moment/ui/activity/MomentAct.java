@@ -514,6 +514,7 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                 EaseConstant.friendsUnread = 0;
                 DBManager.getInstance().saveUnreadMotionActionCount(0);
                 MainActivity.Handler.sendEmptyMessage(0);
+                newRelative.setVisibility(View.GONE);
                 Intent intent=new Intent(MomentAct.this, MsgActivity.class);
                 startActivity(intent);
             }
