@@ -22,7 +22,6 @@
         <RelativeLayout
             android:id="@+id/title_bar"
             android:background="#363636"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_top_bar">
 

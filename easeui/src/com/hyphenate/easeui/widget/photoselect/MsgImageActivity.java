@@ -191,7 +191,7 @@ public class MsgImageActivity extends EaseBaseActivity implements OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preview_image_activity);
+        setContentView(R.layout.activity_msg_image);
 		/*全屏*/
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 

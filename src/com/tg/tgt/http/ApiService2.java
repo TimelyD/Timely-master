@@ -454,4 +454,24 @@ public interface ApiService2 {
     @GET("api/secretKey/getGroupChatKeyBySn/{groupSn}")
     Observable<HttpResult<List<KeyBean>>>getGroupChatKey(@Path("groupSn")String groupSn);
 
+    /**
+     *  朋友圈消息列表
+     * */
+    @FormUrlEncoded
+    @POST("api/user/moments/getMomentNotice")
+    Observable<HttpResult<List<KeyBean>>>getMomentNotice(@Field("pageNum")int pageNumm,
+                                                         @Field("pageNum")int pageSize);
+
+    /**
+     *  举报
+     * */
+    @FormUrlEncoded
+    @POST("api/report/momentReport")
+    Observable<HttpResult<List<KeyBean>>>momentReport(@Field("momentId")Long momentId,
+                                                      @Field("reportType")String reportType,
+                                                      @Field("attachment1")int attachment1,
+                                                      @Field("attachment2")int attachment2,
+                                                      @Field("attachment3")int attachment3,
+                                                      @Field("attachment4")int attachment4);
+
 }
