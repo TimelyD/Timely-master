@@ -18,7 +18,8 @@
         <activity
             android:name=".ui.MoveActivity"
             android:label="@string/title_activity_move"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".widget.photoselect.MsgImageActivity"></activity>
     </application>
 
 </manifest>

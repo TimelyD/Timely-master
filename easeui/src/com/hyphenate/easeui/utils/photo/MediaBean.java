@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class MediaBean implements Comparable<MediaBean>, Serializable{
     private static final long serialVersionUID = -7813072627545017349L;
     private int id;
+    private String msg_id;
     private String path;  //路径
 
     private long dataModify;
@@ -46,6 +47,14 @@ public class MediaBean implements Comparable<MediaBean>, Serializable{
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getMsg_id() {
+        return msg_id;
+    }
+
+    public void setMsg_id(String msg_id) {
+        this.msg_id = msg_id;
     }
 
     @Override

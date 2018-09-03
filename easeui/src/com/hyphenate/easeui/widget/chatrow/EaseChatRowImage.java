@@ -2,21 +2,30 @@ package com.hyphenate.easeui.widget.chatrow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
+import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
+import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseImageUtils;
 import com.hyphenate.easeui.utils.GlideRoundTransform;
+import com.hyphenate.easeui.utils.photo.MediaBean;
+import com.hyphenate.easeui.utils.photo.PhotoBean;
 import com.hyphenate.easeui.widget.ZQImageViewRoundOval;
+import com.hyphenate.easeui.widget.photoselect.MsgImageActivity;
+import com.hyphenate.easeui.widget.photoselect.PreviewImageActivity;
+import com.hyphenate.easeui.widget.photoselect.SelectObserable;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +42,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class EaseChatRowImage extends EaseChatRowFile{
-
+    public static final int REQUEST_SELECT = 123;
     protected ZQImageViewRoundOval imageView;
     private EMImageMessageBody imgBody;
     private CheckBox select;
@@ -129,7 +138,24 @@ public class EaseChatRowImage extends EaseChatRowFile{
     
     @Override
     protected void onBubbleClick() {
-        Intent intent = new Intent(context, EaseShowBigImageActivity.class);
+        int postion=0;
+        List<MediaBean> beans = new ArrayList<MediaBean>();
+        List<EMMessage> msg = EaseChatFragment.conversation.getAllMessages();
+        for (EMMessage message:msg) {
+            if(message.getType()== EMMessage.Type.IMAGE){
+                EMImageMessageBody body = (EMImageMessageBody)message.getBody();
+                PhotoBean e = new PhotoBean(body.getLocalUrl());
+                e.setMsg_id(message.getMsgId());
+                e.setThumbnail(EaseImageUtils.getThumbnailImagePath(body.getLocalUrl()));
+                beans.add(e);
+                if(body.getLocalUrl().equals(imgBody.getLocalUrl())){
+                    postion=beans.size()-1;
+                }
+            }
+        }
+        SelectObserable.getInstance().setFolderAllImages(beans);
+        MsgImageActivity.startPreviewPhotoActivity(this.getContext(),postion,imageView,false);
+/*        Intent intent = new Intent(context, EaseShowBigImageActivity.class);
         File file = new File(imgBody.getLocalUrl());
         if (file.exists()) {
             Uri uri = Uri.fromFile(file);
@@ -150,7 +176,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
                 e.printStackTrace();
             }
         }
-        context.startActivity(intent);
+        context.startActivity(intent);*/
     }
 
     public Bitmap setImgSize(Bitmap bm, int newWidth ,int newHeight){

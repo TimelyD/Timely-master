@@ -418,6 +418,9 @@ public class PhotoSelectMenu extends LinearLayout implements Observer {
             int data1 = (int) data;
             //如果是照片和视频列表，传过去的只是所有图片，所以必须将position设置为在AllMedia中的position
             if (type == 0) {
+                if(mAllMedia==null){
+                    return;
+                }
                 data1 = mAllMedia.indexOf(mPhotos.get(data1));
             }
 //            mAdapter.notifyItemChanged(data1);
