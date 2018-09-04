@@ -313,4 +313,7 @@
 
     <string name="read_and_fire_hint">You have turned on the burn after reading, the other side will see the message will be destroyed automatically!</string>
     <string name="clear">Empty</string>
+    <string name="msg1">Thumb up takes your dynamic</string>
+    <string name="msg2">I replied to your comment</string>
+    <string name="msg3">Comment on your updates</string>
 </resources>

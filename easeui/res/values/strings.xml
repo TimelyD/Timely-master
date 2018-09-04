@@ -20,4 +20,5 @@
     <string name="title_activity_move">MoveActivity</string>
     <string name="long_collection">Collection</string>
     <string name="from_user">from: </string>
+    <string name="kong">There\'s nothing here!</string>
 </resources>

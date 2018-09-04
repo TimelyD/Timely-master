@@ -386,5 +386,7 @@
     <string name="Failed_to_create_chat_room">创建聊天室失败</string>
 
     <string name="mail_log_title">发送邮件附件中包含log</string>
-    <string name="clear">清空</string>
+    <string name="msg1">点赞了您的动态</string>
+    <string name="msg2">回复了您的评论：</string>
+    <string name="msg3">评论了您的动态：</string>
 </resources>

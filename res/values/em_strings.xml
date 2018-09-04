@@ -388,4 +388,7 @@
 
     <string name="mail_log_title">Send mail, contain logs</string>
     <string name="clear">Empty</string>
+    <string name="msg1">Thumb up takes your dynamic</string>
+    <string name="msg2">I replied to your comment</string>
+    <string name="msg3">Comment on your updates</string>
 </resources>

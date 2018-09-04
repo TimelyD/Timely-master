@@ -61,6 +61,10 @@ import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 import com.tg.tgt.helper.DBManager;
+import com.tg.tgt.http.ApiManger2;
+import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.EmptyData;
+import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.moment.bean.CircleItem;
 import com.tg.tgt.moment.bean.CommentConfig;
 import com.tg.tgt.moment.bean.CommentItem;
@@ -635,12 +639,32 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
             public void onClick(View v) {
                 Log.e("TagTag","点击了举报");
                 window.dismiss();
+                jubao(itemId);
             }
         });
         // 或者也可以调用此方法显示PopupWindow，其中：
         // 第一个参数是PopupWindow的父View，第二个参数是PopupWindow相对父View的位置，
         // 第三和第四个参数分别是PopupWindow相对父View的x、y偏移
         // window.showAtLocation(parent, gravity, x, y);
+    }
+
+    private void jubao(String id){
+        ApiManger2.getApiService()
+                .momentReport(id,"1",null,null,null,null)
+                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<EmptyData>() {
+                    @Override
+                    protected void onSuccess(EmptyData list1) {
+                    }
+
+                    @Override
+                    public void onNext(HttpResult<EmptyData> result) {
+                        super.onNext(result);
+                        if(result.getCode()==0){
+                            Toast.makeText(App.applicationContext,"成功", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     /**

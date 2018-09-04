@@ -325,4 +325,7 @@
 
     <string name="read_and_fire_hint">你已开启了阅后即焚功能，对方看到消息后会自动销毁！</string>
     <string name="clear">清空</string>
+    <string name="msg1">点赞了您的动态</string>
+    <string name="msg2">回复了您的评论：</string>
+    <string name="msg3">评论了您的动态：</string>
 </resources>

@@ -19,6 +19,7 @@ import com.tg.tgt.moment.bean.CollectBean;
 import com.tg.tgt.moment.bean.CollectItem;
 import com.tg.tgt.moment.bean.CommentItem;
 import com.tg.tgt.moment.bean.FavortItem;
+import com.tg.tgt.moment.bean.MsgBean;
 import com.tg.tgt.moment.bean.PicBean;
 
 import java.util.List;
@@ -459,19 +460,26 @@ public interface ApiService2 {
      * */
     @FormUrlEncoded
     @POST("api/user/moments/getMomentNotice")
-    Observable<HttpResult<List<KeyBean>>>getMomentNotice(@Field("pageNum")int pageNumm,
-                                                         @Field("pageNum")int pageSize);
+    Observable<HttpResult<MsgBean>>getMomentNotice(@Field("pageNum")int pageNumm,
+                                                         @Field("pageSize")int pageSize);
+
+    /**
+     *  清空消息列表
+     * */
+    @FormUrlEncoded
+    @POST("api/user/moments/cleanNotice")
+    Observable<HttpResult<EmptyData>>cleanNotice(@Field("id")String id);
 
     /**
      *  举报
      * */
     @FormUrlEncoded
     @POST("api/report/momentReport")
-    Observable<HttpResult<List<KeyBean>>>momentReport(@Field("momentId")Long momentId,
-                                                      @Field("reportType")String reportType,
-                                                      @Field("attachment1")int attachment1,
-                                                      @Field("attachment2")int attachment2,
-                                                      @Field("attachment3")int attachment3,
-                                                      @Field("attachment4")int attachment4);
+    Observable<HttpResult<EmptyData>>momentReport(@Field("momentId")String momentId,
+                                                  @Field("reportType")String reportType,
+                                                  @Field("attachment1")String attachment1,
+                                                  @Field("attachment2")String attachment2,
+                                                  @Field("attachment3")String attachment3,
+                                                  @Field("reportReason")String reportReason);
 
 }

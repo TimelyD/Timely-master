@@ -14,7 +14,16 @@ public class HttpResult<T> {
 
     private int code;
     private String msg;
+    private String dfsfileaccessprefix;
     private T data;
+
+    public String getDfsfileaccessprefix() {
+        return dfsfileaccessprefix;
+    }
+
+    public void setDfsfileaccessprefix(String dfsfileaccessprefix) {
+        this.dfsfileaccessprefix = dfsfileaccessprefix;
+    }
 
     public int getCode() {
         return code;
