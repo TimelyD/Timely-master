@@ -167,6 +167,22 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
                     case 1002:
                         mPresenter.loadData(false);
                         break;
+                    case 1003:
+                        if(isFinishing() || isDestroyed()){
+                            return;
+                        }else {
+                            EaseConstant.friendsUnread=DBManager.getInstance().getUnreadMotionActionCount();
+                            if (EaseConstant.friendsUnread > 0){
+                                newRelative.setVisibility(View.VISIBLE);
+                                msgNumberText.setText(EaseConstant.friendsUnread+"新消息");
+                                Glide.with(MomentAct.this)
+                                        .load((String)SpUtils.get(MomentAct.this,"lastHeadImage",""))
+                                        .into(friendsHead);
+                            }else {
+                                newRelative.setVisibility(View.GONE);
+                            }
+                        }
+                        break;
                 }
             }
         };

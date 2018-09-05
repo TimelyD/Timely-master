@@ -62,6 +62,7 @@ import com.tg.tgt.helper.DBManager;
 import com.tg.tgt.helper.GroupManger;
 import com.tg.tgt.http.model.IsCodeResult;
 import com.tg.tgt.http.model2.UserFriendModel;
+import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.parse.UserProfileManager;
 import com.tg.tgt.receiver.CallReceiver;
 import com.tg.tgt.receiver.HeadsetReceiver;
@@ -1444,7 +1445,9 @@ public class DemoHelper {
                 }else {
                     RxBus.get().send(BusCode.MOMENT_ACTION);
                 }
-
+                if( MomentAct.mCollectHandler!=null){
+                    MomentAct.mCollectHandler.sendEmptyMessage(1003);
+                }
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
             }
