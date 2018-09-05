@@ -326,7 +326,7 @@ public interface ApiService2 {
      * 查看单条动态
      */
     @POST("api/user/moments/{id}")
-    Observable<HttpResult<List<CircleItem>>> showMoment(@Path("id") String id);
+    Observable<HttpResult<CircleItem>> showMoment(@Path("id") String id);
 
     /**
      * 查看来访记录

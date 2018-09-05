@@ -1,6 +1,7 @@
 package com.tg.tgt.ui;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -25,7 +26,9 @@ import com.tg.tgt.http.ApiManger2;
 import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
+import com.tg.tgt.moment.bean.CircleItem;
 import com.tg.tgt.moment.bean.MsgBean;
+import com.tg.tgt.moment.ui.activity.MomentDetailAct;
 import com.tg.tgt.utils.CodeUtils;
 
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class MsgActivity extends BaseActivity {
     private MsgAdapter adapter;
     private int pageNumber=1;
     private int pageSize=100;
+    public static final int REQ_DETAIL = 1231;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +71,7 @@ public class MsgActivity extends BaseActivity {
         ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setData(position);
             }
         });
         ListView.setOnTouchListener(new View.OnTouchListener() {
@@ -123,6 +128,23 @@ public class MsgActivity extends BaseActivity {
                     protected void onSuccess(EmptyData list1) {
                         list.clear();
                         setViews();
+                    }
+                });
+    }
+
+    private void setData(final int postion){
+        ApiManger2.getApiService()
+                .showMoment(list.get(postion).getMomentId())
+                .compose(this.<HttpResult<CircleItem>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<CircleItem>() {
+                    @Override
+                    protected void onSuccess(CircleItem item) {
+                        MomentDetailAct.show(mActivity,item,postion,REQ_DETAIL);
+                    }
+                    @Override
+                    public void onNext(HttpResult<CircleItem> result) {
+                        super.onNext(result);
+
                     }
                 });
     }

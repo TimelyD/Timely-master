@@ -226,7 +226,7 @@ public class MsgBean {
 
         private String nickname;
         private String picture;
-        private int momentId;
+        private String momentId;
         private String momentImg;
         private String commentMsg;
         private String noticeType;
@@ -248,11 +248,11 @@ public class MsgBean {
             this.picture = picture;
         }
 
-        public int getMomentId() {
+        public String getMomentId() {
             return momentId;
         }
 
-        public void setMomentId(int momentId) {
+        public void setMomentId(String momentId) {
             this.momentId = momentId;
         }
 
