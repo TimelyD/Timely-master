@@ -118,7 +118,6 @@ public class EaseChatRowImage extends EaseChatRowFile{
                 	// to make it compatible with thumbnail received in previous version
                     thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
                 }
-                Log.i("xxx2",thumbPath);
                 showImageView(thumbPath, imageView, imgBody.getLocalUrl(), message);
             }
             return;
@@ -126,7 +125,6 @@ public class EaseChatRowImage extends EaseChatRowFile{
         
         String filePath = imgBody.getLocalUrl();
         String thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
-        Log.i("xxx2",filePath+"+"+thumbPath);
         showImageView(thumbPath, imageView, filePath, message);
         handleSendMessage();
     }
@@ -145,7 +143,7 @@ public class EaseChatRowImage extends EaseChatRowFile{
             if(message.getType()== EMMessage.Type.IMAGE){
                 EMImageMessageBody body = (EMImageMessageBody)message.getBody();
                 PhotoBean e = new PhotoBean(body.getLocalUrl());
-                e.setMsg_id(message.getMsgId());
+                e.setMsg_id(message.getMsgId());e.setPath(body.getLocalUrl());e.setUser_id(message.getFrom());
                 e.setThumbnail(EaseImageUtils.getThumbnailImagePath(body.getLocalUrl()));
                 beans.add(e);
                 if(body.getLocalUrl().equals(imgBody.getLocalUrl())){

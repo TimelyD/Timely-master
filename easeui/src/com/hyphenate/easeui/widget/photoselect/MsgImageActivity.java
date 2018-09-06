@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.model.EaseImageCache;
@@ -557,7 +558,7 @@ public class MsgImageActivity extends EaseBaseActivity implements OnClickListene
             bigPhotoIv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    new MenuDialogUtils(MsgImageActivity.this, R.style.registDialog,0, R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
+                    new MenuDialogUtils(MsgImageActivity.this, R.style.registDialog,1, R.layout.menu_save, new MenuDialogUtils.ButtonClickListener() {
                         @Override
                         public void onButtonClick(int i) {
                             if (i == 0) {
@@ -585,6 +586,7 @@ public class MsgImageActivity extends EaseBaseActivity implements OnClickListene
                                 Message msg = new Message();
                                 msg.what = 1;
                                 msg.obj = mAllImage.get(mCurrentPosition).getPath();
+                                EaseApp.isFromId=mAllImage.get(mCurrentPosition).getUser_id();
                                 EaseConversationListFragment.mCollectEHandler.sendMessage(msg);
                             }
                         }

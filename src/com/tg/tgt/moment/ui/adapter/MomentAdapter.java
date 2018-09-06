@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hyphenate.easeui.EaseApp;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseUserUtils;
@@ -273,7 +274,7 @@ public class MomentAdapter extends BaseMomentAdapter {
                     holder.multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            MomentAct.isFromId = circleItem.getUserId();
+                            EaseApp.isFromId=circleItem.getUserId();
                             List<MediaBean> beans = new ArrayList<MediaBean>();
                             for (int i = 0; i < photos.size(); i++) {
                                 PhotoBean e = new PhotoBean(photos.get(i).picture);

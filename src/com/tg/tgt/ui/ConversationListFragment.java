@@ -144,7 +144,7 @@ public class ConversationListFragment extends EaseConversationListFragment imple
                 super.handleMessage(msg);
                 switch (msg.what){
                     case 1:
-                        Log.e("Tag","用户id=="+MomentAct.isFromId+"图片地址"+msg.obj.toString());
+                        Log.e("Tag","用户id=="+EaseApp.isFromId+"图片地址"+msg.obj.toString());
                         MultipartBody.Builder builder = new MultipartBody.Builder()
                                 .setType(MultipartBody.FORM);//表单类型
                         //    File file=new File(pathFile);
@@ -152,7 +152,7 @@ public class ConversationListFragment extends EaseConversationListFragment imple
 //            builder.addFormDataPart("image", file.getName(), );
 //        }
                         builder.addFormDataPart("filePath",msg.obj.toString());
-                        builder.addFormDataPart("fromUid", MomentAct.isFromId);
+                        builder.addFormDataPart("fromUid", EaseApp.isFromId);
                         builder.addFormDataPart("isFrom","2");
                         builder.addFormDataPart("type",String.valueOf(1));
                         ApiManger2.getApiService()

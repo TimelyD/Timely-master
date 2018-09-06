@@ -313,9 +313,21 @@ public class CollectionActivity extends BaseActivity{
                 .subscribe(new BaseObserver2<CollectionModel>()  {
                     @Override
                     protected void onSuccess(CollectionModel collectionModel) {
+                        checkBoxAll.setChecked(false);
+                        if(collectionModel.getList().size()==0){
+                            deleteTitleBt.setVisibility(View.INVISIBLE);
+                        }else {
+                            deleteTitleBt.setVisibility(View.VISIBLE);
+                            deleteTitleBt.setText(getString(R.string.editor));
+                        }
+                        bottomRelative.setVisibility(View.GONE);
+                        if (isSelect != null)
+                            for (int i = 0;i<isSelect.size();i++)
+                                isSelect.put(i,false);
+                        if (hasSelect != null)
+                            hasSelect.clear();isEditor=false;
                         if(loadMore){
-                            if(collectionModel.getList() == null){
-                                deleteTitleBt.setVisibility(View.INVISIBLE);
+                            if(collectionModel.getList()==null){
                                 if (isSelect == null || isSelect.size()<=0){
                                     if (mDatas != null) {
                                         for (int i = 0; i < mDatas.size(); i++)
@@ -338,10 +350,8 @@ public class CollectionActivity extends BaseActivity{
                                 mAdapter.loadMoreEnd();
                                 return;
                             }else if(collectionModel.getList().size()<10 || collectionModel.getTotal()<=mDatas.size()+10){
-                                deleteTitleBt.setVisibility(View.VISIBLE);
                                 mAdapter.loadMoreEnd();
                             }else {
-                                deleteTitleBt.setVisibility(View.VISIBLE);
                                 mAdapter.loadMoreComplete();
                             }
                             mDatas.addAll(collectionModel.getList());

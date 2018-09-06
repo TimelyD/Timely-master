@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class MediaBean implements Comparable<MediaBean>, Serializable{
     private static final long serialVersionUID = -7813072627545017349L;
     private int id;
+    private String user_id;
     private String msg_id;
     private String path;  //路径
 
@@ -20,6 +21,15 @@ public class MediaBean implements Comparable<MediaBean>, Serializable{
     public int selectPosition;
     /**当前图片在列表中顺序*/
     public int position;
+
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public long getDataModify() {
         return dataModify;

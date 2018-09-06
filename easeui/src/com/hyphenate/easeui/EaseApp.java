@@ -38,6 +38,7 @@ public class EaseApp extends Application {
     public static List<KeyBean> group_pub;
     public static List<String> nick = new ArrayList<String>();
     public static List<EaseUser> mAlluserList=new ArrayList<>();
+    public static String isFromId;
 
     public static String getMyUid() {
         if(TextUtils.isEmpty(myUid)){

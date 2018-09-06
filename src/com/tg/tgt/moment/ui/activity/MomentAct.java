@@ -126,8 +126,6 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
 
     public static Handler mCollectHandler;
 
-    public static String isFromId;
-
     private RelativeLayout newRelative;
     private CircleImageView friendsHead;
     private TextView msgNumberText;
