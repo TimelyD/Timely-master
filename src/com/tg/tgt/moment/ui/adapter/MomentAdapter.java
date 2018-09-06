@@ -109,14 +109,17 @@ public class MomentAdapter extends BaseMomentAdapter {
                     }
                 });
               //  Log.e("Tag","circleId"+circleItem.getUserId()+"")
-                if (ActMgrs.getActManager().currentActivity() instanceof MomentDetailAct
+                helper.getView(R.id.friends_pull).setVisibility(View.VISIBLE);
+                helper.addOnClickListener(R.id.friends_pull);
+              /*  if (ActMgrs.getActManager().currentActivity() instanceof MomentDetailAct
                         && circleItem.getUserId().equals(Constant.myUserIdZww)) {
                     helper.getView(R.id.delete_item).setVisibility(View.VISIBLE);
                     helper.addOnClickListener(R.id.delete_item);
                 }else {
                     helper.getView(R.id.friends_pull).setVisibility(View.VISIBLE);
                     helper.addOnClickListener(R.id.friends_pull);
-                }
+                }*/
+
 //                if (TextUtils.isEmpty(content))
 //                    helper.getView(R.id.bottom_split).setVisibility(View.VISIBLE);
             }

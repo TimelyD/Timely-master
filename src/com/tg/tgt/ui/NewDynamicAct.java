@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -265,6 +266,12 @@ public class NewDynamicAct extends BaseActivity{
             return convertView;
         }
     }
+    private void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
 
     public void send(View view) {
         switch (view.getId()){
@@ -272,6 +279,7 @@ public class NewDynamicAct extends BaseActivity{
                 finish();
                 break;
             case R.id.send_button:
+                hideKeyBoard();
                 String content = etdynamic.getText().toString().trim();
                 if(TextUtils.isEmpty(content)){
                     ToastUtils.showToast(getApplicationContext(), getString(R.string.dynamic_cannot_empty));

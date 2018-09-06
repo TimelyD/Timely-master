@@ -609,6 +609,10 @@ public class MomentAct extends BaseActivity implements MomentContract.View, View
         RelativeLayout relativeLayoutReport = (RelativeLayout) contentView.findViewById(R.id.feedback_relative);
         if (Constant.myUserIdZww.equals(id)){
             relativeLayoutDelete.setVisibility(View.VISIBLE);
+            relativeLayoutReport.setVisibility(View.GONE);
+        }else {
+            relativeLayoutDelete.setVisibility(View.GONE);
+            relativeLayoutReport.setVisibility(View.VISIBLE);
         }
         // 创建PopupWindow对象，其中：
         // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，

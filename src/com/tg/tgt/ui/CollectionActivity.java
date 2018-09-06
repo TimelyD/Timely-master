@@ -257,7 +257,6 @@ public class CollectionActivity extends BaseActivity{
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.collection_layout);
         mStatusView = (MultipleStatusView) findViewById(R.id.status_layout) ;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
         mAdapter = new BaseQuickAdapter<CollectionItemModel, BaseViewHolder>(R.layout
                 .item_collection, mDatas) {
             @Override
@@ -316,6 +315,7 @@ public class CollectionActivity extends BaseActivity{
                     protected void onSuccess(CollectionModel collectionModel) {
                         if(loadMore){
                             if(collectionModel.getList() == null){
+                                deleteTitleBt.setVisibility(View.INVISIBLE);
                                 if (isSelect == null || isSelect.size()<=0){
                                     if (mDatas != null) {
                                         for (int i = 0; i < mDatas.size(); i++)
@@ -338,8 +338,10 @@ public class CollectionActivity extends BaseActivity{
                                 mAdapter.loadMoreEnd();
                                 return;
                             }else if(collectionModel.getList().size()<10 || collectionModel.getTotal()<=mDatas.size()+10){
+                                deleteTitleBt.setVisibility(View.VISIBLE);
                                 mAdapter.loadMoreEnd();
                             }else {
+                                deleteTitleBt.setVisibility(View.VISIBLE);
                                 mAdapter.loadMoreComplete();
                             }
                             mDatas.addAll(collectionModel.getList());

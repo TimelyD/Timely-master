@@ -8,7 +8,7 @@
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar"
         app:titleBarLeftImage="@drawable/back"
-        app:titleBarTitle="@string/all_members"
+        app:titleBarTitle="@string/msg4"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/title_bar_height">
         <Button

@@ -16,12 +16,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -33,6 +37,10 @@ import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.tg.tgt.App;
 import com.tg.tgt.Constant;
 import com.tg.tgt.R;
+import com.tg.tgt.http.ApiManger2;
+import com.tg.tgt.http.BaseObserver2;
+import com.tg.tgt.http.EmptyData;
+import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.moment.bean.CircleItem;
 import com.tg.tgt.moment.bean.CommentConfig;
 import com.tg.tgt.moment.bean.CommentItem;
@@ -154,6 +162,17 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
                                 })
                                 .show();
                         break;
+                    case R.id.friends_pull:
+                        showDialog(view,circleItem.getUserId(),circleItem.getId());
+                        break;
+                    case R.id.comment_out_relative:
+                        CommentConfig con = new CommentConfig();
+                        con.circlePosition = position;
+                        con.commentType = CommentConfig.Type.PUBLIC;
+                        con.id = circleItem.getId();
+                        con.hint = "";
+                        updateEditTextBodyVisible(View.VISIBLE, con);
+                        break;
                     default:
                         break;
                 }
@@ -177,6 +196,108 @@ public class MomentDetailAct extends BaseActivity implements MomentContract.View
                 }
             }
         });
+    }
+
+    private void showDialog(View view, String id, final String itemId){
+        // 用于PopupWindow的View
+        View contentView= LayoutInflater.from(MomentDetailAct.this).inflate(R.layout.pop_delete_friends, null, false);
+        RelativeLayout relativeLayoutDelete = (RelativeLayout) contentView.findViewById(R.id.delete_relative) ;
+        RelativeLayout relativeLayoutReport = (RelativeLayout) contentView.findViewById(R.id.feedback_relative);
+        if (Constant.myUserIdZww.equals(id)){
+            relativeLayoutDelete.setVisibility(View.VISIBLE);
+            relativeLayoutReport.setVisibility(View.GONE);
+        }else {
+            relativeLayoutDelete.setVisibility(View.GONE);
+            relativeLayoutReport.setVisibility(View.VISIBLE);
+        }
+        // 创建PopupWindow对象，其中：
+        // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
+        // 第三个参数是PopupWindow的高度，第四个参数指定PopupWindow能否获得焦点
+        final PopupWindow window=new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        // 设置PopupWindow的背景
+        //  window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // 设置PopupWindow是否能响应外部点击事件
+        window.setOutsideTouchable(true);
+        // 设置PopupWindow是否能响应点击事件
+        window.setTouchable(true);
+        // 显示PopupWindow，其中：
+        // 第一个参数是PopupWindow的锚点，第二和第三个参数分别是PopupWindow相对锚点的x、y偏移
+        window.showAsDropDown(view);
+        backgroundAlpha(0.5f);
+        window.setOnDismissListener(new poponDismissListener());
+        relativeLayoutDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(mActivity)
+                        .setTitle(R.string.delete_comment_title)
+                        .setMessage(getString(R.string.delete_moment_promit_message))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.delete_moment_sure), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //update(mActivity, model.getUrl(), model.getVersion());
+                                mPresenter.deleteCircle(itemId);
+                                window.dismiss();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.delete_moment_cancle), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+        relativeLayoutReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("TagTag","点击了举报");
+                window.dismiss();
+                jubao(itemId);
+            }
+        });
+        // 或者也可以调用此方法显示PopupWindow，其中：
+        // 第一个参数是PopupWindow的父View，第二个参数是PopupWindow相对父View的位置，
+        // 第三和第四个参数分别是PopupWindow相对父View的x、y偏移
+        // window.showAtLocation(parent, gravity, x, y);
+    }
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
+    }
+
+    class poponDismissListener implements PopupWindow.OnDismissListener{
+        @Override
+        public void onDismiss() {
+            // TODO Auto-generated method stub
+            //Log.v("List_noteTypeActivity:", "我是关闭事件");
+            backgroundAlpha(1f);
+        }
+    }
+    private void jubao(String id){
+        ApiManger2.getApiService()
+                .momentReport(id,"1",null,null,null,null)
+                .compose(this.<HttpResult<EmptyData>>bindToLifeCyclerAndApplySchedulers(null))
+                .subscribe(new BaseObserver2<EmptyData>() {
+                    @Override
+                    protected void onSuccess(EmptyData list1) {
+                    }
+
+                    @Override
+                    public void onNext(HttpResult<EmptyData> result) {
+                        super.onNext(result);
+                        if(result.getCode()==0){
+                            Toast.makeText(App.applicationContext,"成功", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
     private int mCurrentItem = -1;
     @Override

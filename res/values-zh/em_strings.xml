@@ -389,4 +389,5 @@
     <string name="msg1">点赞了您的动态</string>
     <string name="msg2">回复了您的评论：</string>
     <string name="msg3">评论了您的动态：</string>
+    <string name="msg4">转让给</string>
 </resources>
