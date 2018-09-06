@@ -8,7 +8,7 @@ import com.tg.tgt.moment.IPresenter;
  * @author yiyang
  */
 public interface MomentDetailContract {
-    interface View extends IView{
+    interface View extends IView {
 
     }
     interface Presenter extends IPresenter{

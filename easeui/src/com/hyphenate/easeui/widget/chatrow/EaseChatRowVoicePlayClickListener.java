@@ -84,6 +84,7 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 	}
 
 	public void stopPlayVoice() {
+		Log.i("语音","停了");
 		voiceAnimation.stop();
 		if (message.direct() == EMMessage.Direct.RECEIVE) {
 //			voiceIconView.setImageResource(R.drawable.ease_chatfrom_voice_playing);
@@ -194,6 +195,7 @@ public class EaseChatRowVoicePlayClickListener implements View.OnClickListener {
 
 
 	public void playVoice(String filePath) {
+		Log.i("语音","播放");
 		if (!(new File(filePath).exists())) {
 			return;
 		}

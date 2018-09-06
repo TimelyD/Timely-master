@@ -15,22 +15,17 @@ package com.tg.tgt.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
@@ -49,13 +44,11 @@ import com.tg.tgt.http.BaseObserver2;
 import com.tg.tgt.http.EmptyData;
 import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.IView;
-import com.tg.tgt.parse.ParseManager;
 import com.tg.tgt.utils.CodeUtils;
 import com.tg.tgt.utils.ToastUtils;
 import com.tg.tgt.widget.ContactItemView;
 
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.annotations.NonNull;

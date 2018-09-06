@@ -23,12 +23,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.hyphenate.easeui.controller.EaseUI;
 import com.hyphenate.easeui.ui.EaseBaseActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.hyphenate.easeui.widget.chatrow.EaseChatRowVoicePlayClickListener;
 import com.tg.tgt.ActMgrs;
 import com.tg.tgt.App;
 import com.tg.tgt.R;
@@ -51,6 +54,13 @@ public class BaseActivity extends EaseBaseActivity implements IView {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("订2",ActMgrs.getActManager().currentActivity()+"");
+        if (EaseChatRowVoicePlayClickListener.currentPlayListener != null && EaseChatRowVoicePlayClickListener.isPlaying) {
+            if(ActMgrs.getActManager().currentActivity()instanceof ChatActivity){
+            }else {
+                EaseChatRowVoicePlayClickListener.currentPlayListener.stopPlayVoice();
+            }
+        }
         // umeng
 //        MobclickAgent.onResume(this);
     }
@@ -166,7 +176,6 @@ public class BaseActivity extends EaseBaseActivity implements IView {
 
         mActivity = this;
         mContext = App.applicationContext;
-
         super.onCreate(savedInstanceState);
 
         //设置titlebarLeft点击后退

@@ -5,6 +5,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMVoiceMessageBody;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.R;
+import com.hyphenate.easeui.controller.EaseUI;
 import com.hyphenate.util.EMLog;
 
 import android.content.Context;
@@ -150,7 +151,10 @@ public class EaseChatRowVoice extends EaseChatRowFile{
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         if (EaseChatRowVoicePlayClickListener.currentPlayListener != null && EaseChatRowVoicePlayClickListener.isPlaying) {
-            EaseChatRowVoicePlayClickListener.currentPlayListener.stopPlayVoice();
+            Log.i("订",EaseUI.getInstance().getTopActivity().getClass().getSimpleName());
+            if(!EaseUI.getInstance().getTopActivity().getClass().getSimpleName().equals("ChatActivity")){
+                EaseChatRowVoicePlayClickListener.currentPlayListener.stopPlayVoice();
+            }
         }
     }
     

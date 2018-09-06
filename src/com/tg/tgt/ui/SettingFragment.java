@@ -2,7 +2,6 @@ package com.tg.tgt.ui;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -23,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
@@ -33,7 +31,6 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.GlideApp;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.DeviceUtils;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.utils.ImageUtils;
 import com.hyphenate.easeui.utils.NotificationsUtils;
@@ -55,12 +52,7 @@ import com.tg.tgt.http.HttpResult;
 import com.tg.tgt.http.IView;
 import com.tg.tgt.http.RxUtils;
 import com.tg.tgt.http.interceptor.AddTokenInterceptor;
-import com.tg.tgt.http.model2.UserFriendModel;
-import com.tg.tgt.moment.bean.CollectBean;
 import com.tg.tgt.moment.bean.PicBean;
-import com.tg.tgt.moment.ui.CircularImageView;
-import com.tg.tgt.moment.ui.CircularImageView1;
-import com.tg.tgt.moment.ui.ZQImageViewRoundOval1;
 import com.tg.tgt.moment.ui.activity.MomentAct;
 import com.tg.tgt.ui.base.BaseFragment;
 import com.tg.tgt.utils.CodeUtils;
@@ -70,14 +62,12 @@ import com.hyphenate.easeui.utils.rxbus2.Subscribe;
 import com.hyphenate.easeui.utils.rxbus2.ThreadMode;
 import com.uuzuche.lib_zxing.activity.QrCodeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
