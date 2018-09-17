@@ -78,6 +78,26 @@
                 android:layout_marginTop="@dimen/common.8dp"
                 android:layout_width="@dimen/common.55dp"
                 android:layout_height="@dimen/common.55dp"/>
+            <RelativeLayout
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/common.8dp"
+                android:layout_width="@dimen/common.55dp"
+                android:visibility="gone"
+                android:layout_height="@dimen/common.55dp">
+                <!--<com.hyphenate.easeui.widget.ZQImageViewRoundOval
+                    android:id="@+id/photo"
+                    android:background="@drawable/zhan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>-->
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="@dimen/common.55dp"
+                    android:layout_height="@dimen/common.55dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="3"/>
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
     <View

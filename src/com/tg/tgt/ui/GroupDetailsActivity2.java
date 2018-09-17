@@ -202,10 +202,11 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         mGroupUsers = GroupManger.getGroupUsers(groupId);
         memberList.addAll(mGroupUsers.values());
         sortGroup(memberList);
-        n = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 0;
+        //n = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 0;
+        n = gethed();
         //int size = memberList.size() + n > 10 ? 10 : memberList.size() + n;
         Log.i("zzz",n+"+"+memberList.size());
-        if(memberList.size() + n > 10){
+        if(memberList.size() + n >= 10){
             more.setVisibility(View.VISIBLE);
         }else {
             more.setVisibility(View.GONE);
@@ -271,9 +272,10 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         memberList.clear();
         memberList.addAll(mGroupUsers.values());
         sortGroup(memberList);
-        n = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 0;
+        //n = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 0;
+        n = gethed();
         Log.i("zzz",n+"+"+memberList.size());
-        if(memberList.size() + n > 10){
+        if(memberList.size() + n >= 10){
             more.setVisibility(View.VISIBLE);
         }else {
             more.setVisibility(View.GONE);
@@ -379,7 +381,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
                                                         //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
                                                         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
-                                                        if(memberList.size() + n > 10){
+                                                        if(memberList.size() + n >= 10){
                                                             more.setVisibility(View.VISIBLE);
                                                         }else {
                                                             more.setVisibility(View.GONE);
@@ -631,7 +633,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 GroupManger.saveGroup(mGroup);
                                 membersAdapter.setData(emptyData);
                                 mTitleBar.setTitle(mGroup.getGroupName() + "(" + emptyData.size() + ")");
-                                if(memberList.size() + n > 10){
+                                if(memberList.size() + n >= 10){
                                     more.setVisibility(View.VISIBLE);
                                 }else {
                                     more.setVisibility(View.GONE);
@@ -671,7 +673,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                     GroupManger.saveGroup(mGroup);
                                     membersAdapter.setData(groupModels);
                                     mTitleBar.setTitle(mGroup.getGroupName() + "(" + groupModels.size() + ")");
-                                    if(memberList.size() + n > 10){
+                                    if(memberList.size() + n >= 10){
                                         more.setVisibility(View.VISIBLE);
                                     }else {
                                         more.setVisibility(View.GONE);

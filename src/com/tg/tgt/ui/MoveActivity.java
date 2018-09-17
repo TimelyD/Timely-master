@@ -392,6 +392,10 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
             R.id.menu_item_unmute
     };
 
+    private int gethed(){
+        int size = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 1;//判断是否是管理员
+        return size;
+    }
 
     /**
      * 群组成员gridadapter
@@ -402,7 +406,8 @@ public class MoveActivity extends BaseActivity implements View.OnClickListener {
     private class GridAdapter extends ArrayAdapter<GroupUserModel> {
 
         public int getHeadCount() {
-            return isCurrentOwner()||mGroup.getAllowInvites() ? 2 : 0;
+           // return isCurrentOwner()||mGroup.getAllowInvites() ? 2 : 0;
+            return gethed();
         }
 
         private int res;

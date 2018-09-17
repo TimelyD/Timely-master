@@ -71,6 +71,7 @@ public class MsgAdapter extends BaseAdapter{
             viewHolder.time = (TextView)convertView.findViewById(R.id.time_tv);
             viewHolder.name = (TextView)convertView.findViewById(R.id.name_tv);
             viewHolder.content = (TextView)convertView.findViewById(R.id.content);
+            viewHolder.text = (TextView)convertView.findViewById(R.id.text);
             viewHolder.photo = (ZQImageViewRoundOval) convertView.findViewById(R.id.photo);
             convertView.setTag(viewHolder);
         }else {
@@ -101,8 +102,10 @@ public class MsgAdapter extends BaseAdapter{
         }
         if(list.get(position).getMomentImg()==null){
             viewHolder.photo.setVisibility(View.GONE);
+            //viewHolder.text.setText(list.get(position).getMomentImg()==null?"":"");
         }else {
             GlideApp.with(mContext).load(url+"/"+list.get(position).getMomentImg()).into( viewHolder.photo);
+           // viewHolder.text.setText("");
         }
         return convertView;
     }
@@ -134,6 +137,7 @@ public class MsgAdapter extends BaseAdapter{
         TextView name;
         TextView time;
         TextView content;
+        TextView text;
         ZQImageViewRoundOval photo;
     }
 }
