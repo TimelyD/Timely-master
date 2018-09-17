@@ -108,7 +108,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private GridAdapter membersAdapter;
     private ProgressDialog progressDialog;
     private LinearLayout zhuan;
-
+    private Boolean State=false;
     public static GroupDetailsActivity2 instance;
 
 
@@ -226,6 +226,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mContext,MoveActivity.class);
+                State=true;
                 intent.putExtra("groupId",groupId);
                 startActivity(intent);
             }
@@ -1256,6 +1257,36 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         }
         return "";
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(State==true){
+            State=false;
+            shua();
+        }
+    }
+
+    private int gethed(){
+        int size = isCurrentOwner() || mGroup.getGroupOwner() ? 2 : 1;//判断是否是管理员
+        if(isCurrentOwner() || mGroup.getGroupOwner()){
+            if(memberList.size()<10){
+                size=1;
+            }
+            if(memberList.size()<9){
+                size=2;
+            }else if(memberList.size()>=10){
+                size=0;
+            }
+        }else {
+            if(memberList.size()<10){
+                size=1;
+            }else {
+                size=0;
+            }
+        }
+        return size;
+    }
     /**
      * 群组成员gridadapter
      *
@@ -1265,7 +1296,8 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private class GridAdapter extends ArrayAdapter<GroupUserModel> {
 
         public int getHeadCount() {
-            return isCurrentOwner()||mGroup.getGroupOwner() ? 2 : 1;
+            //return isCurrentOwner()||mGroup.getGroupOwner() ? 2 : 1;
+            return gethed();
         }
 
         private int res;

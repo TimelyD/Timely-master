@@ -81,13 +81,13 @@ public class MsgAdapter extends BaseAdapter{
         viewHolder.photo.setType(ZQImageViewRoundOval.TYPE_ROUND);viewHolder.photo.setRoundRadius(10);
         SpannableStringBuilder builder = new SpannableStringBuilder();
         if(list.get(position).getNoticeType().equals("1")){//评论
-            builder.append(setClickableSpan(mContext.getString(R.string.msg3)));
+            //builder.append(setClickableSpan(mContext.getString(R.string.msg3)));
             builder.append(list.get(position).getCommentMsg());
             viewHolder.content.setText(EaseSmileUtils.getSmiledText(mContext, builder));
         }else if(list.get(position).getNoticeType().equals("2")){//点赞
             viewHolder.content.setText(R.string.msg1);
         }else if(list.get(position).getNoticeType().equals("3")){//回复
-            builder.append(setClickableSpan(mContext.getString(R.string.msg2)));
+            //builder.append(setClickableSpan(mContext.getString(R.string.msg2)));
             builder.append(list.get(position).getCommentMsg());
             viewHolder.content.setText(EaseSmileUtils.getSmiledText(mContext, builder));
         }else {

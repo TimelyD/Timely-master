@@ -979,7 +979,12 @@ public class DemoHelper {
         public void onMemberExited(String groupId, String member) {
             EMLog.d(TAG, "onMemberJoined");
             showToast("onMemberExited: " + member);
-            GroupManger.deleteGroupUser(groupId, member);
+            try {
+                GroupManger.deleteGroupUser(groupId, member);
+            }catch (Exception e){
+                Log.i("dcz",e+"");
+            }
+
         }
 
         @Override
