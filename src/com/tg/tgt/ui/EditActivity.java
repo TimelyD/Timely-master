@@ -1,9 +1,11 @@
 package com.tg.tgt.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -21,6 +23,7 @@ public class EditActivity extends BaseActivity{
 		
 		editText = (EditText) findViewById(R.id.edittext);
 		editText.setFilters(new InputFilter[]{CodeUtils.fter});
+		inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		String title = getIntent().getStringExtra("title");
 		String data = getIntent().getStringExtra("data");
 		if(title != null)
@@ -33,6 +36,8 @@ public class EditActivity extends BaseActivity{
 	
 	
 	public void save(View view){
+		inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+				InputMethodManager.HIDE_NOT_ALWAYS);
 		setResult(RESULT_OK,new Intent().putExtra("data", editText.getText().toString()));
 		finish();
 	}

@@ -123,6 +123,15 @@
                         android:textColor="@color/tx_black_2"
                         android:textSize="@dimen/tx_3"
                         />
+                    <TextView
+                        android:id="@+id/group_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tx_3"
+                        android:textColor="@color/tx_black_1"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        />
                     <View
                         android:layout_alignParentTop="true"
                         style="@style/LineHorizontalStyle"/>

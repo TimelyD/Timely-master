@@ -130,6 +130,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
     private Disposable disposable;
     private EaseTitleBar mTitleBar;
     private View more;
+    private TextView group_name;
     private int n=0;
 
     private boolean isLoading = false;
@@ -155,7 +156,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
         setContentView(R.layout.em_activity_group_details);
   //      setTitleBarLeftBack();
         mTitleBar = ((EaseTitleBar) findViewById(R.id.title_bar));
-
+        group_name=(TextView)findViewById(R.id.group_name);
         mTitleBar.setLeftLayoutClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +215,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
       /*  memberList2.clear();
         memberList2=memberList;*/
         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
+        group_name.setText(mGroup.getGroupName());
         zhuan.setVisibility(isCurrentOwner()||mGroup.getGroupOwner()?View.VISIBLE:View.GONE);
         membersAdapter = new GridAdapter(this, R.layout.em_grid_owner,memberList);
         EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
@@ -281,6 +283,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
             more.setVisibility(View.GONE);
         }
         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
+        group_name.setText(mGroup.getGroupName());
         membersAdapter.notifyDataSetChanged();
         // 保证每次进详情看到的都是最新的group
 //		updateGroup();
@@ -381,6 +384,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
 
                                                         //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
                                                         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
+                                                        group_name.setText(mGroup.getGroupName());
                                                         if(memberList.size() + n >= 10){
                                                             more.setVisibility(View.VISIBLE);
                                                         }else {
@@ -633,6 +637,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                 GroupManger.saveGroup(mGroup);
                                 membersAdapter.setData(emptyData);
                                 mTitleBar.setTitle(mGroup.getGroupName() + "(" + emptyData.size() + ")");
+                                group_name.setText(mGroup.getGroupName());
                                 if(memberList.size() + n >= 10){
                                     more.setVisibility(View.VISIBLE);
                                 }else {
@@ -673,6 +678,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                     GroupManger.saveGroup(mGroup);
                                     membersAdapter.setData(groupModels);
                                     mTitleBar.setTitle(mGroup.getGroupName() + "(" + groupModels.size() + ")");
+                                    group_name.setText(mGroup.getGroupName());
                                     if(memberList.size() + n >= 10){
                                         more.setVisibility(View.VISIBLE);
                                     }else {
@@ -707,6 +713,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                                         GroupManger.saveGroup(mGroup);
                                         //mTitleBar.setTitle(mGroup.getGroupName() + "(" + mGroup.getAffiliationsCont() + ")");
                                         mTitleBar.setTitle(mGroup.getGroupName() + "(" + memberList.size() +")");
+                                        group_name.setText(mGroup.getGroupName());
                                     }
                                 });
                     }
@@ -902,6 +909,7 @@ public class GroupDetailsActivity2 extends BaseActivity implements OnClickListen
                     runOnUiThread(new Runnable() {
                         public void run() {
                             mTitleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + st);
+                            group_name.setText(mGroup.getGroupName());
                             //发送邀请信息
                             GroupHelper.sendInviteMsg(group, newmembers);
                             progressDialog.dismiss();
