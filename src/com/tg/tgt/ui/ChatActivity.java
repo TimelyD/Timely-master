@@ -48,12 +48,14 @@ public class ChatActivity extends BaseActivity{
     protected void onNewIntent(Intent intent) {
     	// make sure only one chat activity is opened
         String username = intent.getStringExtra("userId");
-        if (toChatUsername.equals(username))
+        /*if (toChatUsername.equals(username))
             super.onNewIntent(intent);
         else {
             finish();
             startActivity(intent);
-        }
+        }*/
+        finish();
+        startActivity(intent);
 
     }
     

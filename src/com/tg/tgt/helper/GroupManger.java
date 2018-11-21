@@ -229,7 +229,9 @@ public class GroupManger {
     public static boolean hasGroupUserInfo(String username){
         return !(GroupManger.getGroup(username) == null || GroupManger.getGroup(username).getGroupUserModels()==null || GroupManger.getGroup(username).getGroupUserModels().size()<1);
     }
-    public static void toChat(final BaseActivity activity, final String username){toChat(activity, username, null);}
+    public static void toChat(final BaseActivity activity, final String username){
+        toChat(activity, username, null);
+    }
     /**
      * 群跳转到聊天界面
      * @param username 环信群sn

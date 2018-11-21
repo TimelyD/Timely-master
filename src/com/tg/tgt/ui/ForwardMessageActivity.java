@@ -36,9 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ForwardMessageActivity extends PickContactNoCheckboxActivity {
+public class ForwardMessageActivity extends PickContactNoCheckboxActivity2 {
 	private EaseUser selectUser;
-	private String forward_msg_id;
 
 	 
 	@Override

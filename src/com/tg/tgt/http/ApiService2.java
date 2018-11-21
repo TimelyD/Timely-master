@@ -53,7 +53,7 @@ public interface ApiService2 {
      */
     int DEFAULT_TIMEOUT = 15000;
 /*    String downUrl="https://fir.im/uf39";
-    String BASE_URL = "http://timly2.live2017.biz/timely/";
+    String BASE_URL = "http://timly2.live2017.biz/timely/";、
     String ppk="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCHLe0aLInF//BveiN22YAOLQ8EFdS+qHfuqb8FmO9lIzs/TwG2LNyd7X1KXsP14B6LgsatNzxGvwVwTe2WYHECGm4iWaTB6lUVHnc4MuVb+4gLgCmIH+TP2BfOfNtkjGuKygSaXUMKi/uzngeybqp0dgQ2YDpcExurRax/2+L0jwIDAQAB";*/
     String downUrl="https://www.pgyer.com/NTfV";
     String BASE_URL = "http://timly.live2017.biz/timly/";//http://192.168.2.166:8050/timely/   http://timly.live2017.biz/timly/

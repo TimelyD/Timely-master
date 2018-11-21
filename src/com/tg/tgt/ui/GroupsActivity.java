@@ -30,12 +30,18 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.hyphenate.easeui.EaseApp;
+import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.tg.tgt.App;
+import com.tg.tgt.Constant;
 import com.tg.tgt.R;
 import com.tg.tgt.adapter.GroupAdapter;
 import com.tg.tgt.helper.GroupManger;
+import com.tg.tgt.helper.SecurityDialog;
+import com.tg.tgt.http.model.IsCodeResult;
 import com.tg.tgt.http.model2.GroupModel;
+import com.tg.tgt.utils.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,7 +58,7 @@ public class GroupsActivity extends BaseActivity {
 	private View progressBar;
 	private SwipeRefreshLayout swipeRefreshLayout;
 	private EaseTitleBar bar;
-	
+	private String forward_msg_id="0";
 	
 	Handler handler = new Handler(){
 	    public void handleMessage(android.os.Message msg) {
@@ -82,7 +88,10 @@ public class GroupsActivity extends BaseActivity {
 		inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //		grouplist = EMClient.getInstance().groupManager().getAllGroups();
 		grouplist = GroupManger.getGroupList();
-
+		forward_msg_id = getIntent().getStringExtra("forward_msg_id");
+		if(forward_msg_id==null){
+			forward_msg_id="0";
+		}
 		sortGroup();
 		groupListView = (ListView) findViewById(R.id.list);
 		bar= (EaseTitleBar) findViewById(R.id.title_bar);
@@ -121,7 +130,11 @@ public class GroupsActivity extends BaseActivity {
 				}else {
 					GroupManger.toChat(mActivity, groupAdapter.getItem(position - GroupAdapter.headCount).getGroupSn());
 				}*/
-				GroupManger.toChat(mActivity, groupAdapter.getItem(position - GroupAdapter.headCount).getGroupSn());
+				if(forward_msg_id.equals("0")){
+					GroupManger.toChat(mActivity, groupAdapter.getItem(position - GroupAdapter.headCount).getGroupSn());
+				}else {
+					toChat(groupAdapter.getItem(position - GroupAdapter.headCount).getGroupName(),groupAdapter.getItem(position - GroupAdapter.headCount).getGroupSn());
+				}
 			}
 
 		});
@@ -206,7 +219,33 @@ public class GroupsActivity extends BaseActivity {
 		super.onDestroy();
 		instance = null;
 	}
-
+	private String uname;
+	private void toChat(String name,String username) {
+		uname=username;
+		new EaseAlertDialog(this, null, getString(R.string.confirm_forward_to,name), null, new EaseAlertDialog.AlertDialogUser() {
+			@Override
+			public void onResult(boolean confirmed, Bundle bundle) {
+				if (confirmed) {
+					Intent intent = new Intent(GroupsActivity.this, ChatActivity.class);
+					// it is single chat
+					intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
+					intent.putExtra("userId",uname);
+					intent.putExtra("forward_msg_id", forward_msg_id);
+					startActivity(intent);forward_msg_id="0";
+					finish();
+				}
+			}
+		}, true).show();
+		/*Intent intent = new Intent(GroupsActivity.this, ChatActivity.class);
+		// it is single chat
+		intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
+		intent.putExtra("userId",username);
+		intent.putExtra("forward_msg_id", forward_msg_id);
+		startActivity(intent);
+		finish();*/
+        /*mOnPhotoMenuListener.onPhotoSend(mAdapter.getSelectlist().toArray(new MediaBean[mAdapter
+                .getSelectlist().size()]));*/
+	}
 	public void back(View view) {
 		finish();
 	}
