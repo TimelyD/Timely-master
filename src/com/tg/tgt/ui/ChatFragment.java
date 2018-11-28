@@ -113,6 +113,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import gdut.bsx.share2.FileUtil;
+import gdut.bsx.share2.Share2;
+import gdut.bsx.share2.ShareContentType;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
@@ -757,6 +760,24 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
                 case ContextMenuActivity.RESULT_CODE_COLLECT:
                     collect(0);
                     break;
+                case ContextMenuActivity.RESULT_CODE_SHARE:
+                    String url = ((EMFileMessageBody)contextMenuMessage.getBody()).getLocalUrl();
+                    if (url != null) {
+                        File file = new File(url);
+                        if (!file.exists()) {
+                            // send thumb nail if original image does not exist
+                            Toast.makeText(getActivity(),"请先下载文件", Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                        Uri ur = FileUtil.getFileUri(getActivity(), ShareContentType.FILE, file);
+                        new Share2.Builder(getActivity())
+                                .setContentType(ShareContentType.FILE)
+                                .setShareFileUri(ur)
+                                .setTitle("Share File")
+                                .setOnActivityResult(120)
+                                .build()
+                                .shareBySystem();
+                    }
                 case ContextMenuActivity.RESULT_CODE_PLAYVOICE:
                     if (EaseConstant.isHandSetReciver)
                         titleBar.setHeatVisibility(View.VISIBLE);

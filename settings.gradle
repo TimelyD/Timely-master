@@ -1,4 +1,4 @@
-include ':EaseUI', ':redpacketlibrary', ':FFmpegAndroid', ':recyclerViewLibrary', ':lib-zxing', ':progressManger', ':updaterLib', ':pickerview', ':LibMarsdaemon', ':ShortcutBadger'
+include ':EaseUI', ':redpacketlibrary', ':FFmpegAndroid', ':recyclerViewLibrary', ':lib-zxing', ':progressManger', ':updaterLib', ':pickerview', ':LibMarsdaemon', ':ShortcutBadger', ':share2'
 //project(':EaseUI').projectDir = new File('../easeui')
 
 //release时需要把下面的include相关的两行注释掉

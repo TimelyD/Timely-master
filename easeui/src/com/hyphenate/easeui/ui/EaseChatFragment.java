@@ -97,6 +97,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import gdut.bsx.share2.Share2;
+import gdut.bsx.share2.ShareContentType;
 import top.zibin.luban.Luban;
 
 /**
@@ -1208,6 +1210,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         EMMessage message = EMMessage.createFileSendMessage(filePath, toChatUsername);
         ( (EMFileMessageBody)message.getBody()).setFileName(name);
         sendMessage(message);
+       /* new Share2.Builder(getActivity())
+                .setContentType(ShareContentType.FILE)
+                .setShareFileUri(Uri.parse(filePath))
+                .setTitle("Share File")
+                .setOnActivityResult(120)
+                .build()
+                .shareBySystem();*/
     }
 
 

@@ -36,6 +36,7 @@ public class ContextMenuActivity extends BaseActivity {
 	public static final int RESULT_CODE_RECALL = 5;
 	public static final int RESULT_CODE_COLLECT = 6;
 	public static final int RESULT_CODE_PLAYVOICE = 7;
+	public static final int RESULT_CODE_SHARE = 8;
 
 	private TextView voiceText;
     
@@ -121,6 +122,10 @@ public class ContextMenuActivity extends BaseActivity {
 	}
 	public void collection(View view){
 		setResult(RESULT_CODE_COLLECT);
+		finish();
+	}
+	public void share(View view){
+		setResult(RESULT_CODE_SHARE);
 		finish();
 	}
 

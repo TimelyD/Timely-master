@@ -37,6 +37,7 @@
     <string name="other">The other </string>
     <string name="copy">Copy</string>
     <string name="forward">Forward</string>
+    <string name="share">Share</string>
     <string name="duo_forward">Multiple forwarding</string>
     <string name="collection">collection</string>
     <string name="button_logout">Logout</string>
